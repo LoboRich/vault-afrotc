@@ -9,7 +9,7 @@ gem "rails", "~> 7.1.3"
 gem "sprockets-rails"
 
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.4"
+gem 'pg', '>= 0.18', '< 2.0'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
@@ -43,6 +43,16 @@ gem "bootsnap", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
+
+#SystemsPlant
+gem 'carrierwave', '1.3.1'
+gem 'cloudinary', '~>1.13.2'
+gem 'rmagick'
+gem "haml-rails", "~> 2.0"
+gem "pry"
+gem 'dotenv-rails', :require => 'dotenv/rails-now'
+gem 'devise'
+gem "select2-rails"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
