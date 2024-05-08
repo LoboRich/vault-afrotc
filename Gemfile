@@ -48,6 +48,7 @@ gem "bootsnap", require: false
 gem 'carrierwave', '1.3.1'
 gem 'cloudinary', '~>1.13.2'
 gem 'rmagick'
+gem 'html2haml', '~> 2.3'
 gem "haml-rails", "~> 2.0"
 gem "pry"
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
