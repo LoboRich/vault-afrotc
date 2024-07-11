@@ -341,7 +341,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   error_highlight (>= 0.4.0)
-  haml-rails (~> 2.0)
+  haml-rails
   html2haml (~> 2.3)
   importmap-rails
   jbuilder
