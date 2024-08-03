@@ -14,6 +14,15 @@
     %br/
     = f.select :role, options_for_select([['admin', 'admin'], ['staff', 'staff'], ['cashier', 'cashier']])
   .field
+    = f.label :status, "Status"
+    %br/
+    .flex.items-center.mt-2
+      = f.radio_button :status, true, id: 'active', class: 'form-radio'
+      = f.label :status_active, "Active", for: 'active', class: 'ml-2 text-gray-700'
+      %br/
+      = f.radio_button :status, false, id: 'inactive', class: 'form-radio'
+      = f.label :status_inactive, "Inactive", for: 'inactive', class: 'ml-2 text-gray-700'
+  .field
     = f.label :email
     %br/
     = f.email_field :email, autofocus: true, autocomplete: "email"

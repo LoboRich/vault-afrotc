@@ -1,0 +1,29 @@
+%h2 Edit
+= form_for @user, url: manage_user_path do |f|
+    .field
+        = f.label :name
+        = f.text_field :name, {:required => true, :class => "form-control", :value => "#{@user.name}"}
+    .field
+        = f.label :surname
+        = f.text_field :surname, {:required => true, :class => "form-control", :value => "#{@user.surname}"}
+    .field
+        = f.label :email
+        = f.text_field :email, {:required => true, :class => "form-control", :value => "#{@user.email}"}
+    - unless @user.role == 'admin'
+        .fields
+        = f.label :role
+        = f.select :role, options_for_select([['admin', 'admin'], ['staff', 'staff'], ['cashier', 'cashier']]),{},:class => 'form-control'
+    .field
+    = f.label :status, "Status"
+    %br/
+    .flex.items-center.mt-2
+        = f.radio_button :status, true, id: 'active', class: 'form-radio'
+        = f.label :status_active, "Active", for: 'active', class: 'ml-2 text-gray-700'
+        %br/
+        = f.radio_button :status, false, id: 'inactive', class: 'form-radio'
+        = f.label :status_inactive, "Inactive", for: 'inactive', class: 'ml-2 text-gray-700'
+    .field
+        = f.number_field :user_id, {:hidden => true, :value => "#{@user.id}"}
+    %br
+    .actions
+        = f.submit 'Update',:class => "mt-3 col-md-3 btn btn-sm btn-primary float-right"

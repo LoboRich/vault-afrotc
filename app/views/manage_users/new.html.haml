@@ -1,0 +1,36 @@
+%h2 Sign up
+= form_for 'user', url: manage_user_path do |f|
+  .field
+    = f.label :name
+    %br/
+    = f.text_field :name
+  .field
+    = f.label :surname
+    %br/
+    = f.text_field :surname
+  .field
+    = f.label :role
+    %br/
+    = f.select :role, options_for_select([['admin', 'admin'], ['staff', 'staff'], ['cashier', 'cashier']])
+  .field
+    = f.label :email
+    %br/
+    = f.email_field :email, autofocus: true, autocomplete: "email"
+  .field
+    = f.label :password
+    - if @minimum_password_length
+      %em
+        (#{@minimum_password_length} characters minimum)
+    %br/
+    = f.password_field :password, autocomplete: "new-password"
+  .field
+    = f.label :status, "Status"
+    %br/
+    .flex.items-center.mt-2
+      = f.radio_button :status, true, id: 'active', class: 'form-radio'
+      = f.label :status_active, "Active", for: 'active', class: 'ml-2 text-gray-700'
+      %br/
+      = f.radio_button :status, false, id: 'inactive', class: 'form-radio'
+      = f.label :status_inactive, "Inactive", for: 'inactive', class: 'ml-2 text-gray-700'
+  .actions
+    = f.submit "Create User"
