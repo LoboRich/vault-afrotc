@@ -10,7 +10,7 @@
     = stylesheet_link_tag "application", "data-turbo-track": "reload", media: 'all' 
     = javascript_importmap_tags
   %body.h-full
-    %main.container.mx-auto.flex
+    %main.container.mx-auto.flex.w-full
       - if notice
         %p.alert.alert-success= notice
       - if alert
