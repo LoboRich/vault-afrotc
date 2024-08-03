@@ -1,0 +1,132 @@
+%section.section
+  .section-header.d-mobile-none
+    %h1 New created client
+    .section-header-breadcrumb
+      .breadcrumb-item 
+        = link_to 'Dashboard', '/'
+      .breadcrumb-item
+        @client
+  .col-12.col-md-12.col-lg-12
+    .card
+      .card-body
+        = form_for @client do |f|
+          - if @client.errors.any?
+            #error_explanation
+              %h2= "#{pluralize(@client.errors.count, "error")} prohibited this client from being saved:"
+              %ul
+                - @client.errors.full_messages.each do |message|
+                  %li= message
+          .form-row.pt-3
+            .col-md-6
+              .field
+                = f.label :name
+                = f.text_field :name, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :mobile_number
+                = f.text_field :mobile_number, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :telephone_number
+                = f.text_field :telephone_number, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :email_address
+                = f.text_field :email_address, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :facebook_account_name
+                = f.text_field :facebook_account_name, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :address
+                = f.text_area :address, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :gender
+                = f.text_field :gender, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :civil_status
+                = f.text_field :civil_status, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :tin_number
+                = f.text_field :tin_number, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :id_type
+                = f.text_field :id_type, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :id_number
+                = f.text_field :id_number, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :occupation
+                = f.text_field :occupation, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :years_employed
+                = f.text_field :years_employed, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :employer_name
+                = f.text_field :employer_name, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :employer_business_address
+                = f.text_field :employer_business_address, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :spouse_name
+                = f.text_field :spouse_name, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :spouse_email
+                = f.text_field :spouse_email, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :spouse_contact_number
+                = f.text_field :spouse_contact_number, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :spouse_address
+                = f.text_area :spouse_address, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :spouse_id_type
+                = f.text_field :spouse_id_type, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :spouse_id_number
+                = f.text_field :spouse_id_number, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :spouse_tin_number
+                = f.text_field :spouse_tin_number, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :basic_salary
+                = f.text_field :basic_salary, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :annual_income
+                = f.text_field :annual_income, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :status
+                = f.text_field :status, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :remarks
+                = f.text_area :remarks, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :documents
+                = f.text_field :documents, class: 'form-control', required:  true, disabled: true
+          .card-footer.pt-3
+        
+        = link_to 'Back', clients_path, :class => "btn btn-secondary"
+        = link_to 'Edit', edit_client_path(@client), :class => "btn btn-warning float-right"
+
