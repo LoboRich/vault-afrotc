@@ -1,5 +1,5 @@
 !!!
-%html
+%html.h-full.bg-white
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %title Amortization
@@ -7,10 +7,10 @@
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
-    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = stylesheet_link_tag "application", "data-turbo-track": "reload", media: 'all' 
     = javascript_importmap_tags
-  %body
-    %main.container.mx-auto.mt-28.px-5.flex
+  %body.h-full
+    %main.container.mx-auto.flex
       - if notice
         %p.alert.alert-success= notice
       - if alert
