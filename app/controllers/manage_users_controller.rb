@@ -14,7 +14,6 @@ class ManageUsersController < ApplicationController
     end
 
     def create
-        params.permit!
         @user = User.create(email: params['user']['email'], password: params['user']['password'], role: params['user']['role'], name: params['user']['name'], surname: params['user']['surname'], status: params['user']['status']);
         if @user.save
             redirect_to manage_user_path(@user)
