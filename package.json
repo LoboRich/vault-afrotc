@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "bootstrap": "5"
+  },
+  "devDependencies": {
+    "gulp": "^5.0.0"
+  },
+  "scripts": {
+    "gulp": "gulp"
+  }
+}
