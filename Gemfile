@@ -51,10 +51,10 @@ gem 'rmagick'
 gem 'html2haml', '~> 2.3'
 gem 'haml-rails'
 gem "pry"
-gem 'dotenv-rails', :require => 'dotenv/rails-now'
+gem 'dotenv-rails', :require => 'dotenv/load'
 gem 'devise'
 gem "select2-rails"
-
+gem 'sassc-rails'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
@@ -78,4 +78,4 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-gem "tailwindcss-rails", "~> 2.6"
+
