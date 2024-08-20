@@ -1,6 +1,6 @@
 .flex.mt-24.gap-4.w-full
-  .bg-secondary.w-64.min-h-screen.p-6
-    %h1.text-3xl.font-semibold.mb-6 Dashboard
+  .d-flex.flex-column.flex-shrink-0.p-3.bg-light
+    %h1.text-3xl.font-semibold.mb-6 Dashboards
     %nav
       %ul
         %li.mb-4
@@ -9,7 +9,7 @@
           %a{href: "#", class: "text-gray-300 hover:text-white transition"} Roles
         %li.mb-4
           %a{href: "/clients", class: "text-gray-300 hover:text-white transition"} Clients
-  .flex-1.p-8
+  .flex-1.p-8.w-75
     .bg-white.shadow-lg.rounded-lg
       %h2.text-2xl.font-bold.mb-4 Content Area
       %h1 Home#index
