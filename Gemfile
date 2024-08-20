@@ -2,8 +2,6 @@ source "https://rubygems.org"
 
 ruby "3.1.3"
 
-gem 'bootstrap', '~> 5.3.3'
-
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3"
 
@@ -21,10 +19,6 @@ gem "importmap-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
-
-gem 'sassc-rails'
-gem 'dartsass-rails'
-gem 'sassc'
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
@@ -57,7 +51,7 @@ gem 'rmagick'
 gem 'html2haml', '~> 2.3'
 gem 'haml-rails'
 gem "pry"
-gem 'dotenv-rails', '~> 2.7'
+gem 'dotenv-rails', :require => 'dotenv/rails-now'
 gem 'devise'
 gem "select2-rails"
 
@@ -84,3 +78,4 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+gem "tailwindcss-rails", "~> 2.6"
