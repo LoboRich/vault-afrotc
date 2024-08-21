@@ -7,4 +7,5 @@
 //= link main.min.css
 //= link bootstrap.css
 //= link pace.css
+//= link application.css
 //= link datatables.css
