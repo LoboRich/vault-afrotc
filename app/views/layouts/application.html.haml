@@ -6,11 +6,20 @@
     %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
     = stylesheet_link_tag "application", "data-turbo-track": "reload", media: 'all' 
+    %link{:href => "https://fonts.gstatic.com", :rel => "preconnect"}/
+    %link{:href => "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap", :rel => "stylesheet"}/
+    %link{:href => "https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800&display=swap", :rel => "stylesheet"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp", :rel => "stylesheet"}/
+
+    = stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' 
+    = stylesheet_link_tag 'main', media: 'all', 'data-turbolinks-track': 'reload' 
+    = stylesheet_link_tag 'bootstrap', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag 'pace', media: 'all', 'data-turbolinks-track': 'reload'
+
     = javascript_importmap_tags
-  %body.h-full
-    %main.container.mx-auto.flex.w-full
+  %body
+    %main
       - if notice
         %p.alert.alert-success= notice
       - if alert

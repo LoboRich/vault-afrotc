@@ -1,25 +1,164 @@
-.flex.mt-24.gap-4.w-full
-  .bg-secondary.w-64.min-h-screen.p-6
-    %h1.text-3xl.font-semibold.mb-6 Dashboard
-    %nav
-      %ul
-        %li.mb-4
-          %a{href: "/manage_users", class: "text-gray-300 hover:text-white transition"} Users
-        %li.mb-4
-          %a{href: "#", class: "text-gray-300 hover:text-white transition"} Roles
-        %li.mb-4
-          %a{href: "/clients", class: "text-gray-300 hover:text-white transition"} Clients
-  .flex-1.p-8
-    .bg-white.shadow-lg.rounded-lg
-      %h2.text-2xl.font-bold.mb-4 Content Area
-      %h1 Home#index
-      %p Find me in app/views/home/index.html.haml
-      %p.navbar-text.float-right
-        - if user_signed_in?
-          Logged in as
-          = succeed "." do
-            %strong= current_user.email
-          = link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "navbar-link"
-        - else
-          = link_to "Login", new_user_session_path, class: "navbar-link"
-     
+.app.align-content-stretch.d-flex.flex-wrap
+  .app-sidebar
+    .app-menu
+      %ul.accordion-menu
+        %li.sidebar-title
+          Country Homes
+        %li.active-page
+          %a.active{:href => "index.html"}
+            %i.material-icons-two-tone> dashboard
+            Dashboard
+        %li
+          %a{href: "/clients", class: "text-gray-300 hover:text-white transition"}
+            %i.material-icons-two-tone> group
+            Clients
+            %span.badge.rounded-pill.badge-danger.float-end 
+        %li
+          %a{:href => "file-manager.html"}
+            %i.material-icons-two-tone> water_drop
+            Water
+        %li
+          %a{href: "/manage_users", class: "text-gray-300 hover:text-white transition"}
+            %i.material-icons-two-tone> person
+            Users
+        %li
+          %a{href: "#", class: "text-gray-300 hover:text-white transition"} 
+            %i.material-icons-two-tone> badge
+            Roles
+        %li
+          %a{:href => "calendar.html"}
+            %i.material-icons-two-tone> home
+            Housing
+            %span.badge.rounded-pill.badge-success.float-end 
+        %li
+          %a{:href => "todo.html"}
+            %i.material-icons-two-tone> folder
+            Logs
+       
+  .app-container
+    .search
+      %form
+        %input.form-control{"aria-label" => "Search", :placeholder => "Type here...", :type => "text"}/
+      %a.toggle-search{:href => "#"}
+        %i.material-icons close
+    .app-header
+      %nav.navbar.navbar-light.navbar-expand-lg.bg-primary
+        .container-fluid
+          #navbarNav.navbar-nav
+          .d-flex
+            %ul.navbar-nav
+              %li.nav-item.hidden-on-mobile.text-white.d-flex.align-items-center
+                - if user_signed_in?
+                  Hello,
+                  = succeed "." do
+                    %strong= current_user.name
+                  = link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link"
+                - else
+                  = link_to "Login", new_user_session_path, class: "nav-link"
+    .app-content
+      .content-wrapper
+        .container
+          .row
+            .col
+              .page-description
+                %h1 Dashboard
+          .card.widget.widget-payment-request
+            .card-body.card-header.d-flex
+              %i.material-icons-two-tone> house
+              %h5.card-title
+                Housing
+            .card-body
+              .row
+                .col-xl-3
+                  .card.widget.widget-stats
+                    .card-body
+                      .widget-stats-container.d-flex
+                        .widget-stats-icon.widget-stats-icon-primary
+                          %i.material-icons-outlined receipt_long
+                        .widget-stats-content.flex-fill
+                          %span.widget-stats-title Monthly Collectibles
+                          %span.widget-stats-amount ₱ 38,211
+                          %span.widget-stats-info 21 client accounts
+                    
+                .col-xl-3
+                  .card.widget.widget-stats
+                    .card-body
+                      .widget-stats-container.d-flex
+                        .widget-stats-icon.widget-stats-icon-success
+                          %i.material-icons-outlined payments
+                        .widget-stats-content.flex-fill
+                          %span.widget-stats-title Collected
+                          %span.widget-stats-amount  ₱ 23,491
+                          %span.widget-stats-info 7 client accounts
+                .col-xl-3
+                  .card.widget.widget-stats
+                    .card-body
+                      .widget-stats-container.d-flex
+                        .widget-stats-icon.widget-stats-icon-danger
+                          %i.material-icons-outlined warning
+                        .widget-stats-content.flex-fill
+                          %span.widget-stats-title Delayed Payments
+                          %span.widget-stats-amount ₱ 140,390
+                          %span.widget-stats-info 87 client accounts
+                .col-xl-3
+                  .card.widget.widget-stats
+                    .card-body
+                      .widget-stats-container.d-flex
+                        .widget-stats-icon.widget-stats-icon-warning
+                          %i.material-icons-outlined visibility
+                        .widget-stats-content.flex-fill
+                          %span.widget-stats-title For Payment Checking
+                          %span.widget-stats-amount ₱ 140,390
+                          %span.widget-stats-info 87 client accounts
+            
+            
+          .card.widget.widget-payment-request
+            .card-body.card-header.d-flex
+              %i.material-icons-two-tone> water_drop
+              %h5.card-title
+                Water
+            .card-body
+              .row
+                .col-xl-3
+                  .card.widget.widget-stats
+                    .card-body
+                      .widget-stats-container.d-flex
+                        .widget-stats-icon.widget-stats-icon-primary
+                          %i.material-icons-outlined receipt_long
+                        .widget-stats-content.flex-fill
+                          %span.widget-stats-title Monthly Collectibles
+                          %span.widget-stats-amount ₱ 38,211
+                          %span.widget-stats-info 21 client accounts
+                    
+                .col-xl-3
+                  .card.widget.widget-stats
+                    .card-body
+                      .widget-stats-container.d-flex
+                        .widget-stats-icon.widget-stats-icon-success
+                          %i.material-icons-outlined payments
+                        .widget-stats-content.flex-fill
+                          %span.widget-stats-title Collected
+                          %span.widget-stats-amount  ₱ 23,491
+                          %span.widget-stats-info 7 client accounts
+                .col-xl-3
+                  .card.widget.widget-stats
+                    .card-body
+                      .widget-stats-container.d-flex
+                        .widget-stats-icon.widget-stats-icon-danger
+                          %i.material-icons-outlined warning
+                        .widget-stats-content.flex-fill
+                          %span.widget-stats-title Delayed Payments
+                          %span.widget-stats-amount ₱ 140,390
+                          %span.widget-stats-info 87 client accounts
+                .col-xl-3
+                  .card.widget.widget-stats
+                    .card-body
+                      .widget-stats-container.d-flex
+                        .widget-stats-icon.widget-stats-icon-warning
+                          %i.material-icons-outlined visibility
+                        .widget-stats-content.flex-fill
+                          %span.widget-stats-title For Payment Checking
+                          %span.widget-stats-amount ₱ 140,390
+                          %span.widget-stats-info 87 client accounts
+            
+            
