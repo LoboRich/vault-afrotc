@@ -1,0 +1,110 @@
+.app.align-content-stretch.d-flex.flex-wrap
+  .app-sidebar
+    .app-menu
+      %ul.accordion-menu
+        %li.sidebar-title
+          Country Homes
+        %li.active-page
+          %a.active{:href => "index.html"}
+            %i.material-icons-two-tone> dashboard
+            Dashboard
+        %li
+          %a{href: "/clients", class: "text-gray-300 hover:text-white transition"}
+            %i.material-icons-two-tone> inbox
+            Clients
+            %span.badge.rounded-pill.badge-danger.float-end 
+        %li
+          %a{:href => "file-manager.html"}
+            %i.material-icons-two-tone> cloud_queue
+            Water
+				%li
+          %a{href: "/manage_users", class: "text-gray-300 hover:text-white transition"} Users
+            %i.material-icons-two-tone> cloud_queue
+            Users
+				%li
+          %a{href: "#", class: "text-gray-300 hover:text-white transition"} 
+            %i.material-icons-two-tone> cloud_queue
+            Roles
+        %li
+          %a{:href => "calendar.html"}
+            %i.material-icons-two-tone> calendar_today
+            Housing
+            %span.badge.rounded-pill.badge-success.float-end 
+        %li
+          %a{:href => "todo.html"}
+            %i.material-icons-two-tone> done
+            Logs
+       
+  .app-container
+    .search
+      %form
+        %input.form-control{"aria-label" => "Search", :placeholder => "Type here...", :type => "text"}/
+      %a.toggle-search{:href => "#"}
+        %i.material-icons close
+    .app-header
+      %nav.navbar.navbar-light.navbar-expand-lg.bg-primary
+        .container-fluid
+          #navbarNav.navbar-nav
+          .d-flex
+            %ul.navbar-nav
+              %li.nav-item.hidden-on-mobile
+                %a.nav-link{:href => "#"} Hello, CEO 
+            %ul.navbar-nav
+              %li.nav-item.hidden-on-mobile
+                %a.nav-link{:href => "#"} Logout
+                - if user_signed_in?
+                Logged in as
+                = succeed "." do
+                    %strong= current_user.email
+                = link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "navbar-link"
+                - else
+                = link_to "Login", new_user_session_path, class: "navbar-link"
+            
+    .app-content
+      .content-wrapper
+        .container
+          .row
+            .col
+              .page-description
+                %h1 Dashboard
+          .row
+            .col-xl-4
+              .card.widget.widget-stats
+                .card-body
+                  .widget-stats-container.d-flex
+                    .widget-stats-icon.widget-stats-icon-primary
+                      %i.material-icons-outlined paid
+                    .widget-stats-content.flex-fill
+                      %span.widget-stats-title Today's Sales
+                      %span.widget-stats-amount $38,211
+                      %span.widget-stats-info 471 Orders Total
+                    .widget-stats-indicator.widget-stats-indicator-negative.align-self-start
+                      %i.material-icons keyboard_arrow_down
+                      4%
+            .col-xl-4
+              .card.widget.widget-stats
+                .card-body
+                  .widget-stats-container.d-flex
+                    .widget-stats-icon.widget-stats-icon-warning
+                      %i.material-icons-outlined person
+                    .widget-stats-content.flex-fill
+                      %span.widget-stats-title Active Users
+                      %span.widget-stats-amount 23,491
+                      %span.widget-stats-info 790 unique this month
+                    .widget-stats-indicator.widget-stats-indicator-positive.align-self-start
+                      %i.material-icons keyboard_arrow_up
+                      12%
+            .col-xl-4
+              .card.widget.widget-stats
+                .card-body
+                  .widget-stats-container.d-flex
+                    .widget-stats-icon.widget-stats-icon-danger
+                      %i.material-icons-outlined file_download
+                    .widget-stats-content.flex-fill
+                      %span.widget-stats-title Downloads
+                      %span.widget-stats-amount 140,390
+                      %span.widget-stats-info 87 items downloaded
+                    .widget-stats-indicator.widget-stats-indicator-positive.align-self-start
+                      %i.material-icons keyboard_arrow_up
+                      7%
+          
