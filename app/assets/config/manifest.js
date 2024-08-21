@@ -4,5 +4,7 @@
 //= link_tree ../builds
 //= link custom.css
 //= link main.css
+//= link main.min.css
 //= link bootstrap.css
 //= link pace.css
+//= link datatables.css
