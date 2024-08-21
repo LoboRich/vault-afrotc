@@ -6,3 +6,4 @@
 //= link main.css
 //= link bootstrap.css
 //= link pace.css
+//= link application.css
