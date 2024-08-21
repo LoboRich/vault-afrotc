@@ -1,22 +1,68 @@
-.container.mx-auto.p-6
-  %h1.text-3xl.font-bold.mb-4 Users List
-  %table.min-w-full.bg-white.border.border-gray-300.rounded-lg.shadow-md
-    %thead
-      %tr.w-full.bg-gray-200.text-gray-600.uppercase.text-sm.leading-normal
-        %th.py-3.px-6.text-left Role
-        %th.py-3.px-6.text-left Name
-        %th.py-3.px-6.text-left Email
-        %th.py-3.px-6.text-center Actions
-    %tbody.text-gray-700.text-sm.font-light
-      - @users.each do |user|
-        %tr.border-b.border-gray-300.hover:bg-gray-100
-          %td.py-3.px-6.text-left= user.role
-          %td.py-3.px-6.text-left= user.name
-          %td.py-3.px-6.text-left= user.email
-          %td.py-3.px-6.text-center
-            = link_to 'Show', manage_user_path(user.id), class: 'text-blue-500 hover:text-blue-700'
-            = link_to 'Edit', edit_manage_user_path(user.id), class: 'text-blue-500'
-  .mt-6
-    = link_to 'New User', new_manage_user_path, class: 'bg-blue-500 py-2 px-4 rounded hover:bg-blue-600'
-    .p /
-    = link_to 'Home', '/', class: 'py-2 px-4 rounded hover:bg-blue-600'
+.app.align-content-stretch.d-flex.flex-wrap
+  .app-sidebar
+    = render "layouts/sidebar"
+  .app-container
+    .search
+      %form
+        %input.form-control{"aria-label" => "Search", :placeholder => "Type here...", :type => "text"}/
+      %a.toggle-search{:href => "#"}
+        %i.material-icons close
+    .app-header
+      %nav.navbar.navbar-light.navbar-expand-lg.bg-primary
+        .container-fluid
+          #navbarNav.navbar-nav
+          .d-flex
+            %ul.navbar-nav
+              %li.nav-item.hidden-on-mobile.text-white.d-flex.align-items-center
+                - if user_signed_in?
+                  Hello,
+                  = succeed "." do
+                    %strong= current_user.name
+                  = link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link"
+                - else
+                  = link_to "Login", new_user_session_path, class: "nav-link"
+    .app-content
+      .content-wrapper
+        .container
+          .row
+            .card
+              .card-header
+                %h5.card-title Users
+              .card-body
+                #datatable1_wrapper.dataTables_wrapper.dt-bootstrap4
+                  .row
+                    .col-sm-12.col-md-6
+                      #datatable1_length.dataTables_length
+                        %label
+                          Show
+                          %select.custom-select.custom-select-sm.form-control.form-control-sm{"aria-controls" => "datatable1", :name => "datatable1_length"}
+                            %option{:value => "10"} 10
+                            %option{:value => "25"} 25
+                            %option{:value => "50"} 50
+                            %option{:value => "100"} 100
+                          entries
+                    .col-sm-12.col-md-6
+                      #datatable1_filter.dataTables_filter
+                        %label
+                          Search:
+                          %input.form-control.form-control-sm{"aria-controls" => "datatable1", :placeholder => "", :type => "search"}/
+                  .row
+                    .col-sm-12
+                      %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+                        %thead
+                          %tr{:role => "row"}
+                            %th.sorting_asc{"aria-controls" => "datatable1", "aria-label" => "Name: activate to sort column descending", "aria-sort" => "ascending", :colspan => "1", :rowspan => "1", :style => "width: 208px;", :tabindex => "0"} Role
+                            %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Position: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 304px;", :tabindex => "0"} Name
+                            %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Email
+                            %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Age: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 58px;", :tabindex => "0"} Action
+                        %tbody
+                          - @users.each do |user|
+                            %tr.odd{:role => "row"}
+                              %td= user.role
+                              %td= user.name
+                              %td= user.email
+                              %td 
+                                = link_to edit_manage_user_path(user.id), class: 'btn btn-action btn-primary' do
+                                  %i.material-icons> edit_square
+                                = link_to edit_manage_user_path(user.id), class: 'btn btn-action btn-danger m-2' do
+                                  %i.material-icons> delete
