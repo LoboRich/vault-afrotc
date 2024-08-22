@@ -1,56 +1,56 @@
 .app-sidebar
-  .app-menu
-    %ul.accordion-menu
-      %li.sidebar-title
-        Country Homes
-      %li.active-page
-        %a.active{:href => "index.html"}
-          %i.material-icons-two-tone> dashboard
-          Dashboard
-      %li
-        %a{href: "/clients", class: "text-gray-300 hover:text-white transition"}
-          %i.material-icons-two-tone> group
-          Clients
-          %span.badge.rounded-pill.badge-danger.float-end 
-      %li
-        %a{:href => "file-manager.html"}
-          %i.material-icons-two-tone> water_drop
-          Water
-      %li
-        %a{href: "/manage_users", class: "text-gray-300 hover:text-white transition"}
-          %i.material-icons-two-tone> person
-          Users
-      %li
-        %a{href: "#", class: "text-gray-300 hover:text-white transition"} 
-          %i.material-icons-two-tone> badge
-          Roles
-      %li
-        %a{:href => "calendar.html"}
-          %i.material-icons-two-tone> home
-          Housing
-          %span.badge.rounded-pill.badge-success.float-end 
-      %li
-        %a{:href => "todo.html"}
-          %i.material-icons-two-tone> folder
-          Logs
-      
-.app-container
-  .search
-    %form
-      %input.form-control{"aria-label" => "Search", :placeholder => "Type here...", :type => "text"}/
-    %a.toggle-search{:href => "#"}
-      %i.material-icons close
-  .app-header
-    %nav.navbar.navbar-light.navbar-expand-lg.bg-primary
-      .container-fluid
-        #navbarNav.navbar-nav
-        .d-flex
-          %ul.navbar-nav
-            %li.nav-item.hidden-on-mobile.text-white.d-flex.align-items-center
-              - if user_signed_in?
-                Hello,
-                = succeed "." do
-                  %strong= current_user.name
-                = link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link"
-              - else
-                = link_to "Login", new_user_session_path, class: "nav-link"
+  .app-sidebar
+    .app-menu
+      %ul.accordion-menu
+        %li.sidebar-title
+          Country Homes
+        %li.active-page
+          %a.active{:href => "index.html"}
+            %i.material-icons-two-tone> dashboard
+            Dashboard
+        %li
+          %a{href: "/clients", class: "text-gray-300 hover:text-white transition"}
+            %i.material-icons-two-tone> group
+            Clients
+            %span.badge.rounded-pill.badge-danger.float-end 
+        %li
+          %a{:href => "file-manager.html"}
+            %i.material-icons-two-tone> water_drop
+            Water
+        %li
+          %a{href: "/manage_users", class: "text-gray-300 hover:text-white transition"}
+            %i.material-icons-two-tone> person
+            Users
+        %li
+          %a{href: "#", class: "text-gray-300 hover:text-white transition"} 
+            %i.material-icons-two-tone> badge
+            Roles
+        %li
+          %a{:href => "calendar.html"}
+            %i.material-icons-two-tone> home
+            Housing
+            %span.badge.rounded-pill.badge-success.float-end 
+        %li
+          %a{:href => "todo.html"}
+            %i.material-icons-two-tone> folder
+            Logs 
+  .app-container
+    .search
+      %form
+        %input.form-control{"aria-label" => "Search", :placeholder => "Type here...", :type => "text"}/
+      %a.toggle-search{:href => "#"}
+        %i.material-icons close
+    .app-header
+      %nav.navbar.navbar-light.navbar-expand-lg.bg-primary
+        .container-fluid
+          #navbarNav.navbar-nav
+          .d-flex
+            %ul.navbar-nav
+              %li.nav-item.hidden-on-mobile.text-white.d-flex.align-items-center
+                - if user_signed_in?
+                  Hello,
+                  = succeed "." do
+                    %strong= current_user.name
+                  = link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link"
+                - else
+                  = link_to "Login", new_user_session_path, class: "nav-link"
