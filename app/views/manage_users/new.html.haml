@@ -1,36 +1,43 @@
-%h2 Sign up
-= form_for 'user', url: ('/manage_users') do |f|
-  .field
-    = f.label :name
-    %br/
-    = f.text_field :name
-  .field
-    = f.label :surname
-    %br/
-    = f.text_field :surname
-  .field
-    = f.label :role
-    %br/
-    = f.select :role, options_for_select([['admin', 'admin'], ['staff', 'staff'], ['cashier', 'cashier']])
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    - if @minimum_password_length
-      %em
-        (#{@minimum_password_length} characters minimum)
-    %br/
-    = f.password_field :password, autocomplete: "new-password"
-  .field
-    = f.label :status, "Status"
-    %br/
-    .flex.items-center.mt-2
-      = f.radio_button :status, true, id: 'active', class: 'form-radio'
-      = f.label :status_active, "Active", for: 'active', class: 'ml-2 text-gray-700'
-      %br/
-      = f.radio_button :status, false, id: 'inactive', class: 'form-radio'
-      = f.label :status_inactive, "Inactive", for: 'inactive', class: 'ml-2 text-gray-700'
-  .actions
-    = f.submit "Create User"
+.app.align-content-stretch.d-flex.flex-wrap
+  .app-sidebar
+    = render "layouts/sidebar"
+  .app-container
+    .app-content
+      .content-wrapper
+        .container
+          .row
+            .card
+              .card-header
+                %h2 New User
+              .card-body
+                = form_for 'user', url: ('/manage_users') do |f|
+                  .d-flex
+                    .col-md-6
+                      = f.label :name, :class => "form-label"
+                      = f.text_field :name, :class => "form-control"
+                    .col-md-6
+                      = f.label :surname, :class => "form-label"
+                      = f.text_field :surname, :class => "form-control"
+                  .d-flex
+                    .col-md-6
+                      = f.label :role, :class => "form-label"
+                      = f.select :role, options_for_select([['admin', 'admin'], ['staff', 'staff'], ['cashier', 'cashier']]), {} , { class: "form-select" }
+                    .col-md-6
+                      = f.label :email, :class => "form-label"
+                      = f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control"
+                  .d-flex
+                    .col-md-6
+                      = f.label :password, :class => "form-label"
+                      - if @minimum_password_length
+                        %em
+                          (#{@minimum_password_length} characters minimum)
+                      = f.password_field :password, autocomplete: "new-password", :class => "form-control"
+                    .col-md-6
+                      = f.label :status, "Status", :class => "form-label"
+                      .col-md-6
+                        = f.radio_button :status, true, id: 'active', class: 'form-check-input'
+                        = f.label :status_active, "Active", for: 'active', class: 'form-check-label'
+                        = f.radio_button :status, false, id: 'inactive', class: 'form-check-input'
+                        = f.label :status_inactive, "Inactive", for: 'inactive', class: 'form-check-label'
+                  .col-md-6.mt-2
+                    = f.submit "Create User",:class => "btn btn-primary"

@@ -29,7 +29,7 @@ html {
 }
 
 body {
-    background-color: #E7ECF8;
+    background-color: #F9F9F9;
     font-weight: normal;
     color: #24292e;
     line-height: 1.6;
@@ -6876,4 +6876,8 @@ form .col-md-6 {
     padding-right: calc(var(--bs-gutter-x) / 2);
     padding-left: calc(var(--bs-gutter-x) / 2);
     margin-top: 1rem;
+}
+
+.mt-2{
+    margin-top: 2rem !important;
 }
