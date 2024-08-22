@@ -1872,6 +1872,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 15px;
     margin-bottom: 30px;
     border-bottom: 1px solid #ccd6ed;
+    width: 98%;
 }
 
 @media (max-width: 1200px) {
@@ -2339,7 +2340,8 @@ table.dataTable tfoot th {
 
 table.dataTable thead th, table.dataTable tfoot th {
     font-weight: 500;
-    color: #7B8C9D;
+    color: #3d3d3d;
+    white-space: nowrap;
 }
 
 table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:before {
