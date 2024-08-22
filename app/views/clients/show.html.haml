@@ -10,7 +10,6 @@
             .card
               .card-header
                 %h2 Client Information
-                = link_to 'Dashboard', '/'
               .card-body
                 = form_for @client do |f|
                   - if @client.errors.any?
