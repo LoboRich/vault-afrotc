@@ -49,7 +49,8 @@
                           %th.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
                       %tbody
                         - @clients.each do |client|
-                          %tr.odd{:role => "row"}     
+                          %tr.odd{:role => "row"}  
+                            %td    
                             %td= client.name
                             %td= client.mobile_number
                             %td= client.email_address
