@@ -65,8 +65,8 @@
                             %td= client.remarks
                             %td.d-flex
                               = link_to 'Show', client, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
-                              = link_to 'Edit', title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
-                              = link_to 'Delete', client, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true }
+                              = link_to 'Edit', edit_client_path(client), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
+                              = button_to "delete", client, class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?'}
 :javascript
   $(document).ready( function () {
       $('#datatable1_wrapper').DataTable();

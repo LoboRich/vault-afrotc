@@ -76,7 +76,7 @@
                             %td
                               = link_to 'Show', loan, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
                               = link_to 'Edit', edit_loan_path(loan), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
-                              = link_to 'Delete', loan, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true }
+                              = button_to "delete", loan, class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?'}
 :javascript
   $(document).ready( function () {
       $('#datatable1_wrapper').DataTable();
