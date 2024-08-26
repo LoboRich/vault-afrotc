@@ -1,0 +1,39 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  client: one
+  blocklot: MyString
+  terms: 1
+  model_house: MyString
+  loan_financing: MyString
+  contract_price: 1.5
+  processing_fees: 1.5
+  downpayment: 1.5
+  interest: 1.5
+  principal: 1.5
+  monthly_amort: 1.5
+  contract_date: 2024-08-26
+  amortization_start_date: 2024-08-26
+  balance: 1.5
+  remarks: MyText
+  status: MyString
+  broker: MyString
+
+two:
+  client: two
+  blocklot: MyString
+  terms: 1
+  model_house: MyString
+  loan_financing: MyString
+  contract_price: 1.5
+  processing_fees: 1.5
+  downpayment: 1.5
+  interest: 1.5
+  principal: 1.5
+  monthly_amort: 1.5
+  contract_date: 2024-08-26
+  amortization_start_date: 2024-08-26
+  balance: 1.5
+  remarks: MyText
+  status: MyString
+  broker: MyString

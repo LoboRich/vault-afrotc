@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_26_023954) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_26_035054) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -45,6 +45,29 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_023954) do
     t.json "documents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "loans", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "client_id", null: false
+    t.string "blocklot"
+    t.integer "terms"
+    t.string "model_house"
+    t.string "loan_financing"
+    t.float "contract_price"
+    t.float "processing_fees"
+    t.float "downpayment"
+    t.float "interest"
+    t.float "principal"
+    t.float "monthly_amort"
+    t.date "contract_date"
+    t.date "amortization_start_date"
+    t.float "balance"
+    t.text "remarks"
+    t.string "status"
+    t.string "broker"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_loans_on_client_id"
   end
 
   create_table "parcels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -82,5 +105,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_023954) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "loans", "clients"
   add_foreign_key "parcels", "subdivisions"
 end
