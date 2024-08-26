@@ -61,8 +61,9 @@
                           %th.sorting{"aria-controls" => "loan_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
                       %tbody
                         - @loans.each do |loan|
-                          %tr.odd{:role => "row"}     
-                            %td= loan.client
+                          %tr.odd{:role => "row"}  
+                            %td   
+                            %td= loan.client.name
                             %td= loan.blocklot
                             %td= loan.terms
                             %td= loan.model_house

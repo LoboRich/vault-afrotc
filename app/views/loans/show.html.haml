@@ -20,11 +20,11 @@
             .col-md-6
               .field
                 = f.label :client
-                = f.text_field :client, class: 'form-control', required:  true, disabled: true
+                = f.text_field :client, class: 'form-control', required:  true, disabled: true, value: @loan.client.name
             .col-md-6
               .field
                 = f.label :blocklot
-                = f.text_field :blocklot, class: 'form-control', required:  true, disabled: true
+                = f.text_field :blocklot, class: 'form-control', required:  true, disabled: true, value: @loan.parcels
             .col-md-6
               .field
                 = f.label :terms
@@ -90,3 +90,61 @@
         = link_to 'Back', loans_path, :class => "btn btn-secondary"
         = link_to 'Edit', edit_loan_path(@loan), :class => "btn btn-warning float-right"
 
+        .row
+          .col
+            %table#profiles.table.table-striped.table-bordered.nowrap
+              %thead
+                %tr
+                  %th #
+                  %th Due Date
+                  %th M.A
+                  %th Interest
+                  %th Principal
+                  %th Balance
+                  %th Is Paid?
+
+              %tbody
+                %tr
+                  %td
+                  %td
+                  %th 
+                  %td
+                  %td
+                  %td 
+                    = format_num @loan.contract_price - (@loan.downpayment + @loan.processing_fees)
+                  %td 
+                - total_principal = 0
+                - total_interest = 0
+                - @loan.loan_items.order("duedate asc").each do |ai|
+                  %tr
+                    %td 
+                      = ai.term
+                    %td 
+                      = ai.duedate.strftime("%b %d %Y")
+                    %td
+                      = format_num ai.monthly_amort
+                    %td
+                      = format_num ai.interest
+                      - total_interest += ai.interest
+                    %td
+                      = format_num ai.principal
+                      - total_principal += ai.principal                    
+                    %td
+                      = format_num ai.balance
+                    %td
+                      - if ai.is_paid == true
+                        Paid
+                      - else
+                        Unpaid
+                %tr
+                  %td
+                    %strong.hidden= @loan.loan_items.count+1
+                  %td
+                    Total
+                  %td
+                    = format_num total_principal
+                  %td
+                    = format_num total_interest
+                  %td
+                  %td
+                  %td

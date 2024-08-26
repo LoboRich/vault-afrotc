@@ -29,7 +29,7 @@ class LoansController < ApplicationController
       if @loan.save
 
         # save loan parcels(Blk&Lot)
-        parcels = @loan.blocklot.reject(&:empty?)
+        parcels = JSON.parse(@loan.blocklot).reject(&:empty?)
         parcels.each do |p|
           LoanParcel.create(parcel_id: p, loan_id: @loan.id)
         end
@@ -55,7 +55,7 @@ class LoansController < ApplicationController
           period = @loan.amortization_start_date + term.months - 1.months
           t_period = period.strftime("%b-%Y").to_date
           
-          line_item = LoanItem.create!(loan_id: @loan.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: monthly_amort.to_f, balance: t_balance.to_f, period: t_period, is_paid: true)
+          line_item = LoanItem.create!(loan_id: @loan.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
           
           tmp_bal = t_balance
           term += 1
@@ -86,7 +86,10 @@ class LoansController < ApplicationController
 
   # DELETE /loans/1 or /loans/1.json
   def destroy
-    @loan.destroy!
+    @loan.loan_items.destroy_all
+    @loan.loan_parcels.destroy_all
+    # @loan.payment_histories.destroy_all
+    @loan.destroy
 
     respond_to do |format|
       format.html { redirect_to loans_url, notice: "Loan was successfully destroyed." }
@@ -111,6 +114,6 @@ class LoansController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def loan_params 
-      params.require(:loan).permit(:client_id, {:blocklot => []}, :terms, :model_house, :loan_financing, :contract_price, :processing_fees, :downpayment, :interest, :principal, :monthly_amort, :contract_date, :loan_start_date, :balance, :remarks, :status, :broker)
+      params.require(:loan).permit(:client_id, {:blocklot => []}, :terms, :model_house, :loan_financing, :contract_price, :processing_fees, :downpayment, :interest, :principal, :monthly_amort, :contract_date, :amortization_start_date, :balance, :remarks, :status, :broker)
     end
 end
