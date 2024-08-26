@@ -1,0 +1,26 @@
+= form_for @parcel do |f|
+  - if @parcel.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@parcel.errors.count, "error")} prohibited this parcel from being saved:"
+      %ul
+        - @parcel.errors.full_messages.each do |message|
+          %li= message
+  .card-body.pb-0
+    .row
+      .form-group.col-12.pt-2
+        .form-row
+          .col-md-6.pt-3
+            .field
+              = f.label :block
+              = f.number_field :block, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :lot
+              = f.number_field :lot, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :status
+              = f.text_field :status, class: 'form-control', required:  true
+        .card-footer
+    = link_to 'Back', parcels_path, class: 'btn btn-secondary'
+    = f.submit 'Save Changes', class: 'btn btn-warning float-right'

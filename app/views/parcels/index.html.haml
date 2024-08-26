@@ -1,0 +1,57 @@
+.app.align-content-stretch.d-flex.flex-wrap
+  = render "layouts/sidebar"
+  .app-container
+    .app-content
+      .content-wrapper
+        .container
+          .page-description.d-flex.align-items-center
+            .page-description-content.flex-grow-1
+              %h1 Block & Lot
+            .page-description-actions
+              = link_to new_parcel_path, class: 'btn btn-primary' do
+                %i.material-icons> add
+                New Parcel
+          .card
+            .card-body
+              #datatable1_wrapper.dataTables_wrapper.dt-bootstrap4
+                .row
+                  .col-sm-12.col-md-6
+                    #datatable1_length.dataTables_length
+                      %label
+                        Show
+                        %select.custom-select.custom-select-sm.form-control.form-control-sm{"aria-controls" => "datatable1", :name => "datatable1_length"}
+                          %option{:value => "10"} 10
+                          %option{:value => "25"} 25
+                          %option{:value => "50"} 50
+                          %option{:value => "100"} 100
+                        entries
+                  .col-sm-12.col-md-6
+                    #datatable1_filter.dataTables_filter
+                      %label
+                        Search:
+                        %input.form-control.form-control-sm{"aria-controls" => "datatable1", :placeholder => "", :type => "search"}/
+                .row
+                  .col-sm-12.table-responsive
+                    %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+                      %thead
+                        %tr.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} 
+                          %th Block
+                          %th Lot
+                          %th Status
+                          %th.sorting{"aria-controls" => "parcel_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
+                      %tbody
+                        - @parcels.each do |parcel|
+                          %tr.odd{:role => "row"}
+                            %td   
+                            %td= "B#{parcel.block}"
+                            %td= "L#{parcel.lot}"
+                            %td= parcel.status
+                            %td
+                              = link_to 'Show', parcel, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
+                              = link_to 'Edit', edit_parcel_path(parcel), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
+                              = link_to 'Delete', parcel, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true }
+:javascript
+  $(document).ready( function () {
+      $('#datatable1_wrapper').DataTable();
+  } );
+  
