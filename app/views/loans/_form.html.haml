@@ -18,11 +18,7 @@
           .col-md-6.pt-3
             .field
               = f.label :blocklot
-              = f.select :blocklot, options_for_select(Parcel.all.order(:block).collect{ |u| ["#{u.subdivision.short_code} Block #{u.block} - Lot #{u.lot}", u.id]}), {required: true}, :class=>"form-control"
-              %select.js-example-tokenizer.form-control{:multiple => "multiple"}
-                %option{:selected => "selected"} orange
-                %option white
-                %option{:selected => "selected"} purple
+              = f.select :blocklot, options_for_select(Parcel.all.order(:block).collect{ |u| ["#{u.subdivision.short_code} Block #{u.block} - Lot #{u.lot}", u.id]}), {}, { class: 'form-control js-example-tokenizer ', multiple: true }
 
           .col-md-6.pt-3
             .field
