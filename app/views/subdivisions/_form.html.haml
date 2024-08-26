@@ -1,0 +1,30 @@
+= form_for @subdivision do |f|
+  - if @subdivision.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@subdivision.errors.count, "error")} prohibited this subdivision from being saved:"
+      %ul
+        - @subdivision.errors.full_messages.each do |message|
+          %li= message
+  .card-body.pb-0
+    .row
+      .form-group.col-12.pt-2
+        .form-row
+          .col-md-6.pt-3
+            .field
+              = f.label :name
+              = f.text_field :name, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :short_code
+              = f.text_field :short_code, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :location
+              = f.text_field :location, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :status
+              = f.text_field :status, class: 'form-control', required:  true
+        .card-footer
+    = link_to 'Back', subdivisions_path, class: 'btn btn-secondary'
+    = f.submit 'Save Changes', class: 'btn btn-warning float-right'

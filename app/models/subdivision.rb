@@ -1,0 +1,2 @@
+class Subdivision < ApplicationRecord
+end
