@@ -34,7 +34,8 @@
                   .col-sm-12.table-responsive
                     %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
                       %thead
-                        %tr.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} 
+                        %tr.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"}
+                          %th Subdivision
                           %th Block
                           %th Lot
                           %th Status
@@ -42,7 +43,8 @@
                       %tbody
                         - @parcels.each do |parcel|
                           %tr.odd{:role => "row"}
-                            %td   
+                            %td
+                            %td= parcel.subdivision.name
                             %td= "B#{parcel.block}"
                             %td= "L#{parcel.lot}"
                             %td= parcel.status

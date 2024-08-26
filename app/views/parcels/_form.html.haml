@@ -21,6 +21,10 @@
             .field
               = f.label :status
               = f.text_field :status, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :subdivision_id, :class=>"text-muted"
+              = f.select :subdivision_id, options_for_select(Subdivision.all.order(:name).collect{ |u| [u.name, u.id]}), {include_blank: false}, :class=>"form-control"
         .card-footer
     = link_to 'Back', parcels_path, class: 'btn btn-secondary'
     = f.submit 'Save Changes', class: 'btn btn-warning float-right'

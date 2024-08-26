@@ -6,4 +6,6 @@
 #
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+#   end\\
+
+Subdivision.create!(name: "Don Hermanos", short_code: "CHDH", location: "Bacolod City", status: "active")
