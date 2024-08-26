@@ -51,7 +51,8 @@
                             %td
                               = link_to 'Show', parcel, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
                               = link_to 'Edit', edit_parcel_path(parcel), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
-                              = link_to 'Delete', parcel, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true }
+                              = button_to "delete", parcel, class: "item", method: :delete, data: { turbo_confirm: 'Confirm delete?'}
+
 :javascript
   $(document).ready( function () {
       $('#datatable1_wrapper').DataTable();
