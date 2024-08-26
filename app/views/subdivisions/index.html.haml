@@ -1,44 +1,58 @@
-%section.section
-  .section-header.d-mobile-none
-    %h1 subdivisions
-    .section-header-breadcrumb
-      .breadcrumb-item 
-        = link_to 'Dashboard', '/'
-      .breadcrumb-item
-        List of subdivisions
-  .section-body
-    .card
-      .card-header
-        %h4
-          List of subdivisions
-        .card-header-action
-          = link_to icon('fas fa-plus', 'New Subdivision'), new_subdivision_path, class: 'btn btn-icon icon-left btn-primary' 
-          = render 'shared/card_dropdown' do 
-            = link_to icon('fas fa-print', 'Print Page'), 'javascript:window.print()', class: 'dropdown-item has-icon' 
-            = link_to icon('fas fa-download', 'Export Data'), subdivisions_path(format: :xlsx, q: request.params[:q]), class: 'dropdown-item has-icon' 
-      .card-body
-        #subdivision_wrapper.dataTables_wrapper.container-fluid.dt-bootstrap4.no-footer
-          .row
-            .col-sm-12
-              %table.table-responsive#subdivision_table.table.table-striped.dataTable.no-footer{"aria-describedby" => "subdivision_table_info", :role => "grid"}
-                %thead
-                  %tr.sorting{"aria-controls" => "subdivision_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} 
-                    %th Name
-                    %th Short code
-                    %th Location
-                    %th Status
-                    %th.sorting{"aria-controls" => "subdivision_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
-                %tbody
-                  - @subdivisions.each do |subdivision|
-                    %tr.odd{:role => "row"}     
-                      %td= subdivision.name
-                      %td= subdivision.short_code
-                      %td= subdivision.location
-                      %td= subdivision.status
-                      %td
-                        = link_to icon('fas fa-eye'), subdivision, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
-                        = link_to icon('fas fa-edit'), edit_subdivision_path(subdivision), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
-                        = link_to icon('fas fa-trash'), subdivision, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true }
+.app.align-content-stretch.d-flex.flex-wrap
+  = render "layouts/sidebar"
+  .app-container
+    .app-content
+      .content-wrapper
+        .container
+          .page-description.d-flex.align-items-center
+            .page-description-content.flex-grow-1
+              %h1 Subdivisions
+            .page-description-actions
+              = link_to new_subdivision_path, class: 'btn btn-primary' do
+                %i.material-icons> add
+                New Subdivision
+              = link_to 'Print Page', 'javascript:window.print()', class: 'btn btn-primary'
+              /= link_to 'Export Data' , subdivisions_path(format: :xlsx, q: request.params[:q]), class: 'dropdown-item has-icon' 
+          .card 
+            .card-body
+              #datatable1_wrapper.dataTables_wrapper.dt-bootstrap4
+                .row
+                  .col-sm-12.col-md-6
+                    #datatable1_length.dataTables_length
+                      %label
+                        Show
+                        %select.custom-select.custom-select-sm.form-control.form-control-sm{"aria-controls" => "datatable1", :name => "datatable1_length"}
+                          %option{:value => "10"} 10
+                          %option{:value => "25"} 25
+                          %option{:value => "50"} 50
+                          %option{:value => "100"} 100
+                        entries
+                  .col-sm-12.col-md-6
+                    #datatable1_filter.dataTables_filter
+                      %label
+                        Search:
+                        %input.form-control.form-control-sm{"aria-controls" => "datatable1", :placeholder => "", :type => "search"}/
+                .row
+                  .col-sm-12.table-responsive
+                    %table.table-responsive#subdivision_table.table.table-striped.dataTable.no-footer{"aria-describedby" => "subdivision_table_info", :role => "grid"}
+                      %thead
+                        %tr.sorting{"aria-controls" => "subdivision_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} 
+                          %th Name
+                          %th Short code
+                          %th Location
+                          %th Status
+                          %th.sorting{"aria-controls" => "subdivision_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
+                      %tbody
+                        - @subdivisions.each do |subdivision|
+                          %tr.odd{:role => "row"}     
+                            %td= subdivision.name
+                            %td= subdivision.short_code
+                            %td= subdivision.location
+                            %td= subdivision.status
+                            %td
+                              = link_to subdivision, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
+                              = link_to edit_subdivision_path(subdivision), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
+                              = link_to subdivision, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true }
 :javascript
   $(document).ready( function () {
       $('#subdivision_table').DataTable();
