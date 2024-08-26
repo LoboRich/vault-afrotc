@@ -18,12 +18,7 @@
           .col-md-6.pt-3
             .field
               = f.label :blocklot
-              = f.select :blocklot, options_for_select(Parcel.all.order(:block).collect{ |u| ["#{u.subdivision.short_code} Block #{u.block} - Lot #{u.lot}", u.id]}), {}, { class: 'form-control js-example-tokenizer ', multiple: true }
-
-          .col-md-6.pt-3
-            .field
-              = f.label "terms in years"
-              = f.number_field :terms, class: 'form-control', required:  true
+              = f.select :blocklot, options_for_select(@parcels), {}, { class: 'form-control js-example-tokenizer ', multiple: true }
           .col-md-6.pt-3
             .field
               = f.label :model_house
@@ -34,28 +29,32 @@
               = f.text_field :loan_financing, class: 'form-control', required:  true
           .col-md-6.pt-3
             .field
+              = f.label "terms in months"
+              = f.number_field :terms, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
+          .col-md-6.pt-3
+            .field
               = f.label :contract_price
-              = f.number_field :contract_price, class: 'form-control', required:  true
+              = f.number_field :contract_price, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
           .col-md-6.pt-3
             .field
               = f.label :processing_fees
-              = f.number_field :processing_fees, class: 'form-control', required:  true
+              = f.number_field :processing_fees, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
           .col-md-6.pt-3
             .field
               = f.label :downpayment
-              = f.number_field :downpayment, class: 'form-control', required:  true
+              = f.number_field :downpayment, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
           .col-md-6.pt-3
             .field
               = f.label 'interest in %'
               = f.number_field :interest, class: 'form-control', required:  true, value: 18, readonly: true
           .col-md-6.pt-3
             .field
-              = f.label :principal
-              = f.number_field :principal, class: 'form-control', required:  true
+              = f.label :balance
+              = f.number_field :balance, class: 'form-control', readonly:  true, onchange: "javascript: comp_month_amort()"
           .col-md-6.pt-3
             .field
               = f.label :monthly_amort
-              = f.number_field :monthly_amort, class: 'form-control', required:  true
+              = f.number_field :monthly_amort, class: 'form-control', required:  true, readonly: true
           .col-md-6.pt-3
             .field
               = f.label :contract_date
@@ -63,59 +62,76 @@
           .col-md-6.pt-3
             .field
               = f.label :amortization_start_date
-              = f.date_field :amortization_start_date, class: 'form-control', required:  true
+              = f.date_field :amortization_start_date, class: 'form-control', required:  true      
           .col-md-6.pt-3
             .field
-              = f.label :balance
-              = f.number_field :balance, class: 'form-control', required:  true
+              = f.label :broker
+              = f.text_field :broker, class: 'form-control'    
           .col-md-6.pt-3
             .field
               = f.label :remarks
               = f.text_area :remarks, class: 'form-control', required:  true
-          .col-md-6.pt-3
-            .field
-              = f.label :status
-              = f.text_field :status, class: 'form-control', required:  true
-          .col-md-6.pt-3
-            .field
-              = f.label :broker
-              = f.text_field :broker, class: 'form-control'
         .card-footer
     = link_to 'Back', loans_path, class: 'btn btn-secondary'
     = f.submit 'Save Changes', class: 'btn btn-warning float-right'
 
 :javascript
-  $(".js-example-tokenizer").select2({
+  $(document).ready(function(){
+    $(".js-example-tokenizer").select2({
       tags: true,
       tokenSeparators: [',', ' ']
-  });
-  $('select').select2({
-    createTag: function (params) {
-      // Don't offset to create a tag if there is no @ symbol
-      if (params.term.indexOf('@') === -1) {
-        // Return null to disable tag creation
-        return null;
-      }
+    });
+    $('select').select2({
+      createTag: function (params) {
+        // Don't offset to create a tag if there is no @ symbol
+        if (params.term.indexOf('@') === -1) {
+          // Return null to disable tag creation
+          return null;
+        }
 
-      return {
-        id: params.term,
-        text: params.term
+        return {
+          id: params.term,
+          text: params.term
+        }
       }
-    }
-  });
-  $('select').select2({
-    createTag: function (params) {
-      var term = $.trim(params.term);
+    });
+    $('select').select2({
+      createTag: function (params) {
+        var term = $.trim(params.term);
 
-      if (term === '') {
-        return null;
-      }
+        if (term === '') {
+          return null;
+        }
 
-      return {
-        id: term,
-        text: term,
-        newTag: true // add additional parameters
+        return {
+          id: term,
+          text: term,
+          newTag: true // add additional parameters
+        }
       }
-    }
+    });
   });
+
+  function comp_month_amort(){
+    const balance = $("#loan_contract_price").val()-$("#loan_downpayment").val() - $("#loan_processing_fees").val()
+    $.ajax({
+      url: "/loans/compute_monthly_amort", // this will be routed
+      type: 'GET',
+      data: {
+        balance: balance, 
+        interest_rate: $("#loan_interest").val(),
+        terms: $("#loan_terms").val()
+      },
+      async: true,
+      dataType: "json",
+      error: function(XMLHttpRequest, errorTextStatus, error){
+          alert("Failed: "+ errorTextStatus+" ;"+error);
+      },
+      success: function(ret){
+          $("#loan_balance").val(balance)
+          $("#loan_monthly_amort").val(ret)
+      }
+    });
+  }
+  
       

@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :loans
+  resources :loans do
+    collection do
+      get 'compute_monthly_amort'
+    end
+  end
   resources :subdivisions
   resources :parcels
   resources :clients

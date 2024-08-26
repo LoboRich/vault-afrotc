@@ -9,18 +9,20 @@ class LoansController < ApplicationController
   # GET /loans/1 or /loans/1.json
   def show
   end
-
   # GET /loans/new
   def new
     @loan = Loan.new
+    @parcels = Parcel.where.not(status: 'taken').order(:block).collect{ |u| ["#{u.subdivision.short_code} Block #{u.block} - Lot #{u.lot}", u.id]}
   end
 
   # GET /loans/1/edit
   def edit
+    @parcels = Parcel.where.not(status: 'taken').order(:block).collect{ |u| ["#{u.subdivision.short_code} Block #{u.block} - Lot #{u.lot}", u.id]}
   end
 
   # POST /loans or /loans.json
   def create
+    binding.pry
     # @loan = Loan.new(loan_params)
 
     # respond_to do |format|
@@ -57,6 +59,15 @@ class LoansController < ApplicationController
     end
   end
 
+  def compute_monthly_amort
+    interest_rate = params['interest_rate']
+    terms = params['terms']
+    balance = params['balance']
+    monthly_amort = FinanceMath::Loan.new(nominal_rate: interest_rate, duration: terms, amount: balance).pmt
+    monthly_amort = sprintf "%.2f", monthly_amort
+    render json: monthly_amort
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_loan
