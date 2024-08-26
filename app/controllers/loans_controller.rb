@@ -23,17 +23,29 @@ class LoansController < ApplicationController
   # POST /loans or /loans.json
   def create
     binding.pry
-    # @loan = Loan.new(loan_params)
+    @loan = Loan.new(loan_params)
+    @loan.balance = @loan.contract_price.to_f - (@loan.processing_fees.to_f + @loan.downpayment.to_f)
 
-    # respond_to do |format|
-    #   if @loan.save
-    #     format.html { redirect_to loan_url(@loan), notice: "Loan was successfully created." }
-    #     format.json { render :show, status: :created, location: @loan }
-    #   else
-    #     format.html { render :new, status: :unprocessable_entity }
-    #     format.json { render json: @loan.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    respond_to do |format|
+      if @loan.save
+        monthly_amort = FinanceMath::Loan.new(nominal_rate: @loan.interest.to_i, duration: @loan.terms.to_i, amount: @loan.balance.to_f).pmt
+        @loan.update(balance: @loan.balance, monthly_amort: monthly_amort)
+
+        terms = @loan.terms.to_i
+        contract_price = @loan.contract_price.to_i
+        processing_fees = @loan.processing_fees.to_i
+        downpayment = @loan.downpayment.to_f
+        interest_rate = @loan.interest.to_i
+        balance =  @loan.balance.to_f
+        interest = balance * (interest_rate.to_f/12) / 100
+
+        format.html { redirect_to loan_url(@loan), notice: "Loan was successfully created." }
+        format.json { render :show, status: :created, location: @loan }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @loan.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PATCH/PUT /loans/1 or /loans/1.json
@@ -67,7 +79,7 @@ class LoansController < ApplicationController
     monthly_amort = sprintf "%.2f", monthly_amort
     render json: monthly_amort
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_loan
@@ -76,6 +88,6 @@ class LoansController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def loan_params 
-      params.require(:loan).permit(:client_id, {:blocklot => []}, :terms, :model_house, :loan_financing, :contract_price, :processing_fees, :downpayment, :interest, :principal, :monthly_amort, :contract_date, :amortization_start_date, :balance, :remarks, :status, :broker)
+      params.require(:loan).permit(:client_id, {:blocklot => []}, :terms, :model_house, :loan_financing, :contract_price, :processing_fees, :downpayment, :interest, :principal, :monthly_amort, :contract_date, :loan_start_date, :balance, :remarks, :status, :broker)
     end
 end
