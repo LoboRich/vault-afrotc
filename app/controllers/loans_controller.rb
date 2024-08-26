@@ -32,6 +32,7 @@ class LoansController < ApplicationController
         parcels = JSON.parse(@loan.blocklot).reject(&:empty?)
         parcels.each do |p|
           LoanParcel.create(parcel_id: p, loan_id: @loan.id)
+          # update parcel status to reserved/taken
         end
 
         monthly_amort = FinanceMath::Loan.new(nominal_rate: @loan.interest.to_i, duration: @loan.terms.to_i, amount: @loan.balance.to_f).pmt
