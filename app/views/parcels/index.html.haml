@@ -44,7 +44,7 @@
                         - @parcels.each do |parcel|
                           %tr.odd{:role => "row"}
                             %td
-                            %td= parcel.subdivision.name
+                            %td= parcel.subdivision.short_code
                             %td= "B#{parcel.block}"
                             %td= "L#{parcel.lot}"
                             %td= parcel.status
