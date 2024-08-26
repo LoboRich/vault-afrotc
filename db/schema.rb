@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_26_012949) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_26_023954) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -53,6 +53,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_012949) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "subdivision_id"
+    t.index ["subdivision_id"], name: "index_parcels_on_subdivision_id"
+  end
+
+  create_table "subdivisions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "short_code"
+    t.string "location"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,4 +82,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_012949) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "parcels", "subdivisions"
 end

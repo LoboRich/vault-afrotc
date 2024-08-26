@@ -4,7 +4,7 @@ class CreateParcels < ActiveRecord::Migration[7.1]
       t.string :block
       t.string :lot
       t.string :status
-
+      
       t.timestamps
     end
   end

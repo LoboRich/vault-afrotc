@@ -19,6 +19,10 @@
           .form-row.pt-3
             .col-md-6
               .field
+                = f.label :subdivision
+                = f.text_field :subdivision, class: 'form-control', required:  true, disabled: true, value: @parcel.subdivision.name
+            .col-md-6
+              .field
                 = f.label :block
                 = f.text_field :block, class: 'form-control', required:  true, disabled: true
             .col-md-6

@@ -1,0 +1,40 @@
+%section.section
+  .section-header.d-mobile-none
+    %h1 New created subdivision
+    .section-header-breadcrumb
+      .breadcrumb-item 
+        = link_to 'Dashboard', '/'
+      .breadcrumb-item
+        @subdivision
+  .col-12.col-md-12.col-lg-12
+    .card
+      .card-body
+        = form_for @subdivision do |f|
+          - if @subdivision.errors.any?
+            #error_explanation
+              %h2= "#{pluralize(@subdivision.errors.count, "error")} prohibited this subdivision from being saved:"
+              %ul
+                - @subdivision.errors.full_messages.each do |message|
+                  %li= message
+          .form-row.pt-3
+            .col-md-6
+              .field
+                = f.label :name
+                = f.text_field :name, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :short_code
+                = f.text_field :short_code, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :location
+                = f.text_field :location, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :status
+                = f.text_field :status, class: 'form-control', required:  true, disabled: true
+          .card-footer.pt-3
+        
+        = link_to 'Back', subdivisions_path, :class => "btn btn-secondary"
+        = link_to 'Edit', edit_subdivision_path(@subdivision), :class => "btn btn-warning float-right"
+
