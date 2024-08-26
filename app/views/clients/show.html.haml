@@ -117,3 +117,22 @@
                 = link_to 'Back', clients_path, :class => "btn btn-dark"
                 = link_to 'Edit', edit_client_path(@client), :class => "btn btn-primary"
 
+      .card
+        .card-header
+          %h5.card-title Client Account
+        .card-body
+          %ul#myTab.nav.nav-tabs.mb-3{:role => "tablist"}
+            %li.nav-item{:role => "presentation"}
+              %button#home-tab.nav-link.active{"aria-controls" => "home", "aria-selected" => "true", "data-bs-target" => "#home", "data-bs-toggle" => "tab", :role => "tab", :type => "button"} Housing Statement Account
+            %li.nav-item{:role => "presentation"}
+              %button#profile-tab.nav-link{"aria-controls" => "profile", "aria-selected" => "false", "data-bs-target" => "#profile", "data-bs-toggle" => "tab", :role => "tab", :type => "button"} Water Billing Statement
+          / Tab content
+          #myTabContent.tab-content
+            / Analytics Tab Pane
+            #home.tab-pane.fade.show.active{"aria-labelledby" => "home-tab", :role => "tabpanel"}
+              %h3 Housing Statement Account Table here
+            / Earning Reports Tab Pane
+            #profile.tab-pane.fade{"aria-labelledby" => "profile-tab", :role => "tabpanel"}
+              %h3 Water  Billing here
+            / Users Tab Pane
+              
