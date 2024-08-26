@@ -24,7 +24,8 @@
             .col-md-6
               .field
                 = f.label :blocklot
-                = f.text_field :blocklot, class: 'form-control', required:  true, disabled: true, value: @loan.parcels
+                - @loan.display_parcels.each do |info|
+                  %p= info
             .col-md-6
               .field
                 = f.label :terms
@@ -148,3 +149,40 @@
                   %td
                   %td
                   %td
+
+:javascript
+  $(document).ready(function(){
+    $(".js-example-tokenizer").select2({
+      tags: true,
+      tokenSeparators: [',', ' ']
+    });
+    $('select').select2({
+      createTag: function (params) {
+        // Don't offset to create a tag if there is no @ symbol
+        if (params.term.indexOf('@') === -1) {
+          // Return null to disable tag creation
+          return null;
+        }
+
+        return {
+          id: params.term,
+          text: params.term
+        }
+      }
+    });
+    $('select').select2({
+      createTag: function (params) {
+        var term = $.trim(params.term);
+
+        if (term === '') {
+          return null;
+        }
+
+        return {
+          id: term,
+          text: term,
+          newTag: true // add additional parameters
+        }
+      }
+    });
+  });

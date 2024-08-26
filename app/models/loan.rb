@@ -5,6 +5,11 @@ class Loan < ApplicationRecord
   has_many :parcels, through: :loan_parcels
   after_initialize :set_default_status, if: :new_record?
 
+  def display_parcels
+    parcels.map do |parcel|
+      "#{parcel.subdivision.short_code} Block: #{parcel.block}, Lot: #{parcel.lot}"
+    end
+  end
   private
 
   def set_default_status

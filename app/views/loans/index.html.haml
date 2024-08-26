@@ -64,7 +64,9 @@
                           %tr.odd{:role => "row"}  
                             %td   
                             %td= loan.client.name
-                            %td= loan.blocklot
+                            %td
+                              - loan.display_parcels.each do |info|
+                                %p= info
                             %td= loan.terms
                             %td= loan.model_house
                             %td= loan.loan_financing
