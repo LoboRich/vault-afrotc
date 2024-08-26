@@ -1,4 +1,4 @@
 class Loan < ApplicationRecord
   belongs_to :client
-  has_many :LoanParcel
+  has_many :loan_parcels
 end
