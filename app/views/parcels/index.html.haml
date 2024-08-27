@@ -6,14 +6,14 @@
         .container
           .page-description.d-flex.align-items-center
             .page-description-content.flex-grow-1
-              %h1 Block & Lot
+              %h1 Inventory
             .page-description-actions
               = link_to new_parcel_path, class: 'btn btn-primary' do
                 %i.material-icons> add
-                New Parcel
+                New Block & Lot
           .card
             .card-body
-              #datatable1_wrapper.dataTables_wrapper.dt-bootstrap4
+              #datatable_wrapper.dataTables_wrapper.dt-bootstrap4
                 .row
                   .col-sm-12.col-md-6
                     #datatable1_length.dataTables_length
@@ -32,29 +32,30 @@
                         %input.form-control.form-control-sm{"aria-controls" => "datatable1", :placeholder => "", :type => "search"}/
                 .row
                   .col-sm-12.table-responsive
-                    %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+                    %table#datatable.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
                       %thead
-                        %tr.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"}
-                          %th Subdivision
-                          %th Block
-                          %th Lot
-                          %th Status
+                        %tr{:role => "row"}
+                          %th.sorting_asc{"aria-controls" => "datatable1", "aria-label" => "Name: activate to sort column descending", "aria-sort" => "ascending", :colspan => "1", :rowspan => "1", :style => "width: 208px;", :tabindex => "0"} Subdivision
+                          %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Position: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 304px;", :tabindex => "0"} Block
+                          %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Lot
+                          %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Age: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 58px;", :tabindex => "0"} Status
                           %th.sorting{"aria-controls" => "parcel_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
                       %tbody
                         - @parcels.each do |parcel|
                           %tr.odd{:role => "row"}
-                            %td
-                            %td= parcel.subdivision.short_code
+                            %td= parcel.subdivision&.short_code
                             %td= "B#{parcel.block}"
                             %td= "L#{parcel.lot}"
-                            %td= parcel.status
+                            %td.badge.bg-primary= parcel.status
                             %td
-                              = link_to 'Show', parcel, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
-                              = link_to 'Edit', edit_parcel_path(parcel), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
-                              = button_to "delete", parcel, class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?'}
-
+                              = link_to parcel, class: 'btn btn-action btn-info' do
+                                %i.material-icons> visibility
+                              = link_to edit_parcel_path(parcel), class: 'btn btn-action btn-warning' do
+                                %i.material-icons> edit
+                              = link_to parcel, class: 'btn btn-action btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true } do
+                                %i.material-icons delete
 :javascript
   $(document).ready( function () {
-      $('#datatable1_wrapper').DataTable();
+      $('#datatable_wrapper').DataTable();
   } );
   
