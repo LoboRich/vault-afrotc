@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_27_115844) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_27_132541) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -135,7 +135,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_27_115844) do
     t.string "receipt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "loan_item_id", null: false
+    t.float "advance_payment", default: 0.0
     t.index ["loan_id"], name: "index_payment_histories_on_loan_id"
+    t.index ["loan_item_id"], name: "index_payment_histories_on_loan_item_id"
   end
 
   create_table "subdivisions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -168,5 +171,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_27_115844) do
   add_foreign_key "loan_parcels", "parcels"
   add_foreign_key "loans", "clients"
   add_foreign_key "parcels", "subdivisions"
+  add_foreign_key "payment_histories", "loan_items"
   add_foreign_key "payment_histories", "loans"
 end

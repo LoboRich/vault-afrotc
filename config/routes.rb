@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     end
     member do
       get 'pay'
+      post 'process_pay'
     end
   end
   resources :subdivisions
