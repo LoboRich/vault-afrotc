@@ -6,74 +6,62 @@
       %ul
         - @loan.errors.full_messages.each do |message|
           %li= message
-  .card-body.pb-0
-    .row
-      .form-group.col-12.pt-2
-        .form-row
-          .col-md-6.pt-3
-            .field
-              .field
-              = f.label :client_id
-              = f.select :client_id, options_for_select(Client.all.order(:name).collect{ |u| [u.name, u.id]}), {required: true}, :class=>"form-control"
-          .col-md-6.pt-3
-            .field
-              = f.label :blocklot
-              = f.select :blocklot, options_for_select(@parcels), {}, { class: 'form-control js-example-tokenizer ', multiple: true }
-          .col-md-6.pt-3
-            .field
-              = f.label :model_house
-              = f.text_field :model_house, class: 'form-control', required:  true
-          .col-md-6.pt-3
-            .field
-              = f.label :loan_financing
-              = f.text_field :loan_financing, class: 'form-control', required:  true
-          .col-md-6.pt-3
-            .field
-              = f.label "terms in months"
-              = f.number_field :terms, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
-          .col-md-6.pt-3
-            .field
-              = f.label :contract_price
-              = f.number_field :contract_price, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
-          .col-md-6.pt-3
-            .field
-              = f.label :processing_fees
-              = f.number_field :processing_fees, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
-          .col-md-6.pt-3
-            .field
-              = f.label :downpayment
-              = f.number_field :downpayment, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
-          .col-md-6.pt-3
-            .field
-              = f.label 'interest in %'
-              = f.number_field :interest, class: 'form-control', required:  true, value: 18, readonly: true
-          .col-md-6.pt-3
-            .field
-              = f.label :balance
-              = f.number_field :balance, class: 'form-control', readonly:  true, onchange: "javascript: comp_month_amort()"
-          .col-md-6.pt-3
-            .field
-              = f.label :monthly_amort
-              = f.number_field :monthly_amort, class: 'form-control', required:  true, readonly: true
-          .col-md-6.pt-3
-            .field
-              = f.label :contract_date
-              = f.date_field :contract_date, class: 'form-control', required:  true
-          .col-md-6.pt-3
-            .field
-              = f.label :amortization_start_date
-              = f.date_field :amortization_start_date, class: 'form-control', required:  true      
-          .col-md-6.pt-3
-            .field
-              = f.label :broker
-              = f.text_field :broker, class: 'form-control'    
-          .col-md-6.pt-3
-            .field
-              = f.label :remarks
-              = f.text_area :remarks, class: 'form-control'
-        .card-footer
+  .d-flex
+    .col-md-6
+      = f.label :client_id, :class => "form-label"
+      = f.select :client_id, options_for_select(Client.all.order(:name).collect{ |u| [u.name, u.id]}), {required: true}, :class=>"form-control"
+    .col-md-6
+      = f.label :blocklot, :class => "form-label"
+      = f.select :blocklot, options_for_select(@parcels), {}, { class: 'form-control js-example-tokenizer ', multiple: true }
+  .d-flex
+    .col-md-6
+      = f.label :model_house, :class => "form-label"
+      = f.text_field :model_house, class: 'form-control', required:  true
+    .col-md-6
+      = f.label :loan_financing, :class => "form-label"
+      = f.text_field :loan_financing, class: 'form-control', required:  true
+  .d-flex
+    .col-md-6
+      = f.label "terms in months", :class => "form-label"
+      = f.number_field :terms, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
+    .col-md-6
+      = f.label :contract_price, :class => "form-label"
+      = f.number_field :contract_price, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
+  .d-flex
+    .col-md-6
+      = f.label :processing_fees, :class => "form-label"
+      = f.number_field :processing_fees, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
+    .col-md-6
+      = f.label :downpayment, :class => "form-label"
+      = f.number_field :downpayment, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
+  .d-flex
+    .col-md-6
+      = f.label 'interest in %', :class => "form-label"
+      = f.number_field :interest, class: 'form-control', required:  true, value: 18, readonly: true
+    .col-md-6
+      = f.label :balance, :class => "form-label"
+      = f.number_field :balance, class: 'form-control', readonly:  true, onchange: "javascript: comp_month_amort()"
+  .d-flex
+    .col-md-6
+      = f.label :monthly_amort, :class => "form-label"
+      = f.number_field :monthly_amort, class: 'form-control', required:  true, readonly: true
+    .col-md-6
+      = f.label :contract_date, :class => "form-label"
+      = f.date_field :contract_date, class: 'form-control', required:  true
+  .d-flex
+    .col-md-6
+      = f.label :amortization_start_date, :class => "form-label"
+      = f.date_field :amortization_start_date, class: 'form-control', required:  true      
+    .col-md-6
+      = f.label :broker, :class => "form-label"
+      = f.text_field :broker, class: 'form-control'    
+  .d-flex
+    .col-md-6
+      = f.label :remarks, :class => "form-label"
+      = f.text_area :remarks, class: 'form-control'
+  .mt-2
     = link_to 'Back', loans_path, class: 'btn btn-secondary'
-    = f.submit 'Save Changes', class: 'btn btn-warning float-right'
+    = f.submit 'Save Changes', class: 'btn btn-primary float-right'
 
 :javascript
   $(document).ready(function(){

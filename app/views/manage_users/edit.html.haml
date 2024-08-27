@@ -28,7 +28,6 @@
                       = f.select :role, options_for_select([['admin', 'admin'], ['staff', 'staff'], ['cashier', 'cashier']]),{},:class => 'form-control'
                   .col-md-6
                     = f.label :status, "Status", :class => "form-label"
-                  
                   .col-md-6
                     = f.radio_button :status, true, id: 'active', class: 'form-check-input'
                     = f.label :status_active, "Active", for: 'active', class: 'form-check-label'

@@ -6432,12 +6432,12 @@ span.flatpickr-weekday {
 
 .app-auth-container .logo a {
     display: flex;
-    padding-left: 70px;
     background: url('../images/neptune.png') no-repeat;
     height: 50px;
     background-size: 50px;
     align-items: center;
     text-decoration: none;
+    justify-content: center;
     color: #40475c;
     font-size: 21px;
     font-weight: bold;
