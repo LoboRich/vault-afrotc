@@ -44,7 +44,7 @@
                           %th Processing fees
                           %th Downpayment
                           %th Interest
-                          %th Principal
+                          // %th Principal
                           %th Monthly amort
                           %th Contract date
                           %th Amortization start date
@@ -66,8 +66,8 @@
                             %td= number_to_currency(loan.contract_price, precision: 2, delimiter: ",", unit: "₱")
                             %td= number_to_currency(loan.processing_fees, precision: 2, delimiter: ",", unit: "₱")
                             %td= number_to_currency(loan.downpayment, precision: 2, delimiter: ",", unit: "₱")
-                            %td= loan.interest
-                            %td= number_to_currency(loan.principal, unit: "£", separator: ",", delimiter: ".")
+                            %td= "#{loan.interest.to_i}%"
+                            // %td= number_to_currency(loan.principal, unit: "£", separator: ",", delimiter: ".")
                             %td= number_to_currency(loan.monthly_amort, precision: 2, delimiter: ",", unit: "₱")
                             %td= loan.contract_date
                             %td= loan.amortization_start_date
