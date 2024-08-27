@@ -1,0 +1,130 @@
+= form_for @payment_history do |f|
+  - if @payment_history.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@payment_history.errors.count, "error")} prohibited this payment_history from being saved:"
+      %ul
+        - @payment_history.errors.full_messages.each do |message|
+          %li= message
+  .card-body.pb-0
+    .row
+      .form-group.col-12.pt-2
+        .form-row
+          .col-md-6.pt-3
+            .field
+              = f.label :loan
+              = f.text_field :loan, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :current_balance
+              = f.text_field :current_balance, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :interest
+              = f.text_field :interest, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :payment
+              = f.text_field :payment, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :new_balance
+              = f.text_field :new_balance, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :mode_of_payment
+              = f.text_field :mode_of_payment, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :check_bank
+              = f.text_field :check_bank, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :check_no
+              = f.text_field :check_no, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :bank_name
+              = f.text_field :bank_name, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :bank_account_no
+              = f.text_field :bank_account_no, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :ar_account_no
+              = f.text_field :ar_account_no, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :penalty
+              = f.text_field :penalty, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :processing
+              = f.text_field :processing, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :reservation
+              = f.text_field :reservation, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :equity
+              = f.text_field :equity, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :others
+              = f.text_area :others, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :advance_payment_to_principal
+              = f.text_field :advance_payment_to_principal, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :principal
+              = f.text_field :principal, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :downpayment
+              = f.text_field :downpayment, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :processing_fee
+              = f.text_field :processing_fee, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :payment_date
+              = f.datetime_field :payment_date, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :or_num
+              = f.text_field :or_num, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :memo
+              = f.text_field :memo, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :running_balance
+              = f.text_field :running_balance, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :is_deposited
+              = f.check_box :is_deposited, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :deposited_date
+              = f.datetime_field :deposited_date, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :deposited_memo
+              = f.text_field :deposited_memo, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :deposited_bank_account
+              = f.text_field :deposited_bank_account, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :receipt
+              = f.text_field :receipt, class: 'form-control', required:  true
+        .card-footer
+    = link_to 'Back', payment_histories_path, class: 'btn btn-secondary'
+    = f.submit 'Save Changes', class: 'btn btn-warning float-right'

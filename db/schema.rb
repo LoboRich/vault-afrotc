@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_26_142821) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_27_115844) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -103,6 +103,41 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_142821) do
     t.index ["subdivision_id"], name: "index_parcels_on_subdivision_id"
   end
 
+  create_table "payment_histories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "loan_id", null: false
+    t.float "current_balance"
+    t.float "interest", default: 0.0
+    t.float "payment", default: 0.0
+    t.float "new_balance", default: 0.0
+    t.string "mode_of_payment"
+    t.string "check_bank"
+    t.string "check_no"
+    t.string "bank_name"
+    t.string "bank_account_no"
+    t.string "ar_account_no"
+    t.float "penalty", default: 0.0
+    t.float "processing", default: 0.0
+    t.float "reservation", default: 0.0
+    t.float "equity", default: 0.0
+    t.text "others"
+    t.float "advance_payment_to_principal", default: 0.0
+    t.float "principal"
+    t.float "downpayment"
+    t.float "processing_fee", default: 0.0
+    t.datetime "payment_date"
+    t.string "or_num"
+    t.string "memo"
+    t.string "running_balance"
+    t.boolean "is_deposited", default: false
+    t.datetime "deposited_date"
+    t.string "deposited_memo"
+    t.string "deposited_bank_account"
+    t.string "receipt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["loan_id"], name: "index_payment_histories_on_loan_id"
+  end
+
   create_table "subdivisions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "short_code"
@@ -133,4 +168,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_142821) do
   add_foreign_key "loan_parcels", "parcels"
   add_foreign_key "loans", "clients"
   add_foreign_key "parcels", "subdivisions"
+  add_foreign_key "payment_histories", "loans"
 end

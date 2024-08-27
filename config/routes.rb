@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :payment_histories
   resources :loans do
     collection do
       get 'compute_monthly_amort'
