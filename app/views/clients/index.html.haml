@@ -34,8 +34,8 @@
                   .col-sm-12.table-responsive
                     %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
                       %thead
-                        %tr.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} 
-                          %th.sorting_asc{"aria-controls" => "datatable1", "aria-label" => "Name: activate to sort column descending", "aria-sort" => "ascending", :colspan => "1", :rowspan => "1", :style => "width: 208px;", :tabindex => "0"} Name
+                        %tr{:role => "row"}
+                          %th.sorting_asc{"aria-controls" => "datatable1", "aria-label" => "Name: activate to sort column descending", "aria-sort" => "ascending", :colspan => "1", :rowspan => "1", :style => "width: 308px;", :tabindex => "0"} Name
                           %th Mobile number
                           %th Email address
                           %th Address
@@ -45,12 +45,13 @@
                           %th Employer name
                           %th Basic salary
                           %th Annual income
-                          %th Status
+                          %th.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Status
+                          %th.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Remarks
                           %th.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
                       %tbody
                         - @clients.each do |client|
                           %tr.odd{:role => "row"}  
-                            %td    
+                            
                             %td= client.name
                             %td= client.mobile_number
                             %td= client.email_address
@@ -61,12 +62,15 @@
                             %td= client.employer_name
                             %td= client.basic_salary
                             %td= client.annual_income
-                            %td= client.status
+                            %td.badge.badge-primary= client.status
                             %td= client.remarks
                             %td.d-flex
-                              = link_to 'Show', client, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
-                              = link_to 'Edit', edit_client_path(client), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
-                              = button_to "delete", client, class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?'}
+                              = link_to client, class: 'btn btn-action btn-info' do
+                                %i.material-icons> visibility
+                              = link_to edit_client_path(client), class: 'btn btn-action btn-warning' do
+                                %i.material-icons> edit
+                              = button_to client, class: 'btn btn-action btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?'} do
+                                %i.material-icons delete
 :javascript
   $(document).ready( function () {
       $('#datatable1_wrapper').DataTable();

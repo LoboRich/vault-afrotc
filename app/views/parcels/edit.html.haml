@@ -1,13 +1,14 @@
-%section.section
-  .section-header.d-mobile-none
-    %h1 Editing parcel
-    .section-header-breadcrumb
-      .breadcrumb-item 
-        = link_to 'Dashboard', '/'
-      .breadcrumb-item
-        @parcel
-  .col-12.col-md-12.col-lg-12
-    .card
-      .card-body.p-0
-        = render 'form'
+.app.align-content-stretch.d-flex.flex-wrap
+  .app-sidebar
+    = render "layouts/sidebar"
+  .app-container
+    .app-content
+      .content-wrapper
+        .container
+          .row
+            .card
+              .card-header
+                %h2 Updating Inventory
+              .card-body
+                = render 'form'
 - content_for(:page_title, 'Dashboard')

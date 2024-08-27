@@ -1,40 +1,38 @@
-%section.section
-  .section-header.d-mobile-none
-    %h1 New created parcel
-    .section-header-breadcrumb
-      .breadcrumb-item 
-        = link_to 'Dashboard', '/'
-      .breadcrumb-item
-        @parcel
-  .col-12.col-md-12.col-lg-12
-    .card
-      .card-body
-        = form_for @parcel do |f|
-          - if @parcel.errors.any?
-            #error_explanation
-              %h2= "#{pluralize(@parcel.errors.count, "error")} prohibited this parcel from being saved:"
-              %ul
-                - @parcel.errors.full_messages.each do |message|
-                  %li= message
-          .form-row.pt-3
-            .col-md-6
-              .field
-                = f.label :subdivision
-                = f.text_field :subdivision, class: 'form-control', required:  true, disabled: true, value: @parcel.subdivision.name
-            .col-md-6
-              .field
-                = f.label :block
-                = f.text_field :block, class: 'form-control', required:  true, disabled: true
-            .col-md-6
-              .field
-                = f.label :lot
-                = f.text_field :lot, class: 'form-control', required:  true, disabled: true
-            .col-md-6
-              .field
-                = f.label :status
-                = f.text_field :status, class: 'form-control', required:  true, disabled: true
-          .card-footer.pt-3
-        
-        = link_to 'Back', parcels_path, :class => "btn btn-secondary"
-        = link_to 'Edit', edit_parcel_path(@parcel), :class => "btn btn-warning float-right"
+
+.app.align-content-stretch.d-flex.flex-wrap
+  .app-sidebar
+    = render "layouts/sidebar"
+  .app-container
+    .app-content
+      .content-wrapper
+        .container
+          .row
+            .card
+              .card-header
+                %h2 Inventory Information
+              .card-body
+                = form_for @parcel do |f|
+                  - if @parcel.errors.any?
+                    #error_explanation
+                      %h2= "#{pluralize(@parcel.errors.count, "error")} prohibited this parcel from being saved:"
+                      %ul
+                        - @parcel.errors.full_messages.each do |message|
+                          %li= message
+                  .d-flex
+                    .col-md-6
+                      = f.label :subdivision
+                      = f.text_field :subdivision, class: 'form-control', required:  true, disabled: true, value: @parcel.subdivision.name
+                    .col-md-6
+                      = f.label :block
+                      = f.text_field :block, class: 'form-control', required:  true, disabled: true
+                  .d-flex  
+                    .col-md-6
+                      = f.label :lot
+                      = f.text_field :lot, class: 'form-control', required:  true, disabled: true
+                    .col-md-6
+                      = f.label :status
+                      = f.text_field :status, class: 'form-control', required:  true, disabled: true
+                  .col-md-12.mt-2
+                    = link_to 'Back', parcels_path, :class => "btn btn-secondary"
+                    = link_to 'Edit', edit_parcel_path(@parcel), :class => "btn btn-primary float-right"
 

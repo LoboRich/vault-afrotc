@@ -45,8 +45,9 @@
                             %td= user.role
                             %td= user.name
                             %td= user.email
-                            %td 
+                            %td.d-flex 
                               = link_to edit_manage_user_path(user.id), class: 'btn btn-action btn-primary' do
-                                %i.material-icons> edit_square
+                                %i.material-icons> edit
                               - unless user.role === 'admin'
-                                = button_to "delete", manage_user_path(user), class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?'}
+                                = button_to manage_user_path(user), class: 'btn btn-action btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?' } do
+                                  %i.material-icons delete

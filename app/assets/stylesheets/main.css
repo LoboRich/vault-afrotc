@@ -709,6 +709,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .app-header .navbar .navbar-nav > li {
     position: relative;
+    column-gap: .5rem;
 }
 
 .app-header .navbar .navbar-nav>li>a {
@@ -2734,6 +2735,8 @@ tr.group {
 .badge.badge-primary {
     background: #2269F5;
     color: #fff;
+    line-height: 0;
+    height: 0;
 }
 
 .badge.badge-secondary {
@@ -6871,7 +6874,8 @@ span.flatpickr-weekday {
     }
 }
 .btn-action{
-    padding: 5px 5px 5px 17px
+    padding: 5px 5px 5px 17px;
+    margin-right: .3rem;
 }
 
 form .col-md-6 {
@@ -6882,4 +6886,7 @@ form .col-md-6 {
 
 .mt-2{
     margin-top: 2rem !important;
+}
+tbody td {
+    white-space: nowrap;
 }
