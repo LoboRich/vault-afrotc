@@ -51,6 +51,7 @@ gem 'rmagick'
 gem 'html2haml', '~> 2.3'
 gem 'haml-rails'
 gem "pry"
+gem 'simple_form'
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
 gem 'devise'
 gem "select2-rails"

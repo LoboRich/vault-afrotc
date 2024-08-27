@@ -3,6 +3,7 @@ class Loan < ApplicationRecord
   has_many :loan_parcels
   has_many :loan_items
   has_many :parcels, through: :loan_parcels
+  has_many :payment_histories
   after_initialize :set_default_status, if: :new_record?
 
   def display_parcels

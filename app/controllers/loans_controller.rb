@@ -1,5 +1,5 @@
 class LoansController < ApplicationController
-  before_action :set_loan, only: %i[ show edit update destroy ]
+  before_action :set_loan, only: %i[ show edit update destroy pay process_pay]
 
   # GET /loans or /loans.json
   def index
@@ -107,16 +107,18 @@ class LoansController < ApplicationController
     render json: monthly_amort
   end
 
+  def pay
+    @loanItem = @loan.loan_items.order("duedate asc").where(is_paid: false).first
+  end
   def process_pay
     params.permit!
-    customer = Amortization.find(params["customer_payments"]["id"]);
-
+    customer = @loan
     unless params['customer_payments']['payment'] == "0" 
-      next_line = customer.amortization_line_items.where(is_paid: false).first
+      next_line = customer.loan_items.where(is_paid: false).first
       next_term = next_line.term
-      next_period = next_line.period
+      next_period = next_line.duedate
 
-      customer.amortization_line_items.where(is_paid: false).destroy_all 
+      customer.loan_items.where(is_paid: false).destroy_all 
       customer_balance = customer.balance
       interest = customer.balance * (customer.interest.to_f/12)/100
       principal = params["customer_payments"]["payment"].to_f - interest
@@ -124,33 +126,33 @@ class LoansController < ApplicationController
       monthly_amort = principal + interest
       customer.update!(balance: balance)
       
-      AmortizationLineItem.create!(amortization_id: customer.id, term: next_term, principal: principal, interest: interest.to_f, monthly_amort: monthly_amort.to_f, balance: balance.to_f, period: next_period, is_paid: true)
+      AmortizationLineItem.create!(amortization_id: customer.id, term: next_term, principal: principal, interest: interest.to_f, monthly_amort: monthly_amort.to_f, balance: balance.to_f, duedate: next_period, is_paid: true)
       
       term = next_term + 1
-      period = next_period + 1.months
+      duedate = next_period + 1.months
       tmp_bal = customer.balance
       while tmp_bal >= 0
         t_interest = tmp_bal * (customer.interest.to_f/12) / 100
         t_principal = customer.monthly_amort.to_f - t_interest.to_f
         t_balance = tmp_bal - t_principal.to_f
 
-        t_period = period
+        t_period = duedate
         
         if t_balance < customer.monthly_amort
-          tmp_amort = AmortizationLineItem.create!(amortization_id: customer.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, period: t_period, is_paid: false)
-          tmp_amort = AmortizationLineItem.create!(amortization_id: customer.id, term: term, principal: t_balance.to_f, interest: t_interest.to_f, monthly_amort: t_balance.to_f + t_interest.to_f, balance: 0, period: t_period, is_paid: false)
+          tmp_amort = AmortizationLineItem.create!(amortization_id: customer.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
+          tmp_amort = AmortizationLineItem.create!(amortization_id: customer.id, term: term, principal: t_balance.to_f, interest: t_interest.to_f, monthly_amort: t_balance.to_f + t_interest.to_f, balance: 0, duedate: t_period, is_paid: false)
           break
         else
-          tmp_amort = AmortizationLineItem.create!(amortization_id: customer.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, period: t_period, is_paid: false)
+          tmp_amort = AmortizationLineItem.create!(amortization_id: customer.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
         end
 
         tmp_bal = t_balance
         term += 1
-        period = t_period + 1.months
+        duedate = t_period + 1.months
       end
     end #ends check for if not paying payments
 
-    histories = Amortization.find(customer.id).payment_histories
+    histories = @loan.payment_histories
     sum = 0
     sum += histories.sum(:penalty)
     sum += histories.sum(:downpayment)

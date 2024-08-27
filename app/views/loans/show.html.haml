@@ -93,6 +93,9 @@
 
         .row
           .col
+            = link_to pay_loan_path(@loan), class: 'btn btn-primary' do
+              %i.material-icons> add
+              Pay
             %table#profiles.table.table-striped.table-bordered.nowrap
               %thead
                 %tr

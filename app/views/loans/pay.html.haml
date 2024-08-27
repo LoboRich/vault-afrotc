@@ -1,0 +1,61 @@
+.div
+  %table#profiles.table.table-striped.table-bordered.nowrap
+    %thead
+      %tr
+        %th #
+        %th Due Date
+        %th M.A
+        %th Interest
+        %th Principal
+        %th Balance
+
+    %tbody
+      - total_principal = 0
+      - total_interest = 0
+      %tr
+        %td 
+          = @loanItem.term
+        %td 
+          = @loanItem.duedate.strftime("%b %d %Y")
+        %td
+          = format_num @loanItem.monthly_amort
+        %td
+          = format_num @loanItem.interest
+          - total_interest += @loanItem.interest
+        %td
+          = format_num @loanItem.principal
+          - total_principal += @loanItem.principal                    
+        %td
+          = format_num @loanItem.balance
+  = simple_form_for("customer_payments", url: "/loan/process_pay", method: "post") do |f|
+    .modal-header
+      %h5#exampleModalLabel.modal-title.new_keyword_modal_title Add Payment
+    .modal-body
+      .cont@loanItemner-fluid
+        .row
+          .col-md-6
+            .field
+              = f.label 'payment_date', :class=>"text-muted"
+              = f.date_field :payment_date, class: 'form-control', required:  true
+            .field
+              = f.label :mode_of_payment, :class=>"text-muted"
+              = f.select :mode_of_payment, options_for_select([["Cash"],["Check"]]), {}, :class=>"form-control", required:  true
+            .field
+              = f.label :bank_name, :class=>"text-muted"
+              = f.select :bank_name, options_for_select([[""], ["BDO"],["Metrobank"],["BPI"]]), {}, :class=>"form-control"
+            .field
+              = f.label :or_num, :class=>"text-muted"
+              = f.number_field :or_num, :class=>"form-control"
+          .col-md-6
+            .field
+              = f.label 'amount', :class=>"text-muted"
+              = f.number_field :payment, :class=>"form-control", required:  true
+            .field
+              = f.label :penalty, :class=>"text-muted"
+              = f.number_field :penalty, :class=>"form-control"
+            .field
+              = f.label "Remark", :class=>"text-muted"
+              = f.text_field :others, :class=>"form-control"
+    .modal-footer
+      .actions
+        = f.submit 'Pay', :class=>"btn btn-sm btn-primary col-12 mt-3"   

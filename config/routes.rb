@@ -4,6 +4,9 @@ Rails.application.routes.draw do
     collection do
       get 'compute_monthly_amort'
     end
+    member do
+      get 'pay'
+    end
   end
   resources :subdivisions
   resources :parcels
