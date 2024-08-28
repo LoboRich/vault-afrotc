@@ -12,12 +12,12 @@ class LoansController < ApplicationController
   # GET /loans/new
   def new
     @loan = Loan.new
-    @parcels = Parcel.where.not(status: 'taken').order(:block).collect{ |u| ["#{u.subdivision.short_code} Block #{u.block} - Lot #{u.lot}", u.id]}
+    @parcels = Parcel.where(status: 'Available').order(:block).collect{ |u| ["#{u.subdivision.short_code} Block #{u.block} - Lot #{u.lot}", u.id]}
   end
 
   # GET /loans/1/edit
   def edit
-    @parcels = Parcel.where.not(status: 'taken').order(:block).collect{ |u| ["#{u.subdivision.short_code} Block #{u.block} - Lot #{u.lot}", u.id]}
+    @parcels = Parcel.where(status: 'Available').order(:block).collect{ |u| ["#{u.subdivision.short_code} Block #{u.block} - Lot #{u.lot}", u.id]}
   end
 
   # POST /loans or /loans.json
@@ -32,7 +32,7 @@ class LoansController < ApplicationController
         parcels = JSON.parse(@loan.blocklot).reject(&:empty?)
         parcels.each do |p|
           parcel = LoanParcel.create(parcel_id: p, loan_id: @loan.id)
-          Parcel.find(p).update(status: 'taken')
+          Parcel.find(p).update(status: 'Reserved')
         end
 
         monthly_amort = FinanceMath::Loan.new(nominal_rate: @loan.interest.to_i, duration: @loan.terms.to_i, amount: @loan.balance.to_f).pmt
@@ -124,17 +124,18 @@ class LoansController < ApplicationController
       next_period = next_line.duedate
 
       customer.loan_items.where(is_paid: false).destroy_all 
-      customer_balance = customer.balance
+      prev_balance = customer.balance
       payment_params = params["customer_payments"]["payment"].to_f
-      interest = customer.balance * (customer.interest.to_f/12)/100
-      principal = payment_params - interest
+      interest = prev_balance * (customer.interest.to_f/12)/100
+      principal = to_pay_monthly_amort - interest
       advance_payment = payment_params > to_pay_monthly_amort ? payment_params - to_pay_monthly_amort : 0
-      balance = customer_balance + penalty - advance_payment
+      penalty = params["customer_payments"]["penalty"].to_f
+      balance = prev_balance - (payment_params + penalty) + interest
       monthly_amort = principal + interest
 
       customer.update!(balance: balance)
       
-      @paid_amort = LoanItem.create!(loan_id: customer.id, term: next_term, principal: principal, interest: interest.to_f, monthly_amort: to_pay_monthly_amort.to_f, balance: balance.to_f, duedate: next_period, penalty: params["customer_payments"]["penalty"].to_f, advance: advance_payment, or: params["customer_payments"]["or_num"], paid_amount: payment_params, payment_date: params["customer_payments"]["payment_date"], is_paid: true)
+      @paid_amort = LoanItem.create!(loan_id: customer.id, term: next_term, principal: principal, interest: interest.to_f, monthly_amort: to_pay_monthly_amort.to_f, balance: balance.to_f, duedate: next_period, penalty: penalty, advance: advance_payment, or: params["customer_payments"]["or_num"], paid_amount: payment_params, payment_date: params["customer_payments"]["payment_date"], is_paid: true)
       
       term = next_term + 1
       duedate = next_period + 1.months
@@ -176,7 +177,7 @@ class LoansController < ApplicationController
     payment_history = PaymentHistory.create(
       loan_id: customer.id,
       loan_item_id: @paid_amort.id,
-      current_balance: customer_balance,
+      current_balance: prev_balance,
       interest: interest, 
       principal: principal,
       payment: payment_params,
