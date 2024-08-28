@@ -55,14 +55,17 @@
                             %td= client.name
                             %td= client.mobile_number
                             %td= client.email_address
-                            %td= client.address
+                            %td{class: 'address-column'}
+                              = truncate(client.address, length: 10)
                             %td= client.civil_status
                             %td= client.occupation
                             %td= client.years_employed
                             %td= client.employer_name
                             %td= client.basic_salary
                             %td= client.annual_income
-                            %td.badge.badge-primary= client.status
+                            %td
+                              .badge{class: "badge #{badge_class_for(client.status)}"}
+                                = client.status
                             %td= client.remarks
                             %td.d-flex
                               = link_to client, class: 'btn btn-action btn-info' do
