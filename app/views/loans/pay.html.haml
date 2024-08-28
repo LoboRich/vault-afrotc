@@ -46,7 +46,7 @@
                       .col-md-6
                         .field
                           = f.label 'payment_date', :class=>"text-muted"
-                          = f.date_field :payment_date, class: 'form-control', required:  true
+                          = f.date_field :payment_date, class: 'form-control', id: "payment_date", required:  true
                         .field
                           = f.label :mode_of_payment, :class=>"text-muted"
                           = f.select :mode_of_payment, options_for_select([["Cash"],["Bank Transfer"],["PDC"]]), {}, :class=>"form-control", required:  true
@@ -55,7 +55,7 @@
                           = f.select :bank_name, options_for_select([[""], ["BDO"],["Metrobank"],["BPI"]]), {}, :class=>"form-control"
                         .field
                           = f.label :or_num, :class=>"text-muted"
-                          = f.number_field :or_num, :class=>"form-control"
+                          = f.number_field :or_num, :class=>"form-control", id: "or_num"
                       .col-md-6
                         .field
                           = f.number_field :amort, id: "amort", :class=>"form-control", value: number_with_precision(@loanItem.monthly_amort, precision: 2), disabled:true, hidden:true

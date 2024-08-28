@@ -119,19 +119,22 @@ class LoansController < ApplicationController
     customer = @loan
     unless params['customer_payments']['payment'] == "0" 
       next_line = customer.loan_items.order("duedate asc").where(is_paid: false).first
-      next_monthly_amort = next_line.monthly_amort
+      to_pay_monthly_amort = next_line.monthly_amort
       next_term = next_line.term
       next_period = next_line.duedate
 
       customer.loan_items.where(is_paid: false).destroy_all 
       customer_balance = customer.balance
+      payment_params = params["customer_payments"]["payment"].to_f
       interest = customer.balance * (customer.interest.to_f/12)/100
-      principal = params["customer_payments"]["payment"].to_f - interest
-      balance = customer.balance - principal
+      principal = payment_params - interest
+      advance_payment = payment_params > to_pay_monthly_amort ? payment_params - to_pay_monthly_amort : 0
+      balance = customer_balance + penalty - advance_payment
       monthly_amort = principal + interest
+
       customer.update!(balance: balance)
       
-      @paid_amort = LoanItem.create!(loan_id: customer.id, term: next_term, principal: principal, interest: interest.to_f, monthly_amort: monthly_amort.to_f, balance: balance.to_f, duedate: next_period, is_paid: true)
+      @paid_amort = LoanItem.create!(loan_id: customer.id, term: next_term, principal: principal, interest: interest.to_f, monthly_amort: to_pay_monthly_amort.to_f, balance: balance.to_f, duedate: next_period, penalty: params["customer_payments"]["penalty"].to_f, advance: advance_payment, or: params["customer_payments"]["or_num"], paid_amount: payment_params, payment_date: params["customer_payments"]["payment_date"], is_paid: true)
       
       term = next_term + 1
       duedate = next_period + 1.months
@@ -157,21 +160,19 @@ class LoansController < ApplicationController
       end
     end #ends check for if not paying payments
 
-    histories = @loan.payment_histories
-    sum = 0
-    sum += histories.sum(:penalty)
-    sum += histories.sum(:downpayment)
-    sum += histories.sum(:processing_fee)
-    sum += histories.sum(:principal)
+    # histories = @loan.payment_histories
+    # sum = 0
+    # sum += histories.sum(:penalty)
+    # sum += histories.sum(:downpayment)
+    # sum += histories.sum(:processing_fee)
+    # sum += histories.sum(:principal)
 
-    if histories.count == 0
-      running_balance = customer.contract_price
-    else
-      running_balance = customer.contract_price-sum
-    end
-
-    payment_params = params["customer_payments"]["payment"].to_f
-
+    # if histories.count == 0
+    #   running_balance = customer.contract_price
+    # else
+    #   running_balance = customer.contract_price-sum
+    # end
+    
     payment_history = PaymentHistory.create(
       loan_id: customer.id,
       loan_item_id: @paid_amort.id,
@@ -186,12 +187,12 @@ class LoansController < ApplicationController
       bank_name: params["customer_payments"]["bank_name"],
       penalty: params["customer_payments"]["penalty"],
       others: params["customer_payments"]["others"],
-      downpayment: params["customer_payments"]["downpayment"],
+      # downpayment: params["customer_payments"]["downpayment"],
       or_num: params["customer_payments"]["or_num"],
       payment_date: params["customer_payments"]["payment_date"],
       memo: params["customer_payments"]["memo"],
-      running_balance: running_balance,
-      advance_payment: payment_params > next_monthly_amort ? payment_params - next_monthly_amort : 0
+      # running_balance: running_balance,
+      advance_payment: advance_payment
     )
 
     redirect_to customer
