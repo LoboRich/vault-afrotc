@@ -28,11 +28,11 @@
         %td
           = format_num @loanItem.balance
   // = simple_form_for("customer_payments", url: process_pay_loan_path(@loan), method: "post") do |f|
-  = form_for process_pay_loan_path(@loan), html: { id: 'customer_payments' } do |f|
+  = form_for 'customer_payments', url: process_pay_loan_path(@loan), html: { id: 'customer_payments' } do |f|
     .modal-header
       %h5#exampleModalLabel.modal-title.new_keyword_modal_title Add Payment
     .modal-body
-      .cont@loanItemner-fluid
+      .container-fluid
         .row
           .col-md-6
             .field
@@ -51,10 +51,10 @@
             .field
               = f.number_field :amort, id: "amort", :class=>"form-control", value: number_with_precision(@loanItem.monthly_amort, precision: 2), disabled:true, hidden:true
               = f.label 'amount', :class=>"text-muted"
-              = f.number_field :payment, :class=>"form-control",id: "payment", required:  true, onchange: "javascript: comp_advance_payment_and_penalty()"
+              = f.number_field :payment, :class=>"form-control",id: "payment", step: "0.01", required:  true, onchange: "javascript: comp_advance_payment_and_penalty()"
             .field
               = f.label :penalty, :class=>"text-muted"
-              = f.number_field :penalty, :class=>"form-control", id: "penalty", onchange: "javascript: comp_advance_payment_and_penalty()"
+              = f.number_field :penalty, :class=>"form-control", id: "penalty", step: "0.01", onchange: "javascript: comp_advance_payment_and_penalty()"
             .field
               = f.label 'ITP', :class=>"text-muted"
               = f.number_field :advance_payment, :class=>"form-control", id: "advance", readonly: true

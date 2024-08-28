@@ -31,8 +31,8 @@ class LoansController < ApplicationController
         # save loan parcels(Blk&Lot)
         parcels = JSON.parse(@loan.blocklot).reject(&:empty?)
         parcels.each do |p|
-          LoanParcel.create(parcel_id: p, loan_id: @loan.id)
-          # update parcel status to reserved/taken
+          parcel = LoanParcel.create(parcel_id: p, loan_id: @loan.id)
+          Parcel.find(p).update(status: 'taken')
         end
 
         monthly_amort = FinanceMath::Loan.new(nominal_rate: @loan.interest.to_i, duration: @loan.terms.to_i, amount: @loan.balance.to_f).pmt
@@ -87,9 +87,13 @@ class LoansController < ApplicationController
 
   # DELETE /loans/1 or /loans/1.json
   def destroy
+    @loan.loan_parcels.destroy_all
+    @loan.loan_parcels.each do |p|
+      Parcel.find(p.parcel_id).update(status: 'available')
+    end
+    @loan.payment_histories.destroy_all
     @loan.loan_items.destroy_all
     @loan.loan_parcels.destroy_all
-    # @loan.payment_histories.destroy_all
     @loan.destroy
 
     respond_to do |format|
@@ -112,7 +116,83 @@ class LoansController < ApplicationController
   end
   def process_pay
     params.permit!
-    binding.pry
+    customer = @loan
+    unless params['customer_payments']['payment'] == "0" 
+      next_line = customer.loan_items.order("duedate asc").where(is_paid: false).first
+      next_monthly_amort = next_line.monthly_amort
+      next_term = next_line.term
+      next_period = next_line.duedate
+
+      customer.loan_items.where(is_paid: false).destroy_all 
+      customer_balance = customer.balance
+      interest = customer.balance * (customer.interest.to_f/12)/100
+      principal = params["customer_payments"]["payment"].to_f - interest
+      balance = customer.balance - principal
+      monthly_amort = principal + interest
+      customer.update!(balance: balance)
+      
+      @paid_amort = LoanItem.create!(loan_id: customer.id, term: next_term, principal: principal, interest: interest.to_f, monthly_amort: monthly_amort.to_f, balance: balance.to_f, duedate: next_period, is_paid: true)
+      
+      term = next_term + 1
+      duedate = next_period + 1.months
+      tmp_bal = customer.balance
+      while tmp_bal >= 0
+        t_interest = tmp_bal * (customer.interest.to_f/12) / 100
+        t_principal = customer.monthly_amort.to_f - t_interest.to_f
+        t_balance = tmp_bal - t_principal.to_f
+
+        t_period = duedate
+        
+        if t_balance < customer.monthly_amort
+          tmp_amort = LoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
+          tmp_amort = LoanItem.create!(loan_id: customer.id, term: term, principal: t_balance.to_f, interest: t_interest.to_f, monthly_amort: t_balance.to_f + t_interest.to_f, balance: 0, duedate: t_period, is_paid: false)
+          break
+        else
+          tmp_amort = LoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
+        end
+
+        tmp_bal = t_balance
+        term += 1
+        duedate = t_period + 1.months
+      end
+    end #ends check for if not paying payments
+
+    histories = @loan.payment_histories
+    sum = 0
+    sum += histories.sum(:penalty)
+    sum += histories.sum(:downpayment)
+    sum += histories.sum(:processing_fee)
+    sum += histories.sum(:principal)
+
+    if histories.count == 0
+      running_balance = customer.contract_price
+    else
+      running_balance = customer.contract_price-sum
+    end
+
+    payment_params = params["customer_payments"]["payment"].to_f
+
+    payment_history = PaymentHistory.create(
+      loan_id: customer.id,
+      loan_item_id: @paid_amort.id,
+      current_balance: customer_balance,
+      interest: interest, 
+      principal: principal,
+      payment: payment_params,
+      new_balance: balance,
+      mode_of_payment:  params["customer_payments"]["mode_of_payment"],
+      check_bank: params["customer_payments"]["check_bank"],
+      check_no: params["customer_payments"]["check_no"],
+      bank_name: params["customer_payments"]["bank_name"],
+      penalty: params["customer_payments"]["penalty"],
+      others: params["customer_payments"]["others"],
+      downpayment: params["customer_payments"]["downpayment"],
+      or_num: params["customer_payments"]["or_num"],
+      payment_date: params["customer_payments"]["payment_date"],
+      memo: params["customer_payments"]["memo"],
+      running_balance: running_balance,
+      advance_payment: payment_params > next_monthly_amort ? payment_params - next_monthly_amort : 0
+    )
 
     redirect_to customer
   end
