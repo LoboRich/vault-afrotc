@@ -29,7 +29,7 @@ html {
 }
 
 body {
-    background-color: #F9F9F9;
+    background-color: ##e7ecf8;
     font-weight: normal;
     color: #24292e;
     line-height: 1.6;
@@ -660,7 +660,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .app-container {
     margin-left: 21rem;
-    width: calc(100vw - 280px);
+    width: calc(100vw - 310px);
     padding: 0px;
     position: relative;
     -webkit-transition: all .2s ease-in-out;
@@ -1873,7 +1873,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 15px;
     margin-bottom: 30px;
     border-bottom: 1px solid #ccd6ed;
-    width: 98%;
+    width: 100%;
 }
 
 @media (max-width: 1200px) {
@@ -2341,7 +2341,7 @@ table.dataTable tfoot th {
 
 table.dataTable thead th, table.dataTable tfoot th {
     font-weight: 500;
-    color: #3d3d3d;
+    color: #7b8c9d;
     white-space: nowrap;
 }
 
@@ -6902,4 +6902,8 @@ tbody td {
     padding-right: calc(var(--bs-gutter-x) / 2);
     padding-left: calc(var(--bs-gutter-x) / 2);
     margin-top: 1rem;
+}
+.btn-action {
+    padding: 5px 0px 5px 12px !important;
+    margin-right: .2rem;
 }

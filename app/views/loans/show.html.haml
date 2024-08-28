@@ -84,7 +84,10 @@
                       %br
                       = link_to 'Back', loans_path, :class => "btn btn-secondary"
                       = link_to 'Edit', edit_loan_path(@loan), :class => "btn btn-primary float-right"  
-              .container
+         
+                
+            .card
+              .card-header  
                 .page-description.d-flex.align-items-center
                   .page-description-content.flex-grow-1
                     %h1 Statement of Account
@@ -92,97 +95,91 @@
                     = link_to pay_loan_path(@loan), class: 'btn btn-primary' do
                       %i.material-icons> add
                       Payment
-              .card
-                .card-header
-                  %h2 Statement of Account
-                  = link_to pay_loan_path(@loan), class: 'btn btn-primary' do
-                    %i.material-icons> add
-                    Pay
-                .card-body
-                  .table-responsive
-                    %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
-                      %thead
-                        %tr
-                          %th #
-                          %th Due Date
-                          %th PMT. Date
-                          %th OR
-                          %th Amount
-                          %th ITP
-                          %th M.A
-                          %th PEN
-                          %th Interest
-                          %th Principal
-                          %th Balance
-                          %th Status
+              .card-body
+                .table-responsive
+                  %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+                    %thead
+                      %tr
+                        %th #
+                        %th Due Date
+                        %th PMT. Date
+                        %th OR
+                        %th Amount
+                        %th ITP
+                        %th M.A
+                        %th PEN
+                        %th Interest
+                        %th Principal
+                        %th Balance
+                        %th Status
 
-                      %tbody
+                    %tbody
+                      %tr
+                        %td
+                        %td
+                        %td
+                        %td
+                        %td
+                        %td
+                        %th
+                        %td 
+                        %td
+                        %td
+                        %td 
+                          = format_num @loan.contract_price - (@loan.downpayment + @loan.processing_fees)
+                        %td 
+                      - total_principal = 0
+                      - total_interest = 0
+                      - @loan.loan_items.order("duedate asc").each do |ai|
                         %tr
-                          %td
-                          %td
-                          %td
-                          %td
-                          %td
-                          %td
-                          %th
                           %td 
-                          %td
-                          %td
+                            = ai.term
                           %td 
-                            = format_num @loan.contract_price - (@loan.downpayment + @loan.processing_fees)
-                          %td 
-                        - total_principal = 0
-                        - total_interest = 0
-                        - @loan.loan_items.order("duedate asc").each do |ai|
-                          %tr
-                            %td 
-                              = ai.term
-                            %td 
-                              = ai.duedate.strftime("%b %d %Y")
-                            %td
-                              = ai.payment_date ? ai.payment_date.strftime("%b %d %Y") : ''
-                            %td
-                              = ai.or
-                            %td
-                              = ai.paid_amount
-                            %td
-                              = ai.advance
-                            %td
-                              = format_num ai.monthly_amort
-                            %td
-                              = ai.penalty
-                            %td
-                              = format_num ai.interest
-                              - total_interest += ai.interest
-                            %td
-                              = format_num ai.principal
-                              - total_principal += ai.principal                    
-                            %td
-                              = format_num ai.balance
-                            %td
-                              .badges
-                                - if ai.is_paid == true
-                                  Paid
-                                - else
-                                  Unpaid
-                        %tr
+                            = ai.duedate.strftime("%b %d %Y")
                           %td
-                            %strong.hidden= @loan.loan_items.count+1
+                            = ai.payment_date ? ai.payment_date.strftime("%b %d %Y") : ''
                           %td
-                            Total
+                            = ai.or
                           %td
+                            = ai.paid_amount
                           %td
+                            = ai.advance
                           %td
+                            = format_num ai.monthly_amort
                           %td
+                            = ai.penalty
                           %td
+                            = format_num ai.interest
+                            - total_interest += ai.interest
                           %td
+                            = format_num ai.principal
+                            - total_principal += ai.principal                    
                           %td
-                            = format_num total_principal
+                            = format_num ai.balance
                           %td
-                            = format_num total_interest
-                          %td
-                          %td
-                          %td
+                            .badges
+                              - if ai.is_paid == true
+                                Paid
+                              - else
+                                Unpaid
+                      %tr
+                        %td
+                          %strong.hidden= @loan.loan_items.count+1
+                        %td
+                          Total
+                        %td
+                        %td
+                        %td
+                        %td
+                        %td
+                        %td
+                        %td
+                          = format_num total_principal
+                        %td
+                          = format_num total_interest
+                        %td
+                        %td
+                        %td
 
 :javascript
   $(document).ready(function(){

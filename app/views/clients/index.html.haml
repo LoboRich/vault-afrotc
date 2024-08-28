@@ -13,69 +13,52 @@
                 New Client
           .card
             .card-body
-              #datatable1_wrapper.dataTables_wrapper.dt-bootstrap4
-                .row
-                  .col-sm-12.col-md-6
-                    #datatable1_length.dataTables_length
-                      %label
-                        Show
-                        %select.custom-select.custom-select-sm.form-control.form-control-sm{"aria-controls" => "datatable1", :name => "datatable1_length"}
-                          %option{:value => "10"} 10
-                          %option{:value => "25"} 25
-                          %option{:value => "50"} 50
-                          %option{:value => "100"} 100
-                        entries
-                  .col-sm-12.col-md-6
-                    #datatable1_filter.dataTables_filter
-                      %label
-                        Search:
-                        %input.form-control.form-control-sm{"aria-controls" => "datatable1", :placeholder => "", :type => "search"}/
-                .row
-                  .col-sm-12.table-responsive
-                    %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
-                      %thead
-                        %tr{:role => "row"}
-                          %th.sorting_asc{"aria-controls" => "datatable1", "aria-label" => "Name: activate to sort column descending", "aria-sort" => "ascending", :colspan => "1", :rowspan => "1", :style => "width: 308px;", :tabindex => "0"} Name
-                          %th Mobile number
-                          %th Email address
-                          %th Address
-                          %th Civil status
-                          %th Occupation
-                          %th Years employed
-                          %th Employer name
-                          %th Basic salary
-                          %th Annual income
-                          %th.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Status
-                          %th.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Remarks
-                          %th.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
-                      %tbody
-                        - @clients.each do |client|
-                          %tr.odd{:role => "row"}  
-                            
-                            %td= client.name
-                            %td= client.mobile_number
-                            %td= client.email_address
-                            %td{class: 'address-column'}
-                              = truncate(client.address, length: 10)
-                            %td= client.civil_status
-                            %td= client.occupation
-                            %td= client.years_employed
-                            %td= client.employer_name
-                            %td= client.basic_salary
-                            %td= client.annual_income
-                            %td
-                              .badge{class: "badge #{badge_class_for(client.status)}"}
-                                = client.status
-                            %td= client.remarks
-                            %td.d-flex
-                              = link_to client, class: 'btn btn-action btn-info' do
-                                %i.material-icons> visibility
-                              = link_to edit_client_path(client), class: 'btn btn-action btn-warning' do
-                                %i.material-icons> edit
-                              = button_to client, class: 'btn btn-action btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?'} do
-                                %i.material-icons delete
+              .row
+                .col-sm-12.table-responsive
+                  %table#datatable_clients.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+                    %thead
+                      %tr{:role => "row"}
+                        %th.sorting_asc{"aria-controls" => "datatable1", "aria-label" => "Name: activate to sort column descending", "aria-sort" => "ascending", :colspan => "1", :rowspan => "1", :style => "width: 308px;", :tabindex => "0"} Name
+                        %th Mobile number
+                        %th Email address
+                        %th Address
+                        %th Civil status
+                        %th Occupation
+                        %th Years employed
+                        %th Employer name
+                        %th Basic salary
+                        %th Annual income
+                        %th.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Status
+                        %th.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Remarks
+                        %th.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
+                    %tbody
+                      - @clients.each do |client|
+                        %tr.odd{:role => "row"}  
+                          
+                          %td= client.name
+                          %td= client.mobile_number
+                          %td= client.email_address
+                          %td{class: 'address-column'}
+                            = truncate(client.address, length: 10)
+                          %td= client.civil_status
+                          %td= client.occupation
+                          %td= client.years_employed
+                          %td= client.employer_name
+                          %td= client.basic_salary
+                          %td= client.annual_income
+                          %td
+                            .badge{class: "badge #{badge_class_for(client.status)}"}
+                              = client.status
+                          %td= client.remarks
+                          %td.d-flex
+                            = link_to client, class: 'btn btn-action btn-info' do
+                              %i.material-icons> visibility
+                            = link_to edit_client_path(client), class: 'btn btn-action btn-warning' do
+                              %i.material-icons> edit
+                            = button_to client, class: 'btn btn-action btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?'} do
+                              %i.material-icons delete
 :javascript
   $(document).ready( function () {
-      $('#datatable1_wrapper').DataTable();
+      $('#datatable_clients').DataTable();
   } );
   
