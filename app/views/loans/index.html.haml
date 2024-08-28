@@ -73,7 +73,8 @@
                             %td= loan.amortization_start_date
                             %td= number_to_currency(loan.balance, unit: "₱", separator: ".", delimiter: ",")
                             %td= loan.remarks
-                            %td.badge.badge-primary= loan.status
+                            %td
+                              .badge.badge-primary= loan.status
                             %td= loan.broker
                             %td.d-flex
                               = link_to loan, class: 'btn btn-action btn-info' do

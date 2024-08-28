@@ -36,72 +36,72 @@
                     %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
                       %thead
                         %tr.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"}
-                                                      %th Loan
-                                                      %th Current balance
-                                                      %th Interest
-                                                      %th Payment
-                                                      %th New balance
-                                                      %th Mode of payment
-                                                      %th Check bank
-                                                      %th Check no
-                                                      %th Bank name
-                                                      %th Bank account no
-                                                      %th Ar account no
-                                                      %th Penalty
-                                                      %th Processing
-                                                      %th Reservation
-                                                      %th Equity
-                                                      %th Others
-                                                      %th Advance payment to principal
-                                                      %th Principal
-                                                      %th Downpayment
-                                                      %th Processing fee
-                                                      %th Payment date
-                                                      %th Or num
-                                                      %th Memo
-                                                      %th Running balance
-                                                      %th Is deposited
-                                                      %th Deposited date
-                                                      %th Deposited memo
-                                                      %th Deposited bank account
-                                                      %th Receipt
-                                                    %th.sorting{"aria-controls" => "payment_history_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
+                          %th Loan
+                          %th Current balance
+                          %th Interest
+                          %th Payment
+                          %th New balance
+                          %th Mode of payment
+                          %th Check bank
+                          %th Check no
+                          %th Bank name
+                          %th Bank account no
+                          %th Ar account no
+                          %th Penalty
+                          %th Processing
+                          %th Reservation
+                          %th Equity
+                          %th Others
+                          %th Advance payment to principal
+                          %th Principal
+                          %th Downpayment
+                          %th Processing fee
+                          %th Payment date
+                          %th Or num
+                          %th Memo
+                          %th Running balance
+                          %th Is deposited
+                          %th Deposited date
+                          %th Deposited memo
+                          %th Deposited bank account
+                          %th Receipt
+                        %th.sorting{"aria-controls" => "payment_history_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
                       %tbody
                         - @payment_histories.each do |payment_history|
-                            %tr.odd{:role => "row"}     
-                                                              %td= payment_history.loan
-                                                              %td= payment_history.current_balance
-                                                              %td= payment_history.interest
-                                                              %td= payment_history.payment
-                                                              %td= payment_history.new_balance
-                                                              %td= payment_history.mode_of_payment
-                                                              %td= payment_history.check_bank
-                                                              %td= payment_history.check_no
-                                                              %td= payment_history.bank_name
-                                                              %td= payment_history.bank_account_no
-                                                              %td= payment_history.ar_account_no
-                                                              %td= payment_history.penalty
-                                                              %td= payment_history.processing
-                                                              %td= payment_history.reservation
-                                                              %td= payment_history.equity
-                                                              %td= payment_history.others
-                                                              %td= payment_history.advance_payment_to_principal
-                                                              %td= payment_history.principal
-                                                              %td= payment_history.downpayment
-                                                              %td= payment_history.processing_fee
-                                                              %td= payment_history.payment_date
-                                                              %td= payment_history.or_num
-                                                              %td= payment_history.memo
-                                                              %td= payment_history.running_balance
-                                                              %td= payment_history.is_deposited
-                                                              %td= payment_history.deposited_date
-                                                              %td= payment_history.deposited_memo
-                                                              %td= payment_history.deposited_bank_account
-                                                              %td= payment_history.receipt
-                                                            %td
-                                = link_to 'Show', payment_history, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
-                                = link_to 'Edit', edit_payment_history_path(payment_history), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
-                                = link_to 'Delete', payment_history, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true }
+                          %tr.odd{:role => "row"}     
+                            %td= payment_history.loan
+                            %td= payment_history.current_balance
+                            %td= payment_history.interest
+                            %td= payment_history.payment
+                            %td= payment_history.new_balance
+                            %td= payment_history.mode_of_payment
+                            %td= payment_history.check_bank
+                            %td= payment_history.check_no
+                            %td= payment_history.bank_name
+                            %td= payment_history.bank_account_no
+                            %td= payment_history.ar_account_no
+                            %td= payment_history.penalty
+                            %td= payment_history.processing
+                            %td= payment_history.reservation
+                            %td= payment_history.equity
+                            %td= payment_history.others
+                            %td= payment_history.advance_payment_to_principal
+                            %td= payment_history.principal
+                            %td= payment_history.downpayment
+                            %td= payment_history.processing_fee
+                            %td= payment_history.payment_date
+                            %td= payment_history.or_num
+                            %td= payment_history.memo
+                            %td= payment_history.running_balance
+                            %td= payment_history.is_deposited
+                            %td= payment_history.deposited_date
+                            %td= payment_history.deposited_memo
+                            %td= payment_history.deposited_bank_account
+                            %td= payment_history.receipt
+                          %td
+                            = link_to 'Show', payment_history, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
+                            = link_to 'Edit', edit_payment_history_path(payment_history), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
+                            = link_to 'Delete', payment_history, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true }
 :javascript
   $(document).ready( function () {
       $('#datatable1_wrapper').DataTable();

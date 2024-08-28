@@ -2735,9 +2735,6 @@ tr.group {
 .badge.badge-primary {
     background: #2269F5;
     color: #fff;
-    line-height: 0;
-    height: 0;
-}
 
 .badge.badge-secondary {
     color: #4d546b;
@@ -6429,10 +6426,21 @@ span.flatpickr-weekday {
     background-size: 60%;
     background-position: center;
 }
-
+.logo {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+.address-column {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* Adjust to fit your layout */
+  }
 .app-auth-container .logo a {
     display: flex;
-    background: url('../images/neptune.png') no-repeat;
+    background: url('neptune.png') no-repeat;
     height: 50px;
     background-size: 50px;
     align-items: center;
@@ -6889,4 +6897,9 @@ form .col-md-6 {
 }
 tbody td {
     white-space: nowrap;
+}
+.col-md-6 {
+    padding-right: calc(var(--bs-gutter-x) / 2);
+    padding-left: calc(var(--bs-gutter-x) / 2);
+    margin-top: 1rem;
 }

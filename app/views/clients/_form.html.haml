@@ -92,8 +92,9 @@
       = f.text_field :annual_income, class: 'form-control', required:  true
   .d-flex
     .col-md-6
-      = f.label :status, :class => "form-label"
-      = f.text_field :status, class: 'form-control', required:  true
+      = f.label :housing_status, :class => "form-label"
+      = f.select :status, options_for_select([['For Follow-up', 'For Follow-up'], ['Reserved', 'Reserved'], ['Approved', 'Approved']]), { include_blank: 'Select Status' }, class: 'form-control', required: true
+      /= f.text_field :status, class: 'form-control', required:  true
     .col-md-6
       = f.label :remarks, :class => "form-label"
       = f.text_area :remarks, class: 'form-control', required:  true

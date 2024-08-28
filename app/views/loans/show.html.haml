@@ -83,15 +83,24 @@
                       = f.label :Action, :class => "form-label"
                       %br
                       = link_to 'Back', loans_path, :class => "btn btn-secondary"
-                      = link_to 'Edit', edit_loan_path(@loan), :class => "btn btn-primary float-right"
-              
-                
+                      = link_to 'Edit', edit_loan_path(@loan), :class => "btn btn-primary float-right"  
+              .container
+                .page-description.d-flex.align-items-center
+                  .page-description-content.flex-grow-1
+                    %h1 Statement of Account
+                  .page-description-actions
+                    = link_to pay_loan_path(@loan), class: 'btn btn-primary' do
+                      %i.material-icons> add
+                      Payment
               .card
+<<<<<<< HEAD
                 .card-header
                   %h2 Statement of Account
                   = link_to pay_loan_path(@loan), class: 'btn btn-primary' do
                     %i.material-icons> add
                     Pay
+=======
+>>>>>>> 8681a3b76344cf0499b25af93baecc69632be899
                 .card-body
                   %table#profiles.table.table-striped.table-bordered.nowrap
                     %thead
@@ -132,11 +141,12 @@
                             - total_principal += ai.principal                    
                           %td
                             = format_num ai.balance
-                          %td.badges
-                            - if ai.is_paid == true
-                              Paid
-                            - else
-                              Unpaid
+                          %td
+                            .badges
+                              - if ai.is_paid == true
+                                Paid
+                              - else
+                                Unpaid
                       %tr
                         %td
                           %strong.hidden= @loan.loan_items.count+1

@@ -4,34 +4,33 @@
       %ul.accordion-menu
         %li.sidebar-title
           Country Homes
-        %li.active-page
+        %li{class: current_page_class('/')}
           = link_to  '/' do
             %i.material-icons-two-tone> dashboard
             Dashboard
-        %li
+        %li{class: current_page_class('/parcels')}
           %a{href: "/parcels", class: "text-gray-300 hover:text-white transition"}
             %i.material-icons-two-tone> folder
             Inventory
-        %li
+        %li{class: current_page_class('/clients')}
           %a{href: "/clients", class: "text-gray-300 hover:text-white transition"}
             %i.material-icons-two-tone> group
             Clients
             %span.badge.rounded-pill.badge-danger.float-end 
-        %li
+        %li{class: current_page_class('/loans')}
           %a{href: "/loans", class: "text-gray-300 hover:text-white transition"}
             %i.material-icons-two-tone> home
             Housing
             %span.badge.rounded-pill.badge-success.float-end 
-        %li
+        %li{class: current_page_class('file-manager.html')}
           %a{:href => "file-manager.html"}
             %i.material-icons-two-tone> water_drop
             Water
-        %li
+        %li{class: current_page_class('/manage_users')}
           %a{href: "/manage_users", class: "text-gray-300 hover:text-white transition"}
             %i.material-icons-two-tone> person
             Users
-       
-        %li
+        %li{class: current_page_class('todo.html')}
           %a{:href => "todo.html"}
             %i.material-icons-two-tone> history
             Logs

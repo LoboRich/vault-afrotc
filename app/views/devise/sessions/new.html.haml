@@ -1,6 +1,8 @@
 
 .app.app-auth-sign-in.align-content-stretch.d-flex.flex-wrap.justify-content-center
   .app-auth-container
+    .logo
+      %a{:href => "index.html"} 
    
     .auth-credentials.m-b-xxl
       = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
