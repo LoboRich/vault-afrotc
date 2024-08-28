@@ -1,0 +1,82 @@
+= form_for @water_bill do |f|
+  - if @water_bill.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@water_bill.errors.count, "error")} prohibited this water_bill from being saved:"
+      %ul
+        - @water_bill.errors.full_messages.each do |message|
+          %li= message
+  .card-body.pb-0
+    .row
+      .form-group.col-12.pt-2
+        .form-row
+          .col-md-6.pt-3
+            .field
+              = f.label :client
+              = f.text_field :client, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :loan
+              = f.text_field :loan, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :previous
+              = f.number_field :previous, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :current
+              = f.number_field :current, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :consume
+              = f.text_field :consume, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :amount
+              = f.text_field :amount, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :or_number
+              = f.text_field :or_number, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :due_date
+              = f.datetime_field :due_date, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :reading_date
+              = f.datetime_field :reading_date, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :grace_period
+              = f.datetime_field :grace_period, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :status
+              = f.text_field :status, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :remarks
+              = f.text_field :remarks, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :penalty
+              = f.text_field :penalty, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :total
+              = f.text_field :total, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :mode_of_payment
+              = f.text_field :mode_of_payment, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :receipt
+              = f.text_field :receipt, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :reference_number
+              = f.text_field :reference_number, class: 'form-control', required:  true
+        .card-footer
+    = link_to 'Back', water_bills_path, class: 'btn btn-secondary'
+    = f.submit 'Save Changes', class: 'btn btn-warning float-right'

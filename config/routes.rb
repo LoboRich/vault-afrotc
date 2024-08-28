@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :water_bills
   resources :payment_histories
   resources :loans do
     collection do
