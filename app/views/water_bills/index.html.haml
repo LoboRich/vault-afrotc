@@ -46,10 +46,11 @@
                           %th.sorting{"aria-controls" => "water_bill_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
                       %tbody
                         - @water_bills.each do |water_bill|
-                          %tr.odd{:role => "row"}     
+                          %tr.odd{:role => "row"}
+                            %td   
                             %td= water_bill.client.name
-                            %td= water_bill.loan_parcels.pluck(:block)
-                            %td= water_bill.loan_parcels.pluck(:lot)
+                            %td= "#{water_bill.loan_parcels.map { |lp| lp.parcel.block }.uniq.join(',')}"
+                            %td= "#{water_bill.loan_parcels.map { |lp| lp.parcel.lot }.uniq.join(',')}"
                             %td= water_bill.previous
                             %td= water_bill.current
                             %td= water_bill.consume
