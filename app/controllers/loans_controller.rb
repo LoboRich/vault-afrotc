@@ -122,20 +122,21 @@ class LoansController < ApplicationController
       to_pay_monthly_amort = next_line.monthly_amort
       next_term = next_line.term
       next_period = next_line.duedate
+      customer.loan_items.where(is_paid: false).destroy_all
 
-      customer.loan_items.where(is_paid: false).destroy_all 
       prev_balance = customer.balance
+
       payment_params = params["customer_payments"]["payment"].to_f
       interest = prev_balance * (customer.interest.to_f/12)/100
-      principal = to_pay_monthly_amort - interest
+      principal = payment_params - interest
       advance_payment = payment_params > to_pay_monthly_amort ? payment_params - to_pay_monthly_amort : 0
       penalty = params["customer_payments"]["penalty"].to_f
-      balance = prev_balance - (payment_params + penalty) + interest
+      balance = prev_balance - payment_params + penalty
       monthly_amort = principal + interest
 
       customer.update!(balance: balance)
       
-      @paid_amort = LoanItem.create!(loan_id: customer.id, term: next_term, principal: principal, interest: interest.to_f, monthly_amort: to_pay_monthly_amort.to_f, balance: balance.to_f, duedate: next_period, penalty: penalty, advance: advance_payment, or: params["customer_payments"]["or_num"], paid_amount: payment_params, payment_date: params["customer_payments"]["payment_date"], is_paid: true)
+      @paid_amort = LoanItem.create!(loan_id: customer.id, term: next_term, principal: principal, interest: interest.to_f, monthly_amort: to_pay_monthly_amort.to_f, balance: balance.to_f, duedate: next_period, penalty: penalty, advance: advance_payment, or: params["customer_payments"]["or_num"], paid_amount: (payment_params + penalty), payment_date: params["customer_payments"]["payment_date"], is_paid: true)
       
       term = next_term + 1
       duedate = next_period + 1.months
