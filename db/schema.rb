@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_28_042251) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_28_100134) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -171,6 +171,30 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_28_042251) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "water_bills", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "client_id", null: false
+    t.uuid "loan_id", null: false
+    t.integer "previous", default: 0
+    t.integer "current", default: 0
+    t.float "consume", default: 0.0
+    t.float "amount", default: 0.0
+    t.string "or_number"
+    t.datetime "due_date"
+    t.datetime "reading_date"
+    t.datetime "grace_period"
+    t.string "status", default: "unpaid"
+    t.text "remarks"
+    t.float "penalty", default: 0.0
+    t.float "total", default: 0.0
+    t.string "mode_of_payment"
+    t.string "receipt"
+    t.string "reference_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_water_bills_on_client_id"
+    t.index ["loan_id"], name: "index_water_bills_on_loan_id"
+  end
+
   add_foreign_key "loan_items", "loans"
   add_foreign_key "loan_parcels", "loans"
   add_foreign_key "loan_parcels", "parcels"
@@ -178,4 +202,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_28_042251) do
   add_foreign_key "parcels", "subdivisions"
   add_foreign_key "payment_histories", "loan_items"
   add_foreign_key "payment_histories", "loans"
+  add_foreign_key "water_bills", "clients"
+  add_foreign_key "water_bills", "loans"
 end

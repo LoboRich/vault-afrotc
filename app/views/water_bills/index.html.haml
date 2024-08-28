@@ -1,0 +1,84 @@
+
+.app.align-content-stretch.d-flex.flex-wrap
+  = render "layouts/sidebar"
+  .app-container
+    .app-content
+      .content-wrapper
+        .container
+          .page-description.d-flex.align-items-center
+            .page-description-content.flex-grow-1
+              water_bills
+            .page-description-actions
+              = link_to new_water_bill_path, class: 'btn btn-primary' do
+                %i.material-icons> add
+                New Water bill
+          .card
+            .card-body
+              #datatable1_wrapper.dataTables_wrapper.dt-bootstrap4
+                .row
+                  .col-sm-12.col-md-6
+                    #datatable1_length.dataTables_length
+                      %label
+                        Show
+                        %select.custom-select.custom-select-sm.form-control.form-control-sm{"aria-controls" => "datatable1", :name => "datatable1_length"}
+                          %option{:value => "10"} 10
+                          %option{:value => "25"} 25
+                          %option{:value => "50"} 50
+                          %option{:value => "100"} 100
+                        entries
+                  .col-sm-12.col-md-6
+                    #datatable1_filter.dataTables_filter
+                      %label
+                        Search:
+                        %input.form-control.form-control-sm{"aria-controls" => "datatable1", :placeholder => "", :type => "search"}/
+                .row
+                  .col-sm-12.table-responsive
+                    %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+                      %thead
+                        %tr.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"}
+                                                      %th Client
+                                                      %th Loan
+                                                      %th Previous
+                                                      %th Current
+                                                      %th Consume
+                                                      %th Amount
+                                                      %th Or number
+                                                      %th Due date
+                                                      %th Reading date
+                                                      %th Grace period
+                                                      %th Status
+                                                      %th Remarks
+                                                      %th Penalty
+                                                      %th Total
+                                                      %th Mode of payment
+                                                      %th Receipt
+                                                      %th Reference number
+                                                    %th.sorting{"aria-controls" => "water_bill_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
+                      %tbody
+                        - @water_bills.each do |water_bill|
+                            %tr.odd{:role => "row"}     
+                                                              %td= water_bill.client
+                                                              %td= water_bill.loan
+                                                              %td= water_bill.previous
+                                                              %td= water_bill.current
+                                                              %td= water_bill.consume
+                                                              %td= water_bill.amount
+                                                              %td= water_bill.or_number
+                                                              %td= water_bill.due_date
+                                                              %td= water_bill.reading_date
+                                                              %td= water_bill.grace_period
+                                                              %td= water_bill.status
+                                                              %td= water_bill.remarks
+                                                              %td= water_bill.penalty
+                                                              %td= water_bill.total
+                                                              %td= water_bill.mode_of_payment
+                                                              %td= water_bill.receipt
+                                                              %td= water_bill.reference_number
+                                                            %td
+                                = link_to 'Show', water_bill, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
+                                = link_to 'Edit', edit_water_bill_path(water_bill), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
+                                = link_to 'Delete', water_bill, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true }
+:javascript
+  $(document).ready( function () {
+      $('#datatable1_wrapper').DataTable();
+  } );
