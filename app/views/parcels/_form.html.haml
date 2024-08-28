@@ -22,4 +22,4 @@
       = f.select :subdivision_id, options_for_select(Subdivision.all.order(:name).collect{ |u| [u.name, u.id]}), {include_blank: false}, :class=>"form-control"
   .m-t-xxl
     = f.submit 'Save Changes', class: 'btn btn-primary p-h-xxl'
-    = link_to 'Back', parcels_path, class: 'btn btn-outline-link'
+    = link_to 'Back', parcels_path, class: 'btn btn-dark'

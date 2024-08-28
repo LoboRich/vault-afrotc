@@ -5,10 +5,11 @@
     .app-content
       .content-wrapper
         .container
+          .page-description.d-flex.align-items-center
+            .page-description-content.flex-grow-1
+              %h1 New Client
           .row
             .card
-              .card-header
-                %h2 New User
               .card-body
                 = render 'form'
 - content_for(:page_title, 'Dashboard')
