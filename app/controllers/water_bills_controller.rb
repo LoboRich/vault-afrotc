@@ -13,6 +13,13 @@ class WaterBillsController < ApplicationController
   # GET /water_bills/new
   def new
     @water_bill = WaterBill.new
+    
+    @loans = Loan.all.map do |loan|
+      parcel_details = loan.parcels.map do |parcel|
+        "Block #{parcel.block} Lot #{parcel.lot}"
+      end.join(', ')
+      [parcel_details, loan.id]
+    end
   end
 
   # GET /water_bills/1/edit
