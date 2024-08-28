@@ -1,6 +1,6 @@
 class WaterBillsController < ApplicationController
   before_action :set_water_bill, only: %i[ show edit update destroy ]
-
+  include WaterBillsHelper
   # GET /water_bills or /water_bills.json
   def index
     @water_bills = WaterBill.all
@@ -29,9 +29,13 @@ class WaterBillsController < ApplicationController
   # POST /water_bills or /water_bills.json
   def create
     @water_bill = WaterBill.new(water_bill_params)
-
+    @client = Loan.find(water_bill_params[:loan_id]).client
+    @water_bill.client_id = @client.id
+    consumed = @water_bill.current - @water_bill.previous
     respond_to do |format|
       if @water_bill.save
+        @water_bill.update!(consume: consumed, amount: check_amount_per_cubic(consumed), due_date: @water_bill.reading_date + 10.days, grace_period: @water_bill.reading_date + 20.days, )
+
         format.html { redirect_to water_bill_url(@water_bill), notice: "Water bill was successfully created." }
         format.json { render :show, status: :created, location: @water_bill }
       else
