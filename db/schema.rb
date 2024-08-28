@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_27_132541) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_28_042251) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -58,6 +58,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_27_132541) do
     t.boolean "is_paid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "penalty", default: 0.0
+    t.float "advance", default: 0.0
+    t.datetime "payment_date"
+    t.string "or"
+    t.float "paid_amount", default: 0.0
     t.index ["loan_id"], name: "index_loan_items_on_loan_id"
   end
 
