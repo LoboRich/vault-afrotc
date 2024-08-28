@@ -14,12 +14,27 @@
       = f.number_field :lot, class: 'form-control', required:  true
   .row.m-t-sm
     .col-md-6
+      = f.label :lot_area, :class => "form-label"
+      = f.text_field :lot_area, class: 'form-control', required:  true
+    .col-md-6
+      = f.label :house_area, :class => "form-label"
+      = f.text_field :house_area, class: 'form-control', required:  true
+  .row.m-t-sm
+    .col-md-6
       = f.label :status, :class => "form-label"
       = f.select :status, options_for_select([['Sold', 'Sold'], ['Available', 'Available'], ['Reserved', 'Reserved']], @parcel.status), { include_blank: 'Select Status' }, class: 'form-control', required: true
       /= f.text_field :status, class: 'form-control', required:  true
     .col-md-6
       = f.label :subdivision_id, :class => "form-label"
       = f.select :subdivision_id, options_for_select(Subdivision.all.order(:name).collect{ |u| [u.name, u.id]}), {include_blank: false}, :class=>"form-control"
+  .row.m-t-sm
+    .col-md-6
+      = f.label :selling_price, :class => "form-label"
+      = f.number_field :selling_price, class: 'form-control', required:  true
+  .row.m-t-sm
+    .col-md-6
+      = f.label :description, :class => "form-label"
+      = f.text_area :description, class: 'form-control'
   .m-t-xxl
     = f.submit 'Save Changes', class: 'btn btn-primary p-h-xxl'
     = link_to 'Back', parcels_path, class: 'btn btn-dark'

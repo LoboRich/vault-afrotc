@@ -33,10 +33,10 @@
                           %td= parcel.subdivision&.short_code
                           %td= "B#{parcel.block}"
                           %td= "L#{parcel.lot}"
-                          %td
-                          %td
-                          %td
-                          %td
+                          %td= parcel.lot_area
+                          %td= parcel.house_area
+                          %td= parcel.description
+                          %td= parcel.selling_price
                           %td
                             .badge{class: "badge #{badge_class_for(parcel.status)}"}
                               = parcel.status
