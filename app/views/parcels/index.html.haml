@@ -13,60 +13,43 @@
                 New Block & Lot
           .card
             .card-body
-              #datatable_wrapper.dataTables_wrapper.dt-bootstrap4
-                .row
-                  .col-sm-12.col-md-6
-                    #datatable1_length.dataTables_length
-                      %label
-                        Show
-                        %select.custom-select.custom-select-sm.form-control.form-control-sm{"aria-controls" => "datatable1", :name => "datatable1_length"}
-                          %option{:value => "10"} 10
-                          %option{:value => "25"} 25
-                          %option{:value => "50"} 50
-                          %option{:value => "100"} 100
-                        entries
-                  .col-sm-12.col-md-6
-                    #datatable1_filter.dataTables_filter
-                      %label
-                        Search:
-                        %input.form-control.form-control-sm{"aria-controls" => "datatable1", :placeholder => "", :type => "search"}/
-                .row
-                  .col-sm-12.table-responsive
-                    %table#datatable.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
-                      %thead
-                        %tr{:role => "row"}
-                          %th.sorting_asc{"aria-controls" => "datatable1", "aria-label" => "Name: activate to sort column descending", "aria-sort" => "ascending", :colspan => "1", :rowspan => "1", :style => "width: 208px;", :tabindex => "0"} Subdivision
-                          %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Position: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 304px;", :tabindex => "0"} Block
-                          %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Lot
-                          %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Lot Area
-                          %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} House Area
-                          %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Description
-                          %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Selling Price
-                          %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Age: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 58px;", :tabindex => "0"} Status
-                          %th.sorting{"aria-controls" => "parcel_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
-                      %tbody
-                        - @parcels.each do |parcel|
-                          %tr.odd{:role => "row"}
-                            %td= parcel.subdivision&.short_code
-                            %td= "B#{parcel.block}"
-                            %td= "L#{parcel.lot}"
-                            %td
-                            %td
-                            %td
-                            %td
-                            %td
-                              .badge{class: "badge #{badge_class_for(parcel.status)}"}
-                                = parcel.status
-                            %td
-                              .d-flex
-                                = link_to parcel, class: 'btn btn-action btn-info' do
-                                  %i.material-icons> visibility
-                                = link_to edit_parcel_path(parcel), class: 'btn btn-action btn-warning' do
-                                  %i.material-icons> edit
-                                = button_to parcel_path(parcel), class: 'btn btn-action btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true } do
-                                  %i.material-icons delete
+              .row
+                .col-sm-12.table-responsive
+                  %table#datatable_parcels.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+                    %thead
+                      %tr{:role => "row"}
+                        %th.sorting_asc{"aria-controls" => "datatable1", "aria-label" => "Name: activate to sort column descending", "aria-sort" => "ascending", :colspan => "1", :rowspan => "1", :style => "width: 208px;", :tabindex => "0"} Subdivision
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Position: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 304px;", :tabindex => "0"} Block
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Lot
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Lot Area
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} House Area
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Description
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Selling Price
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Age: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 58px;", :tabindex => "0"} Status
+                        %th.sorting{"aria-controls" => "parcel_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
+                    %tbody
+                      - @parcels.each do |parcel|
+                        %tr.odd{:role => "row"}
+                          %td= parcel.subdivision&.short_code
+                          %td= "B#{parcel.block}"
+                          %td= "L#{parcel.lot}"
+                          %td
+                          %td
+                          %td
+                          %td
+                          %td
+                            .badge{class: "badge #{badge_class_for(parcel.status)}"}
+                              = parcel.status
+                          %td
+                            .d-flex
+                              = link_to parcel, class: 'btn btn-action btn-info' do
+                                %i.material-icons> visibility
+                              = link_to edit_parcel_path(parcel), class: 'btn btn-action btn-warning' do
+                                %i.material-icons> edit
+                              = button_to parcel_path(parcel), class: 'btn btn-action btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true } do
+                                %i.material-icons delete
 :javascript
   $(document).ready( function () {
-      $('#datatable_wrapper').DataTable();
+      $('#datatable_parcels').DataTable();
   } );
   
