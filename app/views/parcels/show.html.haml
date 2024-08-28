@@ -6,10 +6,11 @@
     .app-content
       .content-wrapper
         .container
+          .page-description.d-flex.align-items-center
+            .page-description-content.flex-grow-1
+              %h1 Inventory Information
           .row
             .card
-              .card-header
-                %h2 Inventory Information
               .card-body
                 = form_for @parcel do |f|
                   - if @parcel.errors.any?
@@ -18,21 +19,21 @@
                       %ul
                         - @parcel.errors.full_messages.each do |message|
                           %li= message
-                  .d-flex
+                  .row.m-t-sm
                     .col-md-6
-                      = f.label :subdivision
+                      = f.label :subdivision, :class => "form-label"
                       = f.text_field :subdivision, class: 'form-control', required:  true, disabled: true, value: @parcel.subdivision.name
                     .col-md-6
-                      = f.label :block
+                      = f.label :block, :class => "form-label"
                       = f.text_field :block, class: 'form-control', required:  true, disabled: true
-                  .d-flex  
+                  .row.m-t-sm
                     .col-md-6
-                      = f.label :lot
+                      = f.label :lot, :class => "form-label"
                       = f.text_field :lot, class: 'form-control', required:  true, disabled: true
                     .col-md-6
-                      = f.label :status
+                      = f.label :status, :class => "form-label"
                       = f.text_field :status, class: 'form-control', required:  true, disabled: true
-                  .col-md-12.mt-2
-                    = link_to 'Back', parcels_path, :class => "btn btn-secondary"
-                    = link_to 'Edit', edit_parcel_path(@parcel), :class => "btn btn-primary float-right"
+                  .m-t-sm
+                    = link_to 'Edit', edit_parcel_path(@parcel), :class => "btn btn-primary p-h-xxl"
+                    = link_to 'Back', parcels_path, :class => "btn btn-outline-link"
 
