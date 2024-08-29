@@ -16,7 +16,15 @@
 /*------------------------------------------------------------
 [1. Global Styles]
 ------------------------------------------------------------*/
-
+.font-weight-s{
+font-weight: bold;}
+td.sorting_1 {
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+.page-description-content {
+    align-items: baseline;
+}
 html, body {
     font-size: 14px;
     width: 100%;

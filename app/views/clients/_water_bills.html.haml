@@ -1,60 +1,46 @@
 .container
   .page-description.d-flex.align-items-center
     .page-description-content.flex-grow-1
-      Water Bills
     .page-description-actions
       = link_to new_water_bill_path, class: 'btn btn-primary' do
         %i.material-icons> add
         New Water bill
-  .card
-    .card-body
-      #datatable1_wrapper.dataTables_wrapper.dt-bootstrap4
-        .row
-          .col-sm-12.col-md-6
-            #datatable1_length.dataTables_length
-              %label
-                Show
-                %select.custom-select.custom-select-sm.form-control.form-control-sm{"aria-controls" => "datatable1", :name => "datatable1_length"}
-                  %option{:value => "10"} 10
-                  %option{:value => "25"} 25
-                  %option{:value => "50"} 50
-                  %option{:value => "100"} 100
-                entries
-          .col-sm-12.col-md-6
-            #datatable1_filter.dataTables_filter
-              %label
-                Search:
-                %input.form-control.form-control-sm{"aria-controls" => "datatable1", :placeholder => "", :type => "search"}/
-        .row
-          .col-sm-12.table-responsive
-            %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
-              %thead
-                %tr.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"}
-                  %th Name
-                  %th Block
-                  %th Lot
-                  %th Previous
-                  %th Current
-                  %th Consume
-                  %th Amount
-                  %th.sorting{"aria-controls" => "water_bill_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
-              %tbody
-                - @water_bills.each do |water_bill|
-                  %tr.odd{:role => "row"}
-                    %td   
-                    %td= water_bill.client.name
-                    %td= "#{water_bill.loan_parcels.map { |lp| lp.parcel.block }.uniq.join(',')}"
-                    %td= "#{water_bill.loan_parcels.map { |lp| lp.parcel.lot }.uniq.join(',')}"
-                    %td= water_bill.previous
-                    %td= water_bill.current
-                    %td= water_bill.consume
-                    %td= water_bill.amount
-                    %td
-                      = link_to 'Show', water_bill, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
-                      = link_to 'Edit', edit_water_bill_path(water_bill), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
-                      = button_to water_bill_path(water_bill), class: 'btn btn-action btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true } do
-                        %i.material-icons delete
+  .row
+    .table-responsive.col-sm-12
+      %table#datatable_waterbill.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+        %thead
+          %tr
+            %th Name
+            %th Block
+            %th Lot
+            %th Previous
+            %th Current
+            %th Consume
+            %th Amount
+            %th Status
+            %th.sorting{"aria-controls" => "water_bill_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
+        %tbody
+          - @water_bills.each do |water_bill|
+            %tr.odd{:role => "row"}
+              %td= water_bill.client.name
+              %td= "#{water_bill.loan_parcels.map { |lp| lp.parcel.block }.uniq.join(',')}"
+              %td= "#{water_bill.loan_parcels.map { |lp| lp.parcel.lot }.uniq.join(',')}"
+              %td= water_bill.previous
+              %td= water_bill.current
+              %td= water_bill.consume
+              %td= water_bill.amount
+              %td
+                %span{ class: "badge #{water_bill.status == 'Paid' ? 'bg-primary' : 'bg-danger'}" }
+                  = water_bill.status
+              %td
+                .d-flex
+                  /= link_to water_bill, title: 'Show it', class: 'btn btn-action btn-info' do
+                  /%i.material-icons> visibility
+                  /= link_to  edit_water_bill_path(water_bill), title: 'Edit it', class: 'btn btn-action btn-warning' do
+                  /%i.material-icons> edit
+                  /= button_to water_bill_path(water_bill), class: 'btn btn-action btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true } do
+                  /%i.material-icons delete
 :javascript
   $(document).ready( function () {
-      $('#datatable1_wrapper').DataTable();
+      $('#datatable_waterbill').DataTable();
   } );

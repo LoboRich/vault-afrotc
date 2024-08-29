@@ -7,8 +7,10 @@
       .content-wrapper
         .container
           .page-description.d-flex.align-items-center
-            .page-description-content.flex-grow-1
-              %h1 Client Account
+            .page-description-content.flex-grow-1.d-flex
+              %h1.p-h-xs Client Account
+              = @client.name
+
           .row
             .card
               .card-body

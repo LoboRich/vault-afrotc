@@ -5,6 +5,12 @@ module ApplicationHelper
 	def current_page_class(path)
 		request.path == path ? 'active-page' : ''
 	end
+	def format_currency(amount)
+    number_to_currency(amount, unit: "₱ ", precision: 2, format: "%u%n")
+  end
+	def format_currency_with_space(amount)
+    number_to_currency(amount, unit: "₱ ", precision: 2).strip
+  end
 	def badge_class_for(status)
 		case status
 		when 'Available'
@@ -14,7 +20,9 @@ module ApplicationHelper
 		when 'Sold'
 		  'bg-danger'
 		when 'Reserved'
-		  'bg-warning'
+		  'bg-info'
+		when 'Approved'
+		  'bg-success'
 		else
 		  'bg-info'  # Default class if status does not match any case
 		end

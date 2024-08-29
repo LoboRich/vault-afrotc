@@ -25,6 +25,7 @@
                         %th Current
                         %th Consume
                         %th Amount
+                        %th Status
                         %th Action
                     %tbody
                       - @water_bills.each do |water_bill|
@@ -36,6 +37,9 @@
                           %td= water_bill.current
                           %td= water_bill.consume
                           %td= number_to_currency(water_bill.amount, unit: "₱ ", separator: ".", delimiter: ",")
+                          %td
+                            %span{ class: "badge #{water_bill.status == 'Paid' ? 'bg-primary' : 'bg-danger'}" }
+                              = water_bill.status
                           %td
                             .d-flex
                               = link_to water_bill, title: 'Show it', class: 'btn btn-action btn-info' do
