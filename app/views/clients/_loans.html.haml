@@ -1,0 +1,69 @@
+
+.container
+  .page-description.d-flex.align-items-center
+    .page-description-content.flex-grow-1
+      %h1 Housing Loans
+    .page-description-actions
+      = link_to new_loan_path, class: 'btn btn-primary' do
+        %i.material-icons> add
+        New Loan
+  .card
+    .card-body
+      .row
+        .col-sm-12.table-responsive
+          %table#datatable_water.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+            %thead
+              %tr
+                %th Client
+                %th Blocklot
+                %th Terms
+                %th Model house
+                %th Loan financing
+                %th Contract price
+                %th Processing fees
+                %th Downpayment
+                %th Interest
+                // %th Principal
+                %th Monthly amort
+                %th Contract date
+                %th Amortization start date
+                %th Balance
+                %th Remarks
+                %th Status
+                %th Broker
+                %th.sorting{"aria-controls" => "loan_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
+            %tbody
+              - @loans.each do |loan|
+                %tr.odd{:role => "row"} 
+                  %td= loan.client.name
+                  %td
+                    - loan.display_parcels.each do |info|
+                      %p= info
+                  %td= loan.terms
+                  %td= loan.model_house
+                  %td= loan.loan_financing
+                  %td= number_to_currency(loan.contract_price, precision: 2, delimiter: ",", unit: "₱")
+                  %td= number_to_currency(loan.processing_fees, precision: 2, delimiter: ",", unit: "₱")
+                  %td= number_to_currency(loan.downpayment, precision: 2, delimiter: ",", unit: "₱")
+                  %td= "#{loan.interest.to_i}%"
+                  // %td= number_to_currency(loan.principal, unit: "£", separator: ",", delimiter: ".")
+                  %td= number_to_currency(loan.monthly_amort, precision: 2, delimiter: ",", unit: "₱")
+                  %td= loan.contract_date
+                  %td= loan.amortization_start_date
+                  %td= number_to_currency(loan.balance, unit: "₱", separator: ".", delimiter: ",")
+                  %td= loan.remarks
+                  %td
+                    .badge.badge-primary= loan.status
+                  %td= loan.broker
+                  %td.d-flex
+                    = link_to loan, class: 'btn btn-action btn-info' do
+                      %i.material-icons> visibility
+                    = link_to edit_loan_path(loan), class: 'btn btn-action btn-warning' do
+                      %i.material-icons> edit
+                    = button_to loan, class: 'btn btn-action btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?'} do
+                      %i.material-icons delete
+:javascript
+  $(document).ready( function () {
+      $('#datatable_water').DataTable();
+  } );
+  
