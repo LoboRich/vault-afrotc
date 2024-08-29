@@ -36,7 +36,7 @@
                           %td= parcel.lot_area
                           %td= parcel.house_area
                           %td= parcel.description
-                          %td= parcel.selling_price
+                          %td= number_to_currency(parcel.selling_price, precision: 2, delimiter: ",", unit: "₱ ")
                           %td
                             .badge{class: "badge #{badge_class_for(parcel.status)}"}
                               = parcel.status

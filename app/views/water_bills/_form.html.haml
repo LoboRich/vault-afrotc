@@ -5,40 +5,30 @@
       %ul
         - @water_bill.errors.full_messages.each do |message|
           %li= message
-  .card-body.pb-0
-    .row
-      .form-group.col-12.pt-2
-        .form-row
-          .col-md-12.row
-            .col-md-6.pt-3
-              .field
-                = f.label :reading_date
-                = f.date_field :reading_date, class: 'form-control', required:  true
-            .col-md-6.pt-3
-              .field
-                = f.label "Block&Lot"
-                = f.select :loan_id, options_for_select(@loans ? @loans : []), {required: true}, :class=>"form-control"
-          .col-md-12.row
-            .col-md-6.pt-3
-              .field
-                = f.label :previous
-                = f.number_field :previous, class: 'form-control', required:  true, step: '0.01', onchange: "javascript: comp_consumed_bill()"
-            .col-md-6.pt-3
-              .field
-                = f.label :current
-                = f.number_field :current, class: 'form-control', required:  true, step: '0.01', onchange: "javascript: comp_consumed_bill()"
-          .col-md-12.row
-            .col-md-6.pt-3
-              .field
-                = f.label :consume
-                = f.text_field :consume, class: 'form-control', required:  true, step: '0.01'
-          .col-md-12.pt-3
-            .field
-              = f.label :remarks
-              = f.text_area :remarks, class: 'form-control'
-        .card-footer
-    = link_to 'Back', water_bills_path, class: 'btn btn-secondary'
-    = f.submit 'Save Changes', class: 'btn btn-warning float-right'
+  .row.m-t-sm
+    .col-md-6
+      = f.label :reading_date, :class => "form-label"
+      = f.date_field :reading_date, class: 'form-control', required:  true
+    .col-md-6
+      = f.label "Block & Lot", :class => "form-label"
+      = f.select :loan_id, options_for_select(@loans ? @loans : []), {required: true}, :class=>"form-control"
+  .row.m-t-sm
+    .col-md-6
+      = f.label :previous, :class => "form-label"
+      = f.number_field :previous, class: 'form-control', required:  true, step: '0.01', onchange: "javascript: comp_consumed_bill()"
+    .col-md-6
+      = f.label :current, :class => "form-label"
+      = f.number_field :current, class: 'form-control', required:  true, step: '0.01', onchange: "javascript: comp_consumed_bill()"
+  .row.m-t-sm
+    .col-md-6
+      = f.label :consume, :class => "form-label"
+      = f.text_field :consume, class: 'form-control', required:  true, step: '0.01'
+    .col-md-6
+      = f.label :remarks, :class => "form-label"
+      = f.text_area :remarks, class: 'form-control'
+  .mt-4
+    = link_to 'Back', water_bills_path, class: 'btn btn-dark'
+    = f.submit 'Save Changes', class: 'btn btn-primary'
 
 :javascript
   function comp_consumed_bill(){

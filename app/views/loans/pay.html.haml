@@ -42,41 +42,40 @@
                   %h5#exampleModalLabel.modal-title.new_keyword_modal_title Add Payment
                 .modal-body
                   .cont@loanItemner-fluid
-                    .row
+                    .row.m-t-sm  
                       .col-md-6
-                        .field
-                          = f.label 'payment_date', :class=>"text-muted"
-                          = f.date_field :payment_date, class: 'form-control', id: "payment_date", required:  true
-                        .field
-                          = f.label :mode_of_payment, :class=>"text-muted"
-                          = f.select :mode_of_payment, options_for_select([["Cash"],["Bank Transfer"],["PDC"]]), {}, :class=>"form-control", required:  true
-                        .field
-                          = f.label :bank_name, :class=>"text-muted"
-                          = f.select :bank_name, options_for_select([[""], ["BDO"],["Metrobank"],["BPI"]]), {}, :class=>"form-control"
-                        .field
-                          = f.label :or_num, :class=>"text-muted"
-                          = f.number_field :or_num, :class=>"form-control", id: "or_num"
+                        = f.label 'payment_date', :class => "form-label"
+                        = f.date_field :payment_date, class: 'form-control', id: "payment_date", required:  true
                       .col-md-6
-                        .field
-                          = f.number_field :amort, id: "amort", :class=>"form-control", value: number_with_precision(@loanItem.monthly_amort, precision: 2), disabled:true, hidden:true
-                          = f.label 'amount', :class=>"text-muted"
-                          = f.number_field :payment, :class=>"form-control",id: "payment", step: '0.01', required:  true, onchange: "javascript: comp_advance_payment_and_penalty()"
-                        .field
-                          = f.label :penalty, :class=>"text-muted"
-                          = f.number_field :penalty, :class=>"form-control", id: "penalty", step: '0.01', onchange: "javascript: comp_advance_payment_and_penalty()"
-                        .field
-                          = f.label 'ITP', :class=>"text-muted"
-                          = f.number_field :advance_payment, :class=>"form-control", step: '0.01', id: "advance", readonly: true
-                        .field
-                          = f.label 'total', :class=>"text-muted"
-                          = f.number_field :total, :class=>"form-control", step: '0.01', id: "total", readonly: true
-                      .col-md-12
-                        .field
-                          = f.label "Remark", :class=>"text-muted"
-                          = f.text_area :others, :class=>"form-control", placeholder: "Add additional notes..."
-                .modal-footer
-                  .actions
-                    = f.submit 'Pay', :class=>"btn btn-sm btn-primary col-12 mt-3"
+                        = f.label :mode_of_payment, :class => "form-label"
+                        = f.select :mode_of_payment, options_for_select([["Cash"],["Bank Transfer"],["PDC"]]), {}, :class=>"form-control", required:  true
+                    .row.m-t-sm  
+                      .col-md-6
+                        = f.label :bank_name, :class => "form-label"
+                        = f.select :bank_name, options_for_select([[""], ["BDO"],["Metrobank"],["BPI"]]), {}, :class=>"form-control"
+                      .col-md-6
+                        = f.label :or_num, :class => "form-label"
+                        = f.number_field :or_num, :class=>"form-control", id: "or_num"
+                    .row.m-t-sm  
+                      .col-md-6
+                        = f.number_field :amort, id: "amort", :class=>"form-control", value: number_with_precision(@loanItem.monthly_amort, precision: 2), disabled:true, hidden:true
+                        = f.label 'amount', :class => "form-label"
+                        = f.number_field :payment, :class=>"form-control",id: "payment", step: '0.01', required:  true, onchange: "javascript: comp_advance_payment_and_penalty()"
+                      .col-md-6
+                        = f.label :penalty, :class => "form-label"
+                        = f.number_field :penalty, :class=>"form-control", id: "penalty", step: '0.01', onchange: "javascript: comp_advance_payment_and_penalty()"
+                    .row.m-t-sm  
+                      .col-md-6
+                        = f.label 'ITP', :class => "form-label"
+                        = f.number_field :advance_payment, :class=>"form-control", step: '0.01', id: "advance", readonly: true
+                      .col-md-6
+                        = f.label 'total', :class => "form-label"
+                        = f.number_field :total, :class=>"form-control", step: '0.01', id: "total", readonly: true
+                    .row.m-t-sm  
+                      = f.label "Remark", :class => "form-label"
+                      = f.text_area :others, :class=>"form-control", placeholder: "Add additional notes..."
+                    .row.m-t-sm.col-md-1.mt-4
+                      = f.submit 'Add Payment', :class=>"btn btn-sm btn-primary"
 
 :javascript
   function comp_advance_payment_and_penalty(){

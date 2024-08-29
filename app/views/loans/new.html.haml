@@ -1,3 +1,4 @@
+
 .app.align-content-stretch.d-flex.flex-wrap
   .app-sidebar
     = render "layouts/sidebar"
@@ -5,10 +6,11 @@
     .app-content
       .content-wrapper
         .container
+          .page-description.d-flex.align-items-center
+            .page-description-content.flex-grow-1
+              %h1 Housing Buyer's Computation
           .row
             .card
-              .card-header
-                %h2 Housing Buyer's Computation
               .card-body
                 = render 'form'
 - content_for(:page_title, 'Dashboard')

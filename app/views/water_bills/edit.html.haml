@@ -1,13 +1,15 @@
-%section.section
-  .section-header.d-mobile-none
-    %h1 Editing water_bill
-    .section-header-breadcrumb
-      .breadcrumb-item 
-        = link_to 'Dashboard', '/'
-      .breadcrumb-item
-        @water_bill
-  .col-12.col-md-12.col-lg-12
-    .card
-      .card-body.p-0
-        = render 'form'
+.app.align-content-stretch.d-flex.flex-wrap
+  .app-sidebar
+    = render "layouts/sidebar"
+  .app-container
+    .app-content
+      .content-wrapper
+        .container
+          .page-description.d-flex.align-items-center
+            .page-description-content.flex-grow-1
+              %h1 Update Water Bill
+          .row
+            .card
+              .card-body
+                = render 'form'
 - content_for(:page_title, 'Dashboard')
