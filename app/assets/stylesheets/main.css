@@ -25,6 +25,8 @@ td.sorting_1 {
 .page-description-content {
     align-items: baseline;
 }
+.nowrap{
+white-space: nowrap;}
 html, body {
     font-size: 14px;
     width: 100%;

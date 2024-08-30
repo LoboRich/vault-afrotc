@@ -45,8 +45,8 @@
             .badge.badge-primary= loan.status
           %td= loan.broker
           %td.d-flex
-            /= link_to loan, class: 'btn btn-action btn-info' do
-            /%i.material-icons> visibility
+            = link_to loan, class: 'btn btn-action btn-info' do
+              %i.material-icons> visibility
             /= link_to edit_loan_path(loan), class: 'btn btn-action btn-warning' do
             /%i.material-icons> edit
             /= button_to loan, class: 'btn btn-action btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?'} do

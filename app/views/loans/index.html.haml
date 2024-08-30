@@ -39,7 +39,7 @@
                       - @loans.each do |loan|
                         %tr.odd{:role => "row"} 
                           %td= loan.client.name
-                          %td
+                          %td.nowrap
                             - loan.display_parcels.each do |info|
                               %p= info
                           %td= loan.terms
