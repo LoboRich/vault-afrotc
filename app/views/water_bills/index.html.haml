@@ -38,16 +38,17 @@
                           %td= water_bill.consume
                           %td= number_to_currency(water_bill.amount, unit: "₱ ", separator: ".", delimiter: ",")
                           %td
-                            %span{ class: "badge #{water_bill.status == 'Paid' ? 'bg-primary' : 'bg-danger'}" }
+                            %span{ class: "badge #{water_bill.status == 'paid' ? 'bg-primary' : 'bg-danger'}" }
                               = water_bill.status
                           %td
                             .d-flex
                               = link_to water_bill, title: 'Show it', class: 'btn btn-action btn-info' do
                                 %i.material-icons> visibility
-                              = link_to edit_water_bill_path(water_bill), title: 'Edit it', class: 'btn btn-action btn-warning' do
-                                %i.material-icons> edit
-                              = button_to water_bill_path(water_bill), class: 'btn btn-action btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true } do
-                                %i.material-icons delete
+                              - unless water_bill.status == 'paid'
+                                = link_to pay_water_bill_path(water_bill), title: 'Edit it', class: 'btn btn-action btn-success' do
+                                  %i.material-icons>  payments
+                                = button_to water_bill_path(water_bill), class: 'btn btn-action btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true } do
+                                  %i.material-icons delete
 :javascript
   $(document).ready( function () {
       $('#datatable_waters').DataTable();

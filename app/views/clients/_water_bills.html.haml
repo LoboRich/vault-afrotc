@@ -30,7 +30,7 @@
               %td= water_bill.consume
               %td= water_bill.amount
               %td
-                %span{ class: "badge #{water_bill.status == 'Paid' ? 'bg-primary' : 'bg-danger'}" }
+                %span{ class: "badge #{water_bill.status == 'paid' ? 'bg-primary' : 'bg-danger'}" }
                   = water_bill.status
               %td
                 .d-flex

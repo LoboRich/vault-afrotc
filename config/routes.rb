@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :water_bills
+  resources :water_bills do
+    member do
+      get 'pay'
+      post 'process_pay'
+    end
+  end
   resources :payment_histories
   resources :loans do
     collection do

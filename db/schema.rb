@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_28_131958) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_31_065326) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -195,6 +195,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_28_131958) do
     t.string "reference_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "bank_name"
+    t.datetime "payment_date"
+    t.string "received_by"
     t.index ["client_id"], name: "index_water_bills_on_client_id"
     t.index ["loan_id"], name: "index_water_bills_on_loan_id"
   end

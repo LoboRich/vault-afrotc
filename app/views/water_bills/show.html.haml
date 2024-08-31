@@ -21,62 +21,59 @@
                           %li= message
                   .row.m-t-sm
                     .col-md-4
-                      = f.label :client, :class => "form-label"
-                      = f.text_field :client, class: 'form-control', required:  true, disabled: true
-                    .col-md-4
                       = f.label :loan, :class => "form-label"
                       = f.text_field :loan, class: 'form-control', required:  true, disabled: true
                     .col-md-4
+                      = f.label :amount, :class => "form-label"
+                      = f.text_field :amount, class: 'form-control', required:  true, disabled: true
+                    .col-md-4
+                      = f.label :status, :class => "form-label"
+                      = f.text_field :status, class: 'form-control', required:  true, disabled: true
+                  .row.m-t-sm
+                    .col-md-4
                       = f.label :previous, :class => "form-label"
                       = f.number_field :previous, class: 'form-control', required:  true, disabled: true
-                  .row.m-t-sm
                     .col-md-4
                       = f.label :current, :class => "form-label"
                       = f.number_field :current, class: 'form-control', required:  true, disabled: true
                     .col-md-4
                       = f.label :consume, :class => "form-label"
                       = f.text_field :consume, class: 'form-control', required:  true, disabled: true
-                    .col-md-4
-                      = f.label :amount, :class => "form-label"
-                      = f.text_field :amount, class: 'form-control', required:  true, disabled: true
                   .row.m-t-sm
                     .col-md-4
-                      = f.label :or_number, :class => "form-label"
-                      = f.text_field :or_number, class: 'form-control', required:  true, disabled: true
+                      = f.label :reading_date, :class => "form-label"
+                      = f.datetime_field :reading_date, class: 'form-control', required:  true, disabled: true
                     .col-md-4
                       = f.label :due_date, :class => "form-label"
                       = f.datetime_field :due_date, class: 'form-control', required:  true, disabled: true
                     .col-md-4
-                      = f.label :reading_date, :class => "form-label"
-                      = f.datetime_field :reading_date, class: 'form-control', required:  true, disabled: true
-                  .row.m-t-sm
-                    .col-md-4
                       = f.label :grace_period, :class => "form-label"
                       = f.datetime_field :grace_period, class: 'form-control', required:  true, disabled: true
-                    .col-md-4
-                      = f.label :status, :class => "form-label"
-                      = f.text_field :status, class: 'form-control', required:  true, disabled: true
-                    .col-md-4
-                      = f.label :remarks, :class => "form-label"
-                      = f.text_field :remarks, class: 'form-control', required:  true, disabled: true
                   .row.m-t-sm
                     .col-md-4
-                      = f.label :penalty, :class => "form-label"
-                      = f.text_field :penalty, class: 'form-control', required:  true, disabled: true
-                    .col-md-4
-                      = f.label :total, :class => "form-label"
-                      = f.text_field :total, class: 'form-control', required:  true, disabled: true
+                      %h4.bold Payment details
+                  .row.m-t-sm
                     .col-md-4
                       = f.label :mode_of_payment, :class => "form-label"
                       = f.text_field :mode_of_payment, class: 'form-control', required:  true, disabled: true
-                  .row.m-t-sm  
                     .col-md-4
-                      = f.label :receipt, :class => "form-label"
-                      = f.text_field :receipt, class: 'form-control', required:  true, disabled: true
+                      = f.label :bank_name, :class => "form-label"
+                      = f.text_field :bank_name, class: 'form-control', required:  true, disabled: true
                     .col-md-4
                       = f.label :reference_number, :class => "form-label"
                       = f.text_field :reference_number, class: 'form-control', required:  true, disabled: true
+                  .row.m-t-sm
+                    .col-md-4
+                      = f.label :payment_date, :class => "form-label"
+                      = f.datetime_field :payment_date, class: 'form-control', required:  true, disabled: true
+                    .col-md-4
+                      = f.label :received_by, :class => "form-label"
+                      = f.text_field :received_by, class: 'form-control', required:  true, disabled: true
+                  .row-m-t-sm
+                    .col-md-12
+                      = f.label :remarks, :class => "form-label"
+                      = f.text_area :remarks, class: 'form-control', required:  true, disabled: true
                   .mt-4
                     = link_to 'Back', water_bills_path, :class => "btn btn-dark"
-                    = link_to 'Edit', edit_water_bill_path(@water_bill), :class => "btn btn-primary float-right"
+                    //= link_to 'Edit', edit_water_bill_path(@water_bill), :class => "btn btn-primary float-right"
 
