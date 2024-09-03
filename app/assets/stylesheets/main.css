@@ -25,6 +25,16 @@ td.sorting_1 {
 .page-description-content {
     align-items: baseline;
 }
+.logo {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+main {
+    background: #fff;
+}
+*
 .nowrap{
 white-space: nowrap;}
 html, body {
@@ -959,6 +969,9 @@ h1, h2, h3, h4, h5, h6 {
 .app-sidebar .logo .sidebar-user-switcher a {
     display: block;
     overflow: hidden;
+    background: url(logo_hi.jpg) no-repeat;
+    height: 50px;
+    background-size: 55px;
 }
 
 .app-sidebar .logo .sidebar-user-switcher img {
@@ -4681,7 +4694,7 @@ body.modal-open {
 }
 
 .widget-stats .widget-stats-container .widget-stats-content .widget-stats-amount {
-    font-size: 28px;
+    font-size: 21px;
     font-weight: bold;
     letter-spacing: 2px;
     color: #27323f;
@@ -6450,7 +6463,7 @@ span.flatpickr-weekday {
   }
 .app-auth-container .logo a {
     display: flex;
-    background: url('neptune.png') no-repeat;
+    background: url('logo_hi.jpg') no-repeat;
     height: 50px;
     background-size: 50px;
     align-items: center;

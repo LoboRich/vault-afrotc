@@ -1,9 +1,10 @@
 
 .app.app-auth-sign-in.align-content-stretch.d-flex.flex-wrap.justify-content-center
   .app-auth-container
-    .logo
-      %a{:href => "index.html"} 
-   
+    .logo.container-fluid.justify-content-center
+      %a.flex-grow-0{:href => "index.html"} 
+      %p.auth-description
+        Please sign-in to your temporary account 
     .auth-credentials.m-b-xxl
       = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
         %label.form-label{:for => "signInEmail"} Email address
@@ -12,7 +13,7 @@
         %label.form-label{:for => "signInPassword"} Password
         = f.password_field :password, required: true, autocomplete: "current-password", class: "form-control", :placeholder => "●●●●●●●●", id: 'current-password'
       
-        = f.submit "Log in", class: "btn btn-primary mt-2"
+        = f.submit "Log in", class: "btn btn-primary mt-4"
       
        
     
