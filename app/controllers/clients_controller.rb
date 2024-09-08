@@ -1,6 +1,6 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: %i[ show edit update destroy ]
-
+  before_action :authorize_client, only: %i[show edit update destroy]
   # GET /clients or /clients.json
   def index
     @clients = Client.all
@@ -65,6 +65,10 @@ class ClientsController < ApplicationController
       @client = Client.find(params[:id])
     end
 
+    def authorize_client
+      authorize @client
+    end
+  
     # Only allow a list of trusted parameters through.
     def client_params
       params.require(:client).permit(:name, :mobile_number, :telephone_number, :email_address, :facebook_account_name, :address, :gender, :civil_status, :tin_number, :id_type, :id_number, :occupation, :years_employed, :employer_name, :employer_business_address, :spouse_name, :spouse_email, :spouse_contact_number, :spouse_address, :spouse_id_type, :spouse_id_number, :spouse_tin_number, :basic_salary, :annual_income, :status, :remarks, :documents)
