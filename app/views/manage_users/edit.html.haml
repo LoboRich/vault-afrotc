@@ -25,7 +25,7 @@
                   - unless @user.role == 'admin'
                     .col-md-6
                       = f.label :role, :class => "form-label"
-                      = f.select :role, options_for_select([['admin', 'admin'], ['staff', 'staff'], ['cashier', 'cashier']]),{},:class => 'form-control'
+                      = f.select :role, options_for_select([['CEO', 'ceo'], ['Sales', 'sales'], ['Cashier', 'cashier'], ['Credit & Collection', 'credit-and-collection']]),{},:class => 'form-control'
                   .col-md-6
                     = f.label :status, "Status", :class => "form-label"
                   .col-md-6

@@ -21,7 +21,7 @@
                   .d-flex
                     .col-md-6
                       = f.label :role, :class => "form-label"
-                      = f.select :role, options_for_select([['admin', 'admin'], ['staff', 'staff'], ['cashier', 'cashier']]), {} , { class: "form-select" }
+                      = f.select :role, options_for_select([['CEO', 'ceo'], ['Sales', 'sales'], ['Cashier', 'cashier'], ['Credit & Collection', 'credit-and-collection']]), {} , { class: "form-select" }
                     .col-md-6
                       = f.label :email, :class => "form-label"
                       = f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control"
