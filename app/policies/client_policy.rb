@@ -16,27 +16,27 @@ class ClientPolicy < ApplicationPolicy
   end
 
   def index?
-    user.admin? || user.ceo?
+    # user.admin? || user.ceo?
   end
 
   def show?
-    user.admin? || user.ceo?
+    # user.admin? || user.ceo?
   end
 
   def new?
-    user.admin? || user.ceo?
+    user.admin? || user.ceo? || user.sales?
   end
 
   def create?
-    user.admin? || user.ceo?
+    user.admin? || user.ceo? || user.sales?
   end
 
   def edit?
-    user.admin? || user.ceo?
+    # user.admin? || user.ceo?
   end
 
   def update?
-    user.admin? || user.ceo?
+    # user.admin? || user.ceo?
   end
 
   def destroy?
