@@ -26,6 +26,7 @@
           %a{:href => "/water_bills"}
             %i.material-icons-two-tone> water_drop
             Water
+      - if admin_or_ceo?
         %li{class: current_page_class('/manage_users')}
           %a{href: "/manage_users", class: "text-gray-300 hover:text-white transition"}
             %i.material-icons-two-tone> person

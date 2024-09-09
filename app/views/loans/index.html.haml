@@ -63,6 +63,7 @@
                                 %i.material-icons> visibility
                               = link_to edit_loan_path(loan), class: 'btn btn-action btn-warning' do
                                 %i.material-icons> edit
+                            - if admin_or_ceo?
                               = button_to loan, class: 'btn btn-action btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?'} do
                                 %i.material-icons delete
 :javascript

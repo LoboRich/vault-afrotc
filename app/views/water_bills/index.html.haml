@@ -47,6 +47,7 @@
                               - unless water_bill.status == 'paid'
                                 = link_to pay_water_bill_path(water_bill), title: 'Edit it', class: 'btn btn-action btn-success' do
                                   %i.material-icons>  payments
+                              - if admin_or_ceo?
                                 = button_to water_bill_path(water_bill), class: 'btn btn-action btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true } do
                                   %i.material-icons delete
 :javascript

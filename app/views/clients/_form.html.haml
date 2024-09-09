@@ -85,7 +85,7 @@
       = f.text_field :spouse_tin_number, class: 'form-control', required:  true
   .row.m-t-sm
     .col-md-6
-      = f.label :basic_salary
+      = f.label :basic_salary, :class => "form-label"
       = f.text_field :basic_salary, class: 'form-control', required:  true
     .col-md-6
       = f.label :annual_income, :class => "form-label"
@@ -100,8 +100,30 @@
       = f.text_area :remarks, class: 'form-control', required:  true
   .row.m-t-sm
     .col-md-12
-      = f.label :documents, :class => "form-label"
-      = f.text_field :documents, class: 'form-control'
+      
+  .row.m-t-sm
+    .col-md-6
+      %label.form-label{:for => "formFile"} Birth Certificate
+      = f.text_field :documents, class: 'form-control', type: 'file', id: "formFile"
+    .col-md-6
+      %label.form-label{:for => "formFile"} Marriage Contract
+      %input#formFile.form-control{:type => "file"}/
+  .row.m-t-sm
+    .col-md-6
+      %label.form-label{:for => "formFile"} Valid ID's
+      = f.text_field :documents, class: 'form-control', type: 'file', id: "formFile"
+    .col-md-6
+      %label.form-label{:for => "formFile"} SPA (if out of the country)
+      %input#formFile.form-control{:type => "file"}/
+  .row.m-t-sm
+    .col-md-6
+      %label.form-label{:for => "formFile"} Proof of Income
+      = f.text_field :documents, class: 'form-control', type: 'file', id: "formFile"
+    .col-md-6
+      %label.form-label{:for => "formFile"} PDC's / 60 months
+      %input#formFile.form-control{:type => "file"}/
+
+
   .m-t-xxl
     
     = f.submit 'Save Changes', class: 'btn btn-primary float-right p-h-xxl'

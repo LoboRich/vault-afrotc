@@ -17,10 +17,14 @@
 [1. Global Styles]
 ------------------------------------------------------------*/
 .font-weight-s{
-font-weight: bold;}
+    font-weight: bold;
+}
 td.sorting_1 {
     white-space: nowrap;
     text-transform: uppercase;
+}
+input#formFile {
+    padding: 5px 10px;
 }
 .page-description-content {
     align-items: baseline;

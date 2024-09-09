@@ -21,10 +21,18 @@ module ApplicationHelper
 		  'bg-danger'
 		when 'Reserved'
 		  'bg-info'
+		when 'Active'
+		  'bg-primary'
+		when 'Inactive'
+		  'bg-danger'
 		when 'Approved'
 		  'bg-success'
 		else
 		  'bg-info'  # Default class if status does not match any case
 		end
 	  end
+	def admin_or_ceo?
+    current_user && (current_user.role == 'Admin' || current_user.role == 'CEO')
+  end
+	
 end
