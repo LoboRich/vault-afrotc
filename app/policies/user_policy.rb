@@ -19,6 +19,10 @@ class UserPolicy < ApplicationPolicy
     user.admin? || user.ceo?
   end
 
+  def show?
+    user.admin? || user.ceo?
+  end
+
   def new?
     user.admin? || user.ceo?
   end
