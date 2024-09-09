@@ -1,8 +1,10 @@
 class ManageUsersController < ApplicationController
     before_action :authenticate_user!
+    before_action :set_user, only: %i[ show edit update destroy ]
+    before_action :authorize_user, only: %i[show edit update destroy]
 
     def index
-        @users = User.all
+        @users = policy_scope(User)
     end
 
     def show
@@ -40,5 +42,14 @@ class ManageUsersController < ApplicationController
         @user = User.find(params[:id])
         @user.destroy
         redirect_to manage_users_path
+    end
+
+    private
+
+    def set_user
+        @user = User.find(params[:id])
+      end
+    def authorize_user
+        authorize @user
     end
 end

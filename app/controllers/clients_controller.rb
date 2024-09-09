@@ -1,9 +1,9 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: %i[ show edit update destroy ]
-  before_action :authorize_client, only: %i[show edit update destroy]
+  before_action :authorize_client, only: %i[ create destroy]
   # GET /clients or /clients.json
   def index
-    @clients = Client.all
+    @clients = policy_scope(Client)
   end
 
   # GET /clients/1 or /clients/1.json

@@ -31,7 +31,7 @@
                           %td.d-flex 
                             = link_to edit_manage_user_path(user.id), class: 'btn btn-action btn-primary' do
                               %i.material-icons> edit
-                            - unless user.role === 'admin'
+                            - unless user.role === 'admin' || user.role === 'ceo'
                               = button_to manage_user_path(user), class: 'btn btn-action btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?' } do
                                 %i.material-icons delete
 :javascript
