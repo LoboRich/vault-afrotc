@@ -52,9 +52,9 @@
                                 %i.material-icons> visibility
                               = link_to edit_client_path(client), class: 'btn btn-action btn-warning' do
                                 %i.material-icons> edit
-                            - if admin_or_ceo?
-                              = button_to client, class: 'btn btn-action btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?'} do
-                                %i.material-icons delete
+                              - if current_user.role == 'admin' || current_user.role == 'ceo'
+                                = button_to client, class: 'btn btn-action btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?'} do
+                                  %i.material-icons delete
 :javascript
   $(document).ready( function () {
       $('#datatable_clients').DataTable();

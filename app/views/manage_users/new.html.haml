@@ -21,7 +21,7 @@
                   .d-flex
                     .col-md-6
                       = f.label :role, :class => "form-label"
-                      = f.select :role, options_for_select([['CEO', 'ceo'], ['Sales', 'sales'], ['Cashier', 'cashier'], ['Credit & Collection', 'credit-and-collection']]), {} , { class: "form-select" }
+                      = f.select :role, options_for_select([['CEO', 'ceo'], ['Sales', 'sales'], ['Cashier', 'cashier'], ['Credit & Collection', 'credit-and-collection'], ['Water Reader', 'water-reader']], @user.status), {} , { class: "form-select" }
                     .col-md-6
                       = f.label :email, :class => "form-label"
                       = f.email_field :email, autofocus: true, autocomplete: "email", :class => "form-control"
@@ -31,7 +31,7 @@
                       - if @minimum_password_length
                         %em
                           (#{@minimum_password_length} characters minimum)
-                      = f.password_field :password, autocomplete: "new-password", :class => "form-control"
+                      = f.text_field :password, autocomplete: "new-password", :class => "form-control"
                     .col-md-6
                       = f.label :status, "Status", :class => "form-label"
                       .col-md-6

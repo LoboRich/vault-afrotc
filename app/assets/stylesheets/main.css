@@ -29,6 +29,12 @@ input#formFile {
 .page-description-content {
     align-items: baseline;
 }
+italic {
+ font-style: italic;
+}
+.name {
+ text-transform: uppercase;
+}
 .logo {
     margin: 0 auto;
     display: flex;

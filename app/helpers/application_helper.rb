@@ -11,6 +11,7 @@ module ApplicationHelper
 	def format_currency_with_space(amount)
     number_to_currency(amount, unit: "₱ ", precision: 2).strip
   end
+	
 	def badge_class_for(status)
 		case status
 		when 'Available'
