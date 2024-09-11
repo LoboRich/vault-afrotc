@@ -1050,8 +1050,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .app-menu>ul>li ul {
-    margin: 10px 35px 10px 30px;
-    padding: 20px 0;
+    margin: 0px 35px 10px 35px;
+    padding: 0;
     border-radius: 10px;
     background: #f5f7fa;
 }

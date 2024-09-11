@@ -28,10 +28,17 @@
               %i.material-icons-two-tone> home
               Housing
               %span.badge.rounded-pill.badge-success.float-end 
-          %li{class: current_page_class('/water_bills')}
-            %a{:href => "/water_bills"}
+          %li
+            %a.has-sub-menu{:href => "/water_bills"}
               %i.material-icons-two-tone> water_drop
               Water
+              %i.material-icons.has-sub-menu keyboard_arrow_right
+              %ul.sub-menu
+                %li
+                  %a{:href => "/water_bills/paid"} Paid
+                %li
+                  %a{:href => "invoice.html"} Unpaid
+
           - if current_user.role == 'admin' || current_user.role == 'ceo'
             %li{class: current_page_class('/manage_users')}
               %a{href: "/manage_users", class: "text-gray-300 hover:text-white transition"}

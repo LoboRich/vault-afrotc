@@ -4,10 +4,15 @@ class WaterBillsController < ApplicationController
   # GET /water_bills or /water_bills.json
   def index
     @water_bills = WaterBill.all
+
+    @water_bills = WaterBill.all
+    @paid_waters = WaterBill.paid
+    @unpaid_waters = WaterBill.unpaid
   end
 
   # GET /water_bills/1 or /water_bills/1.json
   def show
+    @paid_waters = WaterBill.paid
   end
 
   # GET /water_bills/new
@@ -67,6 +72,11 @@ class WaterBillsController < ApplicationController
   end
 
   def pay
+
+  end
+
+  def paid
+    @paid_waters = WaterBill.paid
   end
 
   def process_pay

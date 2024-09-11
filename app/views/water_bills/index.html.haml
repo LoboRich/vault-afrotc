@@ -51,7 +51,11 @@
                                 - if current_user.role == 'admin' || current_user.role == 'ceo'
                                   = button_to water_bill_path(water_bill), class: 'btn btn-action btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true } do
                                     %i.material-icons delete
+        = render "paid"
+        = render "unpaid"
+
 :javascript
   $(document).ready( function () {
       $('#datatable_waters').DataTable();
+      $('#datatable_paidwaters').DataTable();
   } );

@@ -66,9 +66,7 @@ class ClientsController < ApplicationController
       @client = Client.find(params[:id])
     end
 
-    def authorize_client
-      authorize @client
-    end
+  
 
     def authorize_new
       authorize Client.new, :new?
