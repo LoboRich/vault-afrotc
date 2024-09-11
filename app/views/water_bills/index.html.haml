@@ -19,6 +19,7 @@
                     %thead
                       %tr{:role => "row"}
                         %th Name
+                        %th Project
                         %th Block
                         %th Lot
                         %th Previous
@@ -31,6 +32,7 @@
                       - @water_bills.each do |water_bill|
                         %tr.odd{:role => "row"}
                           %td= water_bill.client.name
+                          %td= "#{water_bill.loan_parcels.map { |lp| lp.parcel.subdivision&.short_code }.uniq.join(',')}"
                           %td= "#{water_bill.loan_parcels.map { |lp| lp.parcel.block }.uniq.join(',')}"
                           %td= "#{water_bill.loan_parcels.map { |lp| lp.parcel.lot }.uniq.join(',')}"
                           %td= water_bill.previous

@@ -3,7 +3,7 @@
     .app-menu
       %ul.accordion-menu
         %li.sidebar-title
-          Country Homes
+          Home Invest
         %li.active-page
           %a.active{:href => "index.html"}
             %i.material-icons-two-tone> dashboard

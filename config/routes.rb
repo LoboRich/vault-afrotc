@@ -4,6 +4,9 @@ Rails.application.routes.draw do
       get 'pay'
       post 'process_pay'
     end
+    collection do
+      get 'download_excel'
+    end
   end
   resources :payment_histories
   resources :loans do

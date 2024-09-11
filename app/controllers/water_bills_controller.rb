@@ -1,6 +1,7 @@
 class WaterBillsController < ApplicationController
   before_action :set_water_bill, only: %i[ show edit update destroy pay process_pay]
   include WaterBillsHelper
+  require 'rubyXL'
   # GET /water_bills or /water_bills.json
   def index
     @water_bills = WaterBill.all
@@ -59,6 +60,48 @@ class WaterBillsController < ApplicationController
         format.json { render json: @water_bill.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def download_excel
+    @water_bills = WaterBill.all || []
+    @unpaid_water_bills = WaterBill.where(status: 'unpaid') || []
+
+    workbook = RubyXL::Workbook.new
+    worksheet = workbook.worksheets[0]
+    worksheet.sheet_name = 'All Records'
+
+    # Header for All Waters Table
+    current_month = Date.today.strftime("%B %Y") # e.g., "September 2024"
+    worksheet.add_cell(0, 0, "Unpaid Water Bills - #{current_month}")
+    worksheet.add_cell(1, 0, 'Name')
+    worksheet.add_cell(1, 1, 'Project')
+    worksheet.add_cell(1, 2, 'Block')
+    worksheet.add_cell(1, 3, 'Lot')
+    worksheet.add_cell(1, 4, 'Amount Due')
+    worksheet.add_cell(1, 5, 'Remarks')
+
+    # Data for All Waters Table
+    @unpaid_water_bills.each_with_index do |water, index|
+      worksheet.add_cell(index + 2, 0, water.client.name)
+      worksheet.add_cell(index + 2, 3, water.loan_parcels)
+      worksheet.add_cell(index + 2, 4, water.amount)
+      worksheet.add_cell(index + 2, 5, water.remarks)
+    end
+
+    # Adding a new worksheet for Paid Waters
+    worksheet = workbook.add_worksheet('Paid Records')
+    worksheet.add_cell(0, 0, 'ID')
+    worksheet.add_cell(0, 1, 'Status')
+    worksheet.add_cell(0, 2, 'Details')
+
+    # Data for Paid Waters Table
+    @unpaid_water_bills.each_with_index do |water, index|
+      worksheet.add_cell(index + 1, 0, water.id)
+      worksheet.add_cell(index + 1, 1, water.status)
+    end
+
+    # Send the file to the user
+    send_data workbook.stream.read, filename: 'all_unpaid_data.xlsx', type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
   end
 
   # DELETE /water_bills/1 or /water_bills/1.json

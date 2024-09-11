@@ -10,20 +10,22 @@
             %thead
               %tr{:role => "row"}
                 %th Name
+                %th Project
                 %th Block
                 %th Lot
                 %th Status
-                %th Details
+                %th.last-column Details
             %tbody
               - @paid_waters.each do |water_bill|
                 %tr
                   %td= water_bill.client.name
+                  %td= "#{water_bill.loan_parcels.map { |lp| lp.parcel.subdivision&.short_code }.uniq.join(',')}"
                   %td= "#{water_bill.loan_parcels.map { |lp| lp.parcel.block }.uniq.join(',')}"
                   %td= "#{water_bill.loan_parcels.map { |lp| lp.parcel.lot }.uniq.join(',')}"
                   %td
                     %span{ class: "badge #{water_bill.status == 'paid' ? 'bg-primary' : 'bg-danger'}" }
                       = water_bill.status
-                  %td
+                  %td.print-hide
                     .d-flex
                       = link_to water_bill, class: 'btn btn-action btn-info' do
                         %i.material-icons> visibility
