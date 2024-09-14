@@ -270,6 +270,9 @@ GEM
     rmagick (6.0.1)
       observer (~> 0.1)
       pkg-config (~> 1.4)
+    rubyXL (3.4.27)
+      nokogiri (>= 1.10.8)
+      rubyzip (>= 1.3.0)
     ruby_parser (3.21.1)
       racc (~> 1.5)
       sexp_processor (~> 4.16)
@@ -350,6 +353,7 @@ DEPENDENCIES
   pundit
   rails (~> 7.1.3)
   rmagick
+  rubyXL
   select2-rails
   selenium-webdriver
   simple_form
