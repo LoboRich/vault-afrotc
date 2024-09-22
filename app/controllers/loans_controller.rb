@@ -16,8 +16,12 @@ class LoansController < ApplicationController
   end
 
   def check_parcel_price
-    parcels = Parcel.find(params[:id])
-    render json: parcels.pluck(:selling_price).sum
+    if params[:id].present?
+      parcels = Parcel.find(params[:id])
+      render json: parcels.pluck(:selling_price).sum
+    else
+      render json: 0
+    end
   end
 
 
