@@ -14,6 +14,6 @@ class HistoryController < ApplicationController
 
   def authorize_history
     authorize @histories, :index?
-  end
+  end 
 
 end
