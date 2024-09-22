@@ -13,12 +13,14 @@ Rails.application.routes.draw do
   resources :loans do
     collection do
       get 'compute_monthly_amort'
+      get 'check_parcel_price'
     end
     member do
       get 'pay'
       post 'process_pay'
     end
   end
+
   resources :subdivisions
   resources :parcels
   resources :clients

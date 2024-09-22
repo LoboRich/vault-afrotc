@@ -15,6 +15,12 @@ class LoansController < ApplicationController
     @parcels = Parcel.where(status: 'Available').order(:block).collect{ |u| ["#{u.subdivision.short_code} Block #{u.block} - Lot #{u.lot}", u.id]}
   end
 
+  def check_parcel_price
+    parcels = Parcel.find(params[:id])
+    render json: parcels.pluck(:selling_price).sum
+  end
+
+
   # GET /loans/1/edit
   def edit
     @parcels = Parcel.where(status: 'Available').order(:block).collect{ |u| ["#{u.subdivision.short_code} Block #{u.block} - Lot #{u.lot}", u.id]}

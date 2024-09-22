@@ -59,7 +59,7 @@ class WaterBillsController < ApplicationController
         updated_fields_with_values = water_bill_params.keys.each_with_object({}) do |key, result|
           new_value = @water_bill.send(key)
           if new_value != original_attributes[key.to_s]
-            result[key] = = {original_attributes[key.to_s] => new_value}
+            result[key] = {original_attributes[key.to_s] => new_value}
           end
         end
 
