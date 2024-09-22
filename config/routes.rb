@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'histories', to: 'history#index', as: :histories
   resources :water_bills do
     member do
       get 'pay'
@@ -21,12 +22,21 @@ Rails.application.routes.draw do
   resources :subdivisions
   resources :parcels
   resources :clients
-  devise_for :users, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'new_user' }
-  
-  devise_scope :user do 
-    get "sign_out" => "users/sessions#destroy"
-    get "sign_in" => "users/sessions#new" 
-  end
+  devise_for :users, 
+    path: 'auth', 
+    path_names: {
+      sign_in: 'login',
+      sign_out: 'logout',
+      password: 'secret',
+      confirmation: 'verification',
+      unlock: 'unblock',
+      registration: 'register',
+      sign_up: 'new_user'
+    },
+    controllers: {
+      sessions: 'users/sessions'
+    }
+
   get 'home/index'
   resources :manage_users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

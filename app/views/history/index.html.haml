@@ -1,0 +1,32 @@
+.app.align-content-stretch.d-flex.flex-wrap
+  = render "layouts/sidebar"
+  .app-container
+    .app-content
+      .content-wrapper
+        .container
+          .page-description.d-flex.align-items-center
+            .page-description-content.flex-grow-1
+              %h1 Logs
+          .card
+            .card-body
+              .row
+                .col-sm-12
+                  %table#datatable_histories.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+                    %thead
+                      %tr{:role => "row"}
+                        %th.sorting_asc{"aria-controls" => "datatable1", "aria-label" => "Role: activate to sort column descending", "aria-sort" => "ascending", :colspan => "1", :rowspan => "1", :style => "width: 208px;", :tabindex => "0"} Role
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Name: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 304px;", :tabindex => "0"} Name
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 304px;", :tabindex => "0"} Action
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 304px;", :tabindex => "0"} Date
+                    %tbody
+                      - @histories.each do |log|
+                        %tr.odd{:role => "row"}
+                          %td= log.user.role
+                          %td= "#{log.user.name} #{log.user.surname}"
+                          %td= log.description
+                          %td= log.created_at.strftime("%b %d %Y, %H:%m")
+:javascript
+  $(document).ready( function () {
+      $('#datatable_histories').DataTable();
+  } );
+  
