@@ -82,11 +82,11 @@ class LoansController < ApplicationController
         updated_fields_with_values = loan_params.keys.each_with_object({}) do |key, result|
           new_value = @loan.send(key)
           if new_value != original_attributes[key.to_s]
-            result[key] = new_value
+            result[key] = {original_attributes[key.to_s] => new_value}
           end
         end
 
-        History.create(user_id: current_user.id, description: "#{updated_fields_with_values.inspect}", model: "Loan", model_id: @loan.id)
+        History.create(user_id: current_user.id, description: "Updated Loan: #{updated_fields_with_values.inspect}", model: "Loan", model_id: @loan.id)
         format.html { redirect_to loan_url(@loan), notice: "Loan was successfully updated." }
         format.json { render :show, status: :ok, location: @loan }
       else

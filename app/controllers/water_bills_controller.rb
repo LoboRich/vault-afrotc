@@ -59,11 +59,11 @@ class WaterBillsController < ApplicationController
         updated_fields_with_values = water_bill_params.keys.each_with_object({}) do |key, result|
           new_value = @water_bill.send(key)
           if new_value != original_attributes[key.to_s]
-            result[key] = new_value
+            result[key] = = {original_attributes[key.to_s] => new_value}
           end
         end
 
-        History.create(user_id: current_user.id, description: "#{updated_fields_with_values.inspect}", model: "WaterBill", model_id: @water_bill.id)
+        History.create(user_id: current_user.id, description: "Updated Water Bill: #{updated_fields_with_values.inspect}", model: "WaterBill", model_id: @water_bill.id)
 
         format.html { redirect_to water_bill_url(@water_bill), notice: "Water bill was successfully updated." }
         format.json { render :show, status: :ok, location: @water_bill }

@@ -1,6 +1,7 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: %i[ show edit update destroy ]
   before_action :authorize_client, only: %i[ create destroy]
+  before_action :authorize_client, only: [:create, :destroy]
   before_action :authorize_new, only: %i[new create]
   # GET /clients or /clients.json
   def index
@@ -47,11 +48,11 @@ class ClientsController < ApplicationController
         updated_fields_with_values = client_params.keys.each_with_object({}) do |key, result|
           new_value = @client.send(key)
           if new_value != original_attributes[key.to_s]
-            result[key] = new_value
+            result[key] = {original_attributes[key.to_s] => new_value}
           end
         end
 
-        History.create(user_id: current_user.id, description: "#{updated_fields_with_values.inspect}", model: "Client", model_id: @client.id)
+        History.create(user_id: current_user.id, description: "Updated Client: #{updated_fields_with_values.inspect}", model: "Client", model_id: @client.id)
 
         format.html { redirect_to client_url(@client), notice: "Client was successfully updated." }
         format.json { render :show, status: :ok, location: @client }
@@ -81,8 +82,9 @@ class ClientsController < ApplicationController
       @client = Client.find(params[:id])
     end
 
-  
-
+    def authorize_client
+      authorize @client if @client
+    end
     def authorize_new
       authorize Client.new, :new?
     end
