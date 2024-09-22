@@ -108,7 +108,7 @@ class LoansController < ApplicationController
     @loan.loan_parcels.destroy_all
     @loan.destroy
 
-    History.create(user_id: current_user.id, description: "#{loan_details.inspect}")
+    History.create(user_id: current_user.id, description: "Deleted Loan: #{loan_details.inspect}")
     respond_to do |format|
       format.html { redirect_to loans_url, notice: "Loan was successfully destroyed." }
       format.json { head :no_content }

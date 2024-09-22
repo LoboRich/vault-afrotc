@@ -53,17 +53,17 @@ class WaterBillsController < ApplicationController
   # PATCH/PUT /water_bills/1 or /water_bills/1.json
   def update
     respond_to do |format|
-      original_attributes = @waater_bill.attributes.slice(*water_bill_params.keys)
+      original_attributes = @water_bill.attributes.slice(*water_bill_params.keys)
       if @water_bill.update(water_bill_params)
 
         updated_fields_with_values = water_bill_params.keys.each_with_object({}) do |key, result|
-          new_value = @waater_bill.send(key)
+          new_value = @water_bill.send(key)
           if new_value != original_attributes[key.to_s]
             result[key] = new_value
           end
         end
 
-        History.create(user_id: current_user.id, description: "#{updated_fields_with_values.inspect}", model: "WaterBill", model_id: @waater_bill.id)
+        History.create(user_id: current_user.id, description: "#{updated_fields_with_values.inspect}", model: "WaterBill", model_id: @water_bill.id)
 
         format.html { redirect_to water_bill_url(@water_bill), notice: "Water bill was successfully updated." }
         format.json { render :show, status: :ok, location: @water_bill }
@@ -118,10 +118,10 @@ class WaterBillsController < ApplicationController
 
   # DELETE /water_bills/1 or /water_bills/1.json
   def destroy
-    waater_bill_details = @waater_bill.attributes.slice(*@waater_bill.class.column_names)
+    water_bill_details = @water_bill.attributes.slice(*@water_bill.class.column_names)
     @water_bill.destroy!
 
-    History.create(user_id: current_user.id, description: "#{waater_bill_details.inspect}")
+    History.create(user_id: current_user.id, description: "Deleted Water Bill: #{water_bill_details.inspect}")
 
     respond_to do |format|
       format.html { redirect_to water_bills_url, notice: "Water bill was successfully destroyed." }
@@ -139,7 +139,7 @@ class WaterBillsController < ApplicationController
 
   def process_pay
     @water_bill.update!(status: 'paid', bank_name: params[:customer_payments][:bank_name], mode_of_payment: params[:customer_payments][:mode_of_payment], receipt: params[:customer_payments][:receipt],  payment_date: params[:customer_payments][:payment_date], remarks: params[:customer_payments][:remarks], received_by: "#{current_user.name} #{current_user.surname}")
-    
+
     History.create(user_id: current_user.id, description: "Payments made to water bill: #{@water_bill.id}" , model: "WaterBill", model_id: @water_bill.id)
     redirect_to water_bills_path
   end
