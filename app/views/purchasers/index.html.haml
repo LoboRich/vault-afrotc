@@ -7,60 +7,47 @@
         .container
           .page-description.d-flex.align-items-center
             .page-description-content.flex-grow-1
-              purchasers
+              %h1 Inventory
             .page-description-actions
               = link_to new_purchaser_path, class: 'btn btn-primary' do
                 %i.material-icons> add
-                New Purchaser
+                Purchaser
           .card
             .card-body
-              #datatable1_wrapper.dataTables_wrapper.dt-bootstrap4
-                .row
-                  .col-sm-12.col-md-6
-                    #datatable1_length.dataTables_length
-                      %label
-                        Show
-                        %select.custom-select.custom-select-sm.form-control.form-control-sm{"aria-controls" => "datatable1", :name => "datatable1_length"}
-                          %option{:value => "10"} 10
-                          %option{:value => "25"} 25
-                          %option{:value => "50"} 50
-                          %option{:value => "100"} 100
-                        entries
-                  .col-sm-12.col-md-6
-                    #datatable1_filter.dataTables_filter
-                      %label
-                        Search:
-                        %input.form-control.form-control-sm{"aria-controls" => "datatable1", :placeholder => "", :type => "search"}/
-                .row
-                  .col-sm-12.table-responsive
-                    %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
-                      %thead
-                        %tr.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"}
-                                                      %th Name
-                                                      %th Budget
-                                                      %th Expense
-                                                      %th Date started
-                                                      %th Deadline
-                                                      %th Status
-                                                      %th Remarks
-                                                      %th Parcel
-                                                    %th.sorting{"aria-controls" => "purchaser_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
+              .row
+                .col-sm-12.table-responsive
+                  %table#datatable_parcels.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+                    %thead
+                      %tr{:role => "row"}
+                        %th.sorting_asc{"aria-controls" => "datatable1", "aria-label" => "Name: activate to sort column descending", "aria-sort" => "ascending", :colspan => "1", :rowspan => "1", :style => "width: 208px;", :tabindex => "0"} Name
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Position: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 304px;", :tabindex => "0"} Budget
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Expense
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Date started
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Deadline
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Age: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 58px;", :tabindex => "0"} Status
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Age: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 58px;", :tabindex => "0"} Remarks
+                        %th.sorting{"aria-controls" => "parcel_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
                       %tbody
                         - @purchasers.each do |purchaser|
-                            %tr.odd{:role => "row"}     
-                                                              %td= purchaser.name
-                                                              %td= purchaser.budget
-                                                              %td= purchaser.expense
-                                                              %td= purchaser.date_started
-                                                              %td= purchaser.deadline
-                                                              %td= purchaser.status
-                                                              %td= purchaser.remarks
-                                                              %td= purchaser.parcel
-                                                            %td
-                                = link_to 'Show', purchaser, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
-                                = link_to 'Edit', edit_purchaser_path(purchaser), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
-                                = link_to 'Delete', purchaser, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true }
+                          %tr.odd{:role => "row"}     
+                            %td= purchaser.name
+                            %td= purchaser.budget
+                            %td= purchaser.expense
+                            %td= purchaser.date_started
+                            %td= purchaser.deadline
+                            %td= purchaser.status
+                            %td= purchaser.remarks
+                            %td
+                              .d-flex
+                                = link_to purchaser, class: 'btn btn-action btn-info' do
+                                  %i.material-icons> visibility
+                                - if current_user.role == 'admin' || current_user.role == 'ceo'
+                                  = link_to edit_purchaser_path(purchaser), class: 'btn btn-action btn-warning' do
+                                    %i.material-icons> edit
+                                
+                                  = button_to purchaser_path(purchaser), class: 'btn btn-action btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true } do
+                                    %i.material-icons delete
 :javascript
   $(document).ready( function () {
-      $('#datatable1_wrapper').DataTable();
+      $('#datatable_purchasers').DataTable();
   } );

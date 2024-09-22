@@ -36,11 +36,7 @@
           .col-md-6.pt-3
             .field
               = f.label :remarks
-              = f.text_area :remarks, class: 'form-control', required:  true
-          .col-md-6.pt-3
-            .field
-              = f.label :parcel
-              = f.text_field :parcel, class: 'form-control', required:  true
+              = f.text_area :remarks, class: 'form-control'
         .card-footer
     = link_to 'Back', purchasers_path, class: 'btn btn-secondary'
     = f.submit 'Save Changes', class: 'btn btn-warning float-right'

@@ -23,7 +23,12 @@ Rails.application.routes.draw do
   end
 
   resources :subdivisions
-  resources :parcels
+  resources :parcels do
+    member do
+      get 'new_purchaser'
+    end
+  end
+
   resources :clients
   devise_for :users, 
     path: 'auth', 

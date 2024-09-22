@@ -45,10 +45,6 @@
               .field
                 = f.label :remarks
                 = f.text_area :remarks, class: 'form-control', required:  true, disabled: true
-            .col-md-6
-              .field
-                = f.label :parcel
-                = f.text_field :parcel, class: 'form-control', required:  true, disabled: true
           .card-footer.pt-3
         
         = link_to 'Back', purchasers_path, :class => "btn btn-secondary"

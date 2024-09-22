@@ -25,8 +25,7 @@ class PurchasersController < ApplicationController
 
     respond_to do |format|
       if @purchaser.save
-        format.html { redirect_to purchaser_url(@purchaser), notice: "Purchaser was successfully created." }
-        format.json { render :show, status: :created, location: @purchaser }
+        format.html { redirect_to parcel_url(@purchaser.parcel), notice: "Purchaser was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @purchaser.errors, status: :unprocessable_entity }
@@ -38,8 +37,7 @@ class PurchasersController < ApplicationController
   def update
     respond_to do |format|
       if @purchaser.update(purchaser_params)
-        format.html { redirect_to purchaser_url(@purchaser), notice: "Purchaser was successfully updated." }
-        format.json { render :show, status: :ok, location: @purchaser }
+        format.html { redirect_to parcel_url(@purchaser.parcel), notice: "Purchaser was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @purchaser.errors, status: :unprocessable_entity }
@@ -49,10 +47,11 @@ class PurchasersController < ApplicationController
 
   # DELETE /purchasers/1 or /purchasers/1.json
   def destroy
+    @parcel_id = @purchaser.parcel.id
     @purchaser.destroy!
 
     respond_to do |format|
-      format.html { redirect_to purchasers_url, notice: "Purchaser was successfully destroyed." }
+      format.html { redirect_to parcel_url(@parcel_id), notice: "Purchaser was successfully destroyed." }
       format.json { head :no_content }
     end
   end
