@@ -1,0 +1,66 @@
+
+.app.align-content-stretch.d-flex.flex-wrap
+  = render "layouts/sidebar"
+  .app-container
+    .app-content
+      .content-wrapper
+        .container
+          .page-description.d-flex.align-items-center
+            .page-description-content.flex-grow-1
+              purchasers
+            .page-description-actions
+              = link_to new_purchaser_path, class: 'btn btn-primary' do
+                %i.material-icons> add
+                New Purchaser
+          .card
+            .card-body
+              #datatable1_wrapper.dataTables_wrapper.dt-bootstrap4
+                .row
+                  .col-sm-12.col-md-6
+                    #datatable1_length.dataTables_length
+                      %label
+                        Show
+                        %select.custom-select.custom-select-sm.form-control.form-control-sm{"aria-controls" => "datatable1", :name => "datatable1_length"}
+                          %option{:value => "10"} 10
+                          %option{:value => "25"} 25
+                          %option{:value => "50"} 50
+                          %option{:value => "100"} 100
+                        entries
+                  .col-sm-12.col-md-6
+                    #datatable1_filter.dataTables_filter
+                      %label
+                        Search:
+                        %input.form-control.form-control-sm{"aria-controls" => "datatable1", :placeholder => "", :type => "search"}/
+                .row
+                  .col-sm-12.table-responsive
+                    %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+                      %thead
+                        %tr.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"}
+                                                      %th Name
+                                                      %th Budget
+                                                      %th Expense
+                                                      %th Date started
+                                                      %th Deadline
+                                                      %th Status
+                                                      %th Remarks
+                                                      %th Parcel
+                                                    %th.sorting{"aria-controls" => "purchaser_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
+                      %tbody
+                        - @purchasers.each do |purchaser|
+                            %tr.odd{:role => "row"}     
+                                                              %td= purchaser.name
+                                                              %td= purchaser.budget
+                                                              %td= purchaser.expense
+                                                              %td= purchaser.date_started
+                                                              %td= purchaser.deadline
+                                                              %td= purchaser.status
+                                                              %td= purchaser.remarks
+                                                              %td= purchaser.parcel
+                                                            %td
+                                = link_to 'Show', purchaser, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
+                                = link_to 'Edit', edit_purchaser_path(purchaser), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
+                                = link_to 'Delete', purchaser, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true }
+:javascript
+  $(document).ready( function () {
+      $('#datatable1_wrapper').DataTable();
+  } );

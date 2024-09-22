@@ -1,0 +1,56 @@
+%section.section
+  .section-header.d-mobile-none
+    %h1 New created purchaser
+    .section-header-breadcrumb
+      .breadcrumb-item 
+        = link_to 'Dashboard', '/'
+      .breadcrumb-item
+        @purchaser
+  .col-12.col-md-12.col-lg-12
+    .card
+      .card-body
+        = form_for @purchaser do |f|
+          - if @purchaser.errors.any?
+            #error_explanation
+              %h2= "#{pluralize(@purchaser.errors.count, "error")} prohibited this purchaser from being saved:"
+              %ul
+                - @purchaser.errors.full_messages.each do |message|
+                  %li= message
+          .form-row.pt-3
+            .col-md-6
+              .field
+                = f.label :name
+                = f.text_field :name, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :budget
+                = f.text_field :budget, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :expense
+                = f.text_field :expense, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :date_started
+                = f.datetime_field :date_started, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :deadline
+                = f.datetime_field :deadline, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :status
+                = f.text_field :status, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :remarks
+                = f.text_area :remarks, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :parcel
+                = f.text_field :parcel, class: 'form-control', required:  true, disabled: true
+          .card-footer.pt-3
+        
+        = link_to 'Back', purchasers_path, :class => "btn btn-secondary"
+        = link_to 'Edit', edit_purchaser_path(@purchaser), :class => "btn btn-warning float-right"
+

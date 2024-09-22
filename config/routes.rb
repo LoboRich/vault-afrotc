@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :purchasers
   get 'histories', to: 'history#index', as: :histories
   resources :water_bills do
     member do

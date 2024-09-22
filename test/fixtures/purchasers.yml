@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  budget: 1.5
+  expense: 1.5
+  date_started: 2024-09-23 00:12:18
+  deadline: 2024-09-23 00:12:18
+  status: MyString
+  remarks: MyText
+  parcel: one
+
+two:
+  name: MyString
+  budget: 1.5
+  expense: 1.5
+  date_started: 2024-09-23 00:12:18
+  deadline: 2024-09-23 00:12:18
+  status: MyString
+  remarks: MyText
+  parcel: two
