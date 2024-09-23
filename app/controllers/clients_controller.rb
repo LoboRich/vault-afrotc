@@ -1,6 +1,7 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: %i[ show edit update destroy ]
   before_action :authorize_client, only: %i[ create destroy]
+  before_action :authorize_client, only: [:create, :destroy]
   before_action :authorize_new, only: %i[new create]
   # GET /clients or /clients.json
   def index
@@ -28,6 +29,7 @@ class ClientsController < ApplicationController
 
     respond_to do |format|
       if @client.save
+        History.create(user_id: current_user.id, description: "Creates a new client", model: "Client", model_id: @client.id)
         format.html { redirect_to client_url(@client), notice: "Client was successfully created." }
         format.json { render :show, status: :created, location: @client }
       else
@@ -40,7 +42,18 @@ class ClientsController < ApplicationController
   # PATCH/PUT /clients/1 or /clients/1.json
   def update
     respond_to do |format|
+      original_attributes = @client.attributes.slice(*client_params.keys)
       if @client.update(client_params)
+
+        updated_fields_with_values = client_params.keys.each_with_object({}) do |key, result|
+          new_value = @client.send(key)
+          if new_value != original_attributes[key.to_s]
+            result[key] = {original_attributes[key.to_s] => new_value}
+          end
+        end
+
+        History.create(user_id: current_user.id, description: "Updated Client: #{updated_fields_with_values.inspect}", model: "Client", model_id: @client.id)
+
         format.html { redirect_to client_url(@client), notice: "Client was successfully updated." }
         format.json { render :show, status: :ok, location: @client }
       else
@@ -52,7 +65,10 @@ class ClientsController < ApplicationController
 
   # DELETE /clients/1 or /clients/1.json
   def destroy
+    client_details = @client.attributes.slice(*@client.class.column_names)
     @client.destroy!
+
+    History.create(user_id: current_user.id, description: "Deleted Client: #{client_details.inspect}")
 
     respond_to do |format|
       format.html { redirect_to clients_url, notice: "Client was successfully destroyed." }
@@ -66,8 +82,9 @@ class ClientsController < ApplicationController
       @client = Client.find(params[:id])
     end
 
-  
-
+    def authorize_client
+      authorize @client if @client
+    end
     def authorize_new
       authorize Client.new, :new?
     end

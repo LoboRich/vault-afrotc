@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :purchasers
+  get 'histories', to: 'history#index', as: :histories
   resources :water_bills do
     member do
       get 'pay'
@@ -12,21 +14,37 @@ Rails.application.routes.draw do
   resources :loans do
     collection do
       get 'compute_monthly_amort'
+      get 'check_parcel_price'
     end
     member do
       get 'pay'
       post 'process_pay'
     end
   end
+
   resources :subdivisions
-  resources :parcels
-  resources :clients
-  devise_for :users, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'new_user' }
-  
-  devise_scope :user do 
-    get "sign_out" => "users/sessions#destroy"
-    get "sign_in" => "users/sessions#new" 
+  resources :parcels do
+    member do
+      get 'new_purchaser'
+    end
   end
+
+  resources :clients
+  devise_for :users, 
+    path: 'auth', 
+    path_names: {
+      sign_in: 'login',
+      sign_out: 'logout',
+      password: 'secret',
+      confirmation: 'verification',
+      unlock: 'unblock',
+      registration: 'register',
+      sign_up: 'new_user'
+    },
+    controllers: {
+      sessions: 'users/sessions'
+    }
+
   get 'home/index'
   resources :manage_users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

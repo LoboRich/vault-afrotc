@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_09_044506) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_22_161218) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -45,6 +45,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_09_044506) do
     t.json "documents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "histories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.text "description"
+    t.string "model"
+    t.string "model_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_histories_on_user_id"
   end
 
   create_table "loan_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -151,6 +161,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_09_044506) do
     t.index ["loan_item_id"], name: "index_payment_histories_on_loan_item_id"
   end
 
+  create_table "purchasers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.float "budget"
+    t.float "expense"
+    t.datetime "date_started"
+    t.datetime "deadline"
+    t.string "status"
+    t.text "remarks"
+    t.uuid "parcel_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parcel_id"], name: "index_purchasers_on_parcel_id"
+  end
+
   create_table "subdivisions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "short_code"
@@ -203,6 +227,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_09_044506) do
     t.index ["loan_id"], name: "index_water_bills_on_loan_id"
   end
 
+  add_foreign_key "histories", "users"
   add_foreign_key "loan_items", "loans"
   add_foreign_key "loan_parcels", "loans"
   add_foreign_key "loan_parcels", "parcels"
@@ -210,6 +235,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_09_044506) do
   add_foreign_key "parcels", "subdivisions"
   add_foreign_key "payment_histories", "loan_items"
   add_foreign_key "payment_histories", "loans"
+  add_foreign_key "purchasers", "parcels"
   add_foreign_key "water_bills", "clients"
   add_foreign_key "water_bills", "loans"
 end

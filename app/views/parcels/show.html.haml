@@ -52,4 +52,56 @@
                   - if admin_or_ceo?
                     = link_to 'Edit', edit_parcel_path(@parcel), :class => "btn btn-primary p-h-xxl"
                     
+        .container
+          .page-description.d-flex.align-items-center
+            .page-description-content.flex-grow-1
+              %h1 Purchasers
+            .page-description-actions
+              = link_to new_purchaser_parcel_path(@parcel), class: 'btn btn-primary' do
+                %i.material-icons> add
+                Purchaser
+          .row
 
+            - budget_total = 0
+            - expenses = 0
+
+            .table-responsive.col-sm-12
+              %table#datatable_waterbill.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+                %thead
+                  %tr{:role => "row"}
+                    %th.sorting_asc{"aria-controls" => "datatable1", "aria-label" => "Name: activate to sort column descending", "aria-sort" => "ascending", :colspan => "1", :rowspan => "1", :style => "width: 208px;", :tabindex => "0"} Name
+                    %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Position: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 304px;", :tabindex => "0"} Budget
+                    %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Expense
+                    %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Date started
+                    %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Deadline
+                    %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Age: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 58px;", :tabindex => "0"} Status
+                    %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Age: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 58px;", :tabindex => "0"} Remarks
+                    %th.sorting{"aria-controls" => "parcel_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
+                %tbody
+                  - @purchasers.each do |purchaser|
+                    - budget_total += purchaser.budget.to_f
+                    - expenses += purchaser.expense.to_f
+                    %tr.odd{:role => "row"}
+                      %td= 'Milestone ' + purchaser.name
+                      %td= purchaser.budget
+                      %td= purchaser.expense
+                      %td= purchaser.date_started
+                      %td= purchaser.deadline
+                      %td= purchaser.status
+                      %td= purchaser.remarks
+                      %td
+                        .d-flex
+                          = link_to purchaser, class: 'btn btn-action btn-info' do
+                            %i.material-icons> visibility
+                          - if current_user.role == 'admin' || current_user.role == 'ceo'
+                            = link_to edit_purchaser_path(purchaser), class: 'btn btn-action btn-warning' do
+                              %i.material-icons> edit
+                          
+                            = button_to purchaser_path(purchaser), class: 'btn btn-action btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true } do
+                              %i.material-icons delete
+                  %h4= "Total Budget: #{budget_total}"
+                  %h4= "Total Expenses: #{expenses}"
+:javascript
+  $(document).ready( function () {
+      $('#datatable_waterbill').DataTable();
+  } );

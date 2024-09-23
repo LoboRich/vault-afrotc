@@ -15,6 +15,16 @@ class LoansController < ApplicationController
     @parcels = Parcel.where(status: 'Available').order(:block).collect{ |u| ["#{u.subdivision.short_code} Block #{u.block} - Lot #{u.lot}", u.id]}
   end
 
+  def check_parcel_price
+    if params[:id].present?
+      parcels = Parcel.find(params[:id])
+      render json: parcels.pluck(:selling_price).sum
+    else
+      render json: 0
+    end
+  end
+
+
   # GET /loans/1/edit
   def edit
     @parcels = Parcel.where(status: 'Available').order(:block).collect{ |u| ["#{u.subdivision.short_code} Block #{u.block} - Lot #{u.lot}", u.id]}
@@ -63,6 +73,7 @@ class LoansController < ApplicationController
         end
         LoanItem.where(loan_id: @loan.id).last.destroy!
 
+        History.create(user_id: current_user.id, description: "Creates a new loan", model: "Loan", model_id: @loan.id)
         format.html { redirect_to loan_url(@loan), notice: "Loan was successfully created." }
         format.json { render :show, status: :created, location: @loan }
       else
@@ -75,7 +86,17 @@ class LoansController < ApplicationController
   # PATCH/PUT /loans/1 or /loans/1.json
   def update
     respond_to do |format|
+      original_attributes = @loan.attributes.slice(*loan_params.keys)
       if @loan.update(loan_params)
+
+        updated_fields_with_values = loan_params.keys.each_with_object({}) do |key, result|
+          new_value = @loan.send(key)
+          if new_value != original_attributes[key.to_s]
+            result[key] = {original_attributes[key.to_s] => new_value}
+          end
+        end
+
+        History.create(user_id: current_user.id, description: "Updated Loan: #{updated_fields_with_values.inspect}", model: "Loan", model_id: @loan.id)
         format.html { redirect_to loan_url(@loan), notice: "Loan was successfully updated." }
         format.json { render :show, status: :ok, location: @loan }
       else
@@ -87,6 +108,7 @@ class LoansController < ApplicationController
 
   # DELETE /loans/1 or /loans/1.json
   def destroy
+    loan_details = @loan.attributes.slice(*@loan.class.column_names)
     @loan.loan_parcels.destroy_all
     @loan.loan_parcels.each do |p|
       Parcel.find(p.parcel_id).update(status: 'Available')
@@ -96,6 +118,7 @@ class LoansController < ApplicationController
     @loan.loan_parcels.destroy_all
     @loan.destroy
 
+    History.create(user_id: current_user.id, description: "Deleted Loan: #{loan_details.inspect}")
     respond_to do |format|
       format.html { redirect_to loans_url, notice: "Loan was successfully destroyed." }
       format.json { head :no_content }
@@ -174,7 +197,7 @@ class LoansController < ApplicationController
     # else
     #   running_balance = customer.contract_price-sum
     # end
-    
+    History.create(user_id: current_user.id, description: "Payments made to loan: #{@loan.id}" , model: "Loan", model_id: @loan.id)
     payment_history = PaymentHistory.create(
       loan_id: customer.id,
       loan_item_id: @paid_amort.id,

@@ -1,5 +1,5 @@
 class ParcelsController < ApplicationController
-  before_action :set_parcel, only: %i[ show edit update destroy ]
+  before_action :set_parcel, only: %i[ show edit update destroy new_purchaser ]
 
   # GET /parcels or /parcels.json
   def index
@@ -8,6 +8,7 @@ class ParcelsController < ApplicationController
 
   # GET /parcels/1 or /parcels/1.json
   def show
+    @purchasers = Purchaser.where(parcel_id: @parcel.id)
   end
 
   # GET /parcels/new
@@ -55,6 +56,11 @@ class ParcelsController < ApplicationController
       format.html { redirect_to parcels_url, notice: "Parcel was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+  
+
+  def new_purchaser
+    @purchaser = Purchaser.new
   end
 
   private
