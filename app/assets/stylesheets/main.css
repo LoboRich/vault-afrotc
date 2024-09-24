@@ -17,8 +17,8 @@
 [1. Global Styles]
 ------------------------------------------------------------*/
 @media (max-width: 576px) {
-    .app-header, .app.menu-off-canvas .app-header, .header-transaprent .app-header {
-        width: 100%;
+    .app-header .app.menu-off-canvas .app-header .header-transaprent .app-header {
+        width: 100% !important;
     }
 }
 @media (max-width: 1199px) {
