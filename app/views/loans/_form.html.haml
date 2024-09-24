@@ -25,12 +25,11 @@
       = f.number_field :terms, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
     .col-md-4
       = f.label :contract_price, :class => "form-label"
-    = f.number_field :contract_price, class: 'form-control', required:  true, onchange: "javascript: contract_price_total()", readonly: true
+      = f.number_field :contract_price, class: 'form-control', required:  true, onchange: "javascript: contract_price_total()", readonly: true
   .row.m-t-sm
     .col-md-4
       = f.label :downpayment, :class => "form-label"
       = f.number_field :downpayment, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
-    
     .col-md-4
       = f.label 'interest in %', :class => "form-label"
       = f.number_field :interest, class: 'form-control', required:  true, value: 0
@@ -48,7 +47,6 @@
       = f.label :broker, :class => "form-label"
       = f.text_field :broker, class: 'form-control'  
   .row.m-t-sm
-    
     .col-md-4
       = f.label :contract_date, :class => "form-label"
       = f.date_field :contract_date, class: 'form-control', required:  true
