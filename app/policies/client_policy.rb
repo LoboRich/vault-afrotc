@@ -29,7 +29,7 @@ class ClientPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin? || user.ceo? || user.sales? || user.credit-and-collection?
+    user.admin? || user.ceo? || user.sales? 
   end
 
   def edit?
