@@ -25,11 +25,11 @@ class ClientPolicy < ApplicationPolicy
   end
 
   def new?
-    user.admin? || user.ceo? || user.sales?
+    user.admin? || user.ceo? || user.sales? || user.credit_and_collection?
   end
 
   def create?
-    user.admin? || user.ceo? || user.sales?
+    user.admin? || user.ceo? || user.sales? || user.credit_and_collection?
   end
 
   def edit?
