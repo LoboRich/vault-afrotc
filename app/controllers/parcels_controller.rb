@@ -71,6 +71,6 @@ class ParcelsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def parcel_params
-      params.require(:parcel).permit(:block, :lot, :status, :subdivision_id, :lot_area, :house_area, :description, :selling_price)
+      params.require(:parcel).permit(:block, :lot, :status, :subdivision_id, :lot_area, :house_area, :description, :selling_price, :model)
     end
 end
