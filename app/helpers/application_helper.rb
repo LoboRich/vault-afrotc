@@ -26,6 +26,8 @@ module ApplicationHelper
 		  'bg-primary'
 		when 'Cash Buyer'
 		  'bg-primary'
+		when 'Site Office'
+		  'bg-danger'
 		when 'Inactive'
 		  'bg-danger'
 		when 'Approved'
