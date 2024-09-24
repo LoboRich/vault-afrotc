@@ -37,11 +37,11 @@
                           %td= "L#{parcel.lot}"
                           %td= parcel.lot_area
                           %td= parcel.house_area
-                          %td= parcel.model
+                          %td.nowrap= parcel.model
                           %td
                             %p.italic ongoing
                           %td= parcel.description
-                          %td= number_to_currency(parcel.selling_price, precision: 2, delimiter: ",", unit: "₱ ")
+                          %td.nowrap= number_to_currency(parcel.selling_price, precision: 2, delimiter: ",", unit: "₱ ")
                           %td
                             .badge{class: "badge #{badge_class_for(parcel.status)}"}
                               = parcel.status
