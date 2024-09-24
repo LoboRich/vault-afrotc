@@ -6875,8 +6875,7 @@ span.flatpickr-weekday {
     .app-header,
     .app.menu-off-canvas .app-header,
     .header-transaprent .app-header {
-        left: 120px;
-        width: calc(100% - 130px);
+        width: 100% !important;
     }
 
     .full-width-header .app-header {
