@@ -50,7 +50,10 @@
     .app-header
       %nav.navbar.navbar-light.navbar-expand-lg.bg-primary
         .container-fluid
-          #navbarNav.navbar-nav
+          %ul.navbar-nav
+            %li.nav-item
+              %a.nav-link.hide-sidebar-toggle-button{:href => "#"}
+                %i.material-icons first_page
           .d-flex
             %ul.navbar-nav
               %li.nav-item.hidden-on-mobile.text-white.d-flex.align-items-center
