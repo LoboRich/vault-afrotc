@@ -4,7 +4,7 @@
     .logo.container-fluid.justify-content-center
       %a.flex-grow-0{:href => "index.html"} 
       %p.auth-description
-        Please sign-in to your temporary account 
+        Please sign-in to your account 
     .auth-credentials.m-b-xxl
       = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
         %label.form-label{:for => "signInEmail"} Email address
