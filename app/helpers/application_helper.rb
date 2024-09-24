@@ -24,7 +24,7 @@ module ApplicationHelper
 		  'bg-info'
 		when 'Active'
 		  'bg-primary'
-		when 'Cash Buyer'
+		when 'Cash Only'
 		  'bg-primary'
 		when 'Site Office'
 		  'bg-danger'

@@ -29,7 +29,7 @@
   .row.m-t-sm
     .col-md-6
       = f.label :status, :class => "form-label"
-      = f.select :status, options_for_select([['Sold', 'Sold'], ['Available', 'Available'], ['Reserved', 'Reserved'], ['Site Office', 'Site Office'], ['Cash Buyer', 'Cash Buyer']], @parcel.status), { include_blank: 'Select Status' }, class: 'form-control', required: true
+      = f.select :status, options_for_select([['Sold', 'Sold'], ['Available', 'Available'], ['Reserved', 'Reserved'], ['Site Office', 'Site Office'], ['Cash Only', 'Cash Only']], @parcel.status), { include_blank: 'Select Status' }, class: 'form-control', required: true
       /= f.text_field :status, class: 'form-control', required:  true
     .col-md-6
       = f.label :subdivision_id, :class => "form-label"
