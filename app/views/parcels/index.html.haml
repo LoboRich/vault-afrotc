@@ -22,7 +22,8 @@
                         %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Position: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 304px;", :tabindex => "0"} Block
                         %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Lot
                         %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Lot Area
-                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} House Area
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Floor Area
+                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Model
                         %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Sample Comp
                         %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Description
                         %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Selling Price
@@ -36,10 +37,11 @@
                           %td= "L#{parcel.lot}"
                           %td= parcel.lot_area
                           %td= parcel.house_area
+                          %td.nowrap= parcel.model
                           %td
                             %p.italic ongoing
                           %td= parcel.description
-                          %td= number_to_currency(parcel.selling_price, precision: 2, delimiter: ",", unit: "₱ ")
+                          %td.nowrap= number_to_currency(parcel.selling_price, precision: 2, delimiter: ",", unit: "₱ ")
                           %td
                             .badge{class: "badge #{badge_class_for(parcel.status)}"}
                               = parcel.status

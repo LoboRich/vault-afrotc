@@ -26,19 +26,12 @@
           %li{class: current_page_class('/loans')}
             %a{href: "/loans", class: "text-gray-300 hover:text-white transition"}
               %i.material-icons-two-tone> home
-              Housing
-              %span.badge.rounded-pill.badge-success.float-end 
+              Inhouse Loan
+              %span.badge.rounded-pill.badge-success.float-end
           %li
             %a.has-sub-menu{:href => "/water_bills"}
               %i.material-icons-two-tone> water_drop
               Water
-              %i.material-icons.has-sub-menu keyboard_arrow_right
-              %ul.sub-menu
-                %li
-                  %a{:href => "/water_bills/paid"} Paid
-                %li
-                  %a{:href => "invoice.html"} Unpaid
-
           - if current_user.role == 'admin' || current_user.role == 'ceo'
             %li{class: current_page_class('/manage_users')}
               %a{href: "/manage_users", class: "text-gray-300 hover:text-white transition"}
@@ -57,7 +50,10 @@
     .app-header
       %nav.navbar.navbar-light.navbar-expand-lg.bg-primary
         .container-fluid
-          #navbarNav.navbar-nav
+          %ul.navbar-nav
+            %li.nav-item
+              %a.nav-link.hide-sidebar-toggle-button{:href => "#"}
+                %i.material-icons first_page
           .d-flex
             %ul.navbar-nav
               %li.nav-item.hidden-on-mobile.text-white.d-flex.align-items-center

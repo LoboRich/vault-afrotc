@@ -16,6 +16,22 @@
 /*------------------------------------------------------------
 [1. Global Styles]
 ------------------------------------------------------------*/
+@media (max-width: 576px) {
+    .app-header .app.menu-off-canvas .app-header .header-transaprent .app-header {
+        width: 100% !important;
+    }
+}
+@media (max-width: 1199px) {
+  .app-container {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+}
+@media (max-width: 576px) {
+  .app-container {
+    padding: 10px !important;
+  }
+}
 .font-weight-s{
     font-weight: bold;
 }
@@ -6864,8 +6880,7 @@ span.flatpickr-weekday {
     .app-header,
     .app.menu-off-canvas .app-header,
     .header-transaprent .app-header {
-        left: 120px;
-        width: calc(100% - 130px);
+        width: 100% !important;
     }
 
     .full-width-header .app-header {

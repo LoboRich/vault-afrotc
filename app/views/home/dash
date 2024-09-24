@@ -28,7 +28,7 @@
         %li
           %a{:href => "calendar.html"}
             %i.material-icons-two-tone> calendar_today
-            Housing
+            Inhouse
             %span.badge.rounded-pill.badge-success.float-end 
         %li
           %a{:href => "todo.html"}
