@@ -43,8 +43,8 @@ class ClientsController < ApplicationController
   def update
     respond_to do |format|
       original_attributes = @client.attributes.slice(*client_params.keys)
-      if @client.update(client_params)
 
+      if @client.update(client_params)
         updated_fields_with_values = client_params.keys.each_with_object({}) do |key, result|
           new_value = @client.send(key)
           if new_value != original_attributes[key.to_s]
@@ -91,6 +91,6 @@ class ClientsController < ApplicationController
   
     # Only allow a list of trusted parameters through.
     def client_params
-      params.require(:client).permit(:name, :mobile_number, :telephone_number, :email_address, :facebook_account_name, :address, :gender, :civil_status, :tin_number, :id_type, :id_number, :occupation, :years_employed, :employer_name, :employer_business_address, :spouse_name, :spouse_email, :spouse_contact_number, :spouse_address, :spouse_id_type, :spouse_id_number, :spouse_tin_number, :basic_salary, :annual_income, :status, :remarks, :documents)
+      params.require(:client).permit(:name, :mobile_number, :telephone_number, :email_address, :facebook_account_name, :address, :gender, :civil_status, :tin_number, :id_type, :id_number, :occupation, :years_employed, :employer_name, :employer_business_address, :spouse_name, :spouse_email, :spouse_contact_number, :spouse_address, :spouse_id_type, :spouse_id_number, :spouse_tin_number, :basic_salary, :annual_income, :status, :remarks, :documents, :birth_cert_img,:valid_id_img, :proof_of_income_img, :marriage_contract_img, :spa_img, :pdc_img)
     end
 end

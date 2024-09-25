@@ -100,6 +100,16 @@
 		.col-md-6
 			= f.label :documents, :class => "form-label"
 			= f.text_field :documents, class: 'form-control', required:  true, disabled: true
+	.col-md-12.pt-4
+		.form-group.mb-3
+			.control-label Birth Certificate
+		.profile-img
+			%img#wizardPicturePreview.picture-src{:src => "#{@client.birth_cert_img.to_s.present? ? @client.birth_cert_img : '/assets/no-img-available.jpg'}", :title => ""}/
+	.col-md-12.pt-4
+		.form-group.mb-3
+			.control-label Birth Certificate
+		.profile-img
+			%img#wizardPicturePreview.picture-src{:src => "#{@client.valid_id_img.to_s.present? ? @client.valid_id_img : '/assets/no-img-available.jpg'}", :title => ""}/
 	.m-t-xxl
 		= link_to 'Back', clients_path, :class => "btn btn-dark"
 		= link_to 'Edit Information', edit_client_path(@client), :class => "btn btn-primary"

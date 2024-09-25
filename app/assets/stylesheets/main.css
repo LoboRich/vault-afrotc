@@ -75,7 +75,7 @@ html {
 }
 
 body {
-    background-color: ##e7ecf8;
+    background-color: #e7ecf8;
     font-weight: normal;
     color: #24292e;
     line-height: 1.6;
@@ -6954,4 +6954,28 @@ tbody td {
 .btn-action {
     padding: 5px 0px 5px 12px !important;
     margin-right: .2rem;
+}}
+/*Profile Pic End*/
+.profile-img img{
+    width: auto;
+    height: 9rem;
+    padding: 5px;
+    border: 3px solid #ececec;
+}
+.profile-img .file {
+    position: relative;
+    overflow: hidden;
+    margin-top: -10%;
+    width: 75%;
+    white-space: nowrap;
+    border: none;
+    border-radius: 0;
+    font-size: 15px;
+    background: #212529b8;
+}
+.profile-img .file input {
+    position: absolute;
+    opacity: 0;
+    right: 0;
+    top: 0;
 }
