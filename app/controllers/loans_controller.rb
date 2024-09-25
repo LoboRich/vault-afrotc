@@ -126,9 +126,10 @@ class LoansController < ApplicationController
   end
 
   def compute_monthly_amort
-    processing_fees = params['processing_fees']
+    interest_rate = params['interest_rate']
+    terms = params['terms']
     balance = params['balance']
-    monthly_amort = FinanceMath::Loan.new(nominal_rate: processing_fees, amount: balance).pmt
+    monthly_amort = FinanceMath::Loan.new(nominal_rate: interest_rate, duration: terms, amount: balance).pmt
     monthly_amort = sprintf "%.2f", monthly_amort
     render json: monthly_amort
   end
