@@ -30,12 +30,17 @@
     %link{:href => "vendor/select2/dist/css/select2.min.css", :rel => "stylesheet"}/
     %script{:src => "vendor/select2/dist/js/select2.min.js"}
 
-
+    <script> 
+      $(document).ready(function() {
+        $("#alertdiv").fadeIn(); 
+        setTimeout(function() { $("#alertdiv").fadeOut(); }, 3000); 
+      }); 
+    </script>
     = javascript_importmap_tags
   %body
     %main
       - if notice
-        %p.alert.alert-success= notice
+        %p#alertdiv.alert.alert-success= notice
       - if alert
-        %p.alert.alert-danger= alert
+        %p#alertdiv.alert.alert-danger= alert
       = yield
