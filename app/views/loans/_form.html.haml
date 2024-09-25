@@ -118,7 +118,7 @@
   }
 
   function comp_month_amort(){
-    const balance = $("#loan_contract_price").val()-$("#loan_downpayment").val() - $("#loan_processing_fees").val()
+    const balance = $("#loan_contract_price").val()-$("#loan_downpayment").val()
     $.ajax({
       url: "/loans/compute_monthly_amort", // this will be routed
       type: 'GET',
