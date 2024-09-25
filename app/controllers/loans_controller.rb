@@ -155,7 +155,7 @@ class LoansController < ApplicationController
       advance_payment = payment_params > to_pay_monthly_amort ? payment_params - to_pay_monthly_amort : 0
       penalty = params["customer_payments"]["penalty"].to_f
       balance = prev_balance - payment_params + interest + penalty
-      monthly_amort = balance * processing_fees
+      monthly_amort = principal + interest
 
       customer.update!(balance: balance)
       
