@@ -19,7 +19,6 @@
   .row.m-t-sm
     .col-md-4
       = f.label :loan_financing, :class => "form-label"
-      = f.select :status,  class: 'form-control', required: true
       = f.select :loan_financing, options_for_select([['Inhouse', 'Inhouse'], ['PAG IBIG', 'PAG IBIG'], ['Bank', 'Bank'], ['Cash', 'Cash']], @loan.loan_financing), { include_blank: 'Select Loan Financing' }, class: 'form-control', required:  true
     .col-md-4
       = f.label "terms in months", :class => "form-label"
