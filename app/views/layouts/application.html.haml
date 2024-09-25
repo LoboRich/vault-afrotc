@@ -37,3 +37,9 @@
       - if alert
         %p#alertdiv.alert.alert-danger= alert
       = yield
+
+:javascript
+  $(document).ready(function() { 
+    $("#myNoti").fadeIn(); 
+    setTimeout(function() { $("#myNoti").fadeOut(); }, 3000); 
+  });
