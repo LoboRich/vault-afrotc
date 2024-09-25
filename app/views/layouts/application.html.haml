@@ -29,13 +29,6 @@
     %script{:src => "https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"}
     %link{:href => "vendor/select2/dist/css/select2.min.css", :rel => "stylesheet"}/
     %script{:src => "vendor/select2/dist/js/select2.min.js"}
-
-    <script> 
-      $(document).ready(function() {
-        $("#alertdiv").fadeIn(); 
-        setTimeout(function() { $("#alertdiv").fadeOut(); }, 3000); 
-      }); 
-    </script>
     = javascript_importmap_tags
   %body
     %main
