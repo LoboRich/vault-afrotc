@@ -33,7 +33,7 @@
   %body
     %main
       - if notice
-        %p#alertdiv.alert.alert-success= notice
+        %p.alert.alert-success= notice
       - if alert
-        %p#alertdiv.alert.alert-danger= alert
+        %p.alert.alert-danger= alert
       = yield
