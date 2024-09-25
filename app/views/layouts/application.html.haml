@@ -37,9 +37,3 @@
       - if alert
         %p#alertdiv.alert.alert-danger= alert
       = yield
-
-  :javascript
-    $(document).ready(function() { 
-      $("#alertdiv").fadeIn(); 
-      setTimeout(function() { $("#alertdiv").fadeOut(); }, 3000); 
-    });
