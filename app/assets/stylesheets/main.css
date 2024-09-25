@@ -5752,7 +5752,7 @@ span.flatpickr-weekday {
 }
 
 .select2-container--default .select2-results__option[aria-selected=true]:hover {
-    color: #2269F5;
+    color: #fff;
 }
 
 .select2-container--default .select2-results__group {
