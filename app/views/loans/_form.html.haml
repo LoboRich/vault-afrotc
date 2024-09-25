@@ -19,7 +19,7 @@
   .row.m-t-sm
     .col-md-4
       = f.label :loan_financing, :class => "form-label"
-      = f.select :loan_financing, options_for_select([['Inhouse', 'Inhouse'], ['PAG IBIG', 'PAG IBIG'], ['Bank', 'Bank'], ['Cash', 'Cash']], @loan.loan_financing), { include_blank: 'Select Loan Financing' }, class: 'form-control', required:  true
+      = f.text_field :loan_financing, class: 'form-control', required:  true
     .col-md-4
       = f.label "terms in months", :class => "form-label"
       = f.number_field :terms, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
@@ -28,14 +28,15 @@
       = f.number_field :contract_price, class: 'form-control', required:  true, onchange: "javascript: contract_price_total()", readonly: true
   .row.m-t-sm
     .col-md-4
-      = f.label "Total Payments Made", :class => "form-label"
+      = f.label :downpayment, :class => "form-label"
       = f.number_field :downpayment, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
+    
     .col-md-4
       = f.label 'interest in %', :class => "form-label"
       = f.number_field :interest, class: 'form-control', required:  true, value: 0
     .col-md-4
-      = f.label "Factor Table", :class => "form-label"
-      = f.number_field :processing_fees, class: 'form-control', step: 'any', required:  true, onchange: "javascript: comp_month_amort()"
+      = f.label :other_expense, :class => "form-label"
+      = f.number_field :processing_fees, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
   .row.m-t-sm 
     .col-md-4
       = f.label :balance, :class => "form-label"
@@ -47,6 +48,7 @@
       = f.label :broker, :class => "form-label"
       = f.text_field :broker, class: 'form-control'  
   .row.m-t-sm
+    
     .col-md-4
       = f.label :contract_date, :class => "form-label"
       = f.date_field :contract_date, class: 'form-control', required:  true
@@ -62,7 +64,6 @@
     = f.submit 'Save Changes', class: 'btn btn-primary float-right'
 
 :javascript
-  
   $(document).ready(function(){
     $(".js-example-tokenizer").select2({
       tags: true,
@@ -118,7 +119,7 @@
   }
 
   function comp_month_amort(){
-    const balance = $("#loan_contract_price").val()-$("#loan_downpayment").val()
+    const balance = $("#loan_contract_price").val()-$("#loan_downpayment").val() - $("#loan_processing_fees").val()
     $.ajax({
       url: "/loans/compute_monthly_amort", // this will be routed
       type: 'GET',
