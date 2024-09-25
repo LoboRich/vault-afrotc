@@ -104,24 +104,42 @@
   .row.m-t-sm
     .col-md-6
       %label.form-label{:for => "formFile"} Birth Certificate
-      = f.text_field :documents, class: 'form-control', type: 'file', id: "formFile"
+      = f.file_field :birth_cert_img, class: 'form-control', id: "formFile"
+      - if @client.birth_cert_img.present?
+        .mt-2
+          = link_to "Current file: #{@client.birth_cert_img.identifier}", @client.birth_cert_img.url, target: '_blank'
     .col-md-6
       %label.form-label{:for => "formFile"} Marriage Contract
-      %input#formFile.form-control{:type => "file"}/
+      = f.file_field :marriage_contract_img, class: 'form-control', id: "formFile"
+      - if @client.marriage_contract_img.present?
+        .mt-2
+          = link_to "Current file: #{@client.marriage_contract_img.identifier}", @client.marriage_contract_img.url, target: '_blank'
   .row.m-t-sm
     .col-md-6
       %label.form-label{:for => "formFile"} Valid ID's
-      = f.text_field :documents, class: 'form-control', type: 'file', id: "formFile"
+      = f.file_field :valid_id_img, class: 'form-control', id: "formFile"
+      - if @client.valid_id_img.present?
+        .mt-2
+          = link_to "Current file: #{@client.valid_id_img.identifier}", @client.valid_id_img.url, target: '_blank'
     .col-md-6
       %label.form-label{:for => "formFile"} SPA (if out of the country)
-      %input#formFile.form-control{:type => "file"}/
+      = f.file_field :spa_img, class: 'form-control', id: "formFile"
+      - if @client.spa_img.present?
+        .mt-2
+          = link_to "Current file: #{@client.spa_img.identifier}", @client.spa_img.url, target: '_blank'
   .row.m-t-sm
     .col-md-6
       %label.form-label{:for => "formFile"} Proof of Income
-      = f.text_field :documents, class: 'form-control', type: 'file', id: "formFile"
+      = f.file_field :proof_of_income_img, class: 'form-control', id: "formFile"
+      - if @client.proof_of_income_img.present?
+        .mt-2
+          = link_to "Current file: #{@client.proof_of_income_img.identifier}", @client.proof_of_income_img.url, target: '_blank'
     .col-md-6
       %label.form-label{:for => "formFile"} PDC's / 60 months
-      %input#formFile.form-control{:type => "file"}/
+      = f.file_field :pdc_img, class: 'form-control', id: "formFile"
+      - if @client.pdc_img.present?
+        .mt-2
+          = link_to "Current file: #{@client.pdc_img.identifier}", @client.pdc_img.url, target: '_blank'
 
 
   .m-t-xxl

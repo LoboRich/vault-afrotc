@@ -43,8 +43,8 @@ class ClientsController < ApplicationController
   def update
     respond_to do |format|
       original_attributes = @client.attributes.slice(*client_params.keys)
-      if @client.update(client_params)
 
+      if @client.update(client_params)
         updated_fields_with_values = client_params.keys.each_with_object({}) do |key, result|
           new_value = @client.send(key)
           if new_value != original_attributes[key.to_s]
