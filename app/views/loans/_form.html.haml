@@ -25,7 +25,10 @@
       = f.number_field :terms, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
     .col-md-4
       = f.label :contract_price, :class => "form-label"
-      = f.number_field :contract_price, class: 'form-control', required:  true, onchange: "javascript: contract_price_total()", readonly: true
+      %div.input-group
+        %div.input-group-prepend
+          %span.input-group-text ₱
+        = f.number_field :contract_price, class: 'form-control', required: true, onchange: "formatContractPrice()", readonly: true
   .row.m-t-sm
     .col-md-4
       = f.label "Total Payments Made", :class => "form-label"
@@ -62,6 +65,15 @@
     = f.submit 'Save Changes', class: 'btn btn-primary float-right'
 
 :javascript
+  :plain
+    function formatContractPrice() {
+      let input = document.querySelector("input[name='parcel[contract_price]']");
+      let value = parseFloat(input.value).toFixed(2);
+      if (!isNaN(value)) {
+        input.value = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+    }
+
   $(document).ready(function(){
     $(".js-example-tokenizer").select2({
       tags: true,
