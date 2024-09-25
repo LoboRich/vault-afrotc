@@ -47,7 +47,7 @@ gem "bootsnap", require: false
 
 #SystemsPlant
 gem 'carrierwave', '1.3.1'
-gem 'cloudinary', '~>1.13.2'
+gem 'cloudinary'
 gem 'rmagick'
 gem 'html2haml', '~> 2.3'
 gem 'haml-rails'

@@ -1,0 +1,9 @@
+development:
+  cloud_name: "homeinvest-housing"
+  api_key: "473585359594774"
+  api_secret: "MdLqrUDcIASIO26tyd-dycQyhr4"
+
+production:
+  cloud_name: "homeinvest-housing"
+  api_key: "473585359594774"
+  api_secret: "MdLqrUDcIASIO26tyd-dycQyhr4"
