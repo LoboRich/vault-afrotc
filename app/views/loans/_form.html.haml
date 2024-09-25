@@ -28,8 +28,8 @@
       = f.number_field :contract_price, class: 'form-control', required:  true, onchange: "javascript: contract_price_total()", readonly: true
   .row.m-t-sm
     .col-md-4
-      = f.label :downpayment, :class => "form-label"
-      = f.number_field :downpayment, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
+      = f.label "Total Payments Made", :class => "form-label"
+      = f.number_field :downpayment, class: 'form-control', step: 'any', required:  true, onchange: "javascript: comp_month_amort()"
     
     .col-md-4
       = f.label 'interest in %', :class => "form-label"
