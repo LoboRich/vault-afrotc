@@ -7,18 +7,18 @@ class ImageUploader < CarrierWave::Uploader::Base
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
 
-  include CarrierWave::RMagick
+  # include CarrierWave::RMagick
 
-  version :normal do
-    process :auto_orient
-  end
+  # version :normal do
+  #   process :auto_orient
+  # end
 
   
-  def auto_orient
-    manipulate! do |img|
-      img.auto_orient!
-    end
-  end
+  # def auto_orient
+  #   manipulate! do |img|
+  #     img.auto_orient!
+  #   end
+  # end
 
   # process :fix_exif_rotation
   # def fix_exif_rotation
