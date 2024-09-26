@@ -104,7 +104,7 @@
   .row.m-t-sm
     .col-md-6
       %label.form-label{:for => "formFile"} Birth Certificate
-      = f.file_field :birth_cert_img, accept: "application/pdf", class: 'form-control', id: "formFile"
+      = f.file_field :birth_cert_img, class: 'form-control', id: "formFile"
       - if @client.birth_cert_img.present?
         .mt-2
           = link_to "Current file : #{@client.birth_cert_img.identifier}", @client.birth_cert_img.url, target: '_blank'
