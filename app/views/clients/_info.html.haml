@@ -110,7 +110,7 @@
 				= link_to "Current file: #{@client.birth_cert_img.identifier}", @client.birth_cert_img.url, target: '_blank'
 	.col-md-12.pt-4
 		.form-group.mb-3
-			.control-label Birth Certificate
+			.control-label Valid ID
 		.profile-img
 			%img#wizardPicturePreview.picture-src{:src => "#{@client.valid_id_img.to_s.present? ? @client.valid_id_img : '/assets/no-img-available.jpg'}", :title => ""}/
 	.m-t-xxl
