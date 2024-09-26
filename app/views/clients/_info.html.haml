@@ -105,9 +105,9 @@
 			.control-label Birth Certificate
 		.profile-img
 			%img#wizardPicturePreview.picture-src{:src => "#{@client.birth_cert_img.to_s.present? ? @client.birth_cert_img : '/assets/no-img-available.jpg'}", :title => ""}/
-			- if @client.birth_cert_img.present?
-        .mt-2
-          = link_to "Current file: #{@client.birth_cert_img.identifier}", @client.birth_cert_img.url, target: '_blank'
+		- if @client.birth_cert_img.present?
+			.mt-2
+				= link_to "Current file: #{@client.birth_cert_img.identifier}", @client.birth_cert_img.url, target: '_blank'
 	.col-md-12.pt-4
 		.form-group.mb-3
 			.control-label Birth Certificate
