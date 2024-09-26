@@ -4,6 +4,7 @@ class ClientsController < ApplicationController
   before_action :authorize_client, only: [:create, :destroy]
   before_action :authorize_new, only: %i[new create]
   # GET /clients or /clients.json
+  mount_uploader :birth_cert_img, ImageUploader
   def index
     @clients = policy_scope(Client)
   end
