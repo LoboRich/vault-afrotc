@@ -11,4 +11,5 @@
 //= link datatables.css
 //= link bootstrap.min.js
 //= link jquery-3.5.1.min.js
- //= link datatables.js
+//= link main.min.js
+//= link datatables.js

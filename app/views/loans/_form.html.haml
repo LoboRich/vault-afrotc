@@ -25,18 +25,18 @@
       = f.number_field :terms, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
     .col-md-4
       = f.label :contract_price, :class => "form-label"
-    = f.number_field :contract_price, class: 'form-control', required:  true, onchange: "javascript: contract_price_total()", readonly: true
+      = f.number_field :contract_price, class: 'form-control', required:  true, onchange: "javascript: contract_price_total()", readonly: true
   .row.m-t-sm
     .col-md-4
-      = f.label :downpayment, :class => "form-label"
-      = f.number_field :downpayment, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
+      = f.label "Total Payments Made", :class => "form-label"
+      = f.number_field :downpayment, class: 'form-control', step: 'any', required:  true, onchange: "javascript: comp_month_amort()"
     
     .col-md-4
       = f.label 'interest in %', :class => "form-label"
       = f.number_field :interest, class: 'form-control', required:  true, value: 0
     .col-md-4
-      = f.label :other_expense, :class => "form-label"
-      = f.number_field :processing_fees, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
+      = f.label "Factor Table", :class => "form-label"
+      = f.number_field :processing_fees, class: 'form-control', step: 'any', required:  true, onchange: "javascript: comp_month_amort()"
   .row.m-t-sm 
     .col-md-4
       = f.label :balance, :class => "form-label"
