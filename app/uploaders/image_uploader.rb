@@ -7,6 +7,14 @@ class ImageUploader < CarrierWave::Uploader::Base
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
 
+  def extension_allowlist
+    %w(pdf)
+  end
+
+  def content_type_allowlist
+    ['application/pdf']
+  end
+
   include CarrierWave::RMagick
 
   version :normal do

@@ -130,7 +130,7 @@
   .row.m-t-sm
     .col-md-6
       %label.form-label{:for => "formFile"} Proof of Income
-      = f.file_field :proof_of_income_img, class: 'form-control', id: "formFile"
+      = f.file_field :document, accept: "application/pdf", :proof_of_income_img, class: 'form-control', id: "formFile"
       - if @client.proof_of_income_img.present?
         .mt-2
           = link_to "Current file: #{@client.proof_of_income_img.identifier}", @client.proof_of_income_img.url, target: '_blank'
