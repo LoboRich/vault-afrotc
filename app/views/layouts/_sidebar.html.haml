@@ -4,12 +4,12 @@
       %ul.accordion-menu
         %li.sidebar-title
           Home Invest
-        - if current_user.role == 'water-reader'
+        - if current_user.role == 'water_reader'
           %li{class: current_page_class('/water_bills')}
             %a{:href => "/water_bills"}
               %i.material-icons-two-tone> water_drop
               Water
-        - unless current_user.role == 'water-reader'
+        - else
           %li{class: current_page_class('/')}
             = link_to  '/' do
               %i.material-icons-two-tone> dashboard
