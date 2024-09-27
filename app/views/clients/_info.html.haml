@@ -100,8 +100,7 @@
 		.form-group.mb-3
 			.control-label Birth Certificate
 		- if @client.doc.present?
-			// = link_to 'View File', @client.doc.to_s.gsub('http', 'https'), class: 'dropdown-item btn-light', target: '_blank', rel: 'noopener noreferrer'
-			%a.dropdown-item.btn-light{ href: @client.doc.to_s.gsub('http', 'https'), target: '_blank', download: true }
+			%a.dropdown-item.btn-light{ href: @client.doc.to_s, target: '_blank', rel: 'noopener noreferrer' }
 				%i.fas.fa-file.pr-2
 				View File
 	.col-md-12.pt-4
