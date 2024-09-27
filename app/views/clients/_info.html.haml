@@ -89,17 +89,21 @@
 		.col-md-6
 			= f.label :annual_income, :class => "form-label"
 			= f.text_field :annual_income, class: 'form-control', required:  true, disabled: true
-	.row.m-t-sm  
+	.row.m-t-sm
 		.col-md-6
 			= f.label :status, :class => "form-label"
 			= f.text_field :status, class: 'form-control', required:  true, disabled: true
 		.col-md-6
 			= f.label :remarks, :class => "form-label"
 			= f.text_area :remarks, class: 'form-control', required:  true, disabled: true
-	.row.m-t-sm
-		.col-md-6
-			= f.label :documents, :class => "form-label"
-			= f.text_field :documents, class: 'form-control', required:  true, disabled: true
+	.col-md-12.pt-4
+		.form-group.mb-3
+			.control-label Birth Certificate
+		- if @client.doc.present?
+			// = link_to 'View File', @client.doc.to_s.gsub('http', 'https'), class: 'dropdown-item btn-light', target: '_blank', rel: 'noopener noreferrer'
+			%a.dropdown-item.btn-light{ href: @client.doc.to_s.gsub('http', 'https'), target: '_blank', download: true }
+				%i.fas.fa-file.pr-2
+				View File
 	.col-md-12.pt-4
 		.form-group.mb-3
 			.control-label Birth Certificate

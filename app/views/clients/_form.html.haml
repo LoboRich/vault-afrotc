@@ -100,7 +100,13 @@
       = f.text_area :remarks, class: 'form-control', required:  true
   .row.m-t-sm
     .col-md-12
-      
+      .form-group.row
+        .col-sm-6.col-md-12
+          = f.label :doc, :class => "form-control-label"
+          .custom-file
+            = f.file_field :doc, id: :client_doc, :class => "custom-file-input", :id => "site-favicon", :accept => "application/pdf"
+            %label.custom-file-label Choose PDF File
+          .form-text.text-muted Please attach PDF file only
   .row.m-t-sm
     .col-md-6
       %label.form-label{:for => "formFile"} Birth Certificate

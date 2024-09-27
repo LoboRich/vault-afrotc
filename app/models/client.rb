@@ -5,6 +5,7 @@ class Client < ApplicationRecord
 	mount_uploader :marriage_contract_img, ImageUploader
     mount_uploader :spa_img, ImageUploader
 	mount_uploader :pdc_img, ImageUploader
+    mount_uploader :doc, ImageUploader
 
     has_many :loans
     has_many :water_bills
