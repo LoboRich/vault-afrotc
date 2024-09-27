@@ -9,7 +9,7 @@
             %a{:href => "/water_bills"}
               %i.material-icons-two-tone> water_drop
               Water
-        - else
+        - unless current_user.role == 'water_reader'
           %li{class: current_page_class('/')}
             = link_to  '/' do
               %i.material-icons-two-tone> dashboard
