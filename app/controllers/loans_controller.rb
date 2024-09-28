@@ -33,7 +33,6 @@ class LoansController < ApplicationController
   # POST /loans or /loans.json
   def create
     @loan = Loan.new(loan_params)
-    @loan.balance = @loan.contract_price.to_f - (@loan.processing_fees.to_f + @loan.downpayment.to_f)
 
     respond_to do |format|
       if @loan.save
@@ -45,8 +44,10 @@ class LoansController < ApplicationController
           Parcel.find(p).update(status: 'Reserved')
         end
 
-        monthly_amort = FinanceMath::Loan.new(nominal_rate: @loan.interest.to_i, duration: @loan.terms.to_i, amount: @loan.balance.to_f).pmt
-        @loan.update(balance: @loan.balance, monthly_amort: monthly_amort)
+        comp_balance = @loan.contract_price.to_f - (@loan.processing_fees.to_f + @loan.downpayment.to_f)
+
+        monthly_amort = FinanceMath::Loan.new(nominal_rate: @loan.interest.to_i, duration: @loan.terms.to_i, amount: comp_balance.to_f).pmt
+        @loan.update(balance: comp_balance, monthly_amort: monthly_amort)
 
         terms = @loan.terms.to_i
         contract_price = @loan.contract_price.to_i
@@ -109,13 +110,14 @@ class LoansController < ApplicationController
   # DELETE /loans/1 or /loans/1.json
   def destroy
     loan_details = @loan.attributes.slice(*@loan.class.column_names)
-    @loan.loan_parcels.destroy_all
+    
     @loan.loan_parcels.each do |p|
       Parcel.find(p.parcel_id).update(status: 'Available')
     end
+    @loan.loan_parcels.destroy_all
     @loan.payment_histories.destroy_all
     @loan.loan_items.destroy_all
-    @loan.loan_parcels.destroy_all
+    
     @loan.destroy
 
     History.create(user_id: current_user.id, description: "Deleted Loan: #{loan_details.inspect}")

@@ -113,7 +113,7 @@
                         %td
                         %td 
                           .text-primary.font-weight-s
-                            = format_currency(@loan.contract_price - (@loan.downpayment))
+                            = format_currency(@loan.balance)
                         %td 
                       - total_principal = 0
                       - total_interest = 0
