@@ -9,15 +9,19 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   include CarrierWave::RMagick
 
-  version :normal do
-    process :auto_orient
+  def extension_whitelist
+    %w[pdf]
   end
 
-  def auto_orient
-    manipulate! do |img|
-      img.auto_orient!
-    end
-  end
+  # version :normal do
+  #   process :auto_orient
+  # end
+
+  # def auto_orient
+  #   manipulate! do |img|
+  #     img.auto_orient!
+  #   end
+  # end
 
   # process :fix_exif_rotation
   # def fix_exif_rotation
