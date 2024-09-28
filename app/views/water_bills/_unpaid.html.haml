@@ -22,9 +22,9 @@
               - @unpaid_waters.each do |water_bill|
                 %tr
                   %td= water_bill.client.name
-                  %td= "#{water_bill.loan_parcels.map { |lp| lp.parcel.subdivision&.short_code }.uniq.join(',')}"
-                  %td= "#{water_bill.loan_parcels.map { |lp| lp.parcel.block }.uniq.join(',')}"
-                  %td= "#{water_bill.loan_parcels.map { |lp| lp.parcel.lot }.uniq.join(',')}"
+                  %td= water_bill.loan_parcels.map { |lp| lp.parcel.subdivision.short_code }.uniq.join(',')
+                  %td= water_bill.loan_parcels.map { |lp| lp.parcel.block }.uniq.join(',')
+                  %td= water_bill.loan_parcels.map { |lp| lp.parcel.lot }.uniq.join(',')
                   %td
                     %span{ class: "badge #{water_bill.status == 'paid' ? 'bg-primary' : 'bg-danger'}" }
                       = water_bill.status
