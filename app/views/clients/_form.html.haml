@@ -114,7 +114,73 @@
             %a.dropdown-item.btn-light{ href: attachment.to_s, target: '_blank', rel: 'noopener noreferrer' }
               %i.fas.fa-file.pr-2
               View File
-
+    .col-md-6
+      %label.form-label{:for => "formFile"} Valid ID
+      - if @direct_mode
+        = f.cl_image_upload :valid_id_img, multiple: true, accept: "application/pdf", class: "form-control", id: "formFile", include_hidden: false
+      - else
+        = f.file_field :valid_id_img, id: "formFile", class: "form-control", multiple: true, accept: "application/pdf", include_hidden: false
+      .form-text.text-muted Please attach PDF file only
+      - if @client.valid_id_img.present?
+        - @client.valid_id_img.each do |attachment|
+          .mt-2
+            %a.dropdown-item.btn-light{ href: attachment.to_s, target: '_blank', rel: 'noopener noreferrer' }
+              %i.fas.fa-file.pr-2
+              View File
+  .row.m-t-sm
+    .col-md-6
+      %label.form-label{:for => "formFile"} Proof of Income
+      - if @direct_mode
+        = f.cl_image_upload :proof_of_income_img, multiple: true, accept: "application/pdf", class: "form-control", id: "formFile", include_hidden: false
+      - else
+        = f.file_field :proof_of_income_img, id: "formFile", class: "form-control", multiple: true, accept: "application/pdf", include_hidden: false
+      .form-text.text-muted Please attach PDF file only
+      - if @client.proof_of_income_img.present?
+        - @client.proof_of_income_img.each do |attachment|
+          .mt-2
+            %a.dropdown-item.btn-light{ href: attachment.to_s, target: '_blank', rel: 'noopener noreferrer' }
+              %i.fas.fa-file.pr-2
+              View File
+    .col-md-6
+      %label.form-label{:for => "formFile"} Marriage Contract
+      - if @direct_mode
+        = f.cl_image_upload :marriage_contract_img, multiple: true, accept: "application/pdf", class: "form-control", id: "formFile", include_hidden: false
+      - else
+        = f.file_field :marriage_contract_img, id: "formFile", class: "form-control", multiple: true, accept: "application/pdf", include_hidden: false
+      .form-text.text-muted Please attach PDF file only
+      - if @client.marriage_contract_img.present?
+        - @client.marriage_contract_img.each do |attachment|
+          .mt-2
+            %a.dropdown-item.btn-light{ href: attachment.to_s, target: '_blank', rel: 'noopener noreferrer' }
+              %i.fas.fa-file.pr-2
+              View File
+  .row.m-t-sm
+    .col-md-6
+      %label.form-label{:for => "formFile"} SPA's
+      - if @direct_mode
+        = f.cl_image_upload :spa_img, multiple: true, accept: "application/pdf", class: "form-control", id: "formFile", include_hidden: false
+      - else
+        = f.file_field :spa_img, id: "formFile", class: "form-control", multiple: true, accept: "application/pdf", include_hidden: false
+      .form-text.text-muted Please attach PDF file only
+      - if @client.spa_img.present?
+        - @client.spa_img.each do |attachment|
+          .mt-2
+            %a.dropdown-item.btn-light{ href: attachment.to_s, target: '_blank', rel: 'noopener noreferrer' }
+              %i.fas.fa-file.pr-2
+              View File
+    .col-md-6
+      %label.form-label{:for => "formFile"} PDC's
+      - if @direct_mode
+        = f.cl_image_upload :pdc_img, multiple: true, accept: "application/pdf", class: "form-control", id: "formFile", include_hidden: false
+      - else
+        = f.file_field :marriagepdc_img_contract_img, id: "formFile", class: "form-control", multiple: true, accept: "application/pdf", include_hidden: false
+      .form-text.text-muted Please attach PDF file only
+      - if @client.pdc_img.present?
+        - @client.pdc_img.each do |attachment|
+          .mt-2
+            %a.dropdown-item.btn-light{ href: attachment.to_s, target: '_blank', rel: 'noopener noreferrer' }
+              %i.fas.fa-file.pr-2
+              View File
 
   .m-t-xxl
     

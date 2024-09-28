@@ -104,6 +104,46 @@
 				%a.dropdown-item.btn-light{ href: x.to_s, target: '_blank', rel: 'noopener noreferrer' }
 					%i.fas.fa-file.pr-2
 					View File
+	.col-md-12.pt-4
+		.form-group.mb-3
+			.control-label Valid ID
+		- if @client.valid_id_img.present?
+			- @client.valid_id_img.each do |x|
+				%a.dropdown-item.btn-light{ href: x.to_s, target: '_blank', rel: 'noopener noreferrer' }
+					%i.fas.fa-file.pr-2
+					View File
+	.col-md-12.pt-4
+		.form-group.mb-3
+			.control-label Proof of Income
+		- if @client.proof_of_income_img.present?
+			- @client.proof_of_income_img.each do |x|
+				%a.dropdown-item.btn-light{ href: x.to_s, target: '_blank', rel: 'noopener noreferrer' }
+					%i.fas.fa-file.pr-2
+					View File
+	.col-md-12.pt-4
+		.form-group.mb-3
+			.control-label Marriage Contract
+		- if @client.marriage_contract_img.present?
+			- @client.marriage_contract_img.each do |x|
+				%a.dropdown-item.btn-light{ href: x.to_s, target: '_blank', rel: 'noopener noreferrer' }
+					%i.fas.fa-file.pr-2
+					View File
+	.col-md-12.pt-4
+		.form-group.mb-3
+			.control-label SPA's
+		- if @client.spa_img.present?
+			- @client.spa_img.each do |x|
+				%a.dropdown-item.btn-light{ href: x.to_s, target: '_blank', rel: 'noopener noreferrer' }
+					%i.fas.fa-file.pr-2
+					View File
+	.col-md-12.pt-4
+		.form-group.mb-3
+			.control-label SPA's
+		- if @client.spa_img.present?
+			- @client.spa_img.each do |x|
+				%a.dropdown-item.btn-light{ href: x.to_s, target: '_blank', rel: 'noopener noreferrer' }
+					%i.fas.fa-file.pr-2
+					View File
 	
 	.m-t-xxl
 		= link_to 'Back', clients_path, :class => "btn btn-dark"
