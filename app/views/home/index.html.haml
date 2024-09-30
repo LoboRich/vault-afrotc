@@ -43,7 +43,8 @@
                           %i.material-icons-outlined receipt_long
                         .widget-stats-content.flex-fill
                           %span.widget-stats-title Monthly Collectibles
-                          %span.widget-stats-amount ₱ #{@total_collectibles}
+                          %span.widget-stats-amount
+                            ₱ #{number_with_precision(@total_collectibles, precision: 2)}
                           %span.widget-stats-info 0 client accounts
                     
                 .col-xl-3
