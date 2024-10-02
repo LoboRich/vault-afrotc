@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_27_141328) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_02_084722) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -92,6 +92,68 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_27_141328) do
     t.index ["user_id"], name: "index_histories_on_user_id"
   end
 
+  create_table "inhouse_loan_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "term"
+    t.uuid "inhouse_loan_id", null: false
+    t.date "due_date"
+    t.float "principal"
+    t.float "interest"
+    t.float "monthly_amort"
+    t.float "balance"
+    t.boolean "is_paid"
+    t.float "penalty"
+    t.float "advance"
+    t.datetime "payment_date"
+    t.string "or"
+    t.float "paid_amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inhouse_loan_id"], name: "index_inhouse_loan_items_on_inhouse_loan_id"
+  end
+
+  create_table "inhouse_loans", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "client_id", null: false
+    t.uuid "loan_id", null: false
+    t.integer "terms"
+    t.string "loan_financing"
+    t.float "balance"
+    t.float "processing_fees"
+    t.float "downpayment"
+    t.float "interest"
+    t.float "principal"
+    t.float "monthly_amort"
+    t.datetime "contract_date"
+    t.datetime "amortization_start_date"
+    t.text "remarks"
+    t.float "other_expense"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_inhouse_loans_on_client_id"
+    t.index ["loan_id"], name: "index_inhouse_loans_on_loan_id"
+  end
+
+  create_table "loan_equities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "client_id", null: false
+    t.string "terms"
+    t.string "model_house"
+    t.float "contract_price"
+    t.float "reservation_fees"
+    t.float "downpayment_percentage"
+    t.float "downpayment"
+    t.float "monthly_amort"
+    t.datetime "contract_date"
+    t.datetime "amortization_start_date"
+    t.float "balance"
+    t.text "remarks"
+    t.string "status"
+    t.string "broker"
+    t.string "blocklot"
+    t.float "other_expense"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_loan_equities_on_client_id"
+  end
+
   create_table "loan_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "term"
     t.uuid "loan_id", null: false
@@ -141,7 +203,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_27_141328) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "other_expense"
+    t.uuid "loan_equity_id"
     t.index ["client_id"], name: "index_loans_on_client_id"
+    t.index ["loan_equity_id"], name: "index_loans_on_loan_equity_id"
   end
 
   create_table "parcels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -266,10 +330,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_27_141328) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "histories", "users"
+  add_foreign_key "inhouse_loan_items", "inhouse_loans"
+  add_foreign_key "inhouse_loans", "clients"
+  add_foreign_key "inhouse_loans", "loans"
+  add_foreign_key "loan_equities", "clients"
   add_foreign_key "loan_items", "loans"
   add_foreign_key "loan_parcels", "loans"
   add_foreign_key "loan_parcels", "parcels"
   add_foreign_key "loans", "clients"
+  add_foreign_key "loans", "loan_equities"
   add_foreign_key "parcels", "subdivisions"
   add_foreign_key "payment_histories", "loan_items"
   add_foreign_key "payment_histories", "loans"

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :inhouse_loan_items
+  resources :inhouse_loans
   resources :purchasers
   get 'histories', to: 'history#index', as: :histories
   resources :water_bills do

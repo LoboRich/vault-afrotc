@@ -1,0 +1,78 @@
+
+.app.align-content-stretch.d-flex.flex-wrap
+  = render "layouts/sidebar"
+  .app-container
+    .app-content
+      .content-wrapper
+        .container
+          .page-description.d-flex.align-items-center
+            .page-description-content.flex-grow-1
+              inhouse_loans
+            .page-description-actions
+              = link_to new_inhouse_loan_path, class: 'btn btn-primary' do
+                %i.material-icons> add
+                New Inhouse loan
+          .card
+            .card-body
+              #datatable1_wrapper.dataTables_wrapper.dt-bootstrap4
+                .row
+                  .col-sm-12.col-md-6
+                    #datatable1_length.dataTables_length
+                      %label
+                        Show
+                        %select.custom-select.custom-select-sm.form-control.form-control-sm{"aria-controls" => "datatable1", :name => "datatable1_length"}
+                          %option{:value => "10"} 10
+                          %option{:value => "25"} 25
+                          %option{:value => "50"} 50
+                          %option{:value => "100"} 100
+                        entries
+                  .col-sm-12.col-md-6
+                    #datatable1_filter.dataTables_filter
+                      %label
+                        Search:
+                        %input.form-control.form-control-sm{"aria-controls" => "datatable1", :placeholder => "", :type => "search"}/
+                .row
+                  .col-sm-12.table-responsive
+                    %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+                      %thead
+                        %tr.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"}
+                                                      %th Client
+                                                      %th Loan
+                                                      %th Terms
+                                                      %th Loan financing
+                                                      %th Balance
+                                                      %th Processing fees
+                                                      %th Downpayment
+                                                      %th Interest
+                                                      %th Principal
+                                                      %th Monthly amort
+                                                      %th Contract date
+                                                      %th Amortization start date
+                                                      %th Remarks
+                                                      %th Other expense
+                                                    %th.sorting{"aria-controls" => "inhouse_loan_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
+                      %tbody
+                        - @inhouse_loans.each do |inhouse_loan|
+                            %tr.odd{:role => "row"}     
+                                                              %td= inhouse_loan.client
+                                                              %td= inhouse_loan.loan
+                                                              %td= inhouse_loan.terms
+                                                              %td= inhouse_loan.loan_financing
+                                                              %td= inhouse_loan.balance
+                                                              %td= inhouse_loan.processing_fees
+                                                              %td= inhouse_loan.downpayment
+                                                              %td= inhouse_loan.interest
+                                                              %td= inhouse_loan.principal
+                                                              %td= inhouse_loan.monthly_amort
+                                                              %td= inhouse_loan.contract_date
+                                                              %td= inhouse_loan.amortization_start_date
+                                                              %td= inhouse_loan.remarks
+                                                              %td= inhouse_loan.other_expense
+                                                            %td
+                                = link_to 'Show', inhouse_loan, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
+                                = link_to 'Edit', edit_inhouse_loan_path(inhouse_loan), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
+                                = link_to 'Delete', inhouse_loan, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true }
+:javascript
+  $(document).ready( function () {
+      $('#datatable1_wrapper').DataTable();
+  } );
