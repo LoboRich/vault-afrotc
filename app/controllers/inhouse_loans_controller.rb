@@ -103,6 +103,16 @@ class InhouseLoansController < ApplicationController
     end
   end
 
+
+  def compute_equity_monthly_amort
+    dp = params['downpayment']
+    reservation_fee = params['reservation_fee']
+    terms = params['terms']
+    monthly_amort = (dp.to_f - reservation_fee.to_f) / terms.to_f
+    monthly_amort = sprintf "%.2f", monthly_amort
+    render json: monthly_amort
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_inhouse_loan

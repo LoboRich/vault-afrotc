@@ -14,29 +14,25 @@
       = f.label :blocklot, :class => "form-label"
       = f.select :blocklot, options_for_select(@parcels),  {}, { class: 'form-control js-example-tokenizer ', multiple: true, onchange: "javascript: get_selling_price()"}
     .col-md-4
+      = f.label :contract_price, :class => "form-label"
+      = f.number_field :contract_price, class: 'form-control', required:  true, onchange: "javascript: contract_price_total()", readonly: true
+  .row.m-t-sm
+    .col-md-4
       = f.label :model_house, :class => "form-label"
       = f.text_field :model_house, class: 'form-control', required:  true
-  .row.m-t-sm
     .col-md-4
       = f.label :loan_financing, :class => "form-label"
       = f.text_field :loan_financing, class: 'form-control', required:  true
     .col-md-4
       = f.label "terms in months", :class => "form-label"
       = f.number_field :terms, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
-    .col-md-4
-      = f.label :contract_price, :class => "form-label"
-      = f.number_field :contract_price, class: 'form-control', required:  true, onchange: "javascript: contract_price_total()", readonly: true
   .row.m-t-sm
     .col-md-4
-      = f.label "Total Payments Made", :class => "form-label"
+      = f.label "Downpayment", :class => "form-label"
       = f.number_field :downpayment, class: 'form-control', step: 'any', required:  true, onchange: "javascript: comp_month_amort()"
-    
     .col-md-4
-      = f.label 'interest in %', :class => "form-label"
-      = f.number_field :interest, class: 'form-control', required:  true, value: 0
-    .col-md-4
-      = f.label "Factor Table", :class => "form-label"
-      = f.number_field :processing_fees, class: 'form-control', step: 'any', required:  true, onchange: "javascript: comp_month_amort()"
+      = f.label "Reservation Fee", :class => "form-label"
+      = f.number_field :reservation_fee, class: 'form-control', step: 'any', required:  true, onchange: "javascript: comp_month_amort()"
   .row.m-t-sm 
     .col-md-4
       = f.label :balance, :class => "form-label"
@@ -119,13 +115,13 @@
   }
 
   function comp_month_amort(){
-    const balance = $("#loan_contract_price").val()-$("#loan_downpayment").val() - $("#loan_processing_fees").val()
+    const balance = ($("#loan_contract_price").val() - $("#loan_downpayment").val())
     $.ajax({
-      url: "/loans/compute_monthly_amort", // this will be routed
+      url: "/inhouse_loans/compute_equity_monthly_amort", // this will be routed
       type: 'GET',
       data: {
-        balance: balance, 
-        interest_rate: $("#loan_interest").val(),
+        reservation_fee: $("#loan_reservation_fee").val(),
+        downpayment: $("#loan_downpayment").val(),
         terms: $("#loan_terms").val()
       },
       async: true,

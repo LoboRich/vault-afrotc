@@ -58,7 +58,7 @@ class LoansController < ApplicationController
           t_principal = monthly_amort.to_f
           t_balance = tmp_bal - t_principal.to_f
 
-          period = @loan.amortization_start_date + term.months
+          period = @loan.amortization_start_date + term.months - 1.months
           t_period = period.strftime("%b-%d-%Y").to_date
           
           line_item = LoanItem.create!(loan_id: @loan.id, term: term, principal: t_principal.to_f, monthly_amort: monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)

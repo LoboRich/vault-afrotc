@@ -52,8 +52,8 @@
                       = f.text_field :balance, class: 'form-control', required:  true, disabled: true, value: format_currency_with_space(f.object.balance)
                   .row.m-t-sm
                     .col-md-4
-                      = f.label :interest, :class => "form-label"
-                      = f.text_field :interest, class: 'form-control', required:  true, disabled: true
+                      = f.label :reservation_fee, :class => "form-label"
+                      = f.text_field :reservation_fee, class: 'form-control', required:  true, disabled: true
                     .col-md-4
                       = f.label :contract_date, :class => "form-label"
                       = f.date_field :contract_date, class: 'form-control', required:  true, disabled: true
@@ -76,7 +76,7 @@
               .card-header  
                 .page-description.d-flex.align-items-center
                   .page-description-content.flex-grow-1
-                    %h1 Statement of Account
+                    %h1 Equity
                   .page-description-actions
                     = link_to pay_loan_path(@loan), class: 'btn btn-primary' do
                       %i.material-icons> add
@@ -91,11 +91,7 @@
                         %th PMT. Date
                         %th OR
                         %th Amount
-                        %th ITP
                         %th M.A
-                        %th PEN
-                        %th Interest
-                        %th Principal
                         %th Balance
                         %th Status
 
@@ -106,18 +102,14 @@
                         %td
                         %td
                         %td
-                        %td
                         %th
                         %td 
-                        %td
-                        %td
-                        %td 
                           .text-primary.font-weight-s
-                            = format_currency(@loan.balance)
+                            = format_currency(@loan.downpayment - @loan.reservation_fee)
                         %td 
-                      - total_principal = 0
-                      - total_interest = 0
+                      - total_monthly_amort = 0
                       - @loan.loan_items.order("duedate asc").each do |ai|
+                        - total_monthly_amort += ai.monthly_amort
                         %tr
                           %td 
                             = ai.term
@@ -130,17 +122,7 @@
                           %td
                             = number_to_currency(ai.paid_amount, unit: "₱ ", precision: 2, format: "%u%n")
                           %td
-                            = number_to_currency(ai.advance, unit: "₱ ", precision: 2, format: "%u%n")
-                          %td
-                            = number_to_currency(ai.monthly_amort, unit: "₱ ", precision: 2, format: "%u%n")
-                          %td
-                            = number_to_currency(ai.penalty, unit: "₱ ", precision: 2, format: "%u%n")
-                          %td
-                            = number_to_currency(ai.interest, unit: "₱ ", precision: 2, format: "%u%n")
-                            - total_interest += ai.interest
-                          %td
-                            = number_to_currency(ai.principal, unit: "₱ ", precision: 2, format: "%u%n")
-                            - total_principal += ai.principal                    
+                            = number_to_currency(ai.monthly_amort, unit: "₱ ", precision: 2, format: "%u%n")           
                           %td
                             = number_to_currency(ai.balance, unit: "₱ ", precision: 2, format: "%u%n")
                           %td
@@ -149,6 +131,7 @@
                                 <span class="badge bg-success">Paid</span>
                               - else
                                 <span class="badge bg-info">Unpaid</span>
+
                       %tr
                         %td
                           %strong.hidden= @loan.loan_items.count+1
@@ -158,15 +141,10 @@
                         %td
                         %td
                         %td
+                          = number_to_currency(total_monthly_amort, unit: "₱ ", precision: 2, format: "%u%n")
                         %td
                         %td
-                        %td
-                          = number_to_currency(total_principal, unit: "₱ ", precision: 2, format: "%u%n")
-                        %td
-                          = number_to_currency(total_interest, unit: "₱ ", precision: 2, format: "%u%n")
-                        %td
-                        %td
-                        %td
+                        
 
 :javascript
   $(document).ready(function(){

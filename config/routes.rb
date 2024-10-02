@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :inhouse_loan_items
-  resources :inhouse_loans
+  resources :inhouse_loans do
+    collection do
+      get 'compute_equity_monthly_amort'
+    end
+  end
   resources :purchasers
   get 'histories', to: 'history#index', as: :histories
   resources :water_bills do
