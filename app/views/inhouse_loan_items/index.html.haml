@@ -36,40 +36,40 @@
                     %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
                       %thead
                         %tr.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"}
-                                                      %th Term
-                                                      %th Inhouse loan
-                                                      %th Due date
-                                                      %th Principal
-                                                      %th Interest
-                                                      %th Monthly amort
-                                                      %th Balance
-                                                      %th Is paid
-                                                      %th Penalty
-                                                      %th Advance
-                                                      %th Payment date
-                                                      %th Or
-                                                      %th Paid amount
-                                                    %th.sorting{"aria-controls" => "inhouse_loan_item_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
+                          %th Term
+                          %th Inhouse loan
+                          %th Due date
+                          %th Principal
+                          %th Interest
+                          %th Monthly amort
+                          %th Balance
+                          %th Is paid
+                          %th Penalty
+                          %th Advance
+                          %th Payment date
+                          %th Or
+                          %th Paid amount
+                        %th.sorting{"aria-controls" => "inhouse_loan_item_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
                       %tbody
                         - @inhouse_loan_items.each do |inhouse_loan_item|
-                            %tr.odd{:role => "row"}     
-                                                              %td= inhouse_loan_item.term
-                                                              %td= inhouse_loan_item.inhouse_loan
-                                                              %td= inhouse_loan_item.due_date
-                                                              %td= inhouse_loan_item.principal
-                                                              %td= inhouse_loan_item.interest
-                                                              %td= inhouse_loan_item.monthly_amort
-                                                              %td= inhouse_loan_item.balance
-                                                              %td= inhouse_loan_item.is_paid
-                                                              %td= inhouse_loan_item.penalty
-                                                              %td= inhouse_loan_item.advance
-                                                              %td= inhouse_loan_item.payment_date
-                                                              %td= inhouse_loan_item.or
-                                                              %td= inhouse_loan_item.paid_amount
-                                                            %td
-                                = link_to 'Show', inhouse_loan_item, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
-                                = link_to 'Edit', edit_inhouse_loan_item_path(inhouse_loan_item), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
-                                = link_to 'Delete', inhouse_loan_item, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true }
+                          %tr.odd{:role => "row"}     
+                            %td= inhouse_loan_item.term
+                            %td= inhouse_loan_item.inhouse_loan
+                            %td= inhouse_loan_item.due_date
+                            %td= inhouse_loan_item.principal
+                            %td= inhouse_loan_item.interest
+                            %td= inhouse_loan_item.monthly_amort
+                            %td= inhouse_loan_item.balance
+                            %td= inhouse_loan_item.is_paid
+                            %td= inhouse_loan_item.penalty
+                            %td= inhouse_loan_item.advance
+                            %td= inhouse_loan_item.payment_date
+                            %td= inhouse_loan_item.or
+                            %td= inhouse_loan_item.paid_amount
+                            %td
+                              = link_to 'Show', inhouse_loan_item, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
+                              = link_to 'Edit', edit_inhouse_loan_item_path(inhouse_loan_item), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
+                              = link_to 'Delete', inhouse_loan_item, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true }
 :javascript
   $(document).ready( function () {
       $('#datatable1_wrapper').DataTable();
