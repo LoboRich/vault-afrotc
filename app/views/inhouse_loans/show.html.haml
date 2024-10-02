@@ -1,0 +1,80 @@
+%section.section
+  .section-header.d-mobile-none
+    %h1 New created inhouse_loan
+    .section-header-breadcrumb
+      .breadcrumb-item 
+        = link_to 'Dashboard', '/'
+      .breadcrumb-item
+        @inhouse_loan
+  .col-12.col-md-12.col-lg-12
+    .card
+      .card-body
+        = form_for @inhouse_loan do |f|
+          - if @inhouse_loan.errors.any?
+            #error_explanation
+              %h2= "#{pluralize(@inhouse_loan.errors.count, "error")} prohibited this inhouse_loan from being saved:"
+              %ul
+                - @inhouse_loan.errors.full_messages.each do |message|
+                  %li= message
+          .form-row.pt-3
+            .col-md-6
+              .field
+                = f.label :client
+                = f.text_field :client, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :loan
+                = f.text_field :loan, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :terms
+                = f.number_field :terms, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :loan_financing
+                = f.text_field :loan_financing, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :balance
+                = f.text_field :balance, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :processing_fees
+                = f.text_field :processing_fees, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :downpayment
+                = f.text_field :downpayment, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :interest
+                = f.text_field :interest, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :principal
+                = f.text_field :principal, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :monthly_amort
+                = f.text_field :monthly_amort, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :contract_date
+                = f.datetime_field :contract_date, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :amortization_start_date
+                = f.datetime_field :amortization_start_date, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :remarks
+                = f.text_area :remarks, class: 'form-control', required:  true, disabled: true
+            .col-md-6
+              .field
+                = f.label :other_expense
+                = f.text_field :other_expense, class: 'form-control', required:  true, disabled: true
+          .card-footer.pt-3
+        
+        = link_to 'Back', inhouse_loans_path, :class => "btn btn-secondary"
+        = link_to 'Edit', edit_inhouse_loan_path(@inhouse_loan), :class => "btn btn-warning float-right"
+

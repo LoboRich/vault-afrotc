@@ -1,0 +1,67 @@
+.app.align-content-stretch.d-flex.flex-wrap
+  = render "layouts/sidebar"
+  .app-container
+    .app-content
+      .content-wrapper
+        .container
+          .page-description.d-flex.align-items-center
+            .page-description-content.flex-grow-1
+              %h1 Inhouse Loans
+            .page-description-actions
+              = link_to new_inhouse_loan_path, class: 'btn btn-primary' do
+                %i.material-icons> add
+                New Loan
+              /= link_to 'Print Page', 'javascript:window.print()', class: 'btn btn-primary'
+          .card
+            .card-body
+              .row
+                .col-sm-12.table-responsive
+                  %table#datatable_inhouse.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+                    %thead
+                      %tr.nowrap
+                        %th Terms
+                        %th Model house
+                        %th Loan financing
+                        %th Contract price
+                        %th Downpayment
+                        %th Interest
+                        // %th Principal
+                        %th Monthly amort
+                        %th Contract date
+                        %th Amortization start date
+                        %th Balance
+                        %th Status
+                        %th Broker
+                        %th.sorting{"aria-controls" => "loan_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
+                    %tbody
+                      - @inhouse_loans.each do |inhouse_loan|
+                        %tr.odd{:role => "row"}
+                          %td= inhouse_loan.terms
+                          %td= inhouse_loan.model_house
+                          %td= inhouse_loan.loan_financing
+                          %td= number_to_currency(inhouse_loan.contract_price, precision: 2, delimiter: ",", unit: "₱")
+                          %td= number_to_currency(inhouse_loan.downpayment, precision: 2, delimiter: ",", unit: "₱")
+                          %td= "#{inhouse_loan.interest.to_i}%"
+                          // %td= number_to_currency(inhouse_loan.principal, unit: "£", separator: ",", delimiter: ".")
+                          %td= number_to_currency(inhouse_loan.monthly_amort, precision: 2, delimiter: ",", unit: "₱")
+                          %td= inhouse_loan.contract_date
+                          %td= inhouse_loan.amortization_start_date
+                          %td= number_to_currency(inhouse_loan.balance, unit: "₱", separator: ".", delimiter: ",")
+                     
+                          %td
+                            .badge.badge-primary= inhouse_loan.status
+                          %td= inhouse_loan.broker
+                          %td
+                            .d-flex
+                              = link_to inhouse_loan, class: 'btn btn-action btn-info' do
+                                %i.material-icons> visibility
+                              = link_to edit__inhouse_loan_path(inhouse_loan), class: 'btn btn-action btn-warning' do
+                                %i.material-icons> edit
+                              - if current_user.role == 'admin' || current_user.role == 'ceo'
+                                = button_to inhouse_loan, class: 'btn btn-action btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?'} do
+                                  %i.material-icons delete
+:javascript
+  $(document).ready( function () {
+      $('#datatable_inhouse').DataTable();
+  } );
+  

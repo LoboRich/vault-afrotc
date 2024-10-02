@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  term: 1
+  inhouse_loan: one
+  due_date: 2024-10-02
+  principal: 1.5
+  interest: 1.5
+  monthly_amort: 1.5
+  balance: 1.5
+  is_paid: false
+  penalty: 1.5
+  advance: 1.5
+  payment_date: 2024-10-02 16:47:22
+  or: MyString
+  paid_amount: 1.5
+
+two:
+  term: 1
+  inhouse_loan: two
+  due_date: 2024-10-02
+  principal: 1.5
+  interest: 1.5
+  monthly_amort: 1.5
+  balance: 1.5
+  is_paid: false
+  penalty: 1.5
+  advance: 1.5
+  payment_date: 2024-10-02 16:47:22
+  or: MyString
+  paid_amount: 1.5
