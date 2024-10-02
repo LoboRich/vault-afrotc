@@ -109,7 +109,6 @@
                         %td 
                       - total_monthly_amort = 0
                       - @loan.loan_items.order("duedate asc").each do |ai|
-                        - total_monthly_amort += ai.monthly_amort
                         %tr
                           %td 
                             = ai.term
@@ -123,6 +122,7 @@
                             = number_to_currency(ai.paid_amount, unit: "₱ ", precision: 2, format: "%u%n")
                           %td
                             = number_to_currency(ai.monthly_amort, unit: "₱ ", precision: 2, format: "%u%n")           
+                            - total_monthly_amort += ai.monthly_amort
                           %td
                             = number_to_currency(ai.balance, unit: "₱ ", precision: 2, format: "%u%n")
                           %td
@@ -131,7 +131,6 @@
                                 <span class="badge bg-success">Paid</span>
                               - else
                                 <span class="badge bg-info">Unpaid</span>
-
                       %tr
                         %td
                           %strong.hidden= @loan.loan_items.count+1
@@ -141,7 +140,7 @@
                         %td
                         %td
                         %td
-                          = number_to_currency(total_monthly_amort, unit: "₱ ", precision: 2, format: "%u%n")
+                          = number_to_currency(total_monthly_amort.ceil, unit: "₱ ", precision: 2, format: "%u%n")
                         %td
                         %td
                         
