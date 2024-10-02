@@ -1,4 +1,3 @@
-
 .app.align-content-stretch.d-flex.flex-wrap
   = render "layouts/sidebar"
   .app-container
@@ -7,72 +6,62 @@
         .container
           .page-description.d-flex.align-items-center
             .page-description-content.flex-grow-1
-              inhouse_loans
+              %h1 Inhouse Loans
             .page-description-actions
               = link_to new_inhouse_loan_path, class: 'btn btn-primary' do
                 %i.material-icons> add
-                New Inhouse loan
+                New Loan
+              /= link_to 'Print Page', 'javascript:window.print()', class: 'btn btn-primary'
           .card
             .card-body
-              #datatable1_wrapper.dataTables_wrapper.dt-bootstrap4
-                .row
-                  .col-sm-12.col-md-6
-                    #datatable1_length.dataTables_length
-                      %label
-                        Show
-                        %select.custom-select.custom-select-sm.form-control.form-control-sm{"aria-controls" => "datatable1", :name => "datatable1_length"}
-                          %option{:value => "10"} 10
-                          %option{:value => "25"} 25
-                          %option{:value => "50"} 50
-                          %option{:value => "100"} 100
-                        entries
-                  .col-sm-12.col-md-6
-                    #datatable1_filter.dataTables_filter
-                      %label
-                        Search:
-                        %input.form-control.form-control-sm{"aria-controls" => "datatable1", :placeholder => "", :type => "search"}/
-                .row
-                  .col-sm-12.table-responsive
-                    %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
-                      %thead
-                        %tr.sorting{"aria-controls" => "client_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"}
-                                                      %th Client
-                                                      %th Loan
-                                                      %th Terms
-                                                      %th Loan financing
-                                                      %th Balance
-                                                      %th Processing fees
-                                                      %th Downpayment
-                                                      %th Interest
-                                                      %th Principal
-                                                      %th Monthly amort
-                                                      %th Contract date
-                                                      %th Amortization start date
-                                                      %th Remarks
-                                                      %th Other expense
-                                                    %th.sorting{"aria-controls" => "inhouse_loan_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
-                      %tbody
-                        - @inhouse_loans.each do |inhouse_loan|
-                            %tr.odd{:role => "row"}     
-                                                              %td= inhouse_loan.client
-                                                              %td= inhouse_loan.loan
-                                                              %td= inhouse_loan.terms
-                                                              %td= inhouse_loan.loan_financing
-                                                              %td= inhouse_loan.balance
-                                                              %td= inhouse_loan.processing_fees
-                                                              %td= inhouse_loan.downpayment
-                                                              %td= inhouse_loan.interest
-                                                              %td= inhouse_loan.principal
-                                                              %td= inhouse_loan.monthly_amort
-                                                              %td= inhouse_loan.contract_date
-                                                              %td= inhouse_loan.amortization_start_date
-                                                              %td= inhouse_loan.remarks
-                                                              %td= inhouse_loan.other_expense
-                                                            %td
-                                = link_to 'Show', inhouse_loan, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1'
-                                = link_to 'Edit', edit_inhouse_loan_path(inhouse_loan), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1'
-                                = link_to 'Delete', inhouse_loan, title: 'Destroy it', class: 'btn btn-icon btn-sm btn-danger', method: :delete, data: { confirm: 'Are you sure?', remote: true }
+              .row
+                .col-sm-12.table-responsive
+                  %table#datatable_inhouse.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+                    %thead
+                      %tr.nowrap
+                        %th Terms
+                        %th Model house
+                        %th Loan financing
+                        %th Contract price
+                        %th Downpayment
+                        %th Interest
+                        // %th Principal
+                        %th Monthly amort
+                        %th Contract date
+                        %th Amortization start date
+                        %th Balance
+                        %th Status
+                        %th Broker
+                        %th.sorting{"aria-controls" => "loan_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
+                    %tbody
+                      - @inhouse_loans.each do |inhouse_loan|
+                        %tr.odd{:role => "row"}
+                          %td= inhouse_loan.terms
+                          %td= inhouse_loan.model_house
+                          %td= inhouse_loan.loan_financing
+                          %td= number_to_currency(inhouse_loan.contract_price, precision: 2, delimiter: ",", unit: "₱")
+                          %td= number_to_currency(inhouse_loan.downpayment, precision: 2, delimiter: ",", unit: "₱")
+                          %td= "#{inhouse_loan.interest.to_i}%"
+                          // %td= number_to_currency(inhouse_loan.principal, unit: "£", separator: ",", delimiter: ".")
+                          %td= number_to_currency(inhouse_loan.monthly_amort, precision: 2, delimiter: ",", unit: "₱")
+                          %td= inhouse_loan.contract_date
+                          %td= inhouse_loan.amortization_start_date
+                          %td= number_to_currency(inhouse_loan.balance, unit: "₱", separator: ".", delimiter: ",")
+                     
+                          %td
+                            .badge.badge-primary= inhouse_loan.status
+                          %td= inhouse_loan.broker
+                          %td
+                            .d-flex
+                              = link_to inhouse_loan, class: 'btn btn-action btn-info' do
+                                %i.material-icons> visibility
+                              = link_to edit__inhouse_loan_path(inhouse_loan), class: 'btn btn-action btn-warning' do
+                                %i.material-icons> edit
+                              - if current_user.role == 'admin' || current_user.role == 'ceo'
+                                = button_to inhouse_loan, class: 'btn btn-action btn-danger', method: :delete, data: { turbo_confirm: 'Confirm delete?'} do
+                                  %i.material-icons delete
 :javascript
   $(document).ready( function () {
-      $('#datatable1_wrapper').DataTable();
+      $('#datatable_inhouse').DataTable();
   } );
+  
