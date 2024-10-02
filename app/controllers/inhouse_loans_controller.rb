@@ -13,6 +13,7 @@ class InhouseLoansController < ApplicationController
   # GET /inhouse_loans/new
   def new
     @inhouse_loan = InhouseLoan.new
+    @parcels = Parcel.where(status: 'Available').order(:block).collect{ |u| ["#{u.subdivision.short_code} Block #{u.block} - Lot #{u.lot}", u.id]}
   end
 
   # GET /inhouse_loans/1/edit

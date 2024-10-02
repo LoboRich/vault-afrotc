@@ -15,10 +15,6 @@
               = f.text_field :client, class: 'form-control', required:  true
           .col-md-6.pt-3
             .field
-              = f.label :loan
-              = f.text_field :loan, class: 'form-control', required:  true
-          .col-md-6.pt-3
-            .field
               = f.label :terms
               = f.number_field :terms, class: 'form-control', required:  true
           .col-md-6.pt-3
@@ -31,20 +27,9 @@
               = f.text_field :balance, class: 'form-control', required:  true
           .col-md-6.pt-3
             .field
-              = f.label :processing_fees
-              = f.text_field :processing_fees, class: 'form-control', required:  true
-          .col-md-6.pt-3
-            .field
               = f.label :downpayment
               = f.text_field :downpayment, class: 'form-control', required:  true
-          .col-md-6.pt-3
-            .field
-              = f.label :interest
-              = f.text_field :interest, class: 'form-control', required:  true
-          .col-md-6.pt-3
-            .field
-              = f.label :principal
-              = f.text_field :principal, class: 'form-control', required:  true
+        
           .col-md-6.pt-3
             .field
               = f.label :monthly_amort
@@ -61,10 +46,6 @@
             .field
               = f.label :remarks
               = f.text_area :remarks, class: 'form-control', required:  true
-          .col-md-6.pt-3
-            .field
-              = f.label :other_expense
-              = f.text_field :other_expense, class: 'form-control', required:  true
         .card-footer
     = link_to 'Back', inhouse_loans_path, class: 'btn btn-secondary'
     = f.submit 'Save Changes', class: 'btn btn-warning float-right'

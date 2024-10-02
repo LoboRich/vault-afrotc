@@ -44,30 +44,24 @@ class LoansController < ApplicationController
           Parcel.find(p).update(status: 'Reserved')
         end
 
-        comp_balance = @loan.contract_price.to_f - (@loan.processing_fees.to_f + @loan.downpayment.to_f)
+        comp_balance = @loan.contract_price.to_f - @loan.downpayment.to_f
 
-        monthly_amort = FinanceMath::Loan.new(nominal_rate: @loan.interest.to_i, duration: @loan.terms.to_i, amount: comp_balance.to_f).pmt
+        monthly_amort =  (@loan.downpayment.to_f - @loan.reservation_fee.to_f) / @loan.terms.to_i
         @loan.update(balance: comp_balance, monthly_amort: monthly_amort)
 
         terms = @loan.terms.to_i
-        contract_price = @loan.contract_price.to_i
-        processing_fees = @loan.processing_fees.to_i
-        downpayment = @loan.downpayment.to_f
-        interest_rate = @loan.interest.to_i
-        balance =  @loan.balance.to_f
-        interest = balance * (interest_rate.to_f/12) / 100
+        balance =  @loan.downpayment.to_f - @loan.reservation_fee.to_f
 
         term = 1
         tmp_bal = balance
         while tmp_bal >= 0
-          t_interest = tmp_bal * (@loan.interest.to_f/12) / 100
-          t_principal = monthly_amort.to_f - t_interest.to_f
+          t_principal = monthly_amort.to_f
           t_balance = tmp_bal - t_principal.to_f
 
-          period = @loan.amortization_start_date + term.months - 1.months
+          period = @loan.amortization_start_date + term.months
           t_period = period.strftime("%b-%d-%Y").to_date
           
-          line_item = LoanItem.create!(loan_id: @loan.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
+          line_item = LoanItem.create!(loan_id: @loan.id, term: term, principal: t_principal.to_f, monthly_amort: monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
           
           tmp_bal = t_balance
           term += 1
@@ -233,6 +227,6 @@ class LoansController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def loan_params 
-      params.require(:loan).permit(:client_id, {:blocklot => []}, :terms, :model_house, :loan_financing, :contract_price, :processing_fees, :downpayment, :interest, :principal, :monthly_amort, :contract_date, :amortization_start_date, :balance, :remarks, :status, :broker)
+      params.require(:loan).permit(:reservation_fee, :downpayment_percentage, :client_id, {:blocklot => []}, :terms, :model_house, :loan_financing, :contract_price, :processing_fees, :downpayment, :interest, :principal, :monthly_amort, :contract_date, :amortization_start_date, :balance, :remarks, :status, :broker)
     end
 end
