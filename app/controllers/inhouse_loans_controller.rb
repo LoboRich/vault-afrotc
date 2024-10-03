@@ -138,18 +138,18 @@ class InhouseLoansController < ApplicationController
   end
 
   def pay
-    @inhouse_loan_items = @inhouse_loan.inhouse_loan_items.order("duedate asc").where(is_paid: false).first
+    @inhouseLoanItem = @inhouse_loan.inhouse_loan_items.order("due_date asc").where(is_paid: false).first
   end
   def process_pay
     params.permit!
     customer = @inhouse_loan
     unless params['customer_payments']['payment'] == "0" 
-      next_line = customer.loan_items.order("duedate asc").where(is_paid: false).first
+      next_line = customer.inhouse_loan_items.order("due_date asc").where(is_paid: false).first
       to_pay_monthly_amort = next_line.monthly_amort
       next_term = next_line.term
-      next_period = next_line.duedate
+      next_period = next_line.due_date
 
-      customer.loan_items.where(is_paid: false).destroy_all 
+      customer.inhouse_loan_items.where(is_paid: false).destroy_all 
       prev_balance = customer.balance
       payment_params = params["customer_payments"]["payment"].to_f 
 
@@ -162,29 +162,29 @@ class InhouseLoansController < ApplicationController
 
       customer.update!(balance: balance)
       
-      @paid_amort = InhouseLoanItem.create!(loan_id: customer.id, term: next_term, principal: principal, interest: interest.to_f, monthly_amort: to_pay_monthly_amort.to_f, balance: balance.to_f, duedate: next_period, penalty: penalty, advance: advance_payment, or: params["customer_payments"]["or_num"], paid_amount: payment_params + penalty, payment_date: params["customer_payments"]["payment_date"], is_paid: true)
+      @paid_amort = InhouseLoanItem.create!(inhouse_loan_id: customer.id, term: next_term, principal: principal, interest: interest.to_f, monthly_amort: to_pay_monthly_amort.to_f, balance: balance.to_f, due_date: next_period, penalty: penalty, advance: advance_payment, or: params["customer_payments"]["or_num"], paid_amount: payment_params + penalty, payment_date: params["customer_payments"]["payment_date"], is_paid: true)
       
       term = next_term + 1
-      duedate = next_period + 1.months
+      due_date = next_period + 1.months
       tmp_bal = customer.balance
       while tmp_bal >= 0
         t_interest = tmp_bal * (customer.interest.to_f/12) / 100
         t_principal = customer.monthly_amort.to_f - t_interest.to_f
         t_balance = tmp_bal - t_principal.to_f
 
-        t_period = duedate
+        t_period = due_date
         
         if t_balance < customer.monthly_amort
-          tmp_amort = InhouseLoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
-          tmp_amort = InhouseLoanItem.create!(loan_id: customer.id, term: term, principal: t_balance.to_f, interest: t_interest.to_f, monthly_amort: t_balance.to_f + t_interest.to_f, balance: 0, duedate: t_period, is_paid: false)
+          tmp_amort = InhouseLoanItem.create!(inhouse_loan_id: customer.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, due_date: t_period, is_paid: false)
+          tmp_amort = InhouseLoanItem.create!(inhouse_loan_id: customer.id, term: term, principal: t_balance.to_f, interest: t_interest.to_f, monthly_amort: t_balance.to_f + t_interest.to_f, balance: 0, due_date: t_period, is_paid: false)
           break
         else
-          tmp_amort = InhouseLoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
+          tmp_amort = InhouseLoanItem.create!(inhouse_loan_id: customer.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, due_date: t_period, is_paid: false)
         end
 
         tmp_bal = t_balance
         term += 1
-        duedate = t_period + 1.months
+        due_date = t_period + 1.months
       end
     end
 
