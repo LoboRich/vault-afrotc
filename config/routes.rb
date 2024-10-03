@@ -4,6 +4,10 @@ Rails.application.routes.draw do
     collection do
       get 'compute_equity_monthly_amort'
     end
+    member do
+      get 'pay'
+      post 'process_pay'
+    end
   end
   resources :purchasers
   get 'histories', to: 'history#index', as: :histories
