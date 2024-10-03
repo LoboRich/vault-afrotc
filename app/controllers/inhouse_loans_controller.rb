@@ -1,5 +1,5 @@
 class InhouseLoansController < ApplicationController
-  before_action :set_inhouse_loan, only: %i[ show edit update destroy ]
+  before_action :set_inhouse_loan, only: %i[ show edit update destroy pay process_pay ]
 
   # GET /inhouse_loans or /inhouse_loans.json
   def index
@@ -112,6 +112,83 @@ class InhouseLoansController < ApplicationController
     monthly_amort = sprintf "%.2f", monthly_amort
     render json: monthly_amort
   end
+
+  def pay
+    @inhouse_loan_items = @inhouse_loan.inhouse_loan_items.order("duedate asc").where(is_paid: false).first
+  end
+  def process_pay
+    params.permit!
+    customer = @inhouse_loan
+    unless params['customer_payments']['payment'] == "0" 
+      next_line = customer.loan_items.order("duedate asc").where(is_paid: false).first
+      to_pay_monthly_amort = next_line.monthly_amort
+      next_term = next_line.term
+      next_period = next_line.duedate
+
+      customer.loan_items.where(is_paid: false).destroy_all 
+      prev_balance = customer.balance
+      payment_params = params["customer_payments"]["payment"].to_f 
+
+      interest = prev_balance * (customer.interest.to_f/12)/100
+      principal = customer.monthly_amort - interest
+      advance_payment = payment_params > to_pay_monthly_amort ? payment_params - to_pay_monthly_amort : 0
+      penalty = params["customer_payments"]["penalty"].to_f
+      balance = prev_balance - payment_params + interest + penalty
+      monthly_amort = principal + interest
+
+      customer.update!(balance: balance)
+      
+      @paid_amort = InhouseLoanItem.create!(loan_id: customer.id, term: next_term, principal: principal, interest: interest.to_f, monthly_amort: to_pay_monthly_amort.to_f, balance: balance.to_f, duedate: next_period, penalty: penalty, advance: advance_payment, or: params["customer_payments"]["or_num"], paid_amount: payment_params + penalty, payment_date: params["customer_payments"]["payment_date"], is_paid: true)
+      
+      term = next_term + 1
+      duedate = next_period + 1.months
+      tmp_bal = customer.balance
+      while tmp_bal >= 0
+        t_interest = tmp_bal * (customer.interest.to_f/12) / 100
+        t_principal = customer.monthly_amort.to_f - t_interest.to_f
+        t_balance = tmp_bal - t_principal.to_f
+
+        t_period = duedate
+        
+        if t_balance < customer.monthly_amort
+          tmp_amort = InhouseLoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
+          tmp_amort = InhouseLoanItem.create!(loan_id: customer.id, term: term, principal: t_balance.to_f, interest: t_interest.to_f, monthly_amort: t_balance.to_f + t_interest.to_f, balance: 0, duedate: t_period, is_paid: false)
+          break
+        else
+          tmp_amort = InhouseLoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
+        end
+
+        tmp_bal = t_balance
+        term += 1
+        duedate = t_period + 1.months
+      end
+    end
+
+    History.create(user_id: current_user.id, description: "Payments made to inhouse loan: #{@inhouse_loan.id}" , model: "InhouseLoan", model_id: @inhouse_loan.id)
+  #   payment_history = PaymentHistory.create(
+  #     loan_id: customer.id,
+  #     loan_item_id: @paid_amort.id,
+  #     current_balance: prev_balance,
+  #     interest: interest, 
+  #     principal: principal,
+  #     payment: payment_params,
+  #     new_balance: balance,
+  #     mode_of_payment:  params["customer_payments"]["mode_of_payment"],
+  #     check_bank: params["customer_payments"]["check_bank"],
+  #     check_no: params["customer_payments"]["check_no"],
+  #     bank_name: params["customer_payments"]["bank_name"],
+  #     penalty: params["customer_payments"]["penalty"],
+  #     others: params["customer_payments"]["others"],
+  #     # downpayment: params["customer_payments"]["downpayment"],
+  #     or_num: params["customer_payments"]["or_num"],
+  #     payment_date: params["customer_payments"]["payment_date"],
+  #     memo: params["customer_payments"]["memo"],
+  #     # running_balance: running_balance,
+  #     advance_payment: advance_payment
+  #   )
+
+  #   redirect_to customer
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
