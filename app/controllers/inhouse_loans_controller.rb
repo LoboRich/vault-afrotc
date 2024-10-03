@@ -172,19 +172,35 @@ class InhouseLoansController < ApplicationController
         t_principal = customer.monthly_amort.to_f - t_interest.to_f
         t_balance = tmp_bal - t_principal.to_f
 
-        t_period = due_date
-        
-        if t_balance < customer.monthly_amort
-          tmp_amort = InhouseLoanItem.create!(inhouse_loan_id: customer.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, due_date: t_period, is_paid: false)
-          tmp_amort = InhouseLoanItem.create!(inhouse_loan_id: customer.id, term: term, principal: t_balance.to_f, interest: t_interest.to_f, monthly_amort: t_balance.to_f + t_interest.to_f, balance: 0, due_date: t_period, is_paid: false)
-          break
-        else
-          tmp_amort = InhouseLoanItem.create!(inhouse_loan_id: customer.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, due_date: t_period, is_paid: false)
-        end
+        InhouseLoanItem.create!(
+          inhouse_loan_id: customer.id,
+          term: term,
+          principal: t_principal.to_f,
+          interest: t_interest.to_f,
+          monthly_amort: customer.monthly_amort.to_f,
+          balance: t_balance.to_f,
+          due_date: due_date,
+          is_paid: false
+        )
 
         tmp_bal = t_balance
         term += 1
-        due_date = t_period + 1.months
+        
+        if tmp_bal < customer.monthly_amort
+          InhouseLoanItem.create!(
+            inhouse_loan_id: customer.id,
+            term: term,
+            principal: tmp_bal.to_f,
+            interest: t_interest.to_f,
+            monthly_amort: tmp_bal.to_f + t_interest.to_f,
+            balance: 0,
+            due_date: due_date + 1.months,
+            is_paid: false
+          )
+          break
+        end
+
+        due_date += 1.months
       end
     end
 
