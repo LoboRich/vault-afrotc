@@ -52,10 +52,13 @@
                         = f.number_field :amort, id: "amort", :class=>"form-control", value: number_with_precision(@loanItem.monthly_amort, precision: 2), disabled:true, hidden:true
                         = f.label 'amount', :class => "form-label"
                         = f.number_field :payment, :class=>"form-control",id: "payment", step: '0.01', required:  true, onchange: "javascript: comp_advance_payment_and_penalty()"
+                      .col-md-6
+                        = f.label 'penalty', :class => "form-label"
+                        = f.number_field :penalty, :class=>"form-control",id: "penalty", step: '0.01', required:  true, onchange: "javascript: comp_advance_payment_and_penalty()"
                     .row.m-t-sm
                       .col-md-6
-                        = f.label 'total', :class => "form-label"
-                        = f.number_field :total, :class=>"form-control", step: '0.01', id: "total", readonly: true
+                        = f.label 'advance', :class => "form-label"
+                        = f.number_field :advance, :class=>"form-control", step: '0.01', id: "advance", readonly: true
                     .row.m-t-sm  
                       = f.label "Remark", :class => "form-label"
                       = f.text_area :others, :class=>"form-control", placeholder: "Add additional notes..."
@@ -67,6 +70,5 @@
     penalty = parseFloat($("#penalty").val()) || 0.0
     payment = parseFloat($("#payment").val()) || 0.0
     amort = parseFloat($("#amort").val()) || 0.0
-    $("#total").val((penalty+payment).toFixed(2))
-    if (payment > amort) $("#advance").val(parseFloat(payment-amort).toFixed(2))
+    if (payment > amort) $("#advance").val(parseFloat((payment)-(amort)).toFixed(2))
   }
