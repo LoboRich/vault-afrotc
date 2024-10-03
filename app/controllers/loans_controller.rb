@@ -178,7 +178,6 @@ class LoansController < ApplicationController
         
         if t_balance < customer.monthly_amort
           tmp_amort = LoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
-          tmp_amort = LoanItem.create!(loan_id: customer.id, term: term, principal: t_balance.to_f, monthly_amort: t_balance.to_f, balance: 0, duedate: t_period, is_paid: false)
           break
         else
           tmp_amort = LoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
@@ -189,6 +188,7 @@ class LoansController < ApplicationController
         duedate = t_period + 1.months
       end
     end
+
     History.create(user_id: current_user.id, description: "Payments made to loan: #{@loan.id}" , model: "Loan", model_id: @loan.id)
     payment_history = PaymentHistory.create(
       loan_id: customer.id,

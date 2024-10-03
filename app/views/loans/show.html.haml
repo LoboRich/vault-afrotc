@@ -108,6 +108,7 @@
                             = format_currency(@loan.downpayment - @loan.reservation_fee)
                         %td 
                       - total_monthly_amort = 0
+                      - total_paid_amount = 0
                       - @loan.loan_items.order("duedate asc").each do |ai|
                         %tr
                           %td 
@@ -120,6 +121,7 @@
                             = ai.or
                           %td
                             = number_to_currency(ai.paid_amount, unit: "₱ ", precision: 2, format: "%u%n")
+                            - total_paid_amount += ai.paid_amount
                           %td
                             = number_to_currency(ai.monthly_amort, unit: "₱ ", precision: 2, format: "%u%n")           
                             - total_monthly_amort += ai.monthly_amort
@@ -139,8 +141,9 @@
                         %td
                         %td
                         %td
+                          = number_to_currency(total_paid_amount, unit: "₱ ", precision: 2, format: "%u%n")
                         %td
-                          = number_to_currency(total_monthly_amort.ceil, unit: "₱ ", precision: 2, format: "%u%n")
+                          = number_to_currency(total_monthly_amort, unit: "₱ ", precision: 2, format: "%u%n")
                         %td
                         %td
                         
