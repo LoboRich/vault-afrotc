@@ -54,19 +54,29 @@ class LoansController < ApplicationController
 
         term = 1
         tmp_bal = downpayment_percentage
-        while tmp_bal >= 0
-          t_principal = monthly_amort.to_f
-          t_balance = tmp_bal - t_principal.to_f
 
-          period = @loan.amortization_start_date + term.months - 1.months
+        while term <= terms && tmp_bal >= 0
+          t_principal = monthly_amort.to_f
+          t_balance = tmp_bal - t_principal
+
+          # Calculate the due date based on the current term
+          period = @loan.amortization_start_date + term.months
           t_period = period.strftime("%b-%d-%Y").to_date
-          
-          line_item = LoanItem.create!(loan_id: @loan.id, term: term, principal: t_principal.to_f, monthly_amort: monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
+
+          # Create the LoanItem with the calculated values
+          line_item = LoanItem.create!(
+            loan_id: @loan.id,
+            term: term,
+            principal: t_principal,
+            monthly_amort: monthly_amort.to_f,
+            balance: t_balance,
+            duedate: t_period,
+            is_paid: false
+          )
           
           tmp_bal = t_balance
           term += 1
         end
-        LoanItem.where(loan_id: @loan.id).last.destroy!
 
         History.create(user_id: current_user.id, description: "Creates a new loan equity", model: "Loan", model_id: @loan.id)
         format.html { redirect_to loan_url(@loan), notice: "Loan was successfully created." }
