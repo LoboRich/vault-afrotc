@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :inhouse_loans do
     collection do
       get 'compute_equity_monthly_amort'
+      get 'compute_monthly_amort'
     end
     member do
       get 'pay'

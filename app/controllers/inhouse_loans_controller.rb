@@ -12,8 +12,14 @@ class InhouseLoansController < ApplicationController
 
   # GET /inhouse_loans/new
   def new
-    @inhouse_loan = InhouseLoan.new
-    @parcels = Parcel.where(status: 'Available').order(:block).collect{ |u| ["#{u.subdivision.short_code} Block #{u.block} - Lot #{u.lot}", u.id]}
+    @loan_id = params[:loan]
+    @loan = Loan.find(@loan_id)
+    if @loan.nil?
+      flash[:alert] = "Equity not found."
+      redirect_to(request.referer)
+    else
+      @inhouse_loan = InhouseLoan.new
+    end
   end
 
   # GET /inhouse_loans/1/edit
@@ -22,18 +28,27 @@ class InhouseLoansController < ApplicationController
 
   # POST /inhouse_loans or /inhouse_loans.json
   def create
+    @loan = Loan.find(params[:inhouse_loan][:loan_id])
+
+    if @loan.nil?
+      flash[:alert] = "Loan not found."
+      redirect_to new_inhouse_loan_path
+      return
+    end
+
     @inhouse_loan = InhouseLoan.new(inhouse_loan_params)
+    @inhouse_loan.client_id = @loan.client_id
 
     respond_to do |format|
       if @inhouse_loan.save
         
-        comp_balance = @inhouse_loan.contract_price.to_f - (@inhouse_loan.processing_fees.to_f + @inhouse_loan.downpayment.to_f)
+        comp_balance = @loan.balance.to_f - @inhouse_loan.processing_fees.to_f
 
         monthly_amort = FinanceMath::Loan.new(nominal_rate: @inhouse_loan.interest.to_i, duration: @inhouse_loan.terms.to_i, amount: comp_balance.to_f).pmt
         @inhouse_loan.update(balance: comp_balance, monthly_amort: monthly_amort)
 
         terms = @inhouse_loan.terms.to_i
-        contract_price = @inhouse_loan.contract_price.to_i
+        contract_price = @loan.contract_price.to_i
         processing_fees = @inhouse_loan.processing_fees.to_i
         downpayment = @inhouse_loan.downpayment.to_f
         interest_rate = @inhouse_loan.interest.to_i
@@ -50,12 +65,12 @@ class InhouseLoansController < ApplicationController
           period = @inhouse_loan.amortization_start_date + term.months - 1.months
           t_period = period.strftime("%b-%d-%Y").to_date
           
-          line_item = InhouseLoanItem.create!(loan_id: @inhouse_loan.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
+          line_item = InhouseLoanItem.create!(inhouse_loan_id: @inhouse_loan.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: monthly_amort.to_f, balance: t_balance.to_f, due_date: t_period, is_paid: false)
           
           tmp_bal = t_balance
           term += 1
         end
-        InhouseLoanItem.where(loan_id: @inhouse_loan.id).last.destroy!
+        # InhouseLoanItem.where(inhouse_loan_id: @inhouse_loan.id).last.destroy!
 
         History.create(user_id: current_user.id, description: "Creates a new Inhouse loan", model: "InhouseLoan", model_id: @inhouse_loan.id)
         format.html { redirect_to @inhouse_loan, notice: "Inhouse loan was successfully created." }
@@ -101,6 +116,15 @@ class InhouseLoansController < ApplicationController
       format.html { redirect_to inhouse_loans_path, status: :see_other, notice: "Inhouse loan was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def compute_monthly_amort
+    interest_rate = params['interest_rate']
+    terms = params['terms']
+    balance = params['balance']
+    monthly_amort = FinanceMath::Loan.new(nominal_rate: interest_rate, duration: terms, amount: balance).pmt
+    monthly_amort = sprintf "%.2f", monthly_amort
+    render json: monthly_amort
   end
 
 
@@ -187,8 +211,8 @@ class InhouseLoansController < ApplicationController
   #     advance_payment: advance_payment
   #   )
 
-  #   redirect_to customer
-  # end
+    redirect_to customer
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

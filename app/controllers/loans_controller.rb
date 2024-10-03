@@ -60,7 +60,7 @@ class LoansController < ApplicationController
           t_balance = tmp_bal - t_principal
 
           # Calculate the due date based on the current term
-          period = @loan.amortization_start_date + term.months
+          period = @loan.amortization_start_date + term.months - 1.months
           t_period = period.strftime("%b-%d-%Y").to_date
 
           # Create the LoanItem with the calculated values

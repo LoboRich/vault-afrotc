@@ -69,4 +69,98 @@
                   .card-footer.pt-3
                     = link_to 'Back', inhouse_loans_path, :class => "btn btn-secondary"
                     = link_to 'Edit', edit_inhouse_loan_path(@inhouse_loan), :class => "btn btn-warning float-right"
+            .card
+              .card-header  
+                .page-description.d-flex.align-items-center
+                  .page-description-content.flex-grow-1
+                    %h1 Statement of Account
+                  .page-description-actions
+                    = link_to pay_inhouse_loan_path(@inhouse_loan), class: 'btn btn-primary' do
+                      %i.material-icons> add
+                      Payment
+              .card-body
+                .table-responsive
+                  %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+                    %thead
+                      %tr
+                        %th #
+                        %th Due Date
+                        %th PMT. Date
+                        %th OR
+                        %th Amount
+                        %th ITP
+                        %th M.A
+                        %th PEN
+                        %th Interest
+                        %th Principal
+                        %th Balance
+                        %th Status
 
+                    %tbody
+                      %tr
+                        %td
+                        %td
+                        %td
+                        %td
+                        %td
+                        %td
+                        %th
+                        %td 
+                        %td
+                        %td
+                        %td 
+                          .text-primary.font-weight-s
+                            = format_currency(@inhouse_loan.balance)
+                        %td 
+                      - total_principal = 0
+                      - total_interest = 0
+                      - @inhouse_loan.inhouse_loan_items.order("due_date asc").each do |ai|
+                        %tr
+                          %td 
+                            = ai.term
+                          %td 
+                            = ai.due_date.strftime("%b %d %Y")
+                          %td
+                            = ai.payment_date ? ai.payment_date.strftime("%b %d %Y") : ''
+                          %td
+                            = ai.or
+                          %td
+                            = number_to_currency(ai.paid_amount, unit: "₱ ", precision: 2, format: "%u%n")
+                          %td
+                            = number_to_currency(ai.advance, unit: "₱ ", precision: 2, format: "%u%n")
+                          %td
+                            = number_to_currency(ai.monthly_amort, unit: "₱ ", precision: 2, format: "%u%n")
+                          %td
+                            = number_to_currency(ai.penalty, unit: "₱ ", precision: 2, format: "%u%n")
+                          %td
+                            = number_to_currency(ai.interest, unit: "₱ ", precision: 2, format: "%u%n")
+                            - total_interest += ai.interest
+                          %td
+                            = number_to_currency(ai.principal, unit: "₱ ", precision: 2, format: "%u%n")
+                            - total_principal += ai.principal                    
+                          %td
+                            = number_to_currency(ai.balance, unit: "₱ ", precision: 2, format: "%u%n")
+                          %td
+                            .badges
+                              - if ai.is_paid == true
+                                <span class="badge bg-success">Paid</span>
+                              - else
+                                <span class="badge bg-info">Unpaid</span>
+                      %tr
+                        %td
+                          %strong.hidden= @inhouse_loan.inhouse_loan_items.count+1
+                        %td
+                          Total
+                        %td
+                        %td
+                        %td
+                        %td
+                        %td
+                        %td
+                        %td
+                          = number_to_currency(total_interest, unit: "₱ ", precision: 2, format: "%u%n")
+                        %td
+                          = number_to_currency(total_principal, unit: "₱ ", precision: 2, format: "%u%n")
+                        %td
+                        %td
+                        %td

@@ -8,15 +8,19 @@
           %li= message
   .row.m-t-sm
     .col-md-4
+      = f.hidden_field :loan_id, class: 'form-control', required:  true, value: @loan.id
       = f.label :loan_financing, :class => "form-label"
       = f.text_field :loan_financing, class: 'form-control', required:  true, value: 'Inhouse', readonly: true
     .col-md-4
-      = f.label "terms in months", :class => "form-label"
-      = f.number_field :terms, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
-  .row.m-t-sm
+      = f.label :balance, :class => "form-label"
+      = f.number_field :balance, class: 'form-control', readonly:  true, value: @loan.balance
     .col-md-4
       = f.label "Total Payments Made", :class => "form-label"
-      = f.number_field :downpayment, class: 'form-control', step: 'any', required:  true, onchange: "javascript: comp_month_amort()"
+      = f.number_field :downpayment, class: 'form-control', step: 'any', required:  true, value: @loan.downpayment.to_f, readonly: true
+  .row.m-t-sm
+    .col-md-4
+      = f.label "terms in months", :class => "form-label"
+      = f.number_field :terms, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"
     .col-md-4
       = f.label 'interest in %', :class => "form-label"
       = f.number_field :interest, class: 'form-control', required:  true, value: 0
@@ -24,9 +28,7 @@
       = f.label "Factor Table", :class => "form-label"
       = f.number_field :processing_fees, class: 'form-control', step: 'any', required:  true, onchange: "javascript: comp_month_amort()"
   .row.m-t-sm 
-    .col-md-4
-      = f.label :balance, :class => "form-label"
-      = f.number_field :balance, class: 'form-control', readonly:  true, onchange: "javascript: comp_month_amort()"
+    
     .col-md-4
       = f.label :monthly_amortization, :class => "form-label"
       = f.number_field :monthly_amort, class: 'form-control', required:  true, readonly: true
@@ -79,34 +81,16 @@
       }
     });
   });
-  function contract_price_total(){
-    const contractPrice = parseFloat($("#parcel_contract_price").val()) || 0;
-    $.ajax({
-      url: "/parcel/get_contract_price_data", // this will be routed
-      type: 'GET',
-      data: {
-        data: { contract_price: contractPrice },
-      },
-      async: true,
-      dataType: "json",
-      error: function(XMLHttpRequest, errorTextStatus, error){
-          alert("Failed: "+ errorTextStatus+" ;"+error);
-      },
-      success: function(ret){
-          $("#loan_selling_price").val(response.selling_price);
-      }
-    });
-  }
 
   function comp_month_amort(){
-    const balance = $("#loan_contract_price").val()-$("#loan_downpayment").val() - $("#loan_processing_fees").val()
+    const balance = $("#inhouse_loan_downpayment").val() - $("#inhouse_loan_processing_fees").val()
     $.ajax({
-      url: "/loans/compute_monthly_amort", // this will be routed
+      url: "/inhouse_loans/compute_monthly_amort", // this will be routed
       type: 'GET',
       data: {
         balance: balance, 
-        interest_rate: $("#loan_interest").val(),
-        terms: $("#loan_terms").val()
+        interest_rate: $("#inhouse_loan_interest").val(),
+        terms: $("#inhouse_loan_terms").val()
       },
       async: true,
       dataType: "json",
@@ -114,36 +98,8 @@
           alert("Failed: "+ errorTextStatus+" ;"+error);
       },
       success: function(ret){
-          $("#loan_balance").val(balance)
-          $("#loan_monthly_amort").val(ret)
+          $("#inhouse_loan_balance").val(balance)
+          $("#inhouse_loan_monthly_amort").val(ret)
       }
     });
   }
-
-  function get_selling_price(){
-    console.log($("#loan_blocklot").val())
-    if($("#loan_blocklot").val() == []){
-      $("#loan_contract_price").val(0)
-    }else{
-      $.ajax({
-        url: "/loans/check_parcel_price",
-        type: 'GET',
-        data: {
-          id: $("#loan_blocklot").val()
-        },
-        async: true,
-        dataType: "json",
-        error: function(XMLHttpRequest, errorTextStatus, error){
-            alert("Failed: "+ errorTextStatus+" ;"+error);
-        },
-        success: function(ret){
-            // here we iterate the json result
-            console.log(ret)
-            $("#loan_contract_price").val(ret)
-        }
-      });
-    }
-    
-  }
-  
-      
