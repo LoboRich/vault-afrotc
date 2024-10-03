@@ -20,69 +20,71 @@
       = f.label :email_address, :class => "form-label"
       = f.text_field :email_address, class: 'form-control', required:  true
   .row.m-t-sm
-    .col-md-6
-      = f.label :facebook_account_name, :class => "form-label"
-      = f.text_field :facebook_account_name, class: 'form-control', required:  true
-    .col-md-6
+    .col-md-12
       = f.label :address, :class => "form-label"
       = f.text_area :address, class: 'form-control', required:  true
   .row.m-t-sm
-    .col-md-6
+    .col-md-4
+      = f.label :facebook_account_name, :class => "form-label"
+      = f.text_field :facebook_account_name, class: 'form-control', required:  true
+    .col-md-4
       = f.label :gender, :class => "form-label"
       = f.text_field :gender, class: 'form-control', required:  true
-    .col-md-6
+    .col-md-4
       = f.label :civil_status, :class => "form-label"
       = f.text_field :civil_status, class: 'form-control', required:  true
   .row.m-t-sm
-    .col-md-6
+    .col-md-4
       = f.label :tin_number, :class => "form-label"
       = f.text_field :tin_number, class: 'form-control', required:  true
-    .col-md-6
+    .col-md-4
       .field
         = f.label :id_type, :class => "form-label"
         = f.text_field :id_type, class: 'form-control', required:  true
-  .row.m-t-sm
-    .col-md-6
+    .col-md-4
       = f.label :id_number, :class => "form-label"
       = f.text_field :id_number, class: 'form-control', required:  true
-    .col-md-6
+  .row.m-t-sm
+    .col-md-4
       = f.label :occupation, :class => "form-label"
       = f.text_field :occupation, class: 'form-control', required:  true
-  .row.m-t-sm
-    .col-md-6
-      = f.label :years_employed, :class => "form-label"
+    .col-md-4
+      = f.label :years_employed,  :class => "form-label"
       = f.text_field :years_employed, class: 'form-control', required:  true
-    .col-md-6
+    .col-md-4
       = f.label :employer_name, :class => "form-label"
       = f.text_field :employer_name, class: 'form-control', required:  true
+  .col-md-12.m-t-sm
+    = f.label :employer_business_address, :class => "form-label"
+    = f.text_field :employer_business_address, class: 'form-control', required:  true
+  .m-t-xxl.m-b-xxl
+    %h5.card-title.text-primary.text-uppercase
+      Spouse Information
   .row.m-t-sm
-    .col-md-6
-      = f.label :employer_business_address, :class => "form-label"
-      = f.text_field :employer_business_address, class: 'form-control', required:  true
     .col-md-6
       = f.label :spouse_name, :class => "form-label"
       = f.text_field :spouse_name, class: 'form-control', required:  true
+    .col-md-6
+      = f.label :spouse_contact_number, :class => "form-label"
+      = f.text_field :spouse_contact_number, class: 'form-control', required:  true
   .row.m-t-sm  
     .col-md-6
       = f.label :spouse_email, :class => "form-label"
       = f.text_field :spouse_email, class: 'form-control', required:  true
     .col-md-6
-      = f.label :spouse_contact_number, :class => "form-label"
-      = f.text_field :spouse_contact_number, class: 'form-control', required:  true
+      = f.label :spouse_tin_number, :class => "form-label"
+      = f.text_field :spouse_tin_number, class: 'form-control', required:  true
   .row.m-t-sm
-    .col-md-6
-      = f.label :spouse_address, :class => "form-label"
-      = f.text_area :spouse_address, class: 'form-control', required:  true
     .col-md-6
       = f.label :spouse_id_type, :class => "form-label"
       = f.text_field :spouse_id_type, class: 'form-control', required:  true
-  .row.m-t-sm
     .col-md-6
       = f.label :spouse_id_number, :class => "form-label"
       = f.text_field :spouse_id_number, class: 'form-control', required:  true
-    .col-md-6
-      = f.label :spouse_tin_number, :class => "form-label"
-      = f.text_field :spouse_tin_number, class: 'form-control', required:  true
+  .row.m-t-sm
+    .col-md-12
+      = f.label :spouse_address, :class => "form-label"
+      = f.text_area :spouse_address, class: 'form-control', required:  true
   .row.m-t-sm
     .col-md-6
       = f.label :basic_salary, :class => "form-label"
@@ -100,87 +102,49 @@
       = f.text_area :remarks, class: 'form-control', required:  true
   .row.m-t-sm
     .col-md-12
+  .m-b-xxl
+    %h5.card-title.text-primary.text-uppercase
+      Documents
   .row.m-t-sm
     .col-md-6
       %label.form-label{:for => "formFile"} Birth Certificate
-      - if @direct_mode
-        = f.cl_image_upload :birth_cert_img, multiple: true, accept: "application/pdf", class: "form-control", id: "formFile", include_hidden: false
-      - else
-        = f.file_field :birth_cert_img, id: "formFile", class: "form-control", multiple: true, accept: "application/pdf", include_hidden: false
-      .form-text.text-muted Please attach PDF file only
+      = f.file_field :birth_cert_img, class: 'form-control', id: "formFile"
       - if @client.birth_cert_img.present?
-        - @client.birth_cert_img.each do |attachment|
-          .mt-2
-            %a.dropdown-item.btn-light{ href: attachment.to_s, target: '_blank', rel: 'noopener noreferrer' }
-              %i.fas.fa-file.pr-2
-              View File
+        .mt-2
+          = link_to "Current file : #{@client.birth_cert_img.identifier}", @client.birth_cert_img.url, target: '_blank'
     .col-md-6
-      %label.form-label{:for => "formFile"} Valid ID
-      - if @direct_mode
-        = f.cl_image_upload :valid_id_img, multiple: true, accept: "application/pdf", class: "form-control", id: "formFile", include_hidden: false
-      - else
-        = f.file_field :valid_id_img, id: "formFile", class: "form-control", multiple: true, accept: "application/pdf", include_hidden: false
-      .form-text.text-muted Please attach PDF file only
+      %label.form-label{:for => "formFile"} Marriage Contract
+      = f.file_field :marriage_contract_img, class: 'form-control', id: "formFile"
+      - if @client.marriage_contract_img.present?
+        .mt-2
+          = link_to "Current file: #{@client.marriage_contract_img.identifier}", @client.marriage_contract_img.url, target: '_blank'
+  .row.m-t-sm
+    .col-md-6
+      %label.form-label{:for => "formFile"} Valid ID's
+      = f.file_field :valid_id_img, class: 'form-control', id: "formFile"
       - if @client.valid_id_img.present?
-        - @client.valid_id_img.each do |attachment|
-          .mt-2
-            %a.dropdown-item.btn-light{ href: attachment.to_s, target: '_blank', rel: 'noopener noreferrer' }
-              %i.fas.fa-file.pr-2
-              View File
+        .mt-2
+          = link_to "Current file: #{@client.valid_id_img.identifier}", @client.valid_id_img.url, target: '_blank'
+    .col-md-6
+      %label.form-label{:for => "formFile"} SPA (if out of the country)
+      = f.file_field :spa_img, class: 'form-control', id: "formFile"
+      - if @client.spa_img.present?
+        .mt-2
+          = link_to "Current file: #{@client.spa_img.identifier}", @client.spa_img.url, target: '_blank'
   .row.m-t-sm
     .col-md-6
       %label.form-label{:for => "formFile"} Proof of Income
-      - if @direct_mode
-        = f.cl_image_upload :proof_of_income_img, multiple: true, accept: "application/pdf", class: "form-control", id: "formFile", include_hidden: false
-      - else
-        = f.file_field :proof_of_income_img, id: "formFile", class: "form-control", multiple: true, accept: "application/pdf", include_hidden: false
-      .form-text.text-muted Please attach PDF file only
+      = f.file_field :proof_of_income_img, class: 'form-control', id: "formFile"
       - if @client.proof_of_income_img.present?
-        - @client.proof_of_income_img.each do |attachment|
-          .mt-2
-            %a.dropdown-item.btn-light{ href: attachment.to_s, target: '_blank', rel: 'noopener noreferrer' }
-              %i.fas.fa-file.pr-2
-              View File
+        .mt-2
+          = link_to "Current file: #{@client.proof_of_income_img.identifier}", @client.proof_of_income_img.url, target: '_blank'
     .col-md-6
-      %label.form-label{:for => "formFile"} Marriage Contract
-      - if @direct_mode
-        = f.cl_image_upload :marriage_contract_img, multiple: true, accept: "application/pdf", class: "form-control", id: "formFile", include_hidden: false
-      - else
-        = f.file_field :marriage_contract_img, id: "formFile", class: "form-control", multiple: true, accept: "application/pdf", include_hidden: false
-      .form-text.text-muted Please attach PDF file only
-      - if @client.marriage_contract_img.present?
-        - @client.marriage_contract_img.each do |attachment|
-          .mt-2
-            %a.dropdown-item.btn-light{ href: attachment.to_s, target: '_blank', rel: 'noopener noreferrer' }
-              %i.fas.fa-file.pr-2
-              View File
-  .row.m-t-sm
-    .col-md-6
-      %label.form-label{:for => "formFile"} SPA's
-      - if @direct_mode
-        = f.cl_image_upload :spa_img, multiple: true, accept: "application/pdf", class: "form-control", id: "formFile", include_hidden: false
-      - else
-        = f.file_field :spa_img, id: "formFile", class: "form-control", multiple: true, accept: "application/pdf", include_hidden: false
-      .form-text.text-muted Please attach PDF file only
-      - if @client.spa_img.present?
-        - @client.spa_img.each do |attachment|
-          .mt-2
-            %a.dropdown-item.btn-light{ href: attachment.to_s, target: '_blank', rel: 'noopener noreferrer' }
-              %i.fas.fa-file.pr-2
-              View File
-    .col-md-6
-      %label.form-label{:for => "formFile"} PDC's
-      - if @direct_mode
-        = f.cl_image_upload :pdc_img, multiple: true, accept: "application/pdf", class: "form-control", id: "formFile", include_hidden: false
-      - else
-        = f.file_field :marriagepdc_img_contract_img, id: "formFile", class: "form-control", multiple: true, accept: "application/pdf", include_hidden: false
-      .form-text.text-muted Please attach PDF file only
+      %label.form-label{:for => "formFile"} PDC's / 60 months
+      = f.file_field :pdc_img, class: 'form-control', id: "formFile"
       - if @client.pdc_img.present?
-        - @client.pdc_img.each do |attachment|
-          .mt-2
-            %a.dropdown-item.btn-light{ href: attachment.to_s, target: '_blank', rel: 'noopener noreferrer' }
-              %i.fas.fa-file.pr-2
-              View File
+        .mt-2
+          = link_to "Current file: #{@client.pdc_img.identifier}", @client.pdc_img.url, target: '_blank'
+
 
   .m-t-xxl
     

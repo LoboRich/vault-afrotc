@@ -6654,7 +6654,6 @@ span.flatpickr-weekday {
 
 .app.sidebar-hidden  .search {
     width: calc(100% - 360px);
-    left: 330px;
 }
 
 .full-width-header .search {
@@ -6717,7 +6716,6 @@ span.flatpickr-weekday {
     }
 
     .app-header {
-        left: 330px;
         width: calc(100% - 360px);
     }
 

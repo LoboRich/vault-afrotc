@@ -47,10 +47,10 @@
           #navbarNav.navbar-nav
           .d-flex
             %ul.navbar-nav
-              %li.nav-item.hidden-on-mobile
+              %li.nav-item
                 %a.nav-link{:href => "#"} Hello, CEO 
             %ul.navbar-nav
-              %li.nav-item.hidden-on-mobile
+              %li.nav-item
                 %a.nav-link{:href => "#"} Logout
                 - if user_signed_in?
                 Logged in as
