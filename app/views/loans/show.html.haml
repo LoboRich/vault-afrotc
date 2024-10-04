@@ -10,9 +10,10 @@
             .page-description-content.flex-grow-1
               %h1= @loan.client.name
             .page-description-actions
-              = link_to "/inhouse_loans/new?loan=#{@loan.id}", class: 'btn btn-primary' do
-                %i.material-icons> add
-                Create Inhouse Loan
+              - unless @has_loan
+                = link_to "/inhouse_loans/new?loan=#{@loan.id}", class: 'btn btn-primary' do
+                  %i.material-icons> add
+                  Create Inhouse Loan
           .row
             .card
               .card-body

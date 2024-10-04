@@ -8,6 +8,7 @@ class LoansController < ApplicationController
 
   # GET /loans/1 or /loans/1.json
   def show
+    @has_loan = @loan.inhouse_loan.present? ? true : false
   end
   # GET /loans/new
   def new
