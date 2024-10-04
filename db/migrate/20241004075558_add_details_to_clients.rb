@@ -1,7 +1,7 @@
 class AddDetailsToClients < ActiveRecord::Migration[7.1]
   def change
     add_column :clients, :spa_name, :string
-    add_column :clients, :spa_id_type, :integer
+    add_column :clients, :spa_id_type, :string
     add_column :clients, :spa_id_number, :integer
 
     add_column :clients, :spa_relationship_to_buyer, :string
