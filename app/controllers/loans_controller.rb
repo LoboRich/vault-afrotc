@@ -118,9 +118,6 @@ class LoansController < ApplicationController
     @loan.loan_parcels.each do |p|
       Parcel.find(p.parcel_id).update(status: 'Available')
     end
-    @loan.loan_parcels.destroy_all
-    @loan.payment_histories.destroy_all
-    @loan.loan_items.destroy_all
     
     @loan.destroy
 
@@ -159,7 +156,9 @@ class LoansController < ApplicationController
 
       principal = customer.monthly_amort
       
-      penalty = params["customer_payments"]["penalty"].to_f
+      penalty = params["customer_payments"]["penalty"].to_f @loan.loan_parcels.destroy_all
+      @loan.payment_histories.destroy_all
+      @loan.loan_items.destroy_all
       advance_payment = payment_params > to_pay_monthly_amort ? payment_params - to_pay_monthly_amort : 0
       balance = prev_balance - payment_params + penalty
       monthly_amort = principal
@@ -171,19 +170,14 @@ class LoansController < ApplicationController
       term = next_term + 1
       duedate = next_period + 1.months
       tmp_bal = customer.downpayment_percentage
-      while tmp_bal >= 0
+      while term <= @loan.terms.to_i && tmp_bal >= 0
        
         t_principal = customer.monthly_amort.to_f
         t_balance = tmp_bal - t_principal.to_f
 
         t_period = duedate
-        
-        if t_balance < customer.monthly_amort
-          tmp_amort = LoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
-          break
-        else
-          tmp_amort = LoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
-        end
+
+        line_item = LoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
 
         tmp_bal = t_balance
         term += 1
