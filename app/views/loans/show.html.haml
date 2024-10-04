@@ -10,9 +10,10 @@
             .page-description-content.flex-grow-1
               %h1= @loan.client.name
             .page-description-actions
-              = link_to "/inhouse_loans/new/?loan=#{@loan.id}", class: 'btn btn-primary' do
-                %i.material-icons> add
-                Create Inhouse Loan
+              - unless @has_loan
+                = link_to "/inhouse_loans/new?loan=#{@loan.id}", class: 'btn btn-primary' do
+                  %i.material-icons> add
+                  Create Inhouse Loan
           .row
             .card
               .card-body
@@ -94,6 +95,7 @@
                         %th Due Date
                         %th PMT. Date
                         %th OR
+                        %th ITP
                         %th Amount
                         %th M.A
                         %th Balance
@@ -112,6 +114,7 @@
                             = format_currency(@loan.downpayment - @loan.reservation_fee)
                         %td 
                       - total_monthly_amort = 0
+                      - total_itp = 0
                       - total_paid_amount = 0
                       - @loan.loan_items.order("duedate asc").each do |ai|
                         %tr
@@ -124,13 +127,16 @@
                           %td
                             = ai.or
                           %td
-                            = number_to_currency(ai.paid_amount, unit: "₱ ", precision: 2, format: "%u%n")
+                            = number_to_currency(ai.advance.ceil, unit: "₱ ", precision: 2, format: "%u%n")
+                            - total_itp += ai.advance
+                          %td
+                            = number_to_currency(ai.paid_amount.ceil, unit: "₱ ", precision: 2, format: "%u%n")
                             - total_paid_amount += ai.paid_amount
                           %td
                             = number_to_currency(ai.monthly_amort, unit: "₱ ", precision: 2, format: "%u%n")           
                             - total_monthly_amort += ai.monthly_amort
                           %td
-                            = number_to_currency(ai.balance, unit: "₱ ", precision: 2, format: "%u%n")
+                            = ai.balance.floor > 0 ? number_to_currency(ai.balance.floor, unit: "₱ ", precision: 2, format: "%u%n") : 0.00
                           %td
                             .badges
                               - if ai.is_paid == true
@@ -145,7 +151,9 @@
                         %td
                         %td
                         %td
-                          = number_to_currency(total_paid_amount, unit: "₱ ", precision: 2, format: "%u%n")
+                          = number_to_currency(total_itp.ceil, unit: "₱ ", precision: 2, format: "%u%n")
+                        %td
+                          = number_to_currency(total_paid_amount.ceil, unit: "₱ ", precision: 2, format: "%u%n")
                         %td
                           = number_to_currency(total_monthly_amort, unit: "₱ ", precision: 2, format: "%u%n")
                         %td

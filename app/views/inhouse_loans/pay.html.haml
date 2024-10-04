@@ -24,20 +24,20 @@
                   - total_interest = 0
                   %tr
                     %td 
-                      = @loanItem.term
+                      = @inhouseLoanItem.term
                     %td 
-                      = @loanItem.duedate.strftime("%b %d %Y")
+                      = @inhouseLoanItem.due_date.strftime("%b %d %Y")
                     %td
-                      = format_num @loanItem.monthly_amort
+                      = format_num @inhouseLoanItem.monthly_amort
                     %td
-                      = format_num @loanItem.interest
-                      - total_interest += @loanItem.interest
+                      = format_num @inhouseLoanItem.interest
+                      - total_interest += @inhouseLoanItem.interest
                     %td
-                      = format_num @loanItem.principal
-                      - total_principal += @loanItem.principal                    
+                      = format_num @inhouseLoanItem.principal
+                      - total_principal += @inhouseLoanItem.principal                    
                     %td
-                      = format_num @loanItem.balance
-              = form_for 'customer_payments', url: process_pay_loan_path(@loan), html: { id: 'customer_payments' } do |f|
+                      = format_num @inhouseLoanItem.balance
+              = form_for 'customer_payments', url: process_pay_inhouse_loan_path(@inhouse_loan), html: { id: 'customer_payments' } do |f|
                 .modal-header
                   %h5#exampleModalLabel.modal-title.new_keyword_modal_title Add Payment
                 .modal-body
@@ -58,7 +58,7 @@
                         = f.number_field :or_num, :class=>"form-control", id: "or_num"
                     .row.m-t-sm  
                       .col-md-6
-                        = f.number_field :amort, id: "amort", :class=>"form-control", value: number_with_precision(@loanItem.monthly_amort, precision: 2), disabled:true, hidden:true
+                        = f.number_field :amort, id: "amort", :class=>"form-control", value: number_with_precision(@inhouseLoanItem.monthly_amort, precision: 2), disabled:true, hidden:true
                         = f.label 'amount', :class => "form-label"
                         = f.number_field :payment, :class=>"form-control",id: "payment", step: '0.01', required:  true, onchange: "javascript: comp_advance_payment_and_penalty()"
                       .col-md-6

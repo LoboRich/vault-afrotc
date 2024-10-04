@@ -8,6 +8,7 @@ class LoansController < ApplicationController
 
   # GET /loans/1 or /loans/1.json
   def show
+    @has_loan = @loan.inhouse_loan.present? ? true : false
   end
   # GET /loans/new
   def new
@@ -60,7 +61,7 @@ class LoansController < ApplicationController
           t_balance = tmp_bal - t_principal
 
           # Calculate the due date based on the current term
-          period = @loan.amortization_start_date + term.months
+          period = @loan.amortization_start_date + term.months - 1.months
           t_period = period.strftime("%b-%d-%Y").to_date
 
           # Create the LoanItem with the calculated values
@@ -118,9 +119,6 @@ class LoansController < ApplicationController
     @loan.loan_parcels.each do |p|
       Parcel.find(p.parcel_id).update(status: 'Available')
     end
-    @loan.loan_parcels.destroy_all
-    @loan.payment_histories.destroy_all
-    @loan.loan_items.destroy_all
     
     @loan.destroy
 
@@ -171,18 +169,15 @@ class LoansController < ApplicationController
       term = next_term + 1
       duedate = next_period + 1.months
       tmp_bal = customer.downpayment_percentage
-      while tmp_bal >= 0
+      while term <= @loan.terms.to_i && tmp_bal >= 0
        
         t_principal = customer.monthly_amort.to_f
         t_balance = tmp_bal - t_principal.to_f
 
         t_period = duedate
-        
-        if t_balance < customer.monthly_amort
-          tmp_amort = LoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
-          break
-        else
-          tmp_amort = LoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
+
+        if tmp_bal > 1
+          line_item = LoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
         end
 
         tmp_bal = t_balance
