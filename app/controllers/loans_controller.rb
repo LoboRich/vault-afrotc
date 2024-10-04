@@ -175,7 +175,9 @@ class LoansController < ApplicationController
 
         t_period = duedate
 
-        line_item = LoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
+        if tmp_bal > 1
+          line_item = LoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
+        end
 
         tmp_bal = t_balance
         term += 1
