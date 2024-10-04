@@ -156,9 +156,7 @@ class LoansController < ApplicationController
 
       principal = customer.monthly_amort
       
-      penalty = params["customer_payments"]["penalty"].to_f @loan.loan_parcels.destroy_all
-      @loan.payment_histories.destroy_all
-      @loan.loan_items.destroy_all
+      penalty = params["customer_payments"]["penalty"].to_f
       advance_payment = payment_params > to_pay_monthly_amort ? payment_params - to_pay_monthly_amort : 0
       balance = prev_balance - payment_params + penalty
       monthly_amort = principal
