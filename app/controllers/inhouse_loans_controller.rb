@@ -42,7 +42,7 @@ class InhouseLoansController < ApplicationController
     respond_to do |format|
       if @inhouse_loan.save
         
-        comp_balance = @loan.balance.to_f - @inhouse_loan.processing_fees.to_f
+        comp_balance = @inhouse_loan.balance.to_f - @inhouse_loan.processing_fees.to_f
 
         monthly_amort = FinanceMath::Loan.new(nominal_rate: @inhouse_loan.interest.to_i, duration: @inhouse_loan.terms.to_i, amount: comp_balance.to_f).pmt
         @inhouse_loan.update(balance: comp_balance, monthly_amort: monthly_amort)
