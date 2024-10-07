@@ -83,7 +83,7 @@
   });
 
   function comp_month_amort(){
-    const balance = $("#inhouse_loan_downpayment").val() - $("#inhouse_loan_processing_fees").val()
+    const balance = $("#inhouse_loan_balance").val() - $("#inhouse_loan_processing_fees").val()
     $.ajax({
       url: "/inhouse_loans/compute_monthly_amort", // this will be routed
       type: 'GET',
@@ -98,7 +98,6 @@
           alert("Failed: "+ errorTextStatus+" ;"+error);
       },
       success: function(ret){
-          $("#inhouse_loan_balance").val(balance)
           $("#inhouse_loan_monthly_amort").val(ret)
       }
     });
