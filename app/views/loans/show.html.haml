@@ -9,6 +9,11 @@
           .page-description.d-flex.align-items-center
             .page-description-content.flex-grow-1
               %h1= @loan.client.name
+            .page-description-actions
+              - unless @has_loan
+                = link_to "/inhouse_loans/new?loan=#{@loan.id}", class: 'btn btn-primary' do
+                  %i.material-icons> add
+                  Create Inhouse Loan
           .row
             .card
               .card-body
@@ -52,8 +57,8 @@
                       = f.text_field :balance, class: 'form-control', required:  true, disabled: true, value: format_currency_with_space(f.object.balance)
                   .row.m-t-sm
                     .col-md-4
-                      = f.label :interest, :class => "form-label"
-                      = f.text_field :interest, class: 'form-control', required:  true, disabled: true
+                      = f.label :reservation_fee, :class => "form-label"
+                      = f.text_field :reservation_fee, class: 'form-control', required:  true, disabled: true
                     .col-md-4
                       = f.label :contract_date, :class => "form-label"
                       = f.date_field :contract_date, class: 'form-control', required:  true, disabled: true
@@ -76,7 +81,7 @@
               .card-header  
                 .page-description.d-flex.align-items-center
                   .page-description-content.flex-grow-1
-                    %h1 Statement of Account
+                    %h1 Equity
                   .page-description-actions
                     = link_to pay_loan_path(@loan), class: 'btn btn-primary' do
                       %i.material-icons> add
@@ -90,12 +95,9 @@
                         %th Due Date
                         %th PMT. Date
                         %th OR
-                        %th Amount
                         %th ITP
+                        %th Amount
                         %th M.A
-                        %th PEN
-                        %th Interest
-                        %th Principal
                         %th Balance
                         %th Status
 
@@ -106,17 +108,14 @@
                         %td
                         %td
                         %td
-                        %td
                         %th
                         %td 
-                        %td
-                        %td
-                        %td 
                           .text-primary.font-weight-s
-                            = format_currency(@loan.contract_price - (@loan.downpayment))
+                            = format_currency(@loan.downpayment - @loan.reservation_fee)
                         %td 
-                      - total_principal = 0
-                      - total_interest = 0
+                      - total_monthly_amort = 0
+                      - total_itp = 0
+                      - total_paid_amount = 0
                       - @loan.loan_items.order("duedate asc").each do |ai|
                         %tr
                           %td 
@@ -128,21 +127,16 @@
                           %td
                             = ai.or
                           %td
-                            = number_to_currency(ai.paid_amount, unit: "₱ ", precision: 2, format: "%u%n")
+                            = number_to_currency(ai.advance.ceil, unit: "₱ ", precision: 2, format: "%u%n")
+                            - total_itp += ai.advance
                           %td
-                            = number_to_currency(ai.advance, unit: "₱ ", precision: 2, format: "%u%n")
+                            = number_to_currency(ai.paid_amount.ceil, unit: "₱ ", precision: 2, format: "%u%n")
+                            - total_paid_amount += ai.paid_amount
                           %td
-                            = number_to_currency(ai.monthly_amort, unit: "₱ ", precision: 2, format: "%u%n")
+                            = number_to_currency(ai.monthly_amort, unit: "₱ ", precision: 2, format: "%u%n")           
+                            - total_monthly_amort += ai.monthly_amort
                           %td
-                            = number_to_currency(ai.penalty, unit: "₱ ", precision: 2, format: "%u%n")
-                          %td
-                            = number_to_currency(ai.interest, unit: "₱ ", precision: 2, format: "%u%n")
-                            - total_interest += ai.interest
-                          %td
-                            = number_to_currency(ai.principal, unit: "₱ ", precision: 2, format: "%u%n")
-                            - total_principal += ai.principal                    
-                          %td
-                            = number_to_currency(ai.balance, unit: "₱ ", precision: 2, format: "%u%n")
+                            = ai.balance.floor > 0 ? number_to_currency(ai.balance.floor, unit: "₱ ", precision: 2, format: "%u%n") : 0.00
                           %td
                             .badges
                               - if ai.is_paid == true
@@ -157,16 +151,14 @@
                         %td
                         %td
                         %td
+                          = number_to_currency(total_itp.ceil, unit: "₱ ", precision: 2, format: "%u%n")
+                        %td
+                          = number_to_currency(total_paid_amount.ceil, unit: "₱ ", precision: 2, format: "%u%n")
+                        %td
+                          = number_to_currency(total_monthly_amort, unit: "₱ ", precision: 2, format: "%u%n")
                         %td
                         %td
-                        %td
-                        %td
-                          = number_to_currency(total_principal, unit: "₱ ", precision: 2, format: "%u%n")
-                        %td
-                          = number_to_currency(total_interest, unit: "₱ ", precision: 2, format: "%u%n")
-                        %td
-                        %td
-                        %td
+                        
 
 :javascript
   $(document).ready(function(){

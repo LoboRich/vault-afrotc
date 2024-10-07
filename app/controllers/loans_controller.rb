@@ -8,6 +8,7 @@ class LoansController < ApplicationController
 
   # GET /loans/1 or /loans/1.json
   def show
+    @has_loan = @loan.inhouse_loan.present? ? true : false
   end
   # GET /loans/new
   def new
@@ -33,7 +34,6 @@ class LoansController < ApplicationController
   # POST /loans or /loans.json
   def create
     @loan = Loan.new(loan_params)
-    @loan.balance = @loan.contract_price.to_f - (@loan.processing_fees.to_f + @loan.downpayment.to_f)
 
     respond_to do |format|
       if @loan.save
@@ -45,35 +45,41 @@ class LoansController < ApplicationController
           Parcel.find(p).update(status: 'Reserved')
         end
 
-        monthly_amort = FinanceMath::Loan.new(nominal_rate: @loan.interest.to_i, duration: @loan.terms.to_i, amount: @loan.balance.to_f).pmt
-        @loan.update(balance: @loan.balance, monthly_amort: monthly_amort)
+        
+        downpayment_percentage =  @loan.downpayment.to_f - @loan.reservation_fee.to_f
+        balance =  @loan.contract_price.to_f - (@loan.downpayment.to_f)
+        monthly_amort =  (@loan.downpayment.to_f - @loan.reservation_fee.to_f) / @loan.terms.to_i
+        @loan.update(balance: balance, downpayment_percentage: downpayment_percentage, monthly_amort: monthly_amort)
 
         terms = @loan.terms.to_i
-        contract_price = @loan.contract_price.to_i
-        processing_fees = @loan.processing_fees.to_i
-        downpayment = @loan.downpayment.to_f
-        interest_rate = @loan.interest.to_i
-        balance =  @loan.balance.to_f
-        interest = balance * (interest_rate.to_f/12) / 100
 
         term = 1
-        tmp_bal = balance
-        while tmp_bal >= 0
-          t_interest = tmp_bal * (@loan.interest.to_f/12) / 100
-          t_principal = monthly_amort.to_f - t_interest.to_f
-          t_balance = tmp_bal - t_principal.to_f
+        tmp_bal = downpayment_percentage
 
+        while term <= terms && tmp_bal >= 0
+          t_principal = monthly_amort.to_f
+          t_balance = tmp_bal - t_principal
+
+          # Calculate the due date based on the current term
           period = @loan.amortization_start_date + term.months - 1.months
-          t_period = period.strftime("%b-%Y").to_date
-          
-          line_item = LoanItem.create!(loan_id: @loan.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
+          t_period = period.strftime("%b-%d-%Y").to_date
+
+          # Create the LoanItem with the calculated values
+          line_item = LoanItem.create!(
+            loan_id: @loan.id,
+            term: term,
+            principal: t_principal,
+            monthly_amort: monthly_amort.to_f,
+            balance: t_balance,
+            duedate: t_period,
+            is_paid: false
+          )
           
           tmp_bal = t_balance
           term += 1
         end
-        LoanItem.where(loan_id: @loan.id).last.destroy!
 
-        History.create(user_id: current_user.id, description: "Creates a new loan", model: "Loan", model_id: @loan.id)
+        History.create(user_id: current_user.id, description: "Creates a new loan equity", model: "Loan", model_id: @loan.id)
         format.html { redirect_to loan_url(@loan), notice: "Loan was successfully created." }
         format.json { render :show, status: :created, location: @loan }
       else
@@ -109,13 +115,11 @@ class LoansController < ApplicationController
   # DELETE /loans/1 or /loans/1.json
   def destroy
     loan_details = @loan.attributes.slice(*@loan.class.column_names)
-    @loan.loan_parcels.destroy_all
+    
     @loan.loan_parcels.each do |p|
       Parcel.find(p.parcel_id).update(status: 'Available')
     end
-    @loan.payment_histories.destroy_all
-    @loan.loan_items.destroy_all
-    @loan.loan_parcels.destroy_all
+    
     @loan.destroy
 
     History.create(user_id: current_user.id, description: "Deleted Loan: #{loan_details.inspect}")
@@ -147,62 +151,46 @@ class LoansController < ApplicationController
       next_period = next_line.duedate
 
       customer.loan_items.where(is_paid: false).destroy_all 
-      prev_balance = customer.balance
+      prev_balance = customer.downpayment_percentage
+      
       payment_params = params["customer_payments"]["payment"].to_f 
 
-      interest = prev_balance * (customer.interest.to_f/12)/100
-      principal = customer.monthly_amort - interest
-      advance_payment = payment_params > to_pay_monthly_amort ? payment_params - to_pay_monthly_amort : 0
-      penalty = params["customer_payments"]["penalty"].to_f
-      balance = prev_balance - payment_params + interest + penalty
-      monthly_amort = principal + interest
-
-      customer.update!(balance: balance)
+      principal = customer.monthly_amort
       
-      @paid_amort = LoanItem.create!(loan_id: customer.id, term: next_term, principal: principal, interest: interest.to_f, monthly_amort: to_pay_monthly_amort.to_f, balance: balance.to_f, duedate: next_period, penalty: penalty, advance: advance_payment, or: params["customer_payments"]["or_num"], paid_amount: payment_params + penalty, payment_date: params["customer_payments"]["payment_date"], is_paid: true)
+      penalty = params["customer_payments"]["penalty"].to_f
+      advance_payment = payment_params > to_pay_monthly_amort ? payment_params - to_pay_monthly_amort : 0
+      balance = prev_balance - payment_params + penalty
+      monthly_amort = principal
+
+      customer.update!(downpayment_percentage: balance) 
+      
+      @paid_amort = LoanItem.create!(loan_id: customer.id, term: next_term, principal: principal, monthly_amort: to_pay_monthly_amort.to_f, balance: balance.to_f, duedate: next_period, or: params["customer_payments"]["or_num"], paid_amount: payment_params, payment_date: params["customer_payments"]["payment_date"], penalty: penalty, advance: advance_payment, is_paid: true)
       
       term = next_term + 1
       duedate = next_period + 1.months
-      tmp_bal = customer.balance
-      while tmp_bal >= 0
-        t_interest = tmp_bal * (customer.interest.to_f/12) / 100
-        t_principal = customer.monthly_amort.to_f - t_interest.to_f
+      tmp_bal = customer.downpayment_percentage
+      while term <= @loan.terms.to_i && tmp_bal >= 0
+       
+        t_principal = customer.monthly_amort.to_f
         t_balance = tmp_bal - t_principal.to_f
 
         t_period = duedate
-        
-        if t_balance < customer.monthly_amort
-          tmp_amort = LoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
-          tmp_amort = LoanItem.create!(loan_id: customer.id, term: term, principal: t_balance.to_f, interest: t_interest.to_f, monthly_amort: t_balance.to_f + t_interest.to_f, balance: 0, duedate: t_period, is_paid: false)
-          break
-        else
-          tmp_amort = LoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, interest: t_interest.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
+
+        if tmp_bal > 1
+          line_item = LoanItem.create!(loan_id: customer.id, term: term, principal: t_principal.to_f, monthly_amort: customer.monthly_amort.to_f, balance: t_balance.to_f, duedate: t_period, is_paid: false)
         end
 
         tmp_bal = t_balance
         term += 1
         duedate = t_period + 1.months
       end
-    end #ends check for if not paying payments
+    end
 
-    # histories = @loan.payment_histories
-    # sum = 0
-    # sum += histories.sum(:penalty)
-    # sum += histories.sum(:downpayment)
-    # sum += histories.sum(:processing_fee)
-    # sum += histories.sum(:principal)
-
-    # if histories.count == 0
-    #   running_balance = customer.contract_price
-    # else
-    #   running_balance = customer.contract_price-sum
-    # end
     History.create(user_id: current_user.id, description: "Payments made to loan: #{@loan.id}" , model: "Loan", model_id: @loan.id)
     payment_history = PaymentHistory.create(
       loan_id: customer.id,
       loan_item_id: @paid_amort.id,
       current_balance: prev_balance,
-      interest: interest, 
       principal: principal,
       payment: payment_params,
       new_balance: balance,
@@ -217,7 +205,6 @@ class LoansController < ApplicationController
       payment_date: params["customer_payments"]["payment_date"],
       memo: params["customer_payments"]["memo"],
       # running_balance: running_balance,
-      advance_payment: advance_payment
     )
 
     redirect_to customer
@@ -231,6 +218,6 @@ class LoansController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def loan_params 
-      params.require(:loan).permit(:client_id, {:blocklot => []}, :terms, :model_house, :loan_financing, :contract_price, :processing_fees, :downpayment, :interest, :principal, :monthly_amort, :contract_date, :amortization_start_date, :balance, :remarks, :status, :broker)
+      params.require(:loan).permit(:reservation_fee, :downpayment_percentage, :client_id, {:blocklot => []}, :terms, :model_house, :loan_financing, :contract_price, :processing_fees, :downpayment, :interest, :principal, :monthly_amort, :contract_date, :amortization_start_date, :balance, :remarks, :status, :broker)
     end
 end

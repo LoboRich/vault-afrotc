@@ -4,6 +4,7 @@ class ClientsController < ApplicationController
   before_action :authorize_client, only: [:create, :destroy]
   before_action :authorize_new, only: %i[new create]
   # GET /clients or /clients.json
+
   def index
     @clients = policy_scope(Client)
   end
@@ -91,6 +92,6 @@ class ClientsController < ApplicationController
   
     # Only allow a list of trusted parameters through.
     def client_params
-      params.require(:client).permit(:name, :mobile_number, :telephone_number, :email_address, :facebook_account_name, :address, :gender, :civil_status, :tin_number, :id_type, :id_number, :occupation, :years_employed, :employer_name, :employer_business_address, :spouse_name, :spouse_email, :spouse_contact_number, :spouse_address, :spouse_id_type, :spouse_id_number, :spouse_tin_number, :basic_salary, :annual_income, :status, :remarks, :documents, :birth_cert_img,:valid_id_img, :proof_of_income_img, :marriage_contract_img, :spa_img, :pdc_img)
+      params.require(:client).permit(:doc, :name, :mobile_number, :telephone_number, :email_address, :facebook_account_name, :address, :gender, :civil_status, :tin_number, :id_type, :id_number, :occupation, :years_employed, :employer_name, :employer_business_address, :spouse_name, :spouse_email, :spouse_contact_number, :spouse_address, :spouse_id_type, :spouse_id_number, :spouse_tin_number, :basic_salary, :annual_income, :spa_name, :spa_id_number, :spa_id_type, :spa_address, :spa_relationship_to_buyer, :spa_email, :spa_mobile_number, :spa_facebook_name, :status, :remarks, :documents, {:birth_cert_img => []}, {:valid_id_img => []}, {:proof_of_income_img => []}, {:marriage_contract_img => []}, {:spa_img => []}, {:pdc_img => []})
     end
 end

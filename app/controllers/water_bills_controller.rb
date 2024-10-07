@@ -95,7 +95,9 @@ class WaterBillsController < ApplicationController
     # Data for All Waters Table
     @unpaid_water_bills.each_with_index do |water, index|
       worksheet.add_cell(index + 2, 0, water.client.name)
-      worksheet.add_cell(index + 2, 3, water.loan_parcels)
+      worksheet.add_cell(index + 2, 1, water.loan_parcels.map { |lp| lp.parcel.subdivision.short_code }.uniq.join(','))
+      worksheet.add_cell(index + 2, 2, water.loan_parcels.map { |lp| lp.parcel.block }.uniq.join(','))
+      worksheet.add_cell(index + 2, 3, water.loan_parcels.map { |lp| lp.parcel.lot }.uniq.join(','))
       worksheet.add_cell(index + 2, 4, water.amount)
       worksheet.add_cell(index + 2, 5, water.remarks)
     end

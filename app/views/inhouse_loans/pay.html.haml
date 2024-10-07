@@ -1,0 +1,87 @@
+.app.align-content-stretch.d-flex.flex-wrap
+  = render "layouts/sidebar"
+  .app-container
+    .app-content
+      .content-wrapper
+        .container
+          .page-description.d-flex.align-items-center
+            .page-description-content.flex-grow-1
+              %h1 Payment
+          .card
+            .card-body
+              %table#profiles.table.table-striped.table-bordered.nowrap
+                %thead
+                  %tr
+                    %th #
+                    %th Due Date
+                    %th M.A
+                    %th Interest
+                    %th Principal
+                    %th Balance
+
+                %tbody
+                  - total_principal = 0
+                  - total_interest = 0
+                  %tr
+                    %td 
+                      = @inhouseLoanItem.term
+                    %td 
+                      = @inhouseLoanItem.due_date.strftime("%b %d %Y")
+                    %td
+                      = format_num @inhouseLoanItem.monthly_amort
+                    %td
+                      = format_num @inhouseLoanItem.interest
+                      - total_interest += @inhouseLoanItem.interest
+                    %td
+                      = format_num @inhouseLoanItem.principal
+                      - total_principal += @inhouseLoanItem.principal                    
+                    %td
+                      = format_num @inhouseLoanItem.balance
+              = form_for 'customer_payments', url: process_pay_inhouse_loan_path(@inhouse_loan), html: { id: 'customer_payments' } do |f|
+                .modal-header
+                  %h5#exampleModalLabel.modal-title.new_keyword_modal_title Add Payment
+                .modal-body
+                  .cont@loanItemner-fluid
+                    .row.m-t-sm  
+                      .col-md-6
+                        = f.label 'payment_date', :class => "form-label"
+                        = f.date_field :payment_date, class: 'form-control', id: "payment_date", required:  true
+                      .col-md-6
+                        = f.label :mode_of_payment, :class => "form-label"
+                        = f.select :mode_of_payment, options_for_select([["Cash"],["Bank Transfer"],["PDC"]]), {}, :class=>"form-control", required:  true
+                    .row.m-t-sm  
+                      .col-md-6
+                        = f.label :bank_name, :class => "form-label"
+                        = f.select :bank_name, options_for_select([[""], ["BDO"],["Metrobank"],["BPI"]]), {}, :class=>"form-control"
+                      .col-md-6
+                        = f.label :or_num, :class => "form-label"
+                        = f.number_field :or_num, :class=>"form-control", id: "or_num"
+                    .row.m-t-sm  
+                      .col-md-6
+                        = f.number_field :amort, id: "amort", :class=>"form-control", value: number_with_precision(@inhouseLoanItem.monthly_amort, precision: 2), disabled:true, hidden:true
+                        = f.label 'amount', :class => "form-label"
+                        = f.number_field :payment, :class=>"form-control",id: "payment", step: '0.01', required:  true, onchange: "javascript: comp_advance_payment_and_penalty()"
+                      .col-md-6
+                        = f.label :penalty, :class => "form-label"
+                        = f.number_field :penalty, :class=>"form-control", id: "penalty", step: '0.01', onchange: "javascript: comp_advance_payment_and_penalty()"
+                    .row.m-t-sm  
+                      .col-md-6
+                        = f.label 'ITP', :class => "form-label"
+                        = f.number_field :advance_payment, :class=>"form-control", step: '0.01', id: "advance", readonly: true
+                      .col-md-6
+                        = f.label 'total', :class => "form-label"
+                        = f.number_field :total, :class=>"form-control", step: '0.01', id: "total", readonly: true
+                    .row.m-t-sm  
+                      = f.label "Remark", :class => "form-label"
+                      = f.text_area :others, :class=>"form-control", placeholder: "Add additional notes..."
+                    .row.m-t-sm.col-md-1.mt-4
+                      = f.submit 'Add Payment', :class=>"btn btn-sm btn-primary"
+
+:javascript
+  function comp_advance_payment_and_penalty(){
+    penalty = parseFloat($("#penalty").val()) || 0.0
+    payment = parseFloat($("#payment").val()) || 0.0
+    amort = parseFloat($("#amort").val()) || 0.0
+    $("#total").val((penalty+payment).toFixed(2))
+    if (payment > amort) $("#advance").val(parseFloat(payment-amort).toFixed(2))
+  }

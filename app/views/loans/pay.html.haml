@@ -15,26 +15,17 @@
                     %th #
                     %th Due Date
                     %th M.A
-                    %th Interest
-                    %th Principal
                     %th Balance
 
                 %tbody
-                  - total_principal = 0
-                  - total_interest = 0
+                  - total_monthly_amort = 0
                   %tr
                     %td 
                       = @loanItem.term
                     %td 
                       = @loanItem.duedate.strftime("%b %d %Y")
                     %td
-                      = format_num @loanItem.monthly_amort
-                    %td
-                      = format_num @loanItem.interest
-                      - total_interest += @loanItem.interest
-                    %td
-                      = format_num @loanItem.principal
-                      - total_principal += @loanItem.principal                    
+                      = format_num @loanItem.monthly_amort             
                     %td
                       = format_num @loanItem.balance
               = form_for 'customer_payments', url: process_pay_loan_path(@loan), html: { id: 'customer_payments' } do |f|
@@ -62,15 +53,12 @@
                         = f.label 'amount', :class => "form-label"
                         = f.number_field :payment, :class=>"form-control",id: "payment", step: '0.01', required:  true, onchange: "javascript: comp_advance_payment_and_penalty()"
                       .col-md-6
-                        = f.label :penalty, :class => "form-label"
-                        = f.number_field :penalty, :class=>"form-control", id: "penalty", step: '0.01', onchange: "javascript: comp_advance_payment_and_penalty()"
-                    .row.m-t-sm  
+                        = f.label 'penalty', :class => "form-label"
+                        = f.number_field :penalty, :class=>"form-control",id: "penalty", step: '0.01', required:  true, onchange: "javascript: comp_advance_payment_and_penalty()"
+                    .row.m-t-sm
                       .col-md-6
-                        = f.label 'ITP', :class => "form-label"
-                        = f.number_field :advance_payment, :class=>"form-control", step: '0.01', id: "advance", readonly: true
-                      .col-md-6
-                        = f.label 'total', :class => "form-label"
-                        = f.number_field :total, :class=>"form-control", step: '0.01', id: "total", readonly: true
+                        = f.label 'advance', :class => "form-label"
+                        = f.number_field :advance, :class=>"form-control", step: '0.01', id: "advance", readonly: true
                     .row.m-t-sm  
                       = f.label "Remark", :class => "form-label"
                       = f.text_area :others, :class=>"form-control", placeholder: "Add additional notes..."
@@ -82,6 +70,5 @@
     penalty = parseFloat($("#penalty").val()) || 0.0
     payment = parseFloat($("#payment").val()) || 0.0
     amort = parseFloat($("#amort").val()) || 0.0
-    $("#total").val((penalty+payment).toFixed(2))
-    if (payment > amort) $("#advance").val(parseFloat(payment-amort).toFixed(2))
+    if (payment > amort) $("#advance").val(parseFloat((payment)-(amort)).toFixed(2))
   }

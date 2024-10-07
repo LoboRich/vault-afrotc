@@ -89,27 +89,92 @@
 		.col-md-6
 			= f.label :annual_income, :class => "form-label"
 			= f.text_field :annual_income, class: 'form-control', required:  true, disabled: true
-	.row.m-t-sm  
+	.row.m-t-sm
 		.col-md-6
 			= f.label :status, :class => "form-label"
 			= f.text_field :status, class: 'form-control', required:  true, disabled: true
 		.col-md-6
 			= f.label :remarks, :class => "form-label"
 			= f.text_area :remarks, class: 'form-control', required:  true, disabled: true
+	.m-t-xxl.m-b-xxl
+		%h5.card-title.text-primary.text-uppercase
+	.row.m-t-sm
+		.col-md-4
+			= f.label :spa_name, :class => "form-label"
+			= f.text_field :spa_name, class: 'form-control', required:  true, disabled: true
+		.col-md-4
+			= f.label :spa_id_type,  :class => "form-label"
+			= f.text_field :spa_id_type, class: 'form-control', required:  true, disabled: true
+		.col-md-4
+			= f.label :spa_id_number, :class => "form-label"
+			= f.text_field :spa_id_number, class: 'form-control', required:  true, disabled: true
+	.row.m-t-sm
+		.col-md-4
+			= f.label :spa_address, :class => "form-label"
+			= f.text_field :spa_address, class: 'form-control', required:  true, disabled: true
+		.col-md-4
+			= f.label :spa_relationship_to_buyer,  :class => "form-label"
+			= f.text_field :spa_relationship_to_buyer, class: 'form-control', required:  true, disabled: true
+		.col-md-4
+			= f.label :spa_email, :class => "form-label"
+			= f.text_field :spa_email, class: 'form-control', required:  true, disabled: true
 	.row.m-t-sm
 		.col-md-6
-			= f.label :documents, :class => "form-label"
-			= f.text_field :documents, class: 'form-control', required:  true, disabled: true
+			= f.label :spa_mobile_number, :class => "form-label"
+			= f.text_field :spa_mobile_number, class: 'form-control', required:  true, disabled: true
+		.col-md-6
+			= f.label :spa_facebook_name,  :class => "form-label"
+			= f.text_field :spa_facebook_name, class: 'form-control', required:  true, disabled: true
+
 	.col-md-12.pt-4
 		.form-group.mb-3
 			.control-label Birth Certificate
-		.profile-img
-			%img#wizardPicturePreview.picture-src{:src => "#{@client.birth_cert_img.to_s.present? ? @client.birth_cert_img : '/assets/no-img-available.jpg'}", :title => ""}/
+		- if @client.birth_cert_img.present?
+			- @client.birth_cert_img.each do |x|
+				%a.dropdown-item.btn-light{ href: x.to_s, target: '_blank', rel: 'noopener noreferrer' }
+					%i.fas.fa-file.pr-2
+					View File
 	.col-md-12.pt-4
 		.form-group.mb-3
-			.control-label Birth Certificate
-		.profile-img
-			%img#wizardPicturePreview.picture-src{:src => "#{@client.valid_id_img.to_s.present? ? @client.valid_id_img : '/assets/no-img-available.jpg'}", :title => ""}/
+			.control-label Valid ID
+		- if @client.valid_id_img.present?
+			- @client.valid_id_img.each do |x|
+				%a.dropdown-item.btn-light{ href: x.to_s, target: '_blank', rel: 'noopener noreferrer' }
+					%i.fas.fa-file.pr-2
+					View File
+	.col-md-12.pt-4
+		.form-group.mb-3
+			.control-label Proof of Income
+		- if @client.proof_of_income_img.present?
+			- @client.proof_of_income_img.each do |x|
+				%a.dropdown-item.btn-light{ href: x.to_s, target: '_blank', rel: 'noopener noreferrer' }
+					%i.fas.fa-file.pr-2
+					View File
+	.col-md-12.pt-4
+		.form-group.mb-3
+			.control-label Marriage Contract
+		- if @client.marriage_contract_img.present?
+			- @client.marriage_contract_img.each do |x|
+				%a.dropdown-item.btn-light{ href: x.to_s, target: '_blank', rel: 'noopener noreferrer' }
+					%i.fas.fa-file.pr-2
+					View File
+	.col-md-12.pt-4
+		.form-group.mb-3
+			.control-label SPA's
+		- if @client.spa_img.present?
+			- @client.spa_img.each do |x|
+				%a.dropdown-item.btn-light{ href: x.to_s, target: '_blank', rel: 'noopener noreferrer' }
+					%i.fas.fa-file.pr-2
+					View File
+	.col-md-12.pt-4
+		.form-group.mb-3
+			.control-label SPA's
+		- if @client.spa_img.present?
+			- @client.spa_img.each do |x|
+				%a.dropdown-item.btn-light{ href: x.to_s, target: '_blank', rel: 'noopener noreferrer' }
+					%i.fas.fa-file.pr-2
+					View File
+	
 	.m-t-xxl
 		= link_to 'Back', clients_path, :class => "btn btn-dark"
 		= link_to 'Edit Information', edit_client_path(@client), :class => "btn btn-primary"

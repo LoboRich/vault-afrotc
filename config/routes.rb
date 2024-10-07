@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  resources :inhouse_loan_items
+  resources :inhouse_loans do
+    collection do
+      get 'compute_equity_monthly_amort'
+      get 'compute_monthly_amort'
+    end
+    member do
+      get 'pay'
+      post 'process_pay'
+    end
+  end
   resources :purchasers
   get 'histories', to: 'history#index', as: :histories
   resources :water_bills do
