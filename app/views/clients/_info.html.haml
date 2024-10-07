@@ -96,6 +96,36 @@
 		.col-md-6
 			= f.label :remarks, :class => "form-label"
 			= f.text_area :remarks, class: 'form-control', required:  true, disabled: true
+	.m-t-xxl.m-b-xxl
+		%h5.card-title.text-primary.text-uppercase
+	.row.m-t-sm
+		.col-md-4
+			= f.label :spa_name, :class => "form-label"
+			= f.text_field :spa_name, class: 'form-control', required:  true, disabled: true
+		.col-md-4
+			= f.label :spa_id_type,  :class => "form-label"
+			= f.text_field :spa_id_type, class: 'form-control', required:  true, disabled: true
+		.col-md-4
+			= f.label :spa_id_number, :class => "form-label"
+			= f.text_field :spa_id_number, class: 'form-control', required:  true, disabled: true
+	.row.m-t-sm
+		.col-md-4
+			= f.label :spa_address, :class => "form-label"
+			= f.text_field :spa_address, class: 'form-control', required:  true, disabled: true
+		.col-md-4
+			= f.label :spa_relationship_to_buyer,  :class => "form-label"
+			= f.text_field :spa_relationship_to_buyer, class: 'form-control', required:  true, disabled: true
+		.col-md-4
+			= f.label :spa_email, :class => "form-label"
+			= f.text_field :spa_email, class: 'form-control', required:  true, disabled: true
+	.row.m-t-sm
+		.col-md-6
+			= f.label :spa_mobile_number, :class => "form-label"
+			= f.text_field :spa_mobile_number, class: 'form-control', required:  true, disabled: true
+		.col-md-6
+			= f.label :spa_facebook_name,  :class => "form-label"
+			= f.text_field :spa_facebook_name, class: 'form-control', required:  true, disabled: true
+
 	.col-md-12.pt-4
 		.form-group.mb-3
 			.control-label Birth Certificate

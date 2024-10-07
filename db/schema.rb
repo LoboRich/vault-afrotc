@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_02_135343) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_04_083451) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -80,6 +80,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_02_135343) do
     t.string "spa_img", default: [], array: true
     t.string "pdc_img", default: [], array: true
     t.string "doc"
+    t.string "spa_name"
+    t.integer "spa_id_type"
+    t.integer "spa_id_number"
+    t.string "spa_relationship_to_buyer"
+    t.string "spa_email"
+    t.string "spa_mobile_number"
+    t.string "spa_facebook_name"
+    t.string "spa_address"
   end
 
   create_table "histories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -132,28 +140,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_02_135343) do
     t.index ["loan_id"], name: "index_inhouse_loans_on_loan_id"
   end
 
-  create_table "loan_equities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "client_id", null: false
-    t.string "terms"
-    t.string "model_house"
-    t.float "contract_price"
-    t.float "reservation_fees"
-    t.float "downpayment_percentage"
-    t.float "downpayment"
-    t.float "monthly_amort"
-    t.datetime "contract_date"
-    t.datetime "amortization_start_date"
-    t.float "balance"
-    t.text "remarks"
-    t.string "status"
-    t.string "broker"
-    t.string "blocklot"
-    t.float "other_expense"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_loan_equities_on_client_id"
-  end
-
   create_table "loan_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "term"
     t.uuid "loan_id", null: false
@@ -203,11 +189,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_02_135343) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "other_expense"
-    t.uuid "loan_equity_id"
     t.float "reservation_fee", default: 0.0
     t.float "downpayment_percentage", default: 0.0
     t.index ["client_id"], name: "index_loans_on_client_id"
-    t.index ["loan_equity_id"], name: "index_loans_on_loan_equity_id"
   end
 
   create_table "parcels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -335,12 +319,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_02_135343) do
   add_foreign_key "inhouse_loan_items", "inhouse_loans"
   add_foreign_key "inhouse_loans", "clients"
   add_foreign_key "inhouse_loans", "loans"
-  add_foreign_key "loan_equities", "clients"
   add_foreign_key "loan_items", "loans"
   add_foreign_key "loan_parcels", "loans"
   add_foreign_key "loan_parcels", "parcels"
   add_foreign_key "loans", "clients"
-  add_foreign_key "loans", "loan_equities"
   add_foreign_key "parcels", "subdivisions"
   add_foreign_key "payment_histories", "loan_items"
   add_foreign_key "payment_histories", "loans"
