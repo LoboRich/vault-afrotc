@@ -81,7 +81,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_04_083451) do
     t.string "pdc_img", default: [], array: true
     t.string "doc"
     t.string "spa_name"
-    t.integer "spa_id_type"
+    t.string "spa_id_type"
     t.integer "spa_id_number"
     t.string "spa_relationship_to_buyer"
     t.string "spa_email"
@@ -189,9 +189,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_04_083451) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "other_expense"
+    t.uuid "loan_equity_id"
     t.float "reservation_fee", default: 0.0
     t.float "downpayment_percentage", default: 0.0
     t.index ["client_id"], name: "index_loans_on_client_id"
+    t.index ["loan_equity_id"], name: "index_loans_on_loan_equity_id"
   end
 
   create_table "parcels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -319,10 +321,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_04_083451) do
   add_foreign_key "inhouse_loan_items", "inhouse_loans"
   add_foreign_key "inhouse_loans", "clients"
   add_foreign_key "inhouse_loans", "loans"
+  add_foreign_key "loan_equities", "clients"
   add_foreign_key "loan_items", "loans"
   add_foreign_key "loan_parcels", "loans"
   add_foreign_key "loan_parcels", "parcels"
   add_foreign_key "loans", "clients"
+  add_foreign_key "loans", "loan_equities"
   add_foreign_key "parcels", "subdivisions"
   add_foreign_key "payment_histories", "loan_items"
   add_foreign_key "payment_histories", "loans"

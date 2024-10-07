@@ -102,7 +102,7 @@
                         %td
                         %td 
                           .text-primary.font-weight-s
-                            = format_currency(@inhouse_loan.loan.balance - @inhouse_loan.processing_fees)
+                            = format_currency(@inhouse_loan.balance - @inhouse_loan.processing_fees)
                         %td 
                       - total_principal = 0
                       - total_interest = 0
