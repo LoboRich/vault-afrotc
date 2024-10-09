@@ -59,7 +59,7 @@
                       = f.label :remarks
                       = f.text_area :remarks, class: 'form-control', required:  true, disabled: true
                   .card-footer.pt-3
-                    = link_to 'Back', inhouse_loans_path, :class => "btn btn-secondary"
+                    = link_to 'Back', "/loans/#{@inhouse_loan.loan.id}", :class => "btn btn-secondary"
                     // = link_to 'Edit', edit_inhouse_loan_path(@inhouse_loan), :class => "btn btn-warning float-right"
             .card
               .card-header  

@@ -14,6 +14,10 @@
                 = link_to "/inhouse_loans/new?loan=#{@loan.id}", class: 'btn btn-primary' do
                   %i.material-icons> add
                   Create Inhouse Loan
+              - if @loan.inhouse_loan.present?
+                = link_to "/inhouse_loans/#{@loan.inhouse_loan.id}", class: 'btn btn-primary' do
+                  %i.material-icons> home
+                  Inhouse Loan
           .row
             .card
               .card-body
