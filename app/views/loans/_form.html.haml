@@ -22,7 +22,7 @@
       = f.text_field :model_house, class: 'form-control', required:  true
     .col-md-4
       = f.label :loan_financing, :class => "form-label"
-      = f.text_field :loan_financing, class: 'form-control', required:  true
+      = f.select :loan_financing, options_for_select([['Inhouse', 'Inhouse'], ['PAG-IBIG', 'PAG-IBIG'], ['Bank', 'Bank'], ['Cash', 'Cash']], @loan_financing), { include_blank: 'Select Loan Financing' }, class: 'form-control', required: true
     .col-md-4
       = f.label "terms in months", :class => "form-label"
       = f.number_field :terms, class: 'form-control', required:  true, onchange: "javascript: comp_month_amort()"

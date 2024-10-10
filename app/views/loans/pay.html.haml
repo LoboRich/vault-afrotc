@@ -39,11 +39,11 @@
                         = f.date_field :payment_date, class: 'form-control', id: "payment_date", required:  true
                       .col-md-6
                         = f.label :mode_of_payment, :class => "form-label"
-                        = f.select :mode_of_payment, options_for_select([["Cash"],["Bank Transfer"],["PDC"]]), {}, :class=>"form-control", required:  true
+                        = f.select :mode_of_payment, options_for_select([['Cash', 'Cash'],['Bank Transfer', 'Bank Transfer'], ['eWallet (Gcash/Maya Wallet)', 'eWallet (Gcash/Maya Wallet)'], ['PDC', 'PDC']]), { include_blank: 'Select Mode of Payment' }, :class=>"form-control", required:  true
                     .row.m-t-sm  
                       .col-md-6
                         = f.label :bank_name, :class => "form-label"
-                        = f.select :bank_name, options_for_select([[""], ["BDO"],["Metrobank"],["BPI"]]), {}, :class=>"form-control"
+                        = f.select :bank_name, options_for_select([[""], ['BDO', 'BDO'], ['BPI', 'BPI'], ['Metrobank', 'Metrobank'], ['Eastwest', 'Eastwest'], ['Union Bank', 'Union Bank'], ['AUB', 'AUB'], ['Other', 'Other'], ['None for Cash', 'None for Cash']]), { include_blank: 'Select Bank Name' }, :class=>"form-control"
                       .col-md-6
                         = f.label :or_num, :class => "form-label"
                         = f.number_field :or_num, :class=>"form-control", id: "or_num"
@@ -58,17 +58,58 @@
                     .row.m-t-sm
                       .col-md-6
                         = f.label 'advance', :class => "form-label"
-                        = f.number_field :advance, :class=>"form-control", step: '0.01', id: "advance", readonly: true
-                    .row.m-t-sm  
-                      = f.label "Remark", :class => "form-label"
-                      = f.text_area :others, :class=>"form-control", placeholder: "Add additional notes..."
-                    .row.m-t-sm.col-md-1.mt-4
-                      = f.submit 'Add Payment', :class=>"btn btn-sm btn-primary"
+                        = f.number_field :advance, :class=>"form-control", step: '0.01', id: "advance", readonly: true 
+                      .col-md-6
+                        = f.label "Remark", :class => "form-label"
+                        = f.text_area :others, :class=>"form-control", placeholder: "Add additional notes..."
+                    .m-t-sm.col-md-1.mt-4
+                      = f.submit 'Add Payment', :class=>"btn btn-primary float-right p-h-xxl"
 
 :javascript
+  $(document).ready(function(){
+    $(".js-example-tokenizer").select2({
+      tags: true,
+      tokenSeparators: [',', ' ']
+    });
+    $('select').select2({
+      createTag: function (params) {
+        // Don't offset to create a tag if there is no @ symbol
+        if (params.term.indexOf('@') === -1) {
+          // Return null to disable tag creation
+          return null;
+        }
+
+        return {
+          id: params.term,
+          text: params.term
+        }
+      }
+    });
+    $('select').select2({
+      createTag: function (params) {
+        var term = $.trim(params.term);
+
+        if (term === '') {
+          return null;
+        }
+
+        return {
+          id: term,
+          text: term,
+          newTag: true // add additional parameters
+        }
+      }
+    });
+  });
   function comp_advance_payment_and_penalty(){
     penalty = parseFloat($("#penalty").val()) || 0.0
     payment = parseFloat($("#payment").val()) || 0.0
     amort = parseFloat($("#amort").val()) || 0.0
     if (payment > amort) $("#advance").val(parseFloat((payment)-(amort)).toFixed(2))
   }
+
+:css  
+  span.selection {
+    height: 44px;
+    display: grid;
+  } 
