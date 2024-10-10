@@ -33,10 +33,10 @@
     .col-md-4
       = f.label "Reservation Fee", :class => "form-label"
       = f.number_field :reservation_fee, class: 'form-control', step: 'any', required:  true, onchange: "javascript: comp_month_amort()"
-  .row.m-t-sm 
     .col-md-4
       = f.label :balance, :class => "form-label"
       = f.number_field :balance, class: 'form-control', readonly:  true, onchange: "javascript: comp_month_amort()"
+  .row.m-t-sm 
     .col-md-4
       = f.label :monthly_amortization, :class => "form-label"
       = f.number_field :monthly_amort, class: 'form-control', required:  true, readonly: true 
