@@ -49,7 +49,7 @@
                       = f.text_field :monthly_amort, class: 'form-control', required:  true, disabled: true, value: format_currency_with_space(f.object.monthly_amort)
                   .row.m-t-sm
                     .col-md-3
-                      = f.label :contract_date
+                      = f.label "Contract/Take-out Date"
                       = f.datetime_field :contract_date, class: 'form-control', required:  true, disabled: true
                     .col-md-3
                       = f.label :amortization_start_date

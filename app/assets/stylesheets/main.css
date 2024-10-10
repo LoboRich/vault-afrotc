@@ -4976,6 +4976,7 @@ body.modal-open {
 .form-control {
     border-radius: 8px;
     padding: 10px 18px;
+    text-transform: uppercase;
     border-color: #e3e6ea;
     color: #24292e;
     -webkit-transition: border .2s ease-in-out, background-color .2s ease-in-out;
@@ -6979,4 +6980,7 @@ tbody td {
     opacity: 0;
     right: 0;
     top: 0;
+}
+table {
+    text-transform: uppercase;
 }
