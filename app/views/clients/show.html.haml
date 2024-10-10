@@ -8,8 +8,11 @@
         .container
           .page-description.d-flex.align-items-center
             .page-description-content.flex-grow-1.d-flex
-              %h1.p-h-xs Client Account
-              = @client.name
+              = link_to "/clients/", :class => "nav-link" do
+                %i.material-icons.text-primary arrow_back
+              %h1.p-h-xs
+                = @client.name
+                's Account
 
           .row
             .card

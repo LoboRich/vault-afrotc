@@ -24,7 +24,6 @@
                         %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Lot Area
                         %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Floor Area
                         %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Model
-                        %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Sample Comp
                         %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Description
                         %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Office: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 159px;", :tabindex => "0"} Selling Price
                         %th.sorting{"aria-controls" => "datatable1", "aria-label" => "Age: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 58px;", :tabindex => "0"} Status
@@ -38,8 +37,6 @@
                           %td= parcel.lot_area
                           %td= parcel.house_area
                           %td.nowrap= parcel.model
-                          %td
-                            %p.italic ongoing
                           %td= parcel.description
                           %td.nowrap= number_to_currency(parcel.selling_price, precision: 2, delimiter: ",", unit: "₱ ")
                           %td
