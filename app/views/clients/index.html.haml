@@ -6,7 +6,7 @@
         .container
           .page-description.d-flex.align-items-center
             .page-description-content.flex-grow-1
-              %h1 Clients
+              %h1 Buyers Information
             .page-description-actions
               = link_to new_client_path, class: 'btn btn-primary' do
                 %i.material-icons> add
@@ -15,7 +15,7 @@
             .card-body
               .row
                 .col-sm-12.table-responsive
-                  %table#datatable_clients.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
+                  %table#datatable_clients.display.nowrap.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
                     %thead
                       %tr.nowrap{:role => "row"}
                         %th.sorting_asc{"aria-controls" => "datatable1", "aria-label" => "Name: activate to sort column descending", "aria-sort" => "ascending", :colspan => "1", :rowspan => "1", :style => "width: 308px;", :tabindex => "0"} Name

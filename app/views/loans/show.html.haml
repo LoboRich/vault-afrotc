@@ -7,8 +7,11 @@
       .content-wrapper
         .container
           .page-description.d-flex.align-items-center
-            .page-description-content.flex-grow-1
+            .page-description-content.flex-grow-1.d-flex
+              = link_to "/loans/", :class => "nav-link" do
+                %i.material-icons.text-primary arrow_back
               %h1= @loan.client.name
+              
             .page-description-actions
               - unless @has_loan
                 = link_to "/inhouse_loans/new?loan=#{@loan.id}", class: 'btn btn-primary' do
@@ -85,7 +88,7 @@
               .card-header  
                 .page-description.d-flex.align-items-center
                   .page-description-content.flex-grow-1
-                    %h1 Equity
+                    %h1 Client Details
                   .page-description-actions
                     = link_to pay_loan_path(@loan), class: 'btn btn-primary' do
                       %i.material-icons> add

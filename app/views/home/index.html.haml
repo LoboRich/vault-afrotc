@@ -44,7 +44,7 @@
                         .widget-stats-content.flex-fill
                           %span.widget-stats-title Monthly Collectibles
                           %span.widget-stats-amount
-                            ₱ #{number_with_precision(@total_collectibles, precision: 2)}
+                            ₱ #{number_with_precision(@total_collectibles, precision: 2, delimiter: ',')} 
                           %span.widget-stats-info 0 client accounts
                     
                 .col-xl-6
@@ -55,7 +55,8 @@
                           %i.material-icons-outlined payments
                         .widget-stats-content.flex-fill
                           %span.widget-stats-title Collected
-                          %span.widget-stats-amount ₱ #{@collected}
+                          %span.widget-stats-amount 
+                            ₱ #{number_with_precision(@collected, precision: 2, delimiter: ',')} 
                           %span.widget-stats-info 0 client accounts
                 .col-xl-6
                   .card.widget.widget-stats
@@ -93,8 +94,9 @@
                         .widget-stats-icon.widget-stats-icon-primary
                           %i.material-icons-outlined receipt_long
                         .widget-stats-content.flex-fill
-                          %span.widget-stats-title Monthly Collectibles
-                          %span.widget-stats-amount ₱ #{@total_water_collectibles}
+                          %span.widget-stats-title Monthly Collectibles%span
+                          .widget-stats-amount
+                            ₱ #{number_with_precision(@total_water_collectibles, precision: 2, delimiter: ',')} 
                           %span.widget-stats-info 0 client accounts
                     
                 .col-xl-6
@@ -105,7 +107,8 @@
                           %i.material-icons-outlined payments
                         .widget-stats-content.flex-fill
                           %span.widget-stats-title Collected
-                          %span.widget-stats-amount  ₱ #{@water_collected}
+                          %span.widget-stats-amount  
+                            ₱ #{number_with_precision(@water_collected, precision: 2, delimiter: ',')} 
                           %span.widget-stats-info 0 client accounts
                 .col-xl-6
                   .card.widget.widget-stats

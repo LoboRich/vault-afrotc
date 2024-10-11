@@ -8,8 +8,11 @@
         .container
           .page-description.d-flex.align-items-center
             .page-description-content.flex-grow-1.d-flex
-              %h1.p-h-xs Client Account
-              = @client.name
+              = link_to "/clients/", :class => "nav-link" do
+                %i.material-icons.text-primary arrow_back
+              %h1.p-h-xs
+                = @client.name
+                's Account
 
           .row
             .card
@@ -18,7 +21,7 @@
                   %li.nav-item{:role => "presentation"}
                     %button#client-tab.nav-link.active{"aria-controls" => "client", "aria-selected" => "true", "data-bs-target" => "#client", "data-bs-toggle" => "tab", :role => "tab", :type => "button"} Client Information
                   %li.nav-item{:role => "presentation"}
-                    %button#housing-tab.nav-link{"aria-controls" => "housing", "aria-selected" => "true", "data-bs-target" => "#housing", "data-bs-toggle" => "tab", :role => "tab", :type => "button"} Housing Statement Account
+                    %button#housing-tab.nav-link{"aria-controls" => "housing", "aria-selected" => "true", "data-bs-target" => "#housing", "data-bs-toggle" => "tab", :role => "tab", :type => "button"} Housing Loan Details
                   %li.nav-item{:role => "presentation"}
                     %button#water-tab.nav-link{"aria-controls" => "water", "aria-selected" => "false", "data-bs-target" => "#water", "data-bs-toggle" => "tab", :role => "tab", :type => "button"} Water Billing Statement
            

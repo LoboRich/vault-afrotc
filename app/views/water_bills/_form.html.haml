@@ -11,7 +11,7 @@
       = f.date_field :reading_date, class: 'form-control', required:  true
     .col-md-6
       = f.label "Block & Lot", :class => "form-label"
-      = f.select :loan_id, options_for_select(@loans ? @loans : []), {required: true}, :class=>"form-control"
+      = f.select :loan_id, options_for_select(@loans ? @loans : []), { include_blank: 'Select Block & Lot'}, {required: true, class: 'form-control js-example-tokenizer' }
   .row.m-t-sm
     .col-md-6
       = f.label :previous, :class => "form-label"
@@ -31,9 +31,49 @@
     = f.submit 'Save Changes', class: 'btn btn-primary'
 
 :javascript
+  $(document).ready(function(){
+    $(".js-example-tokenizer").select2({
+      tags: true,
+      tokenSeparators: [',', ' ']
+    });
+    $('select').select2({
+      createTag: function (params) {
+        // Don't offset to create a tag if there is no @ symbol
+        if (params.term.indexOf('@') === -1) {
+          // Return null to disable tag creation
+          return null;
+        }
+
+        return {
+          id: params.term,
+          text: params.term
+        }
+      }
+    });
+    $('select').select2({
+      createTag: function (params) {
+        var term = $.trim(params.term);
+
+        if (term === '') {
+          return null;
+        }
+
+        return {
+          id: term,
+          text: term,
+          newTag: true // add additional parameters
+        }
+      }
+    });
+  });
   function comp_consumed_bill(){
     current = $("#water_bill_current").val()
     previous = $("#water_bill_previous").val()
 
     $("#water_bill_consume").val(current - previous)
   }
+:css  
+  span.selection {
+    height: 44px;
+    display: grid;
+  } 

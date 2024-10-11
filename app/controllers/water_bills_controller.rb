@@ -22,7 +22,7 @@ class WaterBillsController < ApplicationController
     
     @loans = Loan.all.map do |loan|
       parcel_details = loan.parcels.map do |parcel|
-        "Block #{parcel.block} Lot #{parcel.lot}"
+        "#{parcel.subdivision&.short_code} Block #{parcel.block} Lot #{parcel.lot}"
       end.join(', ')
       [parcel_details, loan.id]
     end
