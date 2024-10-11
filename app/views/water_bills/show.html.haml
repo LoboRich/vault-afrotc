@@ -72,10 +72,9 @@
                     .col-md-4
                       = f.label "Proof of Payment", :class => "form-label"
                       - if @water_bill.receipt_img.present?
-                        - @water_bill.receipt_img.each do |x|
-                          %a.dropdown-item.btn-light{ href: x.to_s, target: '_blank', rel: 'noopener noreferrer' }
-                            %i.fas.fa-file.pr-2
-                            View File
+                        %a.dropdown-item.btn-light{ href: x.to_s, target: '_blank', rel: 'noopener noreferrer' }
+                          %i.fas.fa-file.pr-2
+                          View File
                   .row-m-t-sm
                     .col-md-12
                       = f.label :remarks, :class => "form-label"
