@@ -65,6 +65,6 @@ class InhouseLoanItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def inhouse_loan_item_params
-      params.require(:inhouse_loan_item).permit(:term, :inhouse_loan_id, :due_date, :principal, :interest, :monthly_amort, :balance, :is_paid, :penalty, :advance, :payment_date, :or, :paid_amount)
+      params.require(:inhouse_loan_item).permit(:term, :inhouse_loan_id, :due_date, :principal, :interest, :monthly_amort, :balance, :is_paid, :penalty, :advance, :payment_date, :or, :paid_amount, :receipt_img)
     end
 end

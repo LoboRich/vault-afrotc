@@ -154,6 +154,6 @@ class WaterBillsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def water_bill_params
-      params.require(:water_bill).permit(:client_id, :loan_id, :previous, :current, :consume, :amount, :or_number, :due_date, :reading_date, :grace_period, :status, :remarks, :penalty, :total, :mode_of_payment, :receipt, :reference_number, :bank_name, :payment_date, :received_by)
+      params.require(:water_bill).permit(:client_id, :loan_id, :previous, :current, :consume, :amount, :or_number, :due_date, :reading_date, :grace_period, :status, :remarks, :penalty, :total, :mode_of_payment, :receipt, :reference_number, :bank_name, :payment_date, :received_by, :receipt_img)
     end
 end
