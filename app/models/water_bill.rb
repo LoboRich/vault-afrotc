@@ -3,7 +3,7 @@ class WaterBill < ApplicationRecord
   belongs_to :loan
   has_many :loan_parcels, through: :loan
 
-  mount_uploaders :receipt_img, ImageUploader
+  mount_uploader :receipt_img, ImageUploader
 
   scope :paid, -> { where(status: 'paid') }
   scope :unpaid, -> { where(status: 'unpaid') } 
