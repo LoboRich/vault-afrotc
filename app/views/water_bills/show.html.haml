@@ -71,8 +71,8 @@
                       = f.text_field :received_by, class: 'form-control', required:  true, disabled: true
                     .col-md-4
                       = f.label "Proof of Payment", :class => "form-label"
-                      - if @water_bill.receipt.present?
-                        %a.dropdown-item.btn-light{ href: @water_bill.receipt.to_s, target: '_blank', rel: 'noopener noreferrer' }
+                      - if @water_bill.receipt_img.present?
+                        %a.dropdown-item.btn-light{ href: @water_bill.receipt_img.to_s, target: '_blank', rel: 'noopener noreferrer' }
                           %i.fas.fa-file.pr-2
                           View File
                   .row-m-t-sm

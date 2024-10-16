@@ -140,7 +140,7 @@ class WaterBillsController < ApplicationController
   end
 
   def process_pay
-    @water_bill.update!(status: 'paid', bank_name: params[:customer_payments][:bank_name], mode_of_payment: params[:customer_payments][:mode_of_payment], receipt: params[:customer_payments][:receipt],  payment_date: params[:customer_payments][:payment_date], remarks: params[:customer_payments][:remarks], received_by: "#{current_user.name} #{current_user.surname}")
+    @water_bill.update!(receipt_img: params[:customer_payments][:receipt_img], status: 'paid', bank_name: params[:customer_payments][:bank_name], mode_of_payment: params[:customer_payments][:mode_of_payment], receipt: params[:customer_payments][:receipt],  payment_date: params[:customer_payments][:payment_date], remarks: params[:customer_payments][:remarks], received_by: "#{current_user.name} #{current_user.surname}")
 
     History.create(user_id: current_user.id, description: "Payments made to water bill: #{@water_bill.id}" , model: "WaterBill", model_id: @water_bill.id)
     redirect_to water_bills_path

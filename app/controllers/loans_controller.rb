@@ -164,7 +164,7 @@ class LoansController < ApplicationController
 
       customer.update!(downpayment_percentage: balance) 
       
-      @paid_amort = LoanItem.create!(loan_id: customer.id, term: next_term, principal: principal, monthly_amort: to_pay_monthly_amort.to_f, balance: balance.to_f, duedate: next_period, or: params["customer_payments"]["or_num"], paid_amount: payment_params, payment_date: params["customer_payments"]["payment_date"], penalty: penalty, advance: advance_payment, is_paid: true)
+      @paid_amort = LoanItem.create!(loan_id: customer.id, term: next_term, principal: principal, monthly_amort: to_pay_monthly_amort.to_f, balance: balance.to_f, duedate: next_period, or: params["customer_payments"]["or_num"], paid_amount: payment_params, payment_date: params["customer_payments"]["payment_date"], penalty: penalty, advance: advance_payment, is_paid: true, receipt_img: params[:customer_payments][:receipt_img])
       
       term = next_term + 1
       duedate = next_period + 1.months

@@ -162,7 +162,7 @@ class InhouseLoansController < ApplicationController
 
       customer.update!(balance: balance)
       
-      @paid_amort = InhouseLoanItem.create!(inhouse_loan_id: customer.id, term: next_term, principal: principal, interest: interest.to_f, monthly_amort: to_pay_monthly_amort.to_f, balance: balance.to_f, due_date: next_period, penalty: penalty, advance: advance_payment, or: params["customer_payments"]["or_num"], paid_amount: payment_params + penalty, payment_date: params["customer_payments"]["payment_date"], is_paid: true)
+      @paid_amort = InhouseLoanItem.create!(inhouse_loan_id: customer.id, term: next_term, principal: principal, interest: interest.to_f, monthly_amort: to_pay_monthly_amort.to_f, balance: balance.to_f, due_date: next_period, penalty: penalty, advance: advance_payment, or: params["customer_payments"]["or_num"], paid_amount: payment_params + penalty, payment_date: params["customer_payments"]["payment_date"], is_paid: true, receipt_img: params[:customer_payments][:receipt_img])
       
       term = next_term + 1
       due_date = next_period + 1.months

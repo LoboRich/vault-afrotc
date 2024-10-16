@@ -61,7 +61,7 @@
                         = f.number_field :advance, :class=>"form-control", step: '0.01', id: "advance", readonly: true 
                       .col-md-6 
                         = f.label "Upload Proof of Payment", :class => "form-label"
-                        = f.file_field :receipt_img, id: "formFile", class: "form-control", multiple: true, accept: "application/pdf", include_hidden: false
+                        = f.file_field :receipt_img, id: "formFile", class: "form-control", accept: "application/pdf", include_hidden: false
                     .row.m-t-sm   
                       .col-md-12
                         = f.label "Remark", :class => "form-label"

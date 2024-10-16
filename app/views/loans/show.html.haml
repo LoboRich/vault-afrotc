@@ -90,9 +90,10 @@
                   .page-description-content.flex-grow-1
                     %h1 Equity Payments
                   .page-description-actions
-                    = link_to pay_loan_path(@loan), class: 'btn btn-primary' do
-                      %i.material-icons> add
-                      Payment
+                    - if !@loan.loan_items.order("duedate asc").last.is_paid
+                      = link_to pay_loan_path(@loan), class: 'btn btn-primary' do
+                        %i.material-icons> add
+                        Payment
               .card-body
                 .table-responsive
                   %table#datatable1.display.dataTable{"aria-describedby" => "datatable1_info", :role => "grid", :style => "width: 100%;"}
@@ -115,11 +116,12 @@
                         %td
                         %td
                         %td
-                        %th
+                        %td
+                        %td
                         %td 
                           .text-primary.font-weight-s
                             = format_currency(@loan.downpayment - @loan.reservation_fee)
-                        %td 
+                        
                       - total_monthly_amort = 0
                       - total_itp = 0
                       - total_paid_amount = 0

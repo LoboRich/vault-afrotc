@@ -75,7 +75,7 @@
                     .row.m-t-sm  
                       .col-md-6 
                         = f.label "Upload Proof of Payment", :class => "form-label"
-                        = f.file_field :receipt_img, id: "formFile", class: "form-control", multiple: true, accept: "application/pdf", include_hidden: false
+                        = f.file_field :receipt_img, id: "formFile", class: "form-control", accept: "application/pdf", include_hidden: false
                       .col-md-6 
                         = f.label "Remark", :class => "form-label"
                         = f.text_area :others, :class=>"form-control", placeholder: "Add additional notes..."

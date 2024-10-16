@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_04_083451) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_11_043100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -116,6 +116,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_04_083451) do
     t.float "paid_amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "receipt_img"
     t.index ["inhouse_loan_id"], name: "index_inhouse_loan_items_on_inhouse_loan_id"
   end
 
@@ -140,6 +141,28 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_04_083451) do
     t.index ["loan_id"], name: "index_inhouse_loans_on_loan_id"
   end
 
+  create_table "loan_equities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "client_id", null: false
+    t.string "terms"
+    t.string "model_house"
+    t.float "contract_price"
+    t.float "reservation_fees"
+    t.float "downpayment_percentage"
+    t.float "downpayment"
+    t.float "monthly_amort"
+    t.datetime "contract_date"
+    t.datetime "amortization_start_date"
+    t.float "balance"
+    t.text "remarks"
+    t.string "status"
+    t.string "broker"
+    t.string "blocklot"
+    t.float "other_expense"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_loan_equities_on_client_id"
+  end
+
   create_table "loan_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "term"
     t.uuid "loan_id", null: false
@@ -156,6 +179,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_04_083451) do
     t.datetime "payment_date"
     t.string "or"
     t.float "paid_amount", default: 0.0
+    t.string "receipt_img"
     t.index ["loan_id"], name: "index_loan_items_on_loan_id"
   end
 
@@ -311,6 +335,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_04_083451) do
     t.string "bank_name"
     t.datetime "payment_date"
     t.string "received_by"
+    t.string "receipt_img"
     t.index ["client_id"], name: "index_water_bills_on_client_id"
     t.index ["loan_id"], name: "index_water_bills_on_loan_id"
   end
