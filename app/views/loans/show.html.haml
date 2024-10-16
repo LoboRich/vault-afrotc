@@ -90,7 +90,7 @@
                   .page-description-content.flex-grow-1
                     %h1 Client Details
                   .page-description-actions
-                    - if @loan.balance < 0
+                    - if !@loan.loan_items.order("duedate asc").last.is_paid
                       = link_to pay_loan_path(@loan), class: 'btn btn-primary' do
                         %i.material-icons> add
                         Payment
@@ -116,11 +116,12 @@
                         %td
                         %td
                         %td
-                        %th
+                        %td
+                        %td
                         %td 
                           .text-primary.font-weight-s
                             = format_currency(@loan.downpayment - @loan.reservation_fee)
-                        %td 
+                        
                       - total_monthly_amort = 0
                       - total_itp = 0
                       - total_paid_amount = 0
