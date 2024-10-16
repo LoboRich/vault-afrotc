@@ -1,5 +1,5 @@
 class InhouseLoanItem < ApplicationRecord
   belongs_to :inhouse_loan
 
-  mount_uploaders :receipt, ImageUploader
+  mount_uploader :receipt, ImageUploader
 end
