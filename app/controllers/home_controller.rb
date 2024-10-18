@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
   def index
+    @total_clients = Client.count
+    @total_inventories = Parcel.count
     @this_month_collectibles = LoanItem.where('duedate BETWEEN ? AND ?', Date.today.beginning_of_month, Date.today.end_of_month)
     @total_collectibles = @this_month_collectibles.sum(:monthly_amort)
     @collected = @this_month_collectibles.where(is_paid: true).sum(:paid_amount)

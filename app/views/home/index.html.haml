@@ -30,6 +30,32 @@
                 %h1 Dashboard 
           .card.widget.widget-payment-request
             .card-body.card-header.d-flex
+              %h2.text-danger
+                Current Data
+            .card-body
+              .row
+                .col-xl-6
+                  .card.widget.widget-stats
+                    .card-body
+                      .widget-stats-container.d-flex
+                        .widget-stats-icon.widget-stats-icon-danger
+                          %i.material-icons-outlined folder
+                        .widget-stats-content.flex-fill
+                          %span.widget-stats-title Total Inventory
+                          %span.widget-stats-amount
+                            = @total_inventories
+                .col-xl-6
+                  .card.widget.widget-stats
+                    .card-body
+                      .widget-stats-container.d-flex
+                        .widget-stats-icon.widget-stats-icon-danger
+                          %i.material-icons-outlined person
+                        .widget-stats-content.flex-fill
+                          %span.widget-stats-title Total Clients
+                          %span.widget-stats-amount
+                            = @total_clients
+          .card.widget.widget-payment-request
+            .card-body.card-header.d-flex
               %i.material-icons-two-tone> house
               %h5.card-title
                 Housing
