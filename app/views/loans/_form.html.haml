@@ -47,10 +47,10 @@
     
     .col-md-4
       = f.label "Contract Date/Take out Date", :class => "form-label"
-      = f.date_field :contract_date, class: 'form-control', required:  true
+      = f.date_field :contract_date, class: 'form-control'
     .col-md-4
       = f.label :amortization_start_date, :class => "form-label"
-      = f.date_field :amortization_start_date, class: 'form-control', required:  true 
+      = f.date_field :amortization_start_date, class: 'form-control'
     .col-md-4
       = f.label :remarks, :class => "form-label"
       = f.text_area :remarks, class: 'form-control'     
