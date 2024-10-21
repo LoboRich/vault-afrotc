@@ -2,8 +2,8 @@
 = form_for 'paid_loan', url: process_paid_loan_loans_path, html: { id: 'paid_loan' } do |f|
   .row.m-t-sm
     .col-md-4
-      = f.label "Paid Loan?", :class => "form-label"
-      = f.text_field :is_paid, value: true, class: 'form-control', required:  true, readonly: true
+      = f.label "Paid Loan?", :class => "form-label d-none"
+      = f.text_field :is_paid, value: true, class: 'form-control d-none', required:  true, readonly: true
   .row.m-t-sm
     .col-md-6
       = f.label :client_id, :class => "form-label"
@@ -20,7 +20,10 @@
   .mt-4
     = link_to 'Back', loans_path, class: 'btn btn-dark'
     = f.submit 'Save Changes', class: 'btn btn-primary float-right'
-
+:css 
+  .select2-container {
+      display: block !Important;
+  }
 :javascript
   $(document).ready(function(){
     $(".js-example-tokenizer").select2({
