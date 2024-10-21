@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     collection do
       get 'compute_monthly_amort'
       get 'check_parcel_price'
+      post 'process_paid_loan'
     end
     member do
       get 'pay'

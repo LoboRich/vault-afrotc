@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_11_043100) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_21_010111) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -216,6 +216,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_11_043100) do
     t.uuid "loan_equity_id"
     t.float "reservation_fee", default: 0.0
     t.float "downpayment_percentage", default: 0.0
+    t.boolean "is_paid"
     t.index ["client_id"], name: "index_loans_on_client_id"
     t.index ["loan_equity_id"], name: "index_loans_on_loan_equity_id"
   end
