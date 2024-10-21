@@ -89,6 +89,29 @@ class LoansController < ApplicationController
     end
   end
 
+
+  def process_paid_loan
+    @loan = Loan.new(paid_loan_params)
+
+    respond_to do |format|
+      if @loan.save
+
+        # save loan parcels(Blk&Lot)
+        parcels = JSON.parse(@loan.blocklot).reject(&:empty?)
+        parcels.each do |p|
+          parcel = LoanParcel.create(parcel_id: p, loan_id: @loan.id)
+          Parcel.find(p).update(status: 'Reserved')
+        end
+
+        History.create(user_id: current_user.id, description: "Creates a paid loan equity", model: "Loan", model_id: @loan.id)
+        format.html { redirect_to loan_url(@loan), notice: "Loan was successfully created." }
+        format.json { render :show, status: :created, location: @loan }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @loan.errors, status: :unprocessable_entity }
+      end
+    end
+  end
   # PATCH/PUT /loans/1 or /loans/1.json
   def update
     respond_to do |format|
@@ -218,6 +241,9 @@ class LoansController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def loan_params 
-      params.require(:loan).permit(:reservation_fee, :downpayment_percentage, :client_id, {:blocklot => []}, :terms, :model_house, :loan_financing, :contract_price, :processing_fees, :downpayment, :interest, :principal, :monthly_amort, :contract_date, :amortization_start_date, :balance, :remarks, :status, :broker, :receipt_img)
+      params.require(:loan).permit(:is_paid, :reservation_fee, :downpayment_percentage, :client_id, {:blocklot => []}, :terms, :model_house, :loan_financing, :contract_price, :processing_fees, :downpayment, :interest, :principal, :monthly_amort, :contract_date, :amortization_start_date, :balance, :remarks, :status, :broker, :receipt_img)
+    end
+    def paid_loan_params 
+      params.require(:paid_loan).permit(:is_paid, :client_id, {:blocklot => []}, :remarks)
     end
 end
