@@ -71,7 +71,8 @@
                           %span.widget-stats-title Monthly Collectibles
                           %span.widget-stats-amount
                             ₱ #{number_with_precision(@total_collectibles, precision: 2, delimiter: ',')} 
-                          %span.widget-stats-info 0 client accounts
+                          %span.widget-stats-info
+                            #{@this_month_collectibles.count} client accounts
                     
                 .col-xl-6
                   .card.widget.widget-stats
@@ -83,7 +84,8 @@
                           %span.widget-stats-title Collected
                           %span.widget-stats-amount 
                             ₱ #{number_with_precision(@collected, precision: 2, delimiter: ',')} 
-                          %span.widget-stats-info 0 client accounts
+                          %span.widget-stats-info
+                            #{@this_month_collectibles.where(is_paid: true).count} client accounts
                 .col-xl-6
                   .card.widget.widget-stats
                     .card-body
@@ -123,7 +125,8 @@
                           %span.widget-stats-title Monthly Collectibles%span
                           .widget-stats-amount
                             ₱ #{number_with_precision(@total_water_collectibles, precision: 2, delimiter: ',')} 
-                          %span.widget-stats-info 0 client accounts
+                          %span.widget-stats-info 
+                            #{@this_month_water_collectibles.count} client accounts
                     
                 .col-xl-6
                   .card.widget.widget-stats
@@ -135,7 +138,8 @@
                           %span.widget-stats-title Collected
                           %span.widget-stats-amount  
                             ₱ #{number_with_precision(@water_collected, precision: 2, delimiter: ',')} 
-                          %span.widget-stats-info 0 client accounts
+                          %span.widget-stats-info
+                            #{@this_month_water_collectibles.where(status: 'paid').count} client accounts
                 .col-xl-6
                   .card.widget.widget-stats
                     .card-body
