@@ -1,2 +1,0 @@
-json.extract! payment_history, :id, :loan_id, :current_balance, :interest, :payment, :new_balance, :mode_of_payment, :check_bank, :check_no, :bank_name, :bank_account_no, :ar_account_no, :penalty, :processing, :reservation, :equity, :others, :advance_payment_to_principal, :principal, :downpayment, :processing_fee, :payment_date, :or_num, :memo, :running_balance, :is_deposited, :deposited_date, :deposited_memo, :deposited_bank_account, :receipt, :created_at, :updated_at
-json.url payment_history_url(payment_history, format: :json)
