@@ -1,14 +1,19 @@
-%h2 Log in
-= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .form-inputs
-    = f.input :email,                       |
-      required: false,                      |
-      autofocus: true,                      |
-      input_html: { autocomplete: "email" } |
-    = f.input :password,                               |
-      required: false,                                 |
-      input_html: { autocomplete: "current-password" } |
-    = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
-  .form-actions
-    = f.button :submit, "Log in"
-= render "users/shared/links"
+
+.app.app-auth-sign-in.align-content-stretch.d-flex.flex-wrap.justify-content-center
+  .app-auth-container
+    .logo.container-fluid.justify-content-center
+      %a.flex-grow-0{:href => "index.html"} 
+      %p.auth-description
+        Please sign-in to your account 
+    .auth-credentials.m-b-xxl
+      = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+        %label.form-label{:for => "signInEmail"} Email address
+        = f.email_field :email, required: true, autofocus: true, autocomplete: "email", class: "form-control m-b-md", :placeholder => "admin@gmail.com", id: 'email'
+        
+        %label.form-label{:for => "signInPassword"} Password
+        = f.password_field :password, required: true, autocomplete: "current-password", class: "form-control", :placeholder => "●●●●●●●●", id: 'current-password'
+      
+        = f.submit "Log in", class: "btn btn-primary mt-4"
+      
+       
+    

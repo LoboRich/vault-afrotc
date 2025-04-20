@@ -995,7 +995,7 @@ h1, h2, h3, h4, h5, h6 {
 .app-sidebar .logo .sidebar-user-switcher a {
     display: block;
     overflow: hidden;
-    background: url(logo_hi.jpg) no-repeat;
+    background: url(lib.png) no-repeat;
     height: 50px;
     background-size: 55px;
 }
@@ -6493,7 +6493,7 @@ span.flatpickr-weekday {
   }
 .app-auth-container .logo a {
     display: flex;
-    background: url('logo_hi.jpg') no-repeat;
+    background: url('lib.png') no-repeat;
     height: 50px;
     background-size: 50px;
     align-items: center;
