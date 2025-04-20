@@ -5,14 +5,14 @@ default: &default
 
 development:
   <<: *default
-  database: amort_postgresql
+  database: lirra_postgresql
   username: postgres
   host: localhost
   password: postgres
 
 test:
   <<: *default
-  database: amort_test
+  database: lirra_test
   username: postgres
   password: postgres
   host: localhost
