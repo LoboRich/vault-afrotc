@@ -1,0 +1,2 @@
+class AuthorizeRoute < ApplicationRecord
+end
