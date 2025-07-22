@@ -1,0 +1,46 @@
+.app-content
+  .content-wrapper
+    .container
+      .page-description.d-flex.align-items-center
+        %h1.flex-grow-1
+          Franchises
+        .page-description-actions
+          = link_to new_franchise_path, class: 'btn btn-primary' do
+            %i.material-icons> add
+            New Franchise
+
+      .card
+        .card-body
+          #franchisestable_wrapper.dataTables_wrapper.dt-bootstrap4
+            .row
+              .col-sm-12.table-responsive
+                %table#franchisestable.display.dataTable{"aria-describedby" => "franchisestable_info", :role => "grid", :style => "width: 100%;"}
+                  %thead
+                    %tr
+                      %th Case num
+                      %th Authorize route
+                      %th Cpc validity
+                      %th Status
+                      %th Action
+                  %tbody
+                    - @franchises.each do |franchise|
+                      %tr.odd{ role: "row" }
+                        %td= franchise.case_num
+                        %td= franchise.authorize_route&.name || "-"
+                        %td= franchise.cpc_validity
+                        %td= franchise.status
+                        %td
+                          = link_to franchise, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1' do
+                            %i.material-icons visibility
+                          = link_to edit_franchise_path(franchise), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1' do
+                            %i.material-icons edit
+                          = link_to franchise,
+                            data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
+                            title: 'Destroy it',
+                            class: 'btn btn-icon btn-sm btn-danger' do
+                            %i.material-icons delete
+
+:javascript
+  $(document).ready(function () {
+    $('#franchisestable').DataTable();
+  });

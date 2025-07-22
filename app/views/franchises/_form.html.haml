@@ -1,0 +1,65 @@
+.card
+  = form_for @franchise do |f|
+    - if @franchise.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@franchise.errors.count, "error")} prohibited this franchise from being saved:"
+        %ul
+          - @franchise.errors.full_messages.each do |message|
+            %li= message
+    .card-body.form-group.mb-0
+      .row
+        .col-md-6.pt-3
+          .field
+            = f.label :case_num
+            = f.text_field :case_num, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :operator
+            = f.text_field :operator, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :auth_num_of_units
+            = f.number_field :auth_num_of_units, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :date_granted
+            = f.date_field :date_granted, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :expiry_date
+            = f.date_field :expiry_date, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :authorize_route_id, "Authorize Route"
+            = f.collection_select :authorize_route_id, AuthorizeRoute.all, :id, :name, { prompt: "Select a route" }, class: 'form-control'
+        .col-md-6.pt-3
+          .field
+            = f.label :denomination
+            = f.text_field :denomination, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :year_confirmed
+            = f.text_field :year_confirmed, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :status
+            = f.select :status, options_for_select(["Pending", "Active", "On Process", "Expired"], @franchise.status), {}, class: "form-control"
+        .col-md-6.pt-3
+          .field
+            = f.label :num_of_cpc
+            = f.number_field :num_of_cpc, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :cpc_validity
+            = f.date_field :cpc_validity, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :remarks
+            = f.text_area :remarks, class: 'form-control'
+        .col-md-6.pt-3
+          .field
+            = f.label :business_address
+            = f.text_area :business_address, class: 'form-control', required:  true
+    .card-footer
+      = link_to 'Back', franchises_path, class: 'btn btn-secondary'
+      = f.submit 'Save Changes', class: 'btn btn-warning float-right'
