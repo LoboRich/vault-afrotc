@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :franchises
   resources :authorize_routes
   devise_for :users
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_22_131859) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_22_152921) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -18,6 +18,24 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_22_131859) do
   create_table "authorize_routes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "route_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "franchises", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "case_num"
+    t.string "operator"
+    t.integer "auth_num_of_units"
+    t.date "date_granted"
+    t.date "expiry_date"
+    t.text "business_address"
+    t.uuid "authorize_route"
+    t.string "denomination"
+    t.string "year_confirmed"
+    t.string "status"
+    t.text "remarks"
+    t.integer "num_of_cpc"
+    t.date "cpc_validity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
