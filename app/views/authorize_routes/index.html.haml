@@ -1,0 +1,43 @@
+
+.app-content
+  .content-wrapper
+    .container
+      .page-description.d-flex.align-items-center
+        %h1.flex-grow-1
+          Authorize Routes
+        .page-description-actions
+          = link_to new_authorize_route_path, class: 'btn btn-primary' do
+            %i.material-icons> add
+            New Authorize route
+      .card
+        .card-body
+          #routetable_wrapper.dataTables_wrapper.dt-bootstrap4
+            .row
+              .col-sm-12.table-responsive
+                %table#routetable.display.dataTable{"aria-describedby" => "routetable_info", :role => "grid", :style => "width: 100%;"}
+                  %thead
+                    %tr
+                      %th Name
+                      %th Route type
+                      %th.sorting{"aria-controls" => "authorize_route_table", "aria-label" => "Action: activate to sort column ascending", :colspan => "1", :rowspan => "1", :style => "width: 66px;", :tabindex => "0"} Action
+                  %tbody
+                    - @authorize_routes.each do |authorize_route|
+                      %tr.odd{:role => "row"}
+                        %td= authorize_route.name
+                        %td= authorize_route.route_type
+                        %td
+                          = link_to authorize_route, title: 'Show it', class: 'btn btn-icon btn-sm btn-info' do
+                            %i.material-icons visibility
+                          = link_to edit_authorize_route_path(authorize_route), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning text-cemter' do
+                            %i.material-icons edit
+                          = link_to authorize_route,
+                            data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
+                            title: 'Destroy it',
+                            class: 'btn btn-icon btn-sm btn-danger' do
+                            %i.material-icons delete
+                            
+
+:javascript
+  $(document).ready( function () {
+     $('#routetable').DataTable();
+  } );

@@ -1,0 +1,22 @@
+
+.card
+  = form_for @authorize_route do |f|
+    - if @authorize_route.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@authorize_route.errors.count, "error")} prohibited this authorize_route from being saved:"
+        %ul
+          - @authorize_route.errors.full_messages.each do |message|
+            %li= message
+    .card-body.form-group.mb-0
+      .row
+        .col-md-6.pt-3
+          .field
+            = f.label :name
+            = f.text_field :name, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :route_type
+            = f.text_field :route_type, class: 'form-control', required:  true
+    .card-footer
+      = link_to 'Back', authorize_routes_path, class: 'btn btn-secondary'
+      = f.submit 'Save Changes', class: 'btn btn-warning float-right'

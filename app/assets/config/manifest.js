@@ -13,3 +13,4 @@
 //= link jquery-3.5.1.min.js
 //= link main.min.js
 //= link datatables.js
+//= link rails-ujs.js

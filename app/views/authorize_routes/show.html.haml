@@ -1,0 +1,25 @@
+%section.section
+  .section-header.d-mobile-none
+    %h1
+      = @authorize_route.name
+  .card
+    .card-body.form-group.mb-0
+      = form_for @authorize_route do |f|
+        - if @authorize_route.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@authorize_route.errors.count, "error")} prohibited this authorize_route from being saved:"
+            %ul
+              - @authorize_route.errors.full_messages.each do |message|
+                %li= message
+        .row
+          .col-md-6.pt-3
+            .field
+              = f.label :name, :class => "control-label"
+              = f.text_field :name, class: 'form-control', required:  true, disabled: true
+          .col-md-6.pt-3
+            .field
+              = f.label :route_type, :class => "control-label"
+              = f.text_field :route_type, class: 'form-control', required:  true, disabled: true
+    .card-footer.text-right.pb-3
+      = link_to 'Back', authorize_routes_path, :class => "btn btn-secondary"
+      = link_to 'Edit', edit_authorize_route_path(@authorize_route), :class => "btn btn-warning px-5"

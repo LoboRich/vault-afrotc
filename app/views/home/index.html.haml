@@ -1,61 +1,49 @@
-.app.align-content-stretch.d-flex.flex-wrap
-  .app-sidebar
-    = render "layouts/sidebar"
-  .app-container
-    .app-header
-      %nav.navbar.navbar-light.navbar-expand-lg.bg-primary
-        .container-fluid
-          #navbarNav.navbar-nav
-          .d-flex
-            %ul.navbar-nav
-              %li.nav-item.hidden-on-mobile.text-white.d-flex.align-items-center
-                = link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link"
-    .app-content
-      .content-wrapper
-        .container
+.app-content
+  .content-wrapper
+    .container
+      .row
+        .col
+          .page-description
+            %h1 Dashboard 
+      .card.widget.widget-payment-request
+        .card-body.card-header.d-flex
+          %i.material-icons-two-tone> book
+          %h5.card-title
+            Current Status
+        .card-body
           .row
-            .col
-              .page-description
-                %h1 Dashboard 
-          .card.widget.widget-payment-request
-            .card-body.card-header.d-flex
-              %i.material-icons-two-tone> book
-              %h5.card-title
-                Current Status
-            .card-body
-              .row
-                .col-xl-6
-                  .card.widget.widget-stats
-                    .card-body
-                      .widget-stats-container.d-flex
-                        .widget-stats-icon.widget-stats-icon-primary
-                          %i.material-icons-outlined receipt_long
-                        .widget-stats-content.flex-fill
-                          %span.widget-stats-title Number of Faculty
-                          %span.widget-stats-amount
-                            0
-                          %span.widget-stats-info
-                            0 Faculty
-                    
-                .col-xl-6
-                  .card.widget.widget-stats
-                    .card-body
-                      .widget-stats-container.d-flex
-                        .widget-stats-icon.widget-stats-icon-success
-                          %i.material-icons-outlined payments
-                        .widget-stats-content.flex-fill
-                          %span.widget-stats-title Procured Recommendations
-                          %span.widget-stats-amount 
-                            0
-                          %span.widget-stats-info
-                            0 Books
-                .col-xl-6
-                  .card.widget.widget-stats
-                    .card-body
-                      .widget-stats-container.d-flex
-                        .widget-stats-icon.widget-stats-icon-danger
-                          %i.material-icons-outlined warning
-                        .widget-stats-content.flex-fill
-                          %span.widget-stats-title Pending Recommendations
-                          %span.widget-stats-amount 0
-                          %span.widget-stats-info 0 Books
+            .col-xl-6
+              .card.widget.widget-stats
+                .card-body
+                  .widget-stats-container.d-flex
+                    .widget-stats-icon.widget-stats-icon-primary
+                      %i.material-icons-outlined receipt_long
+                    .widget-stats-content.flex-fill
+                      %span.widget-stats-title Number of Faculty
+                      %span.widget-stats-amount
+                        0
+                      %span.widget-stats-info
+                        0 Faculty
+                
+            .col-xl-6
+              .card.widget.widget-stats
+                .card-body
+                  .widget-stats-container.d-flex
+                    .widget-stats-icon.widget-stats-icon-success
+                      %i.material-icons-outlined payments
+                    .widget-stats-content.flex-fill
+                      %span.widget-stats-title Procured Recommendations
+                      %span.widget-stats-amount 
+                        0
+                      %span.widget-stats-info
+                        0 Books
+            .col-xl-6
+              .card.widget.widget-stats
+                .card-body
+                  .widget-stats-container.d-flex
+                    .widget-stats-icon.widget-stats-icon-danger
+                      %i.material-icons-outlined warning
+                    .widget-stats-content.flex-fill
+                      %span.widget-stats-title Pending Recommendations
+                      %span.widget-stats-amount 0
+                      %span.widget-stats-info 0 Books

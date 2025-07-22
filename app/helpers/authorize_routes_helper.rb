@@ -1,0 +1,2 @@
+module AuthorizeRoutesHelper
+end
