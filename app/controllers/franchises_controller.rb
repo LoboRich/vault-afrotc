@@ -65,6 +65,6 @@ class FranchisesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def franchise_params
-      params.require(:franchise).permit(:case_num, :operator, :auth_num_of_units, :date_granted, :expiry_date, :business_address, :authorize_route, :denomination, :year_confirmed, :status, :remarks, :num_of_cpc, :cpc_validity)
+      params.require(:franchise).permit(:case_num, :operator, :auth_num_of_units, :date_granted, :expiry_date, :business_address, :authorize_route_id, :denomination, :year_confirmed, :status, :remarks, :num_of_cpc, :cpc_validity)
     end
 end

@@ -23,7 +23,7 @@
                   %tbody
                     - @authorize_routes.each do |authorize_route|
                       %tr.odd{:role => "row"}
-                        %td= authorize_route.name
+                        %td= authorize_route&.name
                         %td= authorize_route.route_type
                         %td
                           = link_to authorize_route, title: 'Show it', class: 'btn btn-icon btn-sm btn-info' do
