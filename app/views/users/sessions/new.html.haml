@@ -8,7 +8,7 @@
     .auth-credentials.m-b-xxl
       = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
         %label.form-label{:for => "signInEmail"} Email address
-        = f.email_field :email, required: true, autofocus: true, autocomplete: "email", class: "form-control m-b-md", :placeholder => "admin@gmail.com", id: 'email'
+        = f.email_field :email, required: true, autofocus: true, autocomplete: "email", class: "form-control m-b-md", :placeholder => "ex. admin@gmail.com", id: 'email'
         
         %label.form-label{:for => "signInPassword"} Password
         = f.password_field :password, required: true, autocomplete: "current-password", class: "form-control", :placeholder => "●●●●●●●●", id: 'current-password'
