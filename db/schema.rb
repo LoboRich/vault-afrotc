@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_22_152921) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_22_160513) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -29,7 +29,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_22_152921) do
     t.date "date_granted"
     t.date "expiry_date"
     t.text "business_address"
-    t.uuid "authorize_route"
+    t.uuid "authorize_route_id"
     t.string "denomination"
     t.string "year_confirmed"
     t.string "status"
