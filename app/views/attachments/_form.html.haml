@@ -1,0 +1,29 @@
+.card
+  = form_for @attachment do |f|
+    - if @attachment.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@attachment.errors.count, "error")} prohibited this attachment from being saved:"
+        %ul
+          - @attachment.errors.full_messages.each do |message|
+            %li= message
+    .card-body.form-group.mb-0
+      .row
+                  .col-md-6.pt-3
+            .field
+              = f.label :vehicle_id
+              = f.text_field :vehicle_id, class: 'form-control', required:  true
+                  .col-md-6.pt-3
+            .field
+              = f.label :franchise_id
+              = f.text_field :franchise_id, class: 'form-control', required:  true
+                  .col-md-6.pt-3
+            .field
+              = f.label :image
+              = f.text_field :image, class: 'form-control', required:  true
+                  .col-md-6.pt-3
+            .field
+              = f.label :filename
+              = f.text_field :filename, class: 'form-control', required:  true
+            .card-footer
+      = link_to 'Back', attachments_path, class: 'btn btn-secondary'
+      = f.submit 'Save Changes', class: 'btn btn-warning float-right'
