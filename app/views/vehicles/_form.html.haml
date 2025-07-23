@@ -198,12 +198,13 @@
             = f.number_field :year_rebuild, class: 'form-control', required:  true
         .col-md-6.pt-3
           .field
-            = f.label :authorize_route_id
-            = f.text_field :authorize_route_id, class: 'form-control', required:  true
+            = f.label :authorize_route_id, "Authorize Route"
+            = f.collection_select :authorize_route_id, AuthorizeRoute.all, :id, :name, { prompt: "Select a route" }, class: 'form-control'
+
         .col-md-6.pt-3
           .field
-            = f.label :franchise_id
-            = f.text_field :franchise_id, class: 'form-control', required:  true
+            = f.label :franchise_id, "Franchise (Case Number)"
+            = f.collection_select :franchise_id, Franchise.all, :id, :case_num, { prompt: "Select a franchise" }, class: 'form-control'
     .card-footer
       = link_to 'Back', vehicles_path, class: 'btn btn-secondary'
       = f.submit 'Save Changes', class: 'btn btn-warning float-right'
