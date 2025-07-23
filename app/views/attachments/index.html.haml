@@ -1,0 +1,46 @@
+.app-content
+  .content-wrapper
+    .container
+      .page-description.d-flex.align-items-center
+        %h1.flex-grow-1
+          Attachments
+        .page-description-actions
+          = link_to new_attachment_path, class: 'btn btn-primary' do
+            %i.material-icons> add
+            New Attachment
+
+      .card
+        .card-body
+          #attachmentstable_wrapper.dataTables_wrapper.dt-bootstrap4
+            .row
+              .col-sm-12.table-responsive
+                %table#attachmentstable.display.dataTable{"aria-describedby" => "attachmentstable_info", :role => "grid", :style => "width: 100%;"}
+                  %thead
+                    %tr
+                                              %th Vehicle
+                                              %th Franchise
+                                              %th Image
+                                              %th Filename
+                                            %th Action
+                  %tbody
+                    - @attachments.each do |attachment|
+                      %tr.odd{ role: "row" }
+                                                  %td= attachment.vehicle_id
+                                                  %td= attachment.franchise_id
+                                                  %td= attachment.image
+                                                  %td= attachment.filename
+                                                %td
+                          = link_to attachment, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1' do
+                            %i.material-icons visibility
+                          = link_to edit_attachment_path(attachment), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1' do
+                            %i.material-icons edit
+                          = link_to attachment,
+                            data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
+                            title: 'Destroy it',
+                            class: 'btn btn-icon btn-sm btn-danger' do
+                            %i.material-icons delete
+
+:javascript
+  $(document).ready(function () {
+    $('#attachmentstable').DataTable();
+  });

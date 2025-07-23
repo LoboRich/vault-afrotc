@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :attachments
   resources :vehicles
   resources :franchises
   resources :authorize_routes

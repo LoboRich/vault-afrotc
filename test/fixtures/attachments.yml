@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  vehicle_id: 
+  franchise_id: 
+  image: MyString
+  filename: MyString
+
+two:
+  vehicle_id: 
+  franchise_id: 
+  image: MyString
+  filename: MyString
