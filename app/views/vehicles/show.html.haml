@@ -1,0 +1,220 @@
+%section.section
+  .section-header.d-mobile-none
+    .page-description.d-flex.align-items-center
+      %h1.flex-grow-1
+        New created vehicle
+    .section-header-breadcrumb
+      .breadcrumb-item 
+        = link_to 'Dashboard', '/'
+      .breadcrumb-item
+        @vehicle
+
+  .card
+    .card-body.form-group.mb-0
+      = form_for @vehicle do |f|
+        - if @vehicle.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@vehicle.errors.count, 'error')} prohibited this vehicle from being saved:"
+            %ul
+              - @vehicle.errors.full_messages.each do |message|
+                %li= message
+        .row
+          .col-md-6.pt-3
+            .field
+              = f.label :classification
+              = f.text_field :classification, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :registered_owner
+              = f.text_field :registered_owner, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :bus_num
+              = f.text_field :bus_num, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :mv_file
+              = f.text_field :mv_file, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :plate_num
+              = f.text_field :plate_num, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :ending_num
+              = f.text_field :ending_num, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :body_type
+              = f.text_field :body_type, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :denomination
+              = f.text_field :denomination, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :motor_num
+              = f.text_field :motor_num, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :chassis_num
+              = f.text_field :chassis_num, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :gross_weight
+              = f.number_field :gross_weight, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :net_capacity
+              = f.text_field :net_capacity, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :seat_capacity
+              = f.text_field :seat_capacity, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :make
+              = f.text_field :make, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :year_model
+              = f.number_field :year_model, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :fuel
+              = f.text_field :fuel, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :num_of_cyclinder
+              = f.text_field :num_of_cyclinder, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :field_office
+              = f.text_field :field_office, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :cr_num
+              = f.text_field :cr_num, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :cr_date_issue
+              = f.date_field :cr_date_issue, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :or_field_office
+              = f.text_field :or_field_office, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :or_num
+              = f.text_field :or_num, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :or_date_issue
+              = f.date_field :or_date_issue, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :reg_amount
+              = f.text_field :reg_amount, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :body_color
+              = f.text_field :body_color, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :coc_date_coverage
+              = f.text_field :coc_date_coverage, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :coc_num
+              = f.text_field :coc_num, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :coc_amount
+              = f.text_field :coc_amount, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :insurance_name
+              = f.text_field :insurance_name, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :status
+              = f.text_field :status, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :book_value
+              = f.text_field :book_value, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :date_operate
+              = f.date_field :date_operate, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :date_retired
+              = f.date_field :date_retired, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :remarks
+              = f.text_area :remarks, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :coi_date_coverage
+              = f.text_field :coi_date_coverage, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :quality_type
+              = f.text_field :quality_type, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :coi_num
+              = f.text_field :coi_num, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :coi_amount
+              = f.text_field :coi_amount, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :piston_displacement
+              = f.text_field :piston_displacement, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :category
+              = f.text_field :category, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :bus_series
+              = f.text_field :bus_series, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :present_holder
+              = f.text_field :present_holder, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :penalties_surcharge
+              = f.text_field :penalties_surcharge, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :cr_field_office
+              = f.text_field :cr_field_office, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :type_of_vehicle
+              = f.text_field :type_of_vehicle, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :route_per_operation
+              = f.text_field :route_per_operation, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :year_rebuild
+              = f.number_field :year_rebuild, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :authorize_route_id
+              = f.text_field :authorize_route_id, class: 'form-control', required:  true
+          .col-md-6.pt-3
+            .field
+              = f.label :franchise_id
+              = f.text_field :franchise_id, class: 'form-control', required:  true
+    .card-footer.text-right.pb-3
+      = link_to 'Back', vehicles_path, class: "btn btn-secondary"
+      = link_to 'Edit', edit_vehicle_path(@vehicle), class: "btn btn-warning px-5"

@@ -1,0 +1,103 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  classification: MyString
+  registered_owner: MyString
+  bus_num: MyString
+  mv_file: MyString
+  plate_num: MyString
+  ending_num: MyString
+  body_type: MyString
+  denomination: MyString
+  motor_num: MyString
+  chassis_num: MyString
+  gross_weight: 1
+  net_capacity: MyString
+  seat_capacity: MyString
+  make: MyString
+  year_model: 1
+  fuel: MyString
+  num_of_cyclinder: MyString
+  field_office: MyString
+  cr_num: MyString
+  cr_date_issue: 2025-07-23
+  or_field_office: MyString
+  or_num: MyString
+  or_date_issue: 2025-07-23
+  reg_amount: 1.5
+  body_color: MyString
+  coc_date_coverage: MyString
+  coc_num: MyString
+  coc_amount: 1.5
+  insurance_name: MyString
+  status: MyString
+  book_value: MyString
+  date_operate: 2025-07-23
+  date_retired: 2025-07-23
+  remarks: MyText
+  coi_date_coverage: MyString
+  quality_type: MyString
+  coi_num: MyString
+  coi_amount: MyString
+  piston_displacement: MyString
+  category: MyString
+  bus_series: MyString
+  present_holder: MyString
+  penalties_surcharge: MyString
+  cr_field_office: MyString
+  type_of_vehicle: MyString
+  route_per_operation: MyString
+  year_rebuild: 1
+  authorize_route_id: 
+  franchise_id: 
+
+two:
+  classification: MyString
+  registered_owner: MyString
+  bus_num: MyString
+  mv_file: MyString
+  plate_num: MyString
+  ending_num: MyString
+  body_type: MyString
+  denomination: MyString
+  motor_num: MyString
+  chassis_num: MyString
+  gross_weight: 1
+  net_capacity: MyString
+  seat_capacity: MyString
+  make: MyString
+  year_model: 1
+  fuel: MyString
+  num_of_cyclinder: MyString
+  field_office: MyString
+  cr_num: MyString
+  cr_date_issue: 2025-07-23
+  or_field_office: MyString
+  or_num: MyString
+  or_date_issue: 2025-07-23
+  reg_amount: 1.5
+  body_color: MyString
+  coc_date_coverage: MyString
+  coc_num: MyString
+  coc_amount: 1.5
+  insurance_name: MyString
+  status: MyString
+  book_value: MyString
+  date_operate: 2025-07-23
+  date_retired: 2025-07-23
+  remarks: MyText
+  coi_date_coverage: MyString
+  quality_type: MyString
+  coi_num: MyString
+  coi_amount: MyString
+  piston_displacement: MyString
+  category: MyString
+  bus_series: MyString
+  present_holder: MyString
+  penalties_surcharge: MyString
+  cr_field_office: MyString
+  type_of_vehicle: MyString
+  route_per_operation: MyString
+  year_rebuild: 1
+  authorize_route_id: 
+  franchise_id: 
