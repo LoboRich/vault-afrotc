@@ -2,7 +2,12 @@
   .section-header.d-mobile-none
     .page-description.d-flex.align-items-center
       %h1.flex-grow-1
-        Add <%= human_name.downcase %>
+        Editing Vehicle
+    .section-header-breadcrumb
+      .breadcrumb-item 
+        = link_to 'Dashboard', '/'
+      .breadcrumb-item
+        @vehicle
 
   .col-12.col-md-12.col-lg-12
     .card

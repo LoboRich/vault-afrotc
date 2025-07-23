@@ -1,20 +1,19 @@
-= form_for @<%= singular_table_name %> do |f|
-  - if @<%= singular_table_name %>.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@<%= singular_table_name %>.errors.count, "error")} prohibited this <%= singular_table_name %> from being saved:"
-      %ul
-        - @<%= singular_table_name %>.errors.full_messages.each do |message|
-          %li= message
-  .card-body.pb-0
-    .row
-      .form-group.col-12.pt-2
-        .form-row
+.card
+  = form_for @<%= singular_table_name %> do |f|
+    - if @<%= singular_table_name %>.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@<%= singular_table_name %>.errors.count, "error")} prohibited this <%= singular_table_name %> from being saved:"
+        %ul
+          - @<%= singular_table_name %>.errors.full_messages.each do |message|
+            %li= message
+    .card-body.form-group.mb-0
+      .row
         <% for attribute in attributes -%>
-  .col-md-6.pt-3
+          .col-md-6.pt-3
             .field
               = f.label :<%= attribute.name %>
               = f.<%= attribute.field_type %> :<%= attribute.name %>, class: 'form-control', required:  true
         <% end -%>
-.card-footer
-    = link_to 'Back', <%= index_helper %>_path, class: 'btn btn-secondary'
-    = f.submit 'Save Changes', class: 'btn btn-warning float-right'
+    .card-footer
+      = link_to 'Back', <%= index_helper %>_path, class: 'btn btn-secondary'
+      = f.submit 'Save Changes', class: 'btn btn-warning float-right'
