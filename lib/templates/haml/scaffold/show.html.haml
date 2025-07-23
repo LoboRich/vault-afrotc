@@ -1,30 +1,37 @@
 %section.section
   .section-header.d-mobile-none
-    %h1 New created <%= singular_table_name %>
+    .page-description.d-flex.align-items-center
+      %h1.flex-grow-1
+        New created <%= human_name.downcase %>
     .section-header-breadcrumb
       .breadcrumb-item 
         = link_to 'Dashboard', '/'
       .breadcrumb-item
         @<%= singular_table_name %>
-  .col-12.col-md-12.col-lg-12
-    .card
-      .card-body
-        = form_for @<%= singular_table_name %> do |f|
-          - if @<%= singular_table_name %>.errors.any?
-            #error_explanation
-              %h2= "#{pluralize(@<%= singular_table_name %>.errors.count, "error")} prohibited this <%= singular_table_name %> from being saved:"
-              %ul
-                - @<%= singular_table_name %>.errors.full_messages.each do |message|
-                  %li= message
-          .form-row.pt-3
-          <% for attribute in attributes -%>
-  .col-md-6
-              .field
-                = f.label :<%= attribute.name %>
-                = f.<%= attribute.field_type %> :<%= attribute.name %>, class: 'form-control', required:  true, disabled: true
-          <% end -%>
-.card-footer.pt-3
-        
-        = link_to 'Back', <%= index_helper %>_path, :class => "btn btn-secondary"
-        = link_to 'Edit', edit_<%= singular_table_name %>_path(@<%= singular_table_name %>), :class => "btn btn-warning float-right"
 
+  .card
+    .card-body.form-group.mb-0
+      = form_for @<%= singular_table_name %> do |f|
+        - if @<%= singular_table_name %>.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@<%= singular_table_name %>.errors.count, 'error')} prohibited this <%= singular_table_name %> from being saved:"
+            %ul
+              - @<%= singular_table_name %>.errors.full_messages.each do |message|
+                %li= message
+
+        .row
+          <% attributes.each do |attribute| -%>
+            .col-md-6.pt-3
+              .field
+                = f.label :<%= attribute.name %>, class: "control-label"
+                - if "<%= attribute.name %>" == "authorize_route"
+                  = f.text_field :authorize_route, value: @<%= singular_table_name %>.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "<%= attribute.field_type %>" == "text_area"
+                  = f.text_area :<%= attribute.name %>, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.<%= attribute.field_type %> :<%= attribute.name %>, class: 'form-control', required: true, disabled: true
+          <% end -%>
+
+    .card-footer.text-right.pb-3
+      = link_to 'Back', <%= index_helper %>_path, class: "btn btn-secondary"
+      = link_to 'Edit', edit_<%= singular_table_name %>_path(@<%= singular_table_name %>), class: "btn btn-warning px-5"
