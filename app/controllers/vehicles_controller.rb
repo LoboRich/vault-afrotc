@@ -8,29 +8,32 @@ class VehiclesController < ApplicationController
 
   # GET /vehicles/1 or /vehicles/1.json
   def show
+    @attachments = @vehicle.attachments
+    fresh_when etag: @vehicle
   end
 
   # GET /vehicles/new
   def new
     @vehicle = Vehicle.new
+    @classifications = Vehicle.classifications
+    @makes = Vehicle.makes
   end
 
   # GET /vehicles/1/edit
   def edit
+    @classifications = Vehicle.classifications
+    @makes = Vehicle.makes
   end
 
   # POST /vehicles or /vehicles.json
   def create
-    @vehicle = Vehicle.new(vehicle_params)
+    @vehicle = Vehicle.new(vehicle_params.except(:attachments))
+    @vehicle.save!
+    store_photos
 
     respond_to do |format|
-      if @vehicle.save
-        format.html { redirect_to @vehicle, notice: "Vehicle was successfully created." }
-        format.json { render :show, status: :created, location: @vehicle }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @vehicle.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to @vehicle, notice: 'Vehicle was successfully created.' }
+      format.json { render :show, status: :created }
     end
   end
 
@@ -65,6 +68,27 @@ class VehiclesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def vehicle_params
-      params.require(:vehicle).permit(:classification, :registered_owner, :bus_num, :mv_file, :plate_num, :ending_num, :body_type, :denomination, :motor_num, :chassis_num, :gross_weight, :net_capacity, :seat_capacity, :make, :year_model, :fuel, :num_of_cyclinder, :field_office, :cr_num, :cr_date_issue, :or_field_office, :or_num, :or_date_issue, :reg_amount, :body_color, :coc_date_coverage, :coc_num, :coc_amount, :insurance_name, :status, :book_value, :date_operate, :date_retired, :remarks, :coi_date_coverage, :quality_type, :coi_num, :coi_amount, :piston_displacement, :category, :bus_series, :present_holder, :penalties_surcharge, :cr_field_office, :type_of_vehicle, :route_per_operation, :year_rebuild, :authorize_route_id, :franchise_id)
+      params.require(:vehicle).permit(:classification, :registered_owner, :bus_num, :mv_file, :plate_num, :ending_num, :body_type, :denomination, :motor_num, :chassis_num, :gross_weight, :net_capacity, :seat_capacity, :make, :year_model, :fuel, :num_of_cyclinder, :field_office, :cr_num, :cr_date_issue, :or_field_office, :or_num, :or_date_issue, :reg_amount, :body_color, :coc_date_coverage, :coc_num, :coc_amount, :insurance_name, :status, :book_value, :date_operate, :date_retired, :remarks, :coi_date_coverage, :quality_type, :coi_num, :coi_amount, :piston_displacement, :category, :bus_series, :present_holder, :penalties_surcharge, :cr_field_office, :type_of_vehicle, :route_per_operation, :year_rebuild, :authorize_route_id, :franchise_id, {:attachments => []})
+    end
+
+    def store_photos
+      attachments = params[:vehicle][:attachments].reject(&:blank?)
+    
+      attachments.each do |file|
+        Attachment.create!(
+          vehicle_id: @vehicle.id,
+          image: file,
+          filename: "#{File.basename(file.original_filename, '.*')} #{Date.current}.#{File.extname(file.original_filename).delete('.')}"
+        )
+      end if attachments.present?
+    end
+    
+
+    def delete_photos
+      if @vehicle.attachments.count > 0
+        @vehicle.attachments.each do |x|
+          x.destroy if params[x.id.to_s] == "delete"
+        end
+      end
     end
 end

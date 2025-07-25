@@ -46,7 +46,7 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 #SystemsPlant
-gem "carrierwave"
+gem 'carrierwave'
 gem 'cloudinary'
 gem "net-ssh"
 gem 'rmagick'

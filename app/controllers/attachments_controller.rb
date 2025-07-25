@@ -1,6 +1,5 @@
 class AttachmentsController < ApplicationController
   before_action :set_attachment, only: %i[ show edit update destroy ]
-
   # GET /attachments or /attachments.json
   def index
     @attachments = Attachment.all
@@ -50,11 +49,7 @@ class AttachmentsController < ApplicationController
   # DELETE /attachments/1 or /attachments/1.json
   def destroy
     @attachment.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to attachments_path, status: :see_other, notice: "Attachment was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_back fallback_location: vehicle_path(params[:vehicle_id]), notice: 'Attachment removed.'
   end
 
   private
