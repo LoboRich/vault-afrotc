@@ -47,3 +47,7 @@
                     .flex.flex-col.leading-tight.space-y-0
                       %h5.card-title.text-sm.font-semibold.m-0 Expired Vehicles
                       %p.card-text.text-base.m-0= @vehicles.where(status: "Expired").count
+          .row
+            .col-md-12
+              %h3.text-lg.font-semibold.mb-4 Vehicles by Year Model
+              = line_chart Vehicle.where.not(year_model: nil).group(:year_model).count

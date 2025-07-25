@@ -6,6 +6,8 @@ class HomeController < ApplicationController
     @registered_vehicles = @vehicles.where(is_registered: true).count
     @unregistered_vehicles = @vehicles.where(is_registered: false).count
     @expired_vehicles = @vehicles.where(status: 'Expired').count
+
+    @vehicles_by_year = Vehicle.group(:year_model).order(:year_model).count
   end
   
 end
