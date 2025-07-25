@@ -211,7 +211,7 @@
             .field
               = f.label :franchise_id, "Franchise (Case Number)"
               = f.text_field :franchise_id, value: @vehicle.franchise&.case_num, class: 'form-control', disabled: true
-        .row
+        .row.mt-3
           .col-md-12.pt-3
             = render 'attachments/index'
     .card-footer.text-right.pb-3
