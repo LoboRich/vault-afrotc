@@ -205,6 +205,11 @@
           .field
             = f.label :status
             = f.select :status, Vehicle.statuses.keys, { prompt: "Select status" }, class: 'form-control'
+        .col-md-6.pt-3
+          .field
+            = f.label :is_registered, class: 'control-label'
+            = f.select :is_registered, options_for_select([['Yes', true], ['No', false]], @vehicle.is_registered), {}, class: 'form-control'
+
       .row
         .col-md-6.pt-3
           .form-group.row
