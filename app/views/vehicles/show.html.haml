@@ -211,6 +211,10 @@
             .field
               = f.label :franchise_id, "Franchise (Case Number)"
               = f.text_field :franchise_id, value: @vehicle.franchise&.case_num, class: 'form-control', disabled: true
+          .col-md-6.pt-3
+            .field
+              = f.label :is_registered, class: 'control-label'
+              = f.select :is_registered, options_for_select([['Yes', true], ['No', false]], @vehicle.is_registered), {}, class: 'form-control', disabled: true
         .row.mt-3
           .col-md-12.pt-3
             = render 'attachments/index'
