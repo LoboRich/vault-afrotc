@@ -63,7 +63,7 @@
         .col-md-6.pt-3
           .field
             = f.label :make, :class => "control-label"
-            = f.select :make, options_for_select(@makes, :selected => @vehicle.make),{},:class => 'form-control', required:  true
+            = f.select :make, options_for_select(@makes, :selected => @vehicle.make),{},:class => 'form-control'
         .col-md-6.pt-3
           .field
             = f.label :year_model
