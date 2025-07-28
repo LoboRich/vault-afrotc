@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'home/vehicles_by_year'
   get "home/vehicles_by_status", to: "home#vehicles_by_status"
+  get 'home/vehicles_by_full_status', to: 'home#vehicles_by_full_status'
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

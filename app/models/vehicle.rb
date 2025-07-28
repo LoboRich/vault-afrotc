@@ -36,9 +36,6 @@ class Vehicle < ApplicationRecord
         'DOWN ENGINE' => 'DOWN ENGINE',
         'DROP' => 'DROP',
         'ENGINE REPAIR' => 'ENGINE REPAIR',
-        'MPM 1' => 'MPM 1',
-        'MPM 2' => 'MPM 2',
-        'MPM 3' => 'MPM 3',
         'RETIRED' => 'RETIRED'
     }
     enum quality_type: {'AIRCON': 'AIRCON', 'NON-AIRCON': 'NON-AIRCON'}

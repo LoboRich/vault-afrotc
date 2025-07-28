@@ -18,5 +18,10 @@ class HomeController < ApplicationController
       "Non-Operating" => Vehicle.where.not(status: "OPERATING").count
     }
   end
+
+  def vehicles_by_full_status
+    data = Vehicle.group(:status).count
+    render json: data
+  end
   
 end
