@@ -47,7 +47,13 @@
                     .flex.flex-col.leading-tight.space-y-0
                       %h5.card-title.text-sm.font-semibold.m-0 Expired Vehicles
                       %p.card-text.text-base.m-0= @vehicles.where(status: "Expired").count
+      
+      .card.widget.widget-payment-request
+        .card-body.card-header.d-flex
+          %i.material-icons-two-tone> timeline
+          %h5.card-title
+            Vehicles by Year Model
+        .card-body
           .row
             .col-md-12
-              %h3.text-lg.font-semibold.mb-4 Vehicles by Year Model
               = line_chart home_vehicles_by_year_path
