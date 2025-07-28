@@ -59,6 +59,7 @@ gem 'devise'
 gem "select2-rails"
 gem 'finance_math'
 gem 'pundit'
+gem "chartkick"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
