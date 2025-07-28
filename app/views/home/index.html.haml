@@ -57,16 +57,25 @@
           .row
             .col-md-12
               = area_chart home_vehicles_by_year_path
-      
-      .card.widget.widget-payment-request
-        .card-body.card-header.d-flex
-          %i.material-icons-two-tone> bar_chart
-          %h5.card-title
-            Operating and Non-operating Vehicles
-        .card-body
-          .row
-            .col-md-6
-              = column_chart home_vehicles_by_status_path, height: "300px", colors: ["#2269f4", "#90CAF9"], library: {title: { display: true,text: "Operating vs Non-Operating" }}
-            .col-md-6
-              = pie_chart home_vehicles_by_full_status_path, height: "300px", library: { title: { display: true, text: "Vehicle Status Distribution" }, legend: { position: 'right' }}
+      .row
+        .col-md-6
+          .card.widget.widget-payment-request
+            .card-body.card-header.d-flex
+              %i.material-icons-two-tone> bar_chart
+              %h5.card-title
+                Operating and Non-operating Vehicles
+            .card-body
+              .row
+                .col-md-12
+                  = column_chart home_vehicles_by_status_path, height: "300px", colors: ["#2269f4", "#90CAF9"], library: {title: { display: true,text: "Operating vs Non-Operating" }}
+        .col-md-6
+          .card.widget.widget-payment-request
+            .card-body.card-header.d-flex
+              %i.material-icons-two-tone> pie_chart
+              %h5.card-title
+                Vehicle's Status
+            .card-body
+              .row
+                .col-md-12
+                  = pie_chart home_vehicles_by_full_status_path, height: "300px", library: { title: { display: true, text: "Vehicle Status Distribution" }, legend: { position: 'right' }}
 
