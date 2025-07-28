@@ -9,41 +9,51 @@
         .card-body.card-header.d-flex
           %i.material-icons-two-tone> book
           %h5.card-title
-            Current Status
+            Current Data
         .card-body
           .row
-            .col-xl-6
-              .card.widget.widget-stats
+            .col-md-3
+              .card.text-white.bg-primary.mb-3
                 .card-body
-                  .widget-stats-container.d-flex
-                    .widget-stats-icon.widget-stats-icon-primary
-                      %i.material-icons-outlined receipt_long
-                    .widget-stats-content.flex-fill
-                      %span.widget-stats-title Number of Faculty
-                      %span.widget-stats-amount
-                        0
-                      %span.widget-stats-info
-                        0 Faculty
-                
-            .col-xl-6
-              .card.widget.widget-stats
+                  .d-flex.align-items-center.gap-2
+                    %i.material-icons.md-36.mr-3 directions_bus
+                    .flex.flex-col.leading-tight.space-y-0
+                      %h5.card-title.text-sm.font-semibold.m-0 Total Vehicles
+                      %p.card-text.text-base.m-0= @vehicles.count
+
+            .col-md-3
+              .card.text-white.bg-success.mb-3
                 .card-body
-                  .widget-stats-container.d-flex
-                    .widget-stats-icon.widget-stats-icon-success
-                      %i.material-icons-outlined payments
-                    .widget-stats-content.flex-fill
-                      %span.widget-stats-title Procured Recommendations
-                      %span.widget-stats-amount 
-                        0
-                      %span.widget-stats-info
-                        0 Books
-            .col-xl-6
-              .card.widget.widget-stats
+                  .d-flex.align-items-center.gap-2
+                    %i.material-icons.md-36.mr-3 check_circle
+                    .flex.flex-col.leading-tight.space-y-0
+                      %h5.card-title.text-sm.font-semibold.m-0 Registered Vehicles
+                      %p.card-text.text-base.m-0= @vehicles.where(is_registered: true).count
+
+            .col-md-3
+              .card.text-white.bg-warning.mb-3
                 .card-body
-                  .widget-stats-container.d-flex
-                    .widget-stats-icon.widget-stats-icon-danger
-                      %i.material-icons-outlined warning
-                    .widget-stats-content.flex-fill
-                      %span.widget-stats-title Pending Recommendations
-                      %span.widget-stats-amount 0
-                      %span.widget-stats-info 0 Books
+                  .d-flex.align-items-center.gap-2
+                    %i.material-icons.md-36.mr-3 cancel
+                    .flex.flex-col.leading-tight.space-y-0
+                      %h5.card-title.text-sm.font-semibold.m-0 Unregistered Vehicles
+                      %p.card-text.text-base.m-0= @vehicles.where(is_registered: false).count
+
+            .col-md-3
+              .card.text-white.bg-danger.mb-3
+                .card-body
+                  .d-flex.align-items-center.gap-2
+                    %i.material-icons.md-36.mr-3 error_outline
+                    .flex.flex-col.leading-tight.space-y-0
+                      %h5.card-title.text-sm.font-semibold.m-0 Expired Vehicles
+                      %p.card-text.text-base.m-0= @vehicles.where(status: "Expired").count
+      
+      .card.widget.widget-payment-request
+        .card-body.card-header.d-flex
+          %i.material-icons-two-tone> timeline
+          %h5.card-title
+            Vehicles by Year Model
+        .card-body
+          .row
+            .col-md-12
+              = line_chart home_vehicles_by_year_path

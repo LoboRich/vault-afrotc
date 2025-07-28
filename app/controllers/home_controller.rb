@@ -1,13 +1,15 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!
   def index
-    @total_clients = 0
-    @total_inventories = 0
-    @this_month_collectibles = []
-    @total_collectibles = 0
-    @collected = 0
-    @this_month_water_collectibles = []
-    @total_water_collectibles = 0
-    @water_collected = 0
+    @vehicles = Vehicle.all
+    @total_vehicles = @vehicles.count
+    @registered_vehicles = @vehicles.where(is_registered: true).count
+    @unregistered_vehicles = @vehicles.where(is_registered: false).count
+    @expired_vehicles = @vehicles.where(status: 'Expired').count
   end
+
+  def vehicles_by_year
+    render json: Vehicle.where.not(year_model: nil).group(:year_model).count
+  end
+  
 end
