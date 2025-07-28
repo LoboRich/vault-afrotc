@@ -56,4 +56,14 @@
         .card-body
           .row
             .col-md-12
-              = line_chart home_vehicles_by_year_path
+              = area_chart home_vehicles_by_year_path
+      
+      .card.widget.widget-payment-request
+        .card-body.card-header.d-flex
+          %i.material-icons-two-tone> bar_chart
+          %h5.card-title
+            Operating and Non-operating Vehicles
+        .card-body
+          .row
+            .col-md-12
+              = column_chart home_vehicles_by_status_path, height: "300px", colors: ["#2269f4", "#90CAF9"], library: {title: { display: true,text: "Operating vs Non-Operating" }}

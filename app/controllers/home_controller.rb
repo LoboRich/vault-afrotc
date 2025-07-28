@@ -12,4 +12,11 @@ class HomeController < ApplicationController
     render json: Vehicle.where.not(year_model: nil).group(:year_model).count
   end
   
+  def vehicles_by_status
+    render json: {
+      "Operating" => Vehicle.where(status: "OPERATING").count,
+      "Non-Operating" => Vehicle.where.not(status: "OPERATING").count
+    }
+  end
+  
 end
