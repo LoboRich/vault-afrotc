@@ -50,4 +50,4 @@
           .row
             .col-md-12
               %h3.text-lg.font-semibold.mb-4 Vehicles by Year Model
-              = line_chart Vehicle.where.not(year_model: nil).group(:year_model).count
+              = line_chart home_vehicles_by_year_path
