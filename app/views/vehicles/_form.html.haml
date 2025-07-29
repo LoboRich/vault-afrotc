@@ -18,7 +18,7 @@
             = f.text_field :registered_owner, class: 'form-control'
         .col-md-6.pt-3
           .field
-            = f.label :bus_num
+            = f.label 'Vehicle num'
             = f.text_field :bus_num, class: 'form-control'
         .col-md-6.pt-3
           .field
@@ -38,24 +38,12 @@
             = f.select :body_type, Vehicle.body_types.keys, { prompt: "Select body type" }, class: 'form-control'
         .col-md-6.pt-3
           .field
-            = f.label :denomination
-            = f.text_field :denomination, class: 'form-control'
-        .col-md-6.pt-3
-          .field
             = f.label :motor_num
             = f.text_field :motor_num, class: 'form-control'
         .col-md-6.pt-3
           .field
             = f.label :chassis_num
             = f.text_field :chassis_num, class: 'form-control'
-        .col-md-6.pt-3
-          .field
-            = f.label :gross_weight
-            = f.number_field :gross_weight, class: 'form-control'
-        .col-md-6.pt-3
-          .field
-            = f.label :net_capacity
-            = f.text_field :net_capacity, class: 'form-control'
         .col-md-6.pt-3
           .field
             = f.label :seat_capacity
@@ -126,10 +114,6 @@
             = f.text_field :insurance_name, class: 'form-control'
         .col-md-6.pt-3
           .field
-            = f.label :book_value
-            = f.text_field :book_value, class: 'form-control'
-        .col-md-6.pt-3
-          .field
             = f.label :date_operate
             = f.date_field :date_operate, class: 'form-control'
         .col-md-6.pt-3
@@ -138,40 +122,8 @@
             = f.date_field :date_retired, class: 'form-control'
         .col-md-6.pt-3
           .field
-            = f.label :remarks
-            = f.text_area :remarks, class: 'form-control'
-        .col-md-6.pt-3
-          .field
-            = f.label :coi_date_coverage
-            = f.text_field :coi_date_coverage, class: 'form-control'
-        .col-md-6.pt-3
-          .field
             = f.label :quality_type
             = f.select :quality_type, Vehicle.quality_types.keys, { prompt: "Select quality type" }, class: 'form-control'
-        .col-md-6.pt-3
-          .field
-            = f.label :coi_num
-            = f.text_field :coi_num, class: 'form-control'
-        .col-md-6.pt-3
-          .field
-            = f.label :coi_amount
-            = f.text_field :coi_amount, class: 'form-control'
-        .col-md-6.pt-3
-          .field
-            = f.label :piston_displacement
-            = f.text_field :piston_displacement, class: 'form-control'
-        .col-md-6.pt-3
-          .field
-            = f.label :category
-            = f.text_field :category, class: 'form-control'
-        .col-md-6.pt-3
-          .field
-            = f.label :bus_series
-            = f.text_field :bus_series, class: 'form-control'
-        .col-md-6.pt-3
-          .field
-            = f.label :present_holder
-            = f.text_field :present_holder, class: 'form-control'
         .col-md-6.pt-3
           .field
             = f.label :penalties_surcharge
@@ -190,15 +142,6 @@
             = f.text_field :route_per_operation, class: 'form-control'
         .col-md-6.pt-3
           .field
-            = f.label :year_rebuild
-            = f.number_field :year_rebuild, class: 'form-control'
-        .col-md-6.pt-3
-          .field
-            = f.label :authorize_route_id, "Authorize Route"
-            = f.collection_select :authorize_route_id, AuthorizeRoute.all, :id, :name, { prompt: "Select a route" }, class: 'form-control'
-
-        .col-md-6.pt-3
-          .field
             = f.label :franchise_id, "Franchise (Case Number)"
             = f.collection_select :franchise_id, Franchise.all, :id, :case_num, { prompt: "Select a franchise" }, class: 'form-control'
         .col-md-6.pt-3
@@ -207,8 +150,12 @@
             = f.select :status, Vehicle.statuses.keys, { prompt: "Select status" }, class: 'form-control'
         .col-md-6.pt-3
           .field
-            = f.label :is_registered, class: 'control-label'
+            = f.label 'Registered?', class: 'control-label'
             = f.select :is_registered, options_for_select([['Yes', true], ['No', false]], @vehicle.is_registered), {}, class: 'form-control'
+        .col-md-6.pt-3
+          .field
+            = f.label :remarks
+            = f.text_area :remarks, class: 'form-control'
 
       .row
         .col-md-6.pt-3
