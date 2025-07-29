@@ -28,7 +28,7 @@
                     %i.material-icons.md-36.mr-3 check_circle
                     .flex.flex-col.leading-tight.space-y-0
                       %h5.card-title.text-sm.font-semibold.m-0 Registered Vehicles
-                      %p.card-text.text-base.m-0= @vehicles.where(is_registered: true).count
+                      %p.card-text.text-base.m-0= @registered_vehicles
 
             .col-md-3
               .card.text-white.bg-warning.mb-3
@@ -37,7 +37,7 @@
                     %i.material-icons.md-36.mr-3 cancel
                     .flex.flex-col.leading-tight.space-y-0
                       %h5.card-title.text-sm.font-semibold.m-0 Unregistered Vehicles
-                      %p.card-text.text-base.m-0= @vehicles.where(is_registered: false).count
+                      %p.card-text.text-base.m-0= @unregistered_vehicles
 
             .col-md-3
               .card.text-white.bg-danger.mb-3
@@ -45,8 +45,8 @@
                   .d-flex.align-items-center.gap-2
                     %i.material-icons.md-36.mr-3 error_outline
                     .flex.flex-col.leading-tight.space-y-0
-                      %h5.card-title.text-sm.font-semibold.m-0 Expired Vehicles
-                      %p.card-text.text-base.m-0= @vehicles.where(status: "Expired").count
+                      %h5.card-title.text-sm.font-semibold.m-0 Under Repair Vehicles
+                      %p.card-text.text-base.m-0= @under_repair_vehicles
       
       .card.widget.widget-payment-request
         .card-body.card-header.d-flex.gap-1

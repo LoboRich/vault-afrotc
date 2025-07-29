@@ -5,7 +5,7 @@ class HomeController < ApplicationController
     @total_vehicles = @vehicles.count
     @registered_vehicles = @vehicles.where(is_registered: true).count
     @unregistered_vehicles = @vehicles.where(is_registered: false).count
-    @expired_vehicles = @vehicles.where(status: 'Expired').count
+    @under_repair_vehicles = @vehicles.where(status: 'UNDER REPAIR').count
   end
 
   def vehicles_by_year

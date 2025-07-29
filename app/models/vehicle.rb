@@ -31,7 +31,7 @@ class Vehicle < ApplicationRecord
         'VACANT' => 'VACANT',
         'OPERATING' => 'OPERATING',
         'UNDER REPAIR' => 'UNDER REPAIR',
-        'BRANDNEW/TEBBAP' => 'BRANDNEW/TEBBAP',
+        'BRANDNEW' => 'BRANDNEW',
         'DEMOLISHED' => 'DEMOLISHED',
         'DOWN ENGINE' => 'DOWN ENGINE',
         'DROP' => 'DROP',
