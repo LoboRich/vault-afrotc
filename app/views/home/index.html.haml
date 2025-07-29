@@ -49,7 +49,7 @@
                       %p.card-text.text-base.m-0= @vehicles.where(status: "Expired").count
       
       .card.widget.widget-payment-request
-        .card-body.card-header.d-flex
+        .card-body.card-header.d-flex.gap-1
           %i.material-icons-two-tone> timeline
           %h5.card-title
             Vehicles by Year Model
@@ -60,7 +60,7 @@
       .row
         .col-md-6
           .card.widget.widget-payment-request
-            .card-body.card-header.d-flex
+            .card-body.card-header.d-flex.gap-1
               %i.material-icons-two-tone> bar_chart
               %h5.card-title
                 Operating and Non-operating Vehicles
@@ -70,7 +70,7 @@
                   = column_chart home_vehicles_by_status_path, height: "300px", colors: ["#2269f4", "#90CAF9"], library: {title: { display: true,text: "Operating vs Non-Operating" }}
         .col-md-6
           .card.widget.widget-payment-request
-            .card-body.card-header.d-flex
+            .card-body.card-header.d-flex.gap-1
               %i.material-icons-two-tone> pie_chart
               %h5.card-title
                 Vehicle's Status
