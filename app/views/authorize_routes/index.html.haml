@@ -25,16 +25,20 @@
                       %tr.odd{:role => "row"}
                         %td= authorize_route&.name
                         %td= authorize_route.route_type
-                        %td
-                          = link_to authorize_route, title: 'Show it', class: 'btn btn-icon btn-sm btn-info' do
-                            %i.material-icons visibility
-                          = link_to edit_authorize_route_path(authorize_route), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning text-cemter' do
-                            %i.material-icons edit
+                        %td.d-flex.gap-1
+                          = link_to authorize_route, title: 'Show', class: 'btn btn-sm btn-info d-flex align-items-center justify-content-center p-2', style: 'width: 36px; height: 36px;' do
+                            %i.material-icons.m-0 visibility
+
+                          = link_to edit_authorize_route_path(authorize_route), title: 'Edit', class: 'btn btn-sm btn-warning d-flex align-items-center justify-content-center p-2', style: 'width: 36px; height: 36px;' do
+                            %i.material-icons.m-0 edit
+
                           = link_to authorize_route,
                             data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
-                            title: 'Destroy it',
-                            class: 'btn btn-icon btn-sm btn-danger' do
-                            %i.material-icons delete
+                            title: 'Delete',
+                            class: 'btn btn-sm btn-danger d-flex align-items-center justify-content-center p-2',
+                            style: 'width: 36px; height: 36px;' do
+                            %i.material-icons.m-0 delete
+
                             
 
 :javascript

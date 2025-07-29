@@ -42,16 +42,21 @@
                         %td= vehicle.franchise.case_num
                         %td= vehicle.status
 
-                        %td
-                          = link_to vehicle, title: 'Show', class: 'btn btn-icon btn-sm btn-info mr-1' do
-                            %i.material-icons visibility
-                          = link_to edit_vehicle_path(vehicle), title: 'Edit', class: 'btn btn-icon btn-sm btn-warning mr-1' do
-                            %i.material-icons edit
+                        %td.d-flex.gap-1
+                          = link_to vehicle, title: 'Show', class: 'btn btn-sm btn-info d-flex align-items-center justify-content-center p-2', style: 'width: 36px; height: 36px;' do
+                            %i.material-icons.m-0 visibility
+
+                          = link_to edit_vehicle_path(vehicle), title: 'Edit', class: 'btn btn-sm btn-warning d-flex align-items-center justify-content-center p-2', style: 'width: 36px; height: 36px;' do
+                            %i.material-icons.m-0 edit
+
                           = link_to vehicle,
                             data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
                             title: 'Delete',
-                            class: 'btn btn-icon btn-sm btn-danger' do
-                            %i.material-icons delete
+                            class: 'btn btn-sm btn-danger d-flex align-items-center justify-content-center p-2',
+                            style: 'width: 36px; height: 36px;' do
+                            %i.material-icons.m-0 delete
+
+
 
 :javascript
   $(document).ready(function () {
