@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_25_135344) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_29_111934) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -69,11 +69,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_25_135344) do
     t.string "plate_num"
     t.string "ending_num"
     t.string "body_type"
-    t.string "denomination"
     t.string "motor_num"
     t.string "chassis_num"
-    t.integer "gross_weight"
-    t.string "net_capacity"
     t.string "seat_capacity"
     t.string "make"
     t.integer "year_model"
@@ -92,18 +89,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_25_135344) do
     t.float "coc_amount"
     t.string "insurance_name"
     t.string "status"
-    t.string "book_value"
     t.date "date_operate"
     t.date "date_retired"
     t.text "remarks"
-    t.string "coi_date_coverage"
     t.string "quality_type"
-    t.string "coi_num"
-    t.string "coi_amount"
-    t.string "piston_displacement"
-    t.string "category"
-    t.string "bus_series"
-    t.string "present_holder"
     t.string "penalties_surcharge"
     t.string "cr_field_office"
     t.string "type_of_vehicle"
