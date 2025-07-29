@@ -24,6 +24,11 @@
           %a{:href => "/"}
             %i.material-icons-two-tone> person
             Manage Users
+        %li
+          = button_to destroy_user_session_path, method: :delete, class: 'nav-link d-flex align-items-center btn btn-link p-0 text-start' do
+            %i.material-icons-two-tone logout
+            Logout
+
   .app-container
     .search
       %form
@@ -44,6 +49,5 @@
                   Hello,
                   = succeed "!" do
                     %strong.email= current_user.email
-                  = link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link"
                 - else
                   = link_to "Login", new_user_session_path, class: "nav-link"
