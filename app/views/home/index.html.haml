@@ -13,40 +13,37 @@
         .card-body
           .row
             .col-md-3
-              .card.text-white.bg-primary.mb-3
-                .card-body
-                  .d-flex.align-items-center.gap-2
-                    %i.material-icons.md-36.mr-3 directions_bus
-                    .flex.flex-col.leading-tight.space-y-0
-                      %h5.card-title.text-sm.font-semibold.m-0 Total Vehicles
-                      %p.card-text.text-base.m-0= @vehicles.count
+              .card.text-white.bg-primary.mb-3.h-100
+                .card-body.d-flex.align-items-center.gap-2
+                  %i.material-icons.md-36.mr-3 directions_bus
+                  .d-flex.flex-column.justify-content-center.flex-grow-1
+                    %h5.card-title.text-sm.font-semibold.mb-1 Total Vehicles
+                    %p.card-text.text-base.mb-0= @vehicles.count
 
             .col-md-3
-              .card.text-white.bg-success.mb-3
-                .card-body
-                  .d-flex.align-items-center.gap-2
-                    %i.material-icons.md-36.mr-3 check_circle
-                    .flex.flex-col.leading-tight.space-y-0
-                      %h5.card-title.text-sm.font-semibold.m-0 Registered Vehicles
-                      %p.card-text.text-base.m-0= @registered_vehicles
+              .card.text-white.bg-success.mb-3.h-100
+                .card-body.d-flex.align-items-center.gap-2
+                  %i.material-icons.md-36.mr-3 check_circle
+                  .d-flex.flex-column.justify-content-center.flex-grow-1
+                    %h5.card-title.text-sm.font-semibold.mb-1 Registered Vehicles
+                    %p.card-text.text-base.mb-0= @registered_vehicles
 
             .col-md-3
-              .card.text-white.bg-warning.mb-3
-                .card-body
-                  .d-flex.align-items-center.gap-2
-                    %i.material-icons.md-36.mr-3 cancel
-                    .flex.flex-col.leading-tight.space-y-0
-                      %h5.card-title.text-sm.font-semibold.m-0 Unregistered Vehicles
-                      %p.card-text.text-base.m-0= @unregistered_vehicles
+              .card.text-white.bg-warning.mb-3.h-100
+                .card-body.d-flex.align-items-center.gap-2
+                  %i.material-icons.md-36.mr-3 cancel
+                  .d-flex.flex-column.justify-content-center.flex-grow-1
+                    %h5.card-title.text-sm.font-semibold.mb-1 Unregistered Vehicles
+                    %p.card-text.text-base.mb-0= @unregistered_vehicles
 
             .col-md-3
-              .card.text-white.bg-danger.mb-3
-                .card-body
-                  .d-flex.align-items-center.gap-2
-                    %i.material-icons.md-36.mr-3 error_outline
-                    .flex.flex-col.leading-tight.space-y-0
-                      %h5.card-title.text-sm.font-semibold.m-0 Under Repair Vehicles
-                      %p.card-text.text-base.m-0= @under_repair_vehicles
+              .card.text-white.bg-danger.mb-3.h-100
+                .card-body.d-flex.align-items-center.gap-2
+                  %i.material-icons.md-36.mr-3 error_outline
+                  .d-flex.flex-column.justify-content-center.flex-grow-1
+                    %h5.card-title.text-sm.font-semibold.mb-1 Under Repair Vehicles
+                    %p.card-text.text-base.mb-0= @under_repair_vehicles
+
       
       .card.widget.widget-payment-request
         .card-body.card-header.d-flex.gap-1
