@@ -14,3 +14,4 @@
 //= link main.min.js
 //= link datatables.js
 //= link rails-ujs.js
+//= link logo.png
