@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :personnels
+  resources :personnels do
+    member do
+      post :change_state
+    end
+  end
   resources :attachments
   resources :vehicles
   resources :franchises

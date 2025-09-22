@@ -6983,3 +6983,20 @@ tbody td {
 table {
     text-transform: uppercase;
 }
+.action-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, color 0.2s ease;
+  
+    &:hover .material-icons.text-danger {
+      color: #b71c1c; // darker red
+      transform: scale(1.2);
+    }
+  
+    &:hover .material-icons.text-success {
+      color: #1b5e20; // darker green
+      transform: scale(1.2);
+    }
+  }
+  

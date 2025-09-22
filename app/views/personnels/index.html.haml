@@ -3,7 +3,7 @@
     .container
       .page-description.d-flex.align-items-center
         %h1.flex-grow-1
-          personnels
+          Personnels
         .page-description-actions
           = link_to new_personnel_path, class: 'btn btn-primary' do
             %i.material-icons> add
@@ -17,32 +17,46 @@
                 %table#personnelstable.display.dataTable{"aria-describedby" => "personnelstable_info", :role => "grid", :style => "width: 100%;"}
                   %thead
                     %tr
-                      %th Given Name
-                      %th Last Name
+                      %th Fullname
                       %th Role
                       %th Contact Number
-                      %th User
                       %th Branch Location
-                    %th Action
+                      %th Status
+                      %th Action
                   %tbody
                     - @personnels.each do |personnel|
                       %tr.odd{ role: "row" }
-                        %td= personnel.given_name
-                        %td= personnel.last_name
+                        %td= personnel.fullname
                         %td= personnel.role
                         %td= personnel.contact_number
-                        %td= personnel.user_id
                         %td= personnel.branch_location
                         %td
+                          - if personnel.is_enabled?
+                            %span.bg-success.text-white.text-xs.font-semibold.px-2.5.py-0.5.rounded-full Enabled
+                          - else
+                            %span.bg-danger.text-white.text-xs.font-semibold.px-2.5.py-0.5.rounded-full Disabled
+
+
+
+                        %td.d-flex.gap-1
+                          - if personnel.is_enabled?
+                            = link_to change_state_personnel_path(personnel),
+                                      method: :post,
+                                      data: { turbo_confirm: "Are you sure you want to Deactivate #{personnel.fullname}?" },
+                                      title: "Deactivate",
+                                      class: "action-icon btn btn-icon btn-sm btn-danger" do
+                              %i.material-icons block
+                          - else
+                            = link_to change_state_personnel_path(personnel),
+                                      method: :post,
+                                      data: { turbo_confirm: "Are you sure you want to Activate #{personnel.fullname}?" },
+                                      title: "Activate" ,
+                                      class: "action-icon btn btn-icon btn-sm btn-success" do
+                              %i.material-icons check_circle
                           = link_to personnel, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1' do
                             %i.material-icons visibility
                           = link_to edit_personnel_path(personnel), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1' do
                             %i.material-icons edit
-                          = link_to personnel,
-                            data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
-                            title: 'Destroy it',
-                            class: 'btn btn-icon btn-sm btn-danger' do
-                            %i.material-icons delete
 
 :javascript
   $(document).ready(function () {

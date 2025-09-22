@@ -43,6 +43,14 @@ class PersonnelsController < ApplicationController
     end
   end
 
+  def change_state
+    authorize Personnel, :change_state?
+    msg = PersonnelsHelper.change_state(params[:id])
+    respond_to do |format|
+      format.html { redirect_to personnels_url, notice: "#{msg}" }
+      format.json { head :no_content }
+    end
+  end
   # DELETE /personnels/1 or /personnels/1.json
   def destroy
     @personnel.destroy!
