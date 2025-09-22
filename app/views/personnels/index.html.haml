@@ -1,0 +1,50 @@
+.app-content
+  .content-wrapper
+    .container
+      .page-description.d-flex.align-items-center
+        %h1.flex-grow-1
+          personnels
+        .page-description-actions
+          = link_to new_personnel_path, class: 'btn btn-primary' do
+            %i.material-icons> add
+            New personnel
+
+      .card
+        .card-body
+          #personnelstable_wrapper.dataTables_wrapper.dt-bootstrap4
+            .row
+              .col-sm-12.table-responsive
+                %table#personnelstable.display.dataTable{"aria-describedby" => "personnelstable_info", :role => "grid", :style => "width: 100%;"}
+                  %thead
+                    %tr
+                      %th Given Name
+                      %th Last Name
+                      %th Role
+                      %th Contact Number
+                      %th User
+                      %th Branch Location
+                    %th Action
+                  %tbody
+                    - @personnels.each do |personnel|
+                      %tr.odd{ role: "row" }
+                        %td= personnel.given_name
+                        %td= personnel.last_name
+                        %td= personnel.role
+                        %td= personnel.contact_number
+                        %td= personnel.user_id
+                        %td= personnel.branch_location
+                        %td
+                          = link_to personnel, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1' do
+                            %i.material-icons visibility
+                          = link_to edit_personnel_path(personnel), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1' do
+                            %i.material-icons edit
+                          = link_to personnel,
+                            data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
+                            title: 'Destroy it',
+                            class: 'btn btn-icon btn-sm btn-danger' do
+                            %i.material-icons delete
+
+:javascript
+  $(document).ready(function () {
+    $('#personnelstable').DataTable();
+  });

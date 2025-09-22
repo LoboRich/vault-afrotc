@@ -1,0 +1,52 @@
+.card
+  = form_for @personnel do |f|
+    - if @personnel.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@personnel.errors.count, "error")} prohibited this personnel from being saved:"
+        %ul
+          - @personnel.errors.full_messages.each do |message|
+            %li= message
+    .card-body.form-group.mb-0.flex
+      .row
+        .col-md-6.pt-3
+          .field
+            = f.label :given_name
+            = f.text_field :given_name, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :last_name
+            = f.text_field :last_name, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :role
+            = f.select :role, 
+              options_for_select([['Personnel in Charge', 'personnel_in_charge'],['Staff', 'staff'],['Supervisor', 'supervisor'],['Manager', 'manager'],['VP', 'vp']], f.object.role),{ prompt: 'Select Role' }, class: 'form-control', required: true
+        .col-md-6.pt-3
+          .field
+            = f.label :branch_location
+            = f.text_field :branch_location, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :contact_number
+            = f.text_field :contact_number, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :is_enabled, "Enabled?"
+            = f.select :is_enabled, options_for_select([["Enabled", true], ["Disabled", false]], f.object.is_enabled), { prompt: "Select Status" },class: "form-control", required: true
+      .row.mt-4.mb-4
+        %h5 Login Details
+        = f.fields_for :user do |u|
+          .col-md-6.pt-3
+            = u.label :password
+            = u.password_field :password, class: 'form-control', required: true
+
+          .col-md-6.pt-3
+            = u.label :password_confirmation
+            = u.password_field :password_confirmation, class: 'form-control', required: true
+
+          .col-md-6.pt-3
+            = u.label :email
+            = u.email_field :email, class: 'form-control', required: true
+    .card-footer
+      = link_to 'Back', personnels_path, class: 'btn btn-secondary'
+      = f.submit 'Save Changes', class: 'btn btn-warning float-right'

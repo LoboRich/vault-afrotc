@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_29_111934) do
+ActiveRecord::Schema[7.1].define(version: 2025_09_22_075126) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -45,6 +45,18 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_29_111934) do
     t.text "remarks"
     t.integer "num_of_cpc"
     t.date "cpc_validity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "personnels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "given_name"
+    t.string "last_name"
+    t.string "role"
+    t.string "contact_number"
+    t.uuid "user_id"
+    t.string "branch_location"
+    t.boolean "is_enabled"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
