@@ -47,7 +47,7 @@ gem "bootsnap", require: false
 
 #SystemsPlant
 gem 'carrierwave'
-gem 'cloudinary'
+gem 'cloudinary', '~> 1.29'
 gem "net-ssh"
 gem 'rmagick'
 gem 'html2haml', '~> 2.3'
