@@ -44,7 +44,6 @@ class PersonnelsController < ApplicationController
   end
 
   def change_state
-    authorize Personnel, :change_state?
     msg = PersonnelsHelper.change_state(params[:id])
     respond_to do |format|
       format.html { redirect_to personnels_url, notice: "#{msg}" }

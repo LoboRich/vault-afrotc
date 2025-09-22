@@ -7,7 +7,6 @@
         .page-description-actions
           = link_to new_personnel_path, class: 'btn btn-primary' do
             %i.material-icons> add
-            New personnel
 
       .card
         .card-body
@@ -30,35 +29,51 @@
                         %td= personnel.role
                         %td= personnel.contact_number
                         %td= personnel.branch_location
+
                         %td
-                          - if personnel.is_enabled?
-                            %span.bg-success.text-white.text-xs.font-semibold.px-2.5.py-0.5.rounded-full Enabled
-                          - else
-                            %span.bg-danger.text-white.text-xs.font-semibold.px-2.5.py-0.5.rounded-full Disabled
-
-
+                          .form-check.form-switch
+                            %input.form-check-input{
+                              type: "checkbox",
+                              role: "switch",
+                              id: "toggleSwitch#{personnel.id}",
+                              checked: personnel.is_enabled?,
+                              data: { url: change_state_personnel_path(personnel) }
+                            }
+                            %label.form-check-label{ for: "toggleSwitch#{personnel.id}" }
+                              = personnel.is_enabled? ? "Active" : "Inactive"
 
                         %td.d-flex.gap-1
-                          - if personnel.is_enabled?
-                            = link_to change_state_personnel_path(personnel),
-                                      method: :post,
-                                      data: { turbo_confirm: "Are you sure you want to Deactivate #{personnel.fullname}?" },
-                                      title: "Deactivate",
-                                      class: "action-icon btn btn-icon btn-sm btn-danger" do
-                              %i.material-icons block
-                          - else
-                            = link_to change_state_personnel_path(personnel),
-                                      method: :post,
-                                      data: { turbo_confirm: "Are you sure you want to Activate #{personnel.fullname}?" },
-                                      title: "Activate" ,
-                                      class: "action-icon btn btn-icon btn-sm btn-success" do
-                              %i.material-icons check_circle
                           = link_to personnel, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1' do
                             %i.material-icons visibility
                           = link_to edit_personnel_path(personnel), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1' do
                             %i.material-icons edit
 
+
+
+
 :javascript
   $(document).ready(function () {
     $('#personnelstable').DataTable();
+
+    // handle toggle switch
+    $(document).on("change", ".form-check-input[data-url]", function () {
+      let checkbox = $(this);
+      let url = checkbox.data("url");
+      let enabled = checkbox.is(":checked");
+
+      $.ajax({
+        url: url,
+        type: "POST",
+        data: { is_enabled: enabled },
+        headers: { "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content") },
+        success: function () {
+          let label = checkbox.siblings("label.form-check-label");
+          label.text(enabled ? "Active" : "Inactive");
+        },
+        error: function () {
+          alert("Failed to update state");
+          checkbox.prop("checked", !enabled); // rollback if error
+        }
+      });
+    });
   });
