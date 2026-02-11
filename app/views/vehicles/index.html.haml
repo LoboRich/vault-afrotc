@@ -1,64 +1,40 @@
 .app-content
   .content-wrapper
     .container
-      .page-description.d-flex.align-items-center
-        %h1.flex-grow-1
-          Vehicles
-        .page-description-actions
-          = link_to new_vehicle_path, class: 'btn btn-primary' do
-            %i.material-icons> add
-            New Vehicle
-
-      .card
+      .card.widget.widget-payment-request
+        .card-body.card-header.d-flex
+          %i.material-icons-two-tone> book
+          %h5.card-title
+            Vehicles List
         .card-body
-          #vehiclestable_wrapper.dataTables_wrapper.dt-bootstrap4
-            .row
-              .col-sm-12.table-responsive
-                %table#vehiclestable.display.dataTable{"aria-describedby" => "vehiclestable_info", :role => "grid", :style => "width: 100%;"}
-                  %thead
+          .datatable-container
+            .table-responsive.datatable-container
+              %table#vehicles-table.table.table-striped.table-bordered.table-hover.table-sm.datatable
+                %thead.bg-light
+                  %tr
+                    %th Chassis #
+                    %th Year Model
+                    %th Classification
+                    %th Route
+                    %th Case #
+                    %th Status
+                    %th Action
+                %tbody
+                  - @vehicles.each do |vehicle|
                     %tr
-                      %th Vehicle #
-                      %th Plate #
-                      %th Ending #
-                      %th Motor #
-                      %th Chassis #
-                      %th Year Model
-                      %th Classification
-                      %th Route
-                      %th Case #
-                      %th Status
-                      %th Action
-                  %tbody
-                    - @vehicles.each do |vehicle|
-                      %tr.odd{ role: "row" }
-                        %td= vehicle.bus_num
-                        %td= vehicle.plate_num
-                        %td= vehicle.ending_num
-                        %td= vehicle.motor_num
-                        %td= vehicle.chassis_num
-                        %td= vehicle.year_model
-                        %td= vehicle.classification
-                        %td= vehicle.franchise.authorize_route.name
-                        %td= vehicle.franchise.case_num
-                        %td= vehicle.status
-
-                        %td.d-flex.gap-1
-                          = link_to vehicle, title: 'Show', class: 'btn btn-sm btn-info d-flex align-items-center justify-content-center p-2', style: 'width: 36px; height: 36px;' do
-                            %i.material-icons.m-0 visibility
-
-                          = link_to edit_vehicle_path(vehicle), title: 'Edit', class: 'btn btn-sm btn-warning d-flex align-items-center justify-content-center p-2', style: 'width: 36px; height: 36px;' do
-                            %i.material-icons.m-0 edit
-
-                          = link_to vehicle,
-                            data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
-                            title: 'Delete',
-                            class: 'btn btn-sm btn-danger d-flex align-items-center justify-content-center p-2',
-                            style: 'width: 36px; height: 36px;' do
-                            %i.material-icons.m-0 delete
+                      %td= vehicle.chassis_num
+                      %td= vehicle.year_model
+                      %td= vehicle.classification
+                      %td= vehicle.franchise.authorize_route.name
+                      %td= vehicle.franchise.case_num
+                      %td= vehicle.status
+                      %td.d-flex.gap-1
+                        = link_to vehicle, title: 'Show', class: 'btn btn-sm btn-info', style: 'width:36px;height:36px;' do
+                          %i.material-icons.m-0 visibility
+                        = link_to edit_vehicle_path(vehicle), title: 'Edit', class: 'btn btn-sm btn-warning', style: 'width:36px;height:36px;' do
+                          %i.material-icons.m-0 edit
+                        = link_to vehicle, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, title: 'Delete', class: 'btn btn-sm btn-danger', style: 'width:36px;height:36px;' do
+                          %i.material-icons.m-0 delete
 
 
 
-:javascript
-  $(document).ready(function () {
-    $('#vehiclestable').DataTable();
-  });

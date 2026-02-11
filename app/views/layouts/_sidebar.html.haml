@@ -1,37 +1,29 @@
-.div
+%div
   / Sidebar
   -# For desktop, always visible
-  #sidebar-desktop.bg-light.d-none.d-lg-block
+  #sidebar-desktop.bg-dark.d-none.d-lg-block.vh-100
     %ul.nav.flex-column.p-3
-      %li.nav-item.mb-3.text-center
-        = image_tag "logo.png", class: "img-fluid", style: "max-width:120px;"
+      %li.nav-item.mb-1.text-center
+        = image_tag "logo.png", class: "img-fluid", style: "max-width: 100px;"
       %li.nav-item
         = link_to "/home/index", class: "nav-link" do
           %i.material-icons-two-tone.me-2 dashboard
           Dashboard
       %li.nav-item
         = link_to "/vehicles", class: "nav-link" do
-          %i.material-icons-two-tone.me-2 directions_car
-          Vehicles
-      %li.nav-item
-        = link_to "/franchises", class: "nav-link" do
-          %i.material-icons-two-tone.me-2 storefront
-          Franchises
-      %li.nav-item
-        = link_to "/authorize_routes", class: "nav-link" do
-          %i.material-icons-two-tone.me-2 alt_route
-          Authorize Routes
+          %i.material-icons-two-tone.me-2 event
+          Events
       %li.nav-item
         = link_to "/personnels", class: "nav-link" do
-          %i.material-icons-two-tone.me-2 person
-          Manage Users
+          %i.material-icons-two-tone.me-2 groups
+          Reservists
       %li.nav-item
         = button_to destroy_user_session_path, method: :delete, class: 'nav-link btn btn-link p-0 text-start' do
           %i.material-icons-two-tone logout
           Logout
 
   -# For mobile, offcanvas sidebar
-  #sidebar-mobile.offcanvas.offcanvas-start.bg-light.d-lg-none{ tabindex: "-1" }
+  #sidebar-mobile.offcanvas.offcanvas-start.bg-dark.d-lg-none{ tabindex: "-1" }
     .offcanvas-header
       %h5.offcanvas-title Menu
       %button.btn-close{ type: "button", data: { bs_dismiss: "offcanvas" } }
@@ -45,20 +37,12 @@
             Dashboard
         %li.nav-item
           = link_to "/vehicles", class: "nav-link" do
-            %i.material-icons-two-tone.me-2 directions_car
-            Vehicles
-        %li.nav-item
-          = link_to "/franchises", class: "nav-link" do
-            %i.material-icons-two-tone.me-2 storefront
-            Franchises
-        %li.nav-item
-          = link_to "/authorize_routes", class: "nav-link" do
-            %i.material-icons-two-tone.me-2 alt_route
-            Authorize Routes
+            %i.material-icons-two-tone.me-2 events
+            Events
         %li.nav-item
           = link_to "/personnels", class: "nav-link" do
-            %i.material-icons-two-tone.me-2 person
-            Manage Users
+            %i.material-icons-two-tone.me-2 group
+            Reservists
         %li.nav-item
           = button_to destroy_user_session_path, method: :delete, class: 'nav-link btn btn-link p-0 text-start' do
             %i.material-icons-two-tone logout

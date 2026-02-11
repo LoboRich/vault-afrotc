@@ -312,6 +312,14 @@ GEM
       racc (~> 1.5)
       sexp_processor (~> 4.16)
     rubyzip (2.4.1)
+    sassc (2.4.0)
+      ffi (~> 1.9)
+    sassc-rails (2.1.2)
+      railties (>= 4.0.0)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     securerandom (0.4.1)
     select2-rails (4.0.13)
     selenium-webdriver (4.31.0)
@@ -394,6 +402,7 @@ DEPENDENCIES
   rails (~> 7.1.3)
   rmagick
   rubyXL
+  sassc-rails
   select2-rails
   selenium-webdriver
   simple_form

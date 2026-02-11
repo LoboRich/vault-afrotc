@@ -27,11 +27,6 @@
     width: 100% !important;
   }
 }
-@media (max-width: 576px) {
-  .app-container {
-    padding: 10px !important;
-  }
-}
 .font-weight-s{
     font-weight: bold;
 }
@@ -644,7 +639,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .bg-dark {
-    background-color: #3F485B!important;
+    background-color: #1a2035!important;
 }
 
 /* Text */
@@ -3951,7 +3946,7 @@ body.modal-open {
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     opacity: 1;
     background: #DFF0FE;
-    color: #2269F5;
+    color: #fff !important;
 }
 
 .nav-pills .nav-link:focus, .nav-pills .nav-link:hover {
@@ -6851,9 +6846,6 @@ span.flatpickr-weekday {
 }
 
 @media (max-width: 576px) {
-    .app-container {
-        padding: 10px;
-    }
 
     .app-sidebar .logo,
     .app.menu-off-canvas .app-sidebar .logo,
@@ -6916,10 +6908,6 @@ span.flatpickr-weekday {
 
     .full-width-header.search-visible .search {
         top: 0;
-    }
-
-    .app-content {
-        margin-top: 110px;
     }
 
     .mailbox-open-content-email-attachments .attachments-files-list {
@@ -6999,20 +6987,19 @@ table {
       transform: scale(1.2);
     }
   }
+#sidebar {
+  width: 250px;
+}
+
+/* Show sidebar permanently on desktop */
+@media (min-width: 992px) {
   #sidebar {
-    width: 250px;
-    background-color: red;
+    position: relative;
+    transform: none !important;
+    visibility: visible !important;
   }
-  
-  /* Show sidebar permanently on desktop */
-  @media (min-width: 992px) {
-    #sidebar {
-      position: relative;
-      transform: none !important;
-      visibility: visible !important;
-    }
-  
-    .navbar-toggler {
-      display: none !important; /* hide hamburger on desktop */
-    }
+
+  .navbar-toggler {
+    display: none !important; /* hide hamburger on desktop */
   }
+}

@@ -15,4 +15,7 @@ pin "@rails/actioncable/src", to: "@rails--actioncable--src.js" # @8.0.200
 pin "chart.js" # @4.5.0
 pin "@kurkle/color", to: "@kurkle--color.js" # @0.3.4
 pin "chartkick", to: "chartkick.js"
-pin "Chart.bundle", to: "Chart.bundle.js" # optional for Chart.js integration
+pin "Chart.bundle", to: "Chart.bundle.js" # optional for Chart.js integrationpin "jquery" # @4.0.0
+pin "datatables.net" # @2.3.7
+pin "datatables.net-bs5" # @2.3.7
+pin "simple-datatables" # @10.2.0
