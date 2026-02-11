@@ -6990,13 +6990,29 @@ table {
     transition: transform 0.2s ease, color 0.2s ease;
   
     &:hover .material-icons.text-danger {
-      color: #b71c1c; // darker red
+      color: #b71c1c;
       transform: scale(1.2);
     }
   
     &:hover .material-icons.text-success {
-      color: #1b5e20; // darker green
+      color: #1b5e20; 
       transform: scale(1.2);
     }
   }
+  #sidebar {
+    width: 250px;
+    background-color: red;
+  }
   
+  /* Show sidebar permanently on desktop */
+  @media (min-width: 992px) {
+    #sidebar {
+      position: relative;
+      transform: none !important;
+      visibility: visible !important;
+    }
+  
+    .navbar-toggler {
+      display: none !important; /* hide hamburger on desktop */
+    }
+  }

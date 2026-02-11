@@ -1,65 +1,64 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{ charset: "UTF-8" }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1" }
     %title Cevdors
-    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_link_tag "application", "data-turbo-track": "reload", media: 'all' 
-    %link{:href => "https://fonts.gstatic.com", :rel => "preconnect"}/
-    %link{:href => "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap", :rel => "stylesheet"}/
-    %link{:href => "https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800&display=swap", :rel => "stylesheet"}/
-    %link{:href => "https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp", :rel => "stylesheet"}/
-    = stylesheet_link_tag 'bootstrap', media: 'all', 'data-turbolinks-track': 'reload'
-    
-    = stylesheet_link_tag 'main.min', media: 'all', 'data-turbolinks-track': 'reload' 
-    = stylesheet_link_tag 'main', media: 'all', 'data-turbolinks-track': 'reload' 
-    = stylesheet_link_tag 'custom', media: 'all', 'data-turbolinks-track': 'reload' 
 
-    = javascript_include_tag 'bootstrap.min', 'data-turbolinks-track': 'reload' 
-    = javascript_include_tag 'jquery-3.5.1.min', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'datatables', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'main.min', 'data-turbolinks-track': 'reload'
+    / Fonts & Material Icons
+    %link{ href: "https://fonts.gstatic.com", rel: "preconnect" }
+    %link{ href: "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap", rel: "stylesheet" }
+    %link{ href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800&display=swap", rel: "stylesheet" }
+    %link{ href: "https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp", rel: "stylesheet" }
 
-    = javascript_include_tag "application", type: "module"
-    = javascript_include_tag "chartkick", "Chart.bundle", type: "module"
+    / Bootstrap CSS
+    %link{ href: "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css", rel: "stylesheet", crossorigin: "anonymous" }
 
-    = stylesheet_link_tag 'pace', media: 'all', 'data-turbolinks-track': 'reload'
-    = stylesheet_link_tag 'datatables', media: 'all', data: { turbolinks_track: 'reload' }
+    / Custom CSS
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload'
+    = stylesheet_link_tag 'custom', media: 'all', 'data-turbo-track': 'reload'
 
-    %link{:href => "https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css", :rel => "stylesheet"}/
-    %script{:src => "https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"}
-    %link{:href => "vendor/select2/dist/css/select2.min.css", :rel => "stylesheet"}/
-    %script{:src => "vendor/select2/dist/js/select2.min.js"}
+    / Importmap
     = javascript_importmap_tags
 
   %body
     - if user_signed_in?
-      .app.align-content-stretch.d-flex.flex-wrap
-        .app-sidebar
-          = render "layouts/sidebar"
+      .d-flex.vh-100
+        = render "layouts/sidebar"
+        / Main Content
+        .flex-fill.d-flex.flex-column
 
-        .app-container
-          .app-header
-            %nav.navbar.navbar-light.navbar-expand-lg.bg-primary
-              .container-fluid
-                #navbarNav.navbar-nav
-                .d-flex
-                  %ul.navbar-nav
-                    %li.nav-item.hidden-on-mobile.text-white.d-flex.align-items-center
-                      = link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link"
+          %nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
+            .container-fluid
+              / Hamburger button (mobile only)
+              %button.navbar-toggler.d-lg-none{
+                type: "button",
+                data: {
+                  bs_toggle: "offcanvas",
+                  bs_target: "#sidebar-mobile"
+                }
+              }
+                %span.navbar-toggler-icon
 
-          .app-content
-            .content-wrapper
-              .container
-                - if notice
-                  %p.alert.alert-success= notice
-                - if alert
-                  %p.alert.alert-danger= alert
-                = yield
+              %span.navbar-brand.ms-2 Cevdors
+
+              .ms-auto
+                = link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-outline-light btn-sm"
+
+          .container-fluid.p-4.flex-fill
+            - if notice
+              %p.alert.alert-success= notice
+            - if alert
+              %p.alert.alert-danger= alert
+            = yield
+
     - else
       .container.pt-5
         .row.justify-content-center
           .col-md-6
             = yield
+
+    / Bootstrap JS bundle (includes Offcanvas)
+    %script{ src: "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js", crossorigin: "anonymous" }

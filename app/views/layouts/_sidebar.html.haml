@@ -1,53 +1,65 @@
-.app-sidebar
-  .app-sidebar
-    .app-menu
-      %ul.accordion-menu
-        %li.sidebar-title.text-center
-          = image_tag "logo.png", alt: "Logo", class: "img-fluid", style: "max-width: 120px;"
-        %li
-          %a{:href => "/home/index"}
-            %i.material-icons-two-tone> dashboard
+.div
+  / Sidebar
+  -# For desktop, always visible
+  #sidebar-desktop.bg-light.d-none.d-lg-block
+    %ul.nav.flex-column.p-3
+      %li.nav-item.mb-3.text-center
+        = image_tag "logo.png", class: "img-fluid", style: "max-width:120px;"
+      %li.nav-item
+        = link_to "/home/index", class: "nav-link" do
+          %i.material-icons-two-tone.me-2 dashboard
+          Dashboard
+      %li.nav-item
+        = link_to "/vehicles", class: "nav-link" do
+          %i.material-icons-two-tone.me-2 directions_car
+          Vehicles
+      %li.nav-item
+        = link_to "/franchises", class: "nav-link" do
+          %i.material-icons-two-tone.me-2 storefront
+          Franchises
+      %li.nav-item
+        = link_to "/authorize_routes", class: "nav-link" do
+          %i.material-icons-two-tone.me-2 alt_route
+          Authorize Routes
+      %li.nav-item
+        = link_to "/personnels", class: "nav-link" do
+          %i.material-icons-two-tone.me-2 person
+          Manage Users
+      %li.nav-item
+        = button_to destroy_user_session_path, method: :delete, class: 'nav-link btn btn-link p-0 text-start' do
+          %i.material-icons-two-tone logout
+          Logout
+
+  -# For mobile, offcanvas sidebar
+  #sidebar-mobile.offcanvas.offcanvas-start.bg-light.d-lg-none{ tabindex: "-1" }
+    .offcanvas-header
+      %h5.offcanvas-title Menu
+      %button.btn-close{ type: "button", data: { bs_dismiss: "offcanvas" } }
+    .offcanvas-body.p-0
+      %ul.nav.flex-column.p-3
+        %li.nav-item.mb-3.text-center
+          = image_tag "logo.png", class: "img-fluid", style: "max-width:120px;"
+        %li.nav-item
+          = link_to "/home/index", class: "nav-link" do
+            %i.material-icons-two-tone.me-2 dashboard
             Dashboard
-        %li
-          %a{:href => "/vehicles"}
-            %i.material-icons-two-tone> directions_car
+        %li.nav-item
+          = link_to "/vehicles", class: "nav-link" do
+            %i.material-icons-two-tone.me-2 directions_car
             Vehicles
-        %li
-          %a{:href => "/franchises"}
-            %i.material-icons-two-tone> storefront
+        %li.nav-item
+          = link_to "/franchises", class: "nav-link" do
+            %i.material-icons-two-tone.me-2 storefront
             Franchises
-        %li
-          %a{:href => "/authorize_routes"}
-            %i.material-icons-two-tone> alt_route
+        %li.nav-item
+          = link_to "/authorize_routes", class: "nav-link" do
+            %i.material-icons-two-tone.me-2 alt_route
             Authorize Routes
-        %li
-          %a{:href => "/personnels"}
-            %i.material-icons-two-tone> person
+        %li.nav-item
+          = link_to "/personnels", class: "nav-link" do
+            %i.material-icons-two-tone.me-2 person
             Manage Users
-        %li
-          = button_to destroy_user_session_path, method: :delete, class: 'nav-link d-flex align-items-center btn btn-link p-0 text-start' do
+        %li.nav-item
+          = button_to destroy_user_session_path, method: :delete, class: 'nav-link btn btn-link p-0 text-start' do
             %i.material-icons-two-tone logout
             Logout
-
-  .app-container
-    .search
-      %form
-        %input.form-control{"aria-label" => "Search", :placeholder => "Type here...", :type => "text"}/
-      %a.toggle-search{:href => "#"}
-        %i.material-icons close
-    .app-header
-      %nav.navbar.navbar-light.navbar-expand-lg.bg-primary
-        .container-fluid
-          %ul.navbar-nav
-            %li.nav-item
-              %a.nav-link.hide-sidebar-toggle-button{:href => "#"}
-                %i.material-icons first_page
-          .d-flex
-            %ul.navbar-nav
-              %li.nav-item.hidden-on-mobile.text-white.d-flex.align-items-center
-                - if user_signed_in?
-                  Hello,
-                  = succeed "!" do
-                    %strong.email= current_user.email
-                - else
-                  = link_to "Login", new_user_session_path, class: "nav-link"

@@ -6,6 +6,12 @@ class HomeController < ApplicationController
     @registered_vehicles = @vehicles.where(is_registered: true).count
     @unregistered_vehicles = @vehicles.where(is_registered: false).count
     @under_repair_vehicles = @vehicles.where(status: 'UNDER REPAIR').count
+    @stats = [
+      {title: "Total Vehicles", value: @vehicles.count, icon: "directions_bus", bg: "bg-primary"},
+      {title: "Registered Vehicles", value: @registered_vehicles, icon: "check_circle", bg: "bg-success"},
+      {title: "Unregistered Vehicles", value: @unregistered_vehicles, icon: "cancel", bg: "bg-warning"},
+      {title: "Under Repair Vehicles", value: @under_repair_vehicles, icon: "error_outline", bg: "bg-danger"}
+    ]
   end
 
   def vehicles_by_year

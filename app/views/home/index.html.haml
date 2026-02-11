@@ -1,78 +1,49 @@
 .app-content
   .content-wrapper
-    .container
-      .row
+    .container-fluid
+      / Page header
+      .row.mb-4
         .col
-          .page-description
-            %h1 Dashboard 
-      .card.widget.widget-payment-request
-        .card-body.card-header.d-flex
-          %i.material-icons-two-tone> book
-          %h5.card-title
-            Current Data
-        .card-body
-          .row
-            .col-md-3
-              .card.text-white.bg-primary.mb-3.h-100
-                .card-body.d-flex.align-items-center.gap-2
-                  %i.material-icons.md-36.mr-3 directions_bus
-                  .d-flex.flex-column.justify-content-center.flex-grow-1
-                    %h5.card-title.text-sm.font-semibold.mb-1 Total Vehicles
-                    %p.card-text.text-base.mb-0= @vehicles.count
+          .page-header.d-flex.align-items-center.justify-content-between
+            %h1.page-title.mb-0 Dashboard
+            -# Optional button example
+            / %%= link_to "Add Vehicle", new_vehicle_path, class: "btn btn-primary" 
 
-            .col-md-3
-              .card.text-white.bg-success.mb-3.h-100
-                .card-body.d-flex.align-items-center.gap-2
-                  %i.material-icons.md-36.mr-3 check_circle
-                  .d-flex.flex-column.justify-content-center.flex-grow-1
-                    %h5.card-title.text-sm.font-semibold.mb-1 Registered Vehicles
-                    %p.card-text.text-base.mb-0= @registered_vehicles
+      / Stats cards
+      .row.g-3.mb-4
+        - @stats.each do |stat|
+          .col-12.col-md-6.col-lg-3
+            .card.text-white.mb-3.h-100{ class: stat[:bg] }
+              .card-body.d-flex.align-items-center.gap-3
+                %i.material-icons.md-36= stat[:icon]
+                .d-flex.flex-column.justify-content-center.flex-grow-1
+                  %h5.card-title.mb-1= stat[:title]
+                  %p.card-text.mb-0= stat[:value]
 
-            .col-md-3
-              .card.text-white.bg-warning.mb-3.h-100
-                .card-body.d-flex.align-items-center.gap-2
-                  %i.material-icons.md-36.mr-3 cancel
-                  .d-flex.flex-column.justify-content-center.flex-grow-1
-                    %h5.card-title.text-sm.font-semibold.mb-1 Unregistered Vehicles
-                    %p.card-text.text-base.mb-0= @unregistered_vehicles
-
-            .col-md-3
-              .card.text-white.bg-danger.mb-3.h-100
-                .card-body.d-flex.align-items-center.gap-2
-                  %i.material-icons.md-36.mr-3 error_outline
-                  .d-flex.flex-column.justify-content-center.flex-grow-1
-                    %h5.card-title.text-sm.font-semibold.mb-1 Under Repair Vehicles
-                    %p.card-text.text-base.mb-0= @under_repair_vehicles
-
-      
-      .card.widget.widget-payment-request
-        .card-body.card-header.d-flex.gap-1
-          %i.material-icons-two-tone> timeline
-          %h5.card-title
-            Vehicles by Year Model
-        .card-body
-          .row
-            .col-md-12
-              = area_chart home_vehicles_by_year_path
-      .row
-        .col-md-6
-          .card.widget.widget-payment-request
-            .card-body.card-header.d-flex.gap-1
-              %i.material-icons-two-tone> bar_chart
-              %h5.card-title
-                Operating and Non-operating Vehicles
+      / Vehicles by Year Model Chart
+      .row.mb-4
+        .col-12
+          .card.mb-3
+            .card-header.d-flex.align-items-center.gap-2
+              %i.material-icons-two-tone.timeline
+              %h5.mb-0.card-title Vehicles by Year Model
             .card-body
-              .row
-                .col-md-12
-                  = column_chart home_vehicles_by_status_path, height: "300px", colors: ["#2269f4", "#90CAF9"], library: {title: { display: true,text: "Operating vs Non-Operating" }}
-        .col-md-6
-          .card.widget.widget-payment-request
-            .card-body.card-header.d-flex.gap-1
-              %i.material-icons-two-tone> pie_chart
-              %h5.card-title
-                Vehicle's Status
-            .card-body
-              .row
-                .col-md-12
-                  = pie_chart home_vehicles_by_full_status_path, height: "300px", library: { title: { display: true, text: "Vehicle Status Distribution" }, legend: { position: 'right' }}
+              = area_chart home_vehicles_by_year_path, height: "300px"
 
+      / Other charts
+      .row.g-3
+        .col-12.col-lg-6
+          .card.mb-3
+            .card-header.d-flex.align-items-center.gap-2
+              %i.material-icons-two-tone.bar_chart
+              %h5.mb-0.card-title Operating and Non-operating Vehicles
+            .card-body
+              = column_chart home_vehicles_by_status_path, height: "300px", colors: ["#2269f4", "#90CAF9"], library: {title: { display: true, text: "Operating vs Non-Operating" }}
+
+        .col-12.col-lg-6
+          .card.mb-3
+            .card-header.d-flex.align-items-center.gap-2
+              %i.material-icons-two-tone.pie_chart
+              %h5.mb-0.card-title Vehicle Status Distribution
+            .card-body
+              = pie_chart home_vehicles_by_full_status_path, height: "300px", library: { title: { display: true, text: "Vehicle Status Distribution" }, legend: { position: 'right' } }
