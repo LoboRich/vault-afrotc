@@ -1,0 +1,548 @@
+%section.section
+  .section-header.d-mobile-none
+    .page-description.d-flex.align-items-center
+      %h1.flex-grow-1
+        New created reservist
+    .section-header-breadcrumb
+      .breadcrumb-item 
+        = link_to 'Dashboard', '/'
+      .breadcrumb-item
+        @reservist
+
+  .card
+    .card-body.form-group.mb-0
+      = form_for @reservist do |f|
+        - if @reservist.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@reservist.errors.count, 'error')} prohibited this reservist from being saved:"
+            %ul
+              - @reservist.errors.full_messages.each do |message|
+                %li= message
+
+        .row
+                      .col-md-6.pt-3
+              .field
+                = f.label :rank, class: "control-label"
+                - if "rank" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :rank, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :rank, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :last_name, class: "control-label"
+                - if "last_name" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :last_name, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :last_name, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :first_name, class: "control-label"
+                - if "first_name" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :first_name, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :first_name, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :middle_name, class: "control-label"
+                - if "middle_name" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :middle_name, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :middle_name, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :branch_of_service, class: "control-label"
+                - if "branch_of_service" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :branch_of_service, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :branch_of_service, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :afpsn, class: "control-label"
+                - if "afpsn" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :afpsn, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :afpsn, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :primary_afsc, class: "control-label"
+                - if "primary_afsc" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :primary_afsc, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :primary_afsc, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :duty_afsc, class: "control-label"
+                - if "duty_afsc" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :duty_afsc, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :duty_afsc, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :other_skills, class: "control-label"
+                - if "other_skills" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_area" == "text_area"
+                  = f.text_area :other_skills, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_area :other_skills, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :source_of_enlistment, class: "control-label"
+                - if "source_of_enlistment" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :source_of_enlistment, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :source_of_enlistment, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :soe_authority, class: "control-label"
+                - if "soe_authority" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :soe_authority, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :soe_authority, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :soe_date_of_enlistment, class: "control-label"
+                - if "soe_date_of_enlistment" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "date_field" == "text_area"
+                  = f.text_area :soe_date_of_enlistment, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.date_field :soe_date_of_enlistment, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :soe_initial_rank, class: "control-label"
+                - if "soe_initial_rank" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :soe_initial_rank, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :soe_initial_rank, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :source_of_commission, class: "control-label"
+                - if "source_of_commission" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :source_of_commission, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :source_of_commission, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :soc_authority, class: "control-label"
+                - if "soc_authority" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :soc_authority, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :soc_authority, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :soc_date_of_enlistment, class: "control-label"
+                - if "soc_date_of_enlistment" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "date_field" == "text_area"
+                  = f.text_area :soc_date_of_enlistment, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.date_field :soc_date_of_enlistment, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :soc_initial_rank, class: "control-label"
+                - if "soc_initial_rank" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :soc_initial_rank, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :soc_initial_rank, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :reservist_classification, class: "control-label"
+                - if "reservist_classification" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :reservist_classification, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :reservist_classification, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :classification_authority, class: "control-label"
+                - if "classification_authority" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :classification_authority, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :classification_authority, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :date_of_classification, class: "control-label"
+                - if "date_of_classification" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "date_field" == "text_area"
+                  = f.text_area :date_of_classification, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.date_field :date_of_classification, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :reserve_unit_assignment, class: "control-label"
+                - if "reserve_unit_assignment" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :reserve_unit_assignment, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :reserve_unit_assignment, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :date_assigned, class: "control-label"
+                - if "date_assigned" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "date_field" == "text_area"
+                  = f.text_area :date_assigned, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.date_field :date_assigned, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :unit_capability, class: "control-label"
+                - if "unit_capability" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :unit_capability, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :unit_capability, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :present_designation, class: "control-label"
+                - if "present_designation" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :present_designation, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :present_designation, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :mobilization_center, class: "control-label"
+                - if "mobilization_center" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :mobilization_center, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :mobilization_center, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :street_address, class: "control-label"
+                - if "street_address" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :street_address, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :street_address, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :city, class: "control-label"
+                - if "city" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :city, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :city, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :province, class: "control-label"
+                - if "province" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :province, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :province, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :region, class: "control-label"
+                - if "region" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :region, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :region, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :zip_code, class: "control-label"
+                - if "zip_code" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :zip_code, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :zip_code, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :date_of_birth, class: "control-label"
+                - if "date_of_birth" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "date_field" == "text_area"
+                  = f.text_area :date_of_birth, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.date_field :date_of_birth, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :place_of_birth, class: "control-label"
+                - if "place_of_birth" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :place_of_birth, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :place_of_birth, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :age, class: "control-label"
+                - if "age" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "number_field" == "text_area"
+                  = f.text_area :age, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.number_field :age, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :sex, class: "control-label"
+                - if "sex" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :sex, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :sex, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :marital_status, class: "control-label"
+                - if "marital_status" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :marital_status, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :marital_status, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :religion, class: "control-label"
+                - if "religion" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :religion, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :religion, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :ethnic_group, class: "control-label"
+                - if "ethnic_group" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :ethnic_group, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :ethnic_group, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :blood_type, class: "control-label"
+                - if "blood_type" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :blood_type, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :blood_type, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :eye_color, class: "control-label"
+                - if "eye_color" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :eye_color, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :eye_color, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :hair_color, class: "control-label"
+                - if "hair_color" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :hair_color, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :hair_color, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :complexion, class: "control-label"
+                - if "complexion" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :complexion, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :complexion, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :identifying_marks, class: "control-label"
+                - if "identifying_marks" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_area" == "text_area"
+                  = f.text_area :identifying_marks, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_area :identifying_marks, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :height_cm, class: "control-label"
+                - if "height_cm" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "number_field" == "text_area"
+                  = f.text_area :height_cm, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.number_field :height_cm, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :weight_kg, class: "control-label"
+                - if "weight_kg" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "number_field" == "text_area"
+                  = f.text_area :weight_kg, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.number_field :weight_kg, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :email, class: "control-label"
+                - if "email" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :email, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :email, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :residence_tel, class: "control-label"
+                - if "residence_tel" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :residence_tel, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :residence_tel, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :office_tel, class: "control-label"
+                - if "office_tel" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :office_tel, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :office_tel, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :mobile_nr, class: "control-label"
+                - if "mobile_nr" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :mobile_nr, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :mobile_nr, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :tin, class: "control-label"
+                - if "tin" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :tin, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :tin, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :sss_number, class: "control-label"
+                - if "sss_number" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :sss_number, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :sss_number, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :gsis_number, class: "control-label"
+                - if "gsis_number" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :gsis_number, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :gsis_number, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :philhealth_number, class: "control-label"
+                - if "philhealth_number" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :philhealth_number, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :philhealth_number, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :pagibig_number, class: "control-label"
+                - if "pagibig_number" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :pagibig_number, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :pagibig_number, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :dialects_spoken, class: "control-label"
+                - if "dialects_spoken" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_area" == "text_area"
+                  = f.text_area :dialects_spoken, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_area :dialects_spoken, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :latitude, class: "control-label"
+                - if "latitude" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :latitude, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :latitude, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :longitude, class: "control-label"
+                - if "longitude" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :longitude, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :longitude, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :lat, class: "control-label"
+                - if "lat" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :lat, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :lat, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :long, class: "control-label"
+                - if "long" == "authorize_route"
+                  = f.text_field :authorize_route, value: @reservist.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :long, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :long, class: 'form-control', required: true, disabled: true
+          
+    .card-footer.text-right.pb-3
+      = link_to 'Back', reservists_path, class: "btn btn-secondary"
+      = link_to 'Edit', edit_reservist_path(@reservist), class: "btn btn-warning px-5"

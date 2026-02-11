@@ -1,0 +1,50 @@
+.app-content
+  .content-wrapper
+    .container
+      .card.widget.widget-payment-request
+        .card-body.card-header.d-flex
+          %i.material-icons-two-tone> book
+          %h5.card-title
+            Reservist List
+        .card-body
+          .datatable-container
+            .table-responsive.datatable-container
+              %table#vehicles-table.table.table-striped.table-bordered.table-hover.table-sm.datatable
+                %thead.bg-light
+                  %tr
+                    %th Rank
+                    %th Last Name
+                    %th First Name
+                    %th Middle Name
+                    %th Branch Of Service
+                    %th Afpsn
+                    %th City
+                    %th Province
+                    %th Mobile Nr
+                  %th Action
+                %tbody
+                  - @reservists.each do |reservist|
+                    %tr.odd{ role: "row" }
+                      %td= reservist.rank
+                      %td= reservist.last_name
+                      %td= reservist.first_name
+                      %td= reservist.middle_name
+                      %td= reservist.branch_of_service
+                      %td= reservist.afpsn
+                      
+                      %td= reservist.city
+                      %td= reservist.province
+                      
+                      %td= reservist.mobile_nr
+                      
+                      %td
+                        = link_to reservist, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1' do
+                          %i.material-icons visibility
+                        = link_to edit_reservist_path(reservist), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1' do
+                          %i.material-icons edit
+                        = link_to reservist,
+                          data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
+                          title: 'Destroy it',
+                          class: 'btn btn-icon btn-sm btn-danger' do
+                          %i.material-icons delete
+

@@ -10,53 +10,70 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_09_22_075126) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_11_165844) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "vehicle_id"
-    t.uuid "franchise_id"
-    t.string "image"
-    t.string "filename"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "authorize_routes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name"
-    t.string "route_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "franchises", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "case_num"
-    t.string "operator"
-    t.integer "auth_num_of_units"
-    t.date "date_granted"
-    t.date "expiry_date"
-    t.text "business_address"
-    t.uuid "authorize_route_id"
-    t.string "denomination"
-    t.string "year_confirmed"
-    t.string "status"
-    t.text "remarks"
-    t.integer "num_of_cpc"
-    t.date "cpc_validity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "personnels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "given_name"
+  create_table "reservists", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "rank"
     t.string "last_name"
-    t.string "role"
-    t.string "contact_number"
-    t.uuid "user_id"
-    t.string "branch_location"
-    t.boolean "is_enabled"
+    t.string "first_name"
+    t.string "middle_name"
+    t.string "branch_of_service"
+    t.string "afpsn"
+    t.string "primary_afsc"
+    t.string "duty_afsc"
+    t.text "other_skills"
+    t.string "source_of_enlistment"
+    t.string "soe_authority"
+    t.date "soe_date_of_enlistment"
+    t.string "soe_initial_rank"
+    t.string "source_of_commission"
+    t.string "soc_authority"
+    t.date "soc_date_of_enlistment"
+    t.string "soc_initial_rank"
+    t.string "reservist_classification"
+    t.string "classification_authority"
+    t.date "date_of_classification"
+    t.string "reserve_unit_assignment"
+    t.date "date_assigned"
+    t.string "unit_capability"
+    t.string "present_designation"
+    t.string "mobilization_center"
+    t.string "street_address"
+    t.string "city"
+    t.string "province"
+    t.string "region"
+    t.string "zip_code"
+    t.date "date_of_birth"
+    t.string "place_of_birth"
+    t.integer "age"
+    t.string "sex"
+    t.string "marital_status"
+    t.string "religion"
+    t.string "ethnic_group"
+    t.string "blood_type"
+    t.string "eye_color"
+    t.string "hair_color"
+    t.string "complexion"
+    t.text "identifying_marks"
+    t.integer "height_cm"
+    t.integer "weight_kg"
+    t.string "email"
+    t.string "residence_tel"
+    t.string "office_tel"
+    t.string "mobile_nr"
+    t.string "tin"
+    t.string "sss_number"
+    t.string "gsis_number"
+    t.string "philhealth_number"
+    t.string "pagibig_number"
+    t.text "dialects_spoken"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.float "lat"
+    t.float "long"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -71,50 +88,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_22_075126) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "vehicles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "classification"
-    t.string "registered_owner"
-    t.string "bus_num"
-    t.string "mv_file"
-    t.string "plate_num"
-    t.string "ending_num"
-    t.string "body_type"
-    t.string "motor_num"
-    t.string "chassis_num"
-    t.string "seat_capacity"
-    t.string "make"
-    t.integer "year_model"
-    t.string "fuel"
-    t.string "num_of_cyclinder"
-    t.string "field_office"
-    t.string "cr_num"
-    t.date "cr_date_issue"
-    t.string "or_field_office"
-    t.string "or_num"
-    t.date "or_date_issue"
-    t.float "reg_amount"
-    t.string "body_color"
-    t.string "coc_date_coverage"
-    t.string "coc_num"
-    t.float "coc_amount"
-    t.string "insurance_name"
-    t.string "status"
-    t.date "date_operate"
-    t.date "date_retired"
-    t.text "remarks"
-    t.string "quality_type"
-    t.string "penalties_surcharge"
-    t.string "cr_field_office"
-    t.string "type_of_vehicle"
-    t.string "route_per_operation"
-    t.integer "year_rebuild"
-    t.uuid "authorize_route_id"
-    t.uuid "franchise_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "is_registered", default: false
   end
 
 end

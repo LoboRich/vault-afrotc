@@ -1,0 +1,2 @@
+class Reservist < ApplicationRecord
+end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reservists
   resources :personnels do
     member do
       post :change_state
