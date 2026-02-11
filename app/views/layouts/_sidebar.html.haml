@@ -1,8 +1,8 @@
 %div
   / Sidebar
   -# For desktop, always visible
-  #sidebar-desktop.bg-dark.d-none.d-lg-block.vh-100
-    %ul.nav.flex-column.p-3
+  #sidebar-desktop.sidebar.bg-dark.d-none.d-lg-block.vh-100
+    %ul.nav.flex-column.p-3.justify-content-center
       %li.nav-item.mb-1.text-center
         = image_tag "logo.png", class: "img-fluid", style: "max-width: 100px;"
       %li.nav-item
@@ -14,7 +14,7 @@
           %i.material-icons-two-tone.me-2 event
           Events
       %li.nav-item
-        = link_to "/personnels", class: "nav-link" do
+        = link_to "/reservists", class: "nav-link #{'active' if current_page?('/reservists')}" do
           %i.material-icons-two-tone.me-2 groups
           Reservists
       %li.nav-item
@@ -23,7 +23,8 @@
           Logout
 
   -# For mobile, offcanvas sidebar
-  #sidebar-mobile.offcanvas.offcanvas-start.bg-dark.d-lg-none{ tabindex: "-1" }
+  #sidebar-mobile.sidebar.offcanvas.offcanvas-start.bg-dark.d-lg-none{ tabindex: "-1" }
+
     .offcanvas-header
       %h5.offcanvas-title Menu
       %button.btn-close{ type: "button", data: { bs_dismiss: "offcanvas" } }
@@ -40,7 +41,7 @@
             %i.material-icons-two-tone.me-2 events
             Events
         %li.nav-item
-          = link_to "/personnels", class: "nav-link" do
+          = link_to "/reservists", class: "nav-link" do
             %i.material-icons-two-tone.me-2 group
             Reservists
         %li.nav-item

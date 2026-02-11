@@ -1,6 +1,15 @@
+* {
+  font-family: 'Public Sans', sans-serif;
+}
 body {
   background-color: #f5f7fd !important;
-  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: 'Public Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #575962;
+}
+h1, h2, h3, h4, h5 {
+  font-weight: 600;
 }
 /* Navbar */
 #sidebar-desktop {
@@ -9,6 +18,12 @@ body {
   overflow-y: auto;
   float: left;
   background-color: #1a2035 !important;
+  display: block;
+  z-index: 1002;
+  color: #fff;
+  font-weight: 200;
+  box-shadow: 4px 4px 10px rgba(69, 65, 78, .06);
+  transition: all .3s;
 }
 
 #sidebar-mobile {
@@ -16,7 +31,7 @@ body {
 }
 
 .nav-item .nav-link {
-  color: #8d9498 !important;
+  color: #b9babf !important;
 }
 
 .flex-fill {
@@ -39,6 +54,25 @@ body {
 .sidebar[data-background-color="dark"] .nav-link {
   color: white !important;
 }
+.sidebar .nav-link {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.sidebar .nav-link i {
+  font-size: 18px;
+}
+
+#sidebar-desktop .nav-link:hover,
+#sidebar-desktop .nav-link:focus,
+#sidebar-desktop .nav-link:active,
+#sidebar-mobile .nav-link:hover,
+#sidebar-mobile .nav-link:focus,
+#sidebar-mobile .nav-link:active {
+    background: rgba(0,0,0,.16);
+    color: white !important;
+}
 
 /* Default desktop navbar */
 .navbar {
@@ -47,10 +81,19 @@ body {
 }
 
 .navbar .btn-outline-dark {
-  border-color: #212529;
+  border-color: #f8f9fa;
   color: #212529;
 }
 
+.navbar-brand {
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.4px;
+}
+
+.navbar {
+  font-size: 14px;
+}
 /* Mobile navbar */
 @media (max-width: 991.98px) {
   .navbar {
@@ -70,3 +113,63 @@ body {
     filter: brightness(0) invert(1); /* white hamburger */
   }
 }
+/* Sidebar base */
+.sidebar {
+  background: #1f283e !important;
+  width: 260px;
+}
+
+/* Nav links */
+.sidebar .nav-link {
+  color: #b9babf !important;
+  padding: 10px 15px;
+  margin-bottom: 6px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+/* Icons */
+.sidebar .nav-link i {
+  font-size: 20px;
+  margin-right: 10px;
+  opacity: 0.8;
+}
+
+/* Hover */
+.sidebar .nav-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+/* Active item */
+.sidebar .nav-link.active {
+  background: rgba(0,0,0,.16);
+  color: #fff;
+}
+
+/* Active icon */
+.sidebar .nav-link.active i {
+  color: rgba(0,0,0,.16);
+}
+
+/* Logo spacing */
+.sidebar .nav-item.text-center {
+  margin-bottom: 20px;
+}
+
+/* card */
+.card {
+  border-radius: 10px;
+    background-color: #fff;
+    margin-bottom: 30px;
+    -moz-box-shadow: 2px 6px 15px 0 rgba(69,65,78,.1);
+    box-shadow: 2px 6px 15px 0 rgba(69, 65, 78, .1);
+    border: 0;
+}
+.card-header {
+  background-color: transparent;
+  border-bottom: 1px solid #e9ecef;
+} 
