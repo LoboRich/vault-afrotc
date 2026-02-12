@@ -22,3 +22,32 @@ document.addEventListener("turbo:load", () => {
     },
   });
 });
+
+document.addEventListener("turbo:load", function () {
+  const mapElement = document.getElementById("map");
+  if (!mapElement) return; // stops if #map is not found
+
+  const markersData = JSON.parse(mapElement.dataset.markers);
+
+  const map = L.map("map").setView([10.675, 122.955], 13); // center of Bacolod
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors"
+  }).addTo(map);
+
+  const bounds = [];
+
+  markersData.forEach(marker => {
+    L.marker([marker.lat, marker.lng])
+      .addTo(map)
+      .bindPopup(
+        `<strong>${marker.name}</strong><br>${marker.address}<br><a href="${marker.url}">View</a>`
+      );
+
+    bounds.push([marker.lat, marker.lng]);
+  });
+
+  if (bounds.length > 0) {
+    map.fitBounds(bounds);
+  }
+});

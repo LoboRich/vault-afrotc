@@ -1,2 +1,14 @@
-%h1 Mapping#index
-%p Find me in app/views/mapping/index.html.haml
+.app-content
+  .content-wrapper
+    .container
+      .card
+        .card-header
+          %div.d-flex.align-items-center
+            %h4.card-title
+              Mapping
+
+        .card-body
+          #map{
+            data: {markers: @random_markers.to_json},
+            style: "height: 400px;"
+          }
