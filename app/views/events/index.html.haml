@@ -1,0 +1,48 @@
+.app-content
+  .content-wrapper
+    .container
+      .card
+        .card-header
+          %div.d-flex.align-items-center
+            %h4.card-title
+              Events
+            
+            %button.btn.btn-primary.btn-round.ms-auto.btn-sm.d-flex.align-items-center
+              %i.material-icons> add
+              Add Event
+
+            -# = link_to new_event_path, class: 'btn.btn-primary.btn-round.ms-auto' do
+            -#   %i.material-icons> add
+            -#   New Event
+        .card-body
+          .datatable-container
+            .table-responsive.datatable-container
+              %table#vehicles-table.table.table-striped.table-bordered.table-hover.table-sm.datatable
+                %thead.bg-light
+                  %tr
+                    %th Name
+                    %th Description
+                    %th Event Date
+                    %th Location
+                    %th Event Type
+                  %th Action
+                %tbody
+                  - @events.each do |event|
+                    %tr.odd{ role: "row" }
+                      %td= event.name
+                      %td= event.description
+                      %td= event.event_date
+                      %td= event.location
+                      %td= event.event_type
+                      
+                      %td
+                        = link_to event, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1' do
+                          %i.material-icons visibility
+                        = link_to edit_event_path(event), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1' do
+                          %i.material-icons edit
+                        = link_to event,
+                          data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
+                          title: 'Destroy it',
+                          class: 'btn btn-icon btn-sm btn-danger' do
+                          %i.material-icons delete
+

@@ -172,4 +172,12 @@ h1, h2, h3, h4, h5 {
 .card-header {
   background-color: transparent;
   border-bottom: 1px solid #e9ecef;
-} 
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 21px;
+  color: #293442;
+  margin: 0;
+  font-weight: 600;
+}

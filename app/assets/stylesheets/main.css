@@ -3327,7 +3327,7 @@ a.badge {
     width: 55px;
     height: 55px;
     line-height: 55px!important;
-    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     position: relative;
     overflow: hidden;
     z-index: 1;
@@ -3338,7 +3338,7 @@ a.badge {
 }
 
 .btn-burger:focus, .btn-burger.active, .btn-burger:active {
-    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%)!important;
+    box-shadow: rgba(0, 0, 0, 0.16) !important
 }
 
 .btn-burger i {
@@ -3581,7 +3581,7 @@ a.badge {
 
 .blockUI.blockOverlay {
     border-radius: inherit;
-    background: rgba(255, 255, 255)!important;
+    background: rgba(255, 255, 255 )!important;
     opacity: .8!important;
     z-index: 9999!important;
 }

@@ -1,0 +1,71 @@
+%section.section
+  .section-header.d-mobile-none
+    .page-description.d-flex.align-items-center
+      %h1.flex-grow-1
+        New created event
+    .section-header-breadcrumb
+      .breadcrumb-item 
+        = link_to 'Dashboard', '/'
+      .breadcrumb-item
+        @event
+
+  .card
+    .card-body.form-group.mb-0
+      = form_for @event do |f|
+        - if @event.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@event.errors.count, 'error')} prohibited this event from being saved:"
+            %ul
+              - @event.errors.full_messages.each do |message|
+                %li= message
+
+        .row
+                      .col-md-6.pt-3
+              .field
+                = f.label :name, class: "control-label"
+                - if "name" == "authorize_route"
+                  = f.text_field :authorize_route, value: @event.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :name, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :name, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :description, class: "control-label"
+                - if "description" == "authorize_route"
+                  = f.text_field :authorize_route, value: @event.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_area" == "text_area"
+                  = f.text_area :description, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_area :description, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :event_date, class: "control-label"
+                - if "event_date" == "authorize_route"
+                  = f.text_field :authorize_route, value: @event.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "datetime_field" == "text_area"
+                  = f.text_area :event_date, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.datetime_field :event_date, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :location, class: "control-label"
+                - if "location" == "authorize_route"
+                  = f.text_field :authorize_route, value: @event.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_area" == "text_area"
+                  = f.text_area :location, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_area :location, class: 'form-control', required: true, disabled: true
+                      .col-md-6.pt-3
+              .field
+                = f.label :event_type, class: "control-label"
+                - if "event_type" == "authorize_route"
+                  = f.text_field :authorize_route, value: @event.authorize_route&.name, class: 'form-control', disabled: true
+                - elsif "text_field" == "text_area"
+                  = f.text_area :event_type, class: 'form-control', required: true, disabled: true
+                - else
+                  = f.text_field :event_type, class: 'form-control', required: true, disabled: true
+          
+    .card-footer.text-right.pb-3
+      = link_to 'Back', events_path, class: "btn btn-secondary"
+      = link_to 'Edit', edit_event_path(@event), class: "btn btn-warning px-5"
