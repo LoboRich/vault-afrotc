@@ -26,25 +26,7 @@
       .d-flex.flex-column.flex-lg-row.vh-100
         = render "layouts/sidebar"
         .d-flex.flex-column.flex-grow-1.flex-shrink-1{style: "min-width:0; overflow-y:auto;"}
-          %nav.navbar.navbar-expand-lg.shadow-sm.bg-light
-            .container-fluid
-              / Hamburger for mobile only
-              %button.navbar-toggler.d-lg-none{
-                type: "button",
-                "data-bs-toggle" => "offcanvas",
-                "data-bs-target" => "#sidebar-mobile"
-              }
-                %span.navbar-toggler-icon
-
-              / Brand
-              %span.navbar-brand.ms-2 AFROTC
-
-              / Right side
-              .ms-auto
-                = link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-outline-dark btn-sm"
-
-
-
+          = render "layouts/navbar"
           / Content area
           .container-fluid{style: "min-width:0; overflow-x:auto;"}
             - if notice

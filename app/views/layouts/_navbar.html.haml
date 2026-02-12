@@ -1,0 +1,101 @@
+%nav.navbar.navbar-expand-lg.shadow-sm.bg-light
+  .container-fluid
+    / Hamburger for mobile only
+    %button.navbar-toggler.d-lg-none{
+      type: "button",
+      "data-bs-toggle" => "offcanvas",
+      "data-bs-target" => "#sidebar-mobile"
+    }
+      %span.navbar-toggler-icon
+
+    / Brand
+    %span.navbar-brand.ms-2 AFROTC
+
+    %ul.navbar-nav.topbar-nav.ms-md-auto.align-items-center
+      %li.nav-item.topbar-icon.dropdown.hidden-caret
+        %a#notifDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}
+          %i.material-icons notifications
+          %span.notification 4
+        %ul.dropdown-menu.notif-box.animated.fadeIn{"aria-labelledby" => "notifDropdown"}
+          %li
+            .dropdown-title
+              You have 4 new notification
+          %li
+            .scroll-wrapper.notif-scroll.scrollbar-outer{:style => "position: relative;"}
+              .notif-scroll.scrollbar-outer.scroll-content{:style => "height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 0px;"}
+                .notif-center
+                  %a{:href => "#"}
+                    .notif-icon.notif-primary
+                      %i.fa.fa-user-plus
+                    .notif-content
+                      %span.block New user registered
+                      %span.time 5 minutes ago
+                  %a{:href => "#"}
+                    .notif-icon.notif-success
+                      %i.fa.fa-comment
+                    .notif-content
+                      %span.block
+                        Rahmad commented on Admin
+                      %span.time 12 minutes ago
+                  %a{:href => "#"}
+                    .notif-img
+                      %img{:alt => "Img Profile", :src => "../assets/img/profile2.jpg"}/
+                    .notif-content
+                      %span.block
+                        Reza send messages to you
+                      %span.time 12 minutes ago
+                  %a{:href => "#"}
+                    .notif-icon.notif-danger
+                      %i.fa.fa-heart
+                    .notif-content
+                      %span.block Farrah liked Admin
+                      %span.time 17 minutes ago
+              .scroll-element.scroll-x
+                .scroll-element_outer
+                  .scroll-element_size
+                  .scroll-element_track
+                  .scroll-bar
+              .scroll-element.scroll-y
+                .scroll-element_outer
+                  .scroll-element_size
+                  .scroll-element_track
+                  .scroll-bar
+          %li
+            %a.see-all{:href => "javascript:void(0);"}
+              See all notifications
+              %i.fa.fa-angle-right
+      
+      %li.nav-item.topbar-user.dropdown.hidden-caret
+        %a.dropdown-toggle.profile-pic{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
+          -# .avatar-sm
+          -#   %img.avatar-img.rounded-circle{:alt => "...", :src => "../assets/img/profile.jpg"}/
+          %span.profile-username
+            %span.op-7 Hi,
+            %span.fw-bold Hizrian
+        %ul.dropdown-menu.dropdown-user.animated.fadeIn
+          .scroll-wrapper.dropdown-user-scroll.scrollbar-outer{:style => "position: relative;"}
+            .dropdown-user-scroll.scrollbar-outer.scroll-content{:style => "height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 0px;"}
+              
+              %li
+                .dropdown-divider
+                %a.dropdown-item{:href => "#"} My Profile
+                .dropdown-divider
+                %a.dropdown-item{:href => "#"} Account Setting
+                .dropdown-divider
+                %a.dropdown-item{:href => "#"} Logout
+            .scroll-element.scroll-x
+              .scroll-element_outer
+                .scroll-element_size
+                .scroll-element_track
+                .scroll-bar
+            .scroll-element.scroll-y
+              .scroll-element_outer
+                .scroll-element_size
+                .scroll-element_track
+                .scroll-bar
+
+    / Right side
+    -# .ms-auto
+    -#   = link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-outline-dark btn-sm"
+
+
