@@ -2,24 +2,24 @@
   / Sidebar
   -# For desktop, always visible
   #sidebar-desktop.sidebar.bg-dark.d-none.d-lg-block.vh-100
-    %ul.nav.flex-column.p-3.justify-content-center
+    %ul.nav.d-flex.flex-column.justify-content-center
       %li.nav-item.mb-1.text-center
-        = image_tag "logo.png", class: "img-fluid", style: "max-width: 100px;"
-      %li.nav-item
-        = link_to "/home/index", class: "nav-link" do
-          %i.material-icons-two-tone.me-2 dashboard
+        = image_tag "logo.png", class: "d-flex align-items-center justify-content-center gap-2", style: "max-width: 100px;"
+      %li.nav-item.p-3{class: "#{'active' if current_page?('/home/index')}"}
+        = link_to "/home/index", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
+          %i.material-icons.me-2 dashboard
           Dashboard
-      %li.nav-item
-        = link_to "/events", class: "nav-link" do
-          %i.material-icons-two-tone.me-2 event
+      %li.nav-item.p-3{class: "#{'active' if current_page?('/events')}"}
+        = link_to "/events",class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
+          %i.material-icons.me-2 event
           Events
-      %li.nav-item
-        = link_to "/reservists", class: "nav-link #{'active' if current_page?('/reservists')}" do
-          %i.material-icons-two-tone.me-2 groups
+      %li.nav-item.p-3{class: "#{'active' if current_page?('/reservists')}"}
+        = link_to "/reservists", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
+          %i.material-icons.me-2 groups
           Reservists
-      %li.nav-item
+      %li.nav-item.p-3
         = button_to destroy_user_session_path, method: :delete, class: 'nav-link btn btn-link p-0 text-start' do
-          %i.material-icons-two-tone logout
+          %i.material-icons logout
           Logout
 
   -# For mobile, offcanvas sidebar
@@ -30,21 +30,21 @@
       %button.btn-close{ type: "button", data: { bs_dismiss: "offcanvas" } }
     .offcanvas-body.p-0
       %ul.nav.flex-column.p-3
-        %li.nav-item.mb-3.text-center
-          = image_tag "logo.png", class: "img-fluid", style: "max-width:120px;"
+        %li.nav-item.mb-1.text-center
+          = image_tag "logo.png", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2", style: "max-width: 100px;"
         %li.nav-item
-          = link_to "/home/index", class: "nav-link" do
-            %i.material-icons-two-tone.me-2 dashboard
+          = link_to "/home/index", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
+            %i.material-icons.me-2 dashboard
             Dashboard
         %li.nav-item
-          = link_to "/events", class: "nav-link" do
-            %i.material-icons-two-tone.me-2 events
+          = link_to "/events",class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
+            %i.material-icons.me-2 event
             Events
         %li.nav-item
-          = link_to "/reservists", class: "nav-link" do
-            %i.material-icons-two-tone.me-2 group
+          = link_to "/reservists", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2 #{'active' if current_page?('/reservists')}" do
+            %i.material-icons.me-2 groups
             Reservists
         %li.nav-item
           = button_to destroy_user_session_path, method: :delete, class: 'nav-link btn btn-link p-0 text-start' do
-            %i.material-icons-two-tone logout
+            %i.material-icons logout
             Logout
