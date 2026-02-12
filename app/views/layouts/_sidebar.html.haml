@@ -29,22 +29,22 @@
       %h5.offcanvas-title Menu
       %button.btn-close{ type: "button", data: { bs_dismiss: "offcanvas" } }
     .offcanvas-body.p-0
-      %ul.nav.flex-column.p-3
+      %ul.nav.d-flex.flex-column.justify-content-center
         %li.nav-item.mb-1.text-center
-          = image_tag "logo.png", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2", style: "max-width: 100px;"
-        %li.nav-item
+          = image_tag "logo.png", class: "d-flex align-items-center justify-content-center gap-2", style: "max-width: 100px;"
+        %li.nav-item.p-3{class: "#{'active' if current_page?('/home/index')}"}
           = link_to "/home/index", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
             %i.material-icons.me-2 dashboard
             Dashboard
-        %li.nav-item
+        %li.nav-item.p-3{class: "#{'active' if current_page?('/events')}"}
           = link_to "/events",class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
             %i.material-icons.me-2 event
             Events
-        %li.nav-item
-          = link_to "/reservists", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2 #{'active' if current_page?('/reservists')}" do
+        %li.nav-item.p-3{class: "#{'active' if current_page?('/reservists')}"}
+          = link_to "/reservists", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
             %i.material-icons.me-2 groups
             Reservists
-        %li.nav-item
+        %li.nav-item.p-3
           = button_to destroy_user_session_path, method: :delete, class: 'nav-link btn btn-link p-0 text-start' do
             %i.material-icons logout
             Logout
