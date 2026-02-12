@@ -453,3 +453,6 @@ h1, h2, h3, h4, h5 {
   border-right: 0.3em solid transparent;
   border-bottom: 0;
   border-left: 0.3em solid transparent; }
+
+.form-button-action {
+  display: inline-flex; }

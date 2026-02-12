@@ -38,13 +38,15 @@
                       %td= reservist.mobile_nr
                       
                       %td
-                        = link_to reservist, title: 'Show it', class: 'btn btn-icon btn-sm btn-info mr-1' do
-                          %i.material-icons visibility
-                        = link_to edit_reservist_path(reservist), title: 'Edit it', class: 'btn btn-icon btn-sm btn-warning mr-1' do
-                          %i.material-icons edit
-                        = link_to reservist,
-                          data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
-                          title: 'Destroy it',
-                          class: 'btn btn-icon btn-sm btn-danger' do
-                          %i.material-icons delete
+                        .form-button-action.gap-3
+                          = link_to reservist, title: "Show it", class: "text-primary" do
+                            %i.material-icons visibility
+
+                          = link_to edit_reservist_path(reservist), title: "Edit it", class: "text-success" do
+                            %i.material-icons edit
+                        -# = link_to reservist,
+                        -#   data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
+                        -#   title: 'Destroy it',
+                        -#   class: 'btn btn-icon btn-sm btn-danger' do
+                        -#   %i.material-icons delete
 
