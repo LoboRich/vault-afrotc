@@ -8,6 +8,8 @@
               Mapping
 
         .card-body
+          %input#address-search.form-control.mb-2{type: "text", placeholder: "Search address..."}
+
           #map{
             data: {markers: @random_markers.to_json},
             style: "height: 400px;"

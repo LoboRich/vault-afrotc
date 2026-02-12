@@ -3,7 +3,7 @@
   -# For desktop, always visible
   #sidebar-desktop.sidebar.bg-dark.d-none.d-lg-block.vh-100
     %ul.nav.d-flex.flex-column.justify-content-center
-      %li.nav-item.mb-1.text-center
+      %li.nav-item.pt-3.pb-3.d-flex.justify-content-center
         = image_tag "logo.png", class: "d-flex align-items-center justify-content-center gap-2", style: "max-width: 100px;"
       %li.nav-item.p-3{class: "#{'active' if current_page?('/home/index')}"}
         = link_to "/home/index", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
@@ -34,7 +34,7 @@
       %button.btn-close{ class: "text-white", type: "button", data: { bs_dismiss: "offcanvas" } }
     .offcanvas-body.p-0
       %ul.nav.d-flex.flex-column.justify-content-center
-        %li.nav-item.mb-1.text-center
+        %li.nav-item.pt-3.pb-3.d-flex.justify-content-center
           = image_tag "logo.png", class: "d-flex align-items-center justify-content-center gap-2", style: "max-width: 100px;"
         %li.nav-item.p-3{class: "#{'active' if current_page?('/home/index')}"}
           = link_to "/home/index", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
@@ -50,7 +50,7 @@
             Reservists
         %li.nav-item.p-3{class: "#{'active' if current_page?('/mapping/index')}"}
           = link_to "/mapping/index",class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
-            %i.material-icons maps
+            %i.material-icons map
             Mapping
         %li.nav-item.p-3
           = button_to destroy_user_session_path, method: :delete, class: 'nav-link btn btn-link p-0 text-start' do
