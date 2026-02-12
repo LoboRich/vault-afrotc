@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'mapping/index'
   resources :events
   resources :reservists
   resources :personnels do
