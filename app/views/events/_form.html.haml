@@ -1,33 +1,39 @@
-.card
-  = form_for @event do |f|
-    - if @event.errors.any?
-      #error_explanation
-        %h2= "#{pluralize(@event.errors.count, "error")} prohibited this event from being saved:"
-        %ul
-          - @event.errors.full_messages.each do |message|
-            %li= message
+= form_for @event do |f|
+  - if @event.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@event.errors.count, "error")} prohibited this event from being saved:"
+      %ul
+        - @event.errors.full_messages.each do |message|
+          %li= message
+  .card
+    .card-header
+      %div.d-flex.align-items-center
+        %h4.card-title
+          New Event
+    
     .card-body.form-group.mb-0
       .row
-                  .col-md-6.pt-3
-            .field
-              = f.label :name
-              = f.text_field :name, class: 'form-control', required:  true
-                  .col-md-6.pt-3
-            .field
-              = f.label :description
-              = f.text_area :description, class: 'form-control', required:  true
-                  .col-md-6.pt-3
-            .field
-              = f.label :event_date
-              = f.datetime_field :event_date, class: 'form-control', required:  true
-                  .col-md-6.pt-3
-            .field
-              = f.label :location
-              = f.text_area :location, class: 'form-control', required:  true
-                  .col-md-6.pt-3
-            .field
-              = f.label :event_type
-              = f.text_field :event_type, class: 'form-control', required:  true
-            .card-footer
-      = link_to 'Back', events_path, class: 'btn btn-secondary'
-      = f.submit 'Save Changes', class: 'btn btn-warning float-right'
+        .col-md-6.pt-3
+          .field
+            = f.label :name
+            = f.text_field :name, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :event_date
+            = f.datetime_field :event_date, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :location
+            = f.text_area :location, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :description
+            = f.text_area :description, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :event_type
+            = f.text_field :event_type, class: 'form-control', required:  true
+      
+      .d-flex.pt-4.gap-2.justify-content-end
+        = link_to 'Back', events_path, class: 'btn btn-secondary'
+        = f.submit 'Save Changes', class: 'btn btn-primary float-right'

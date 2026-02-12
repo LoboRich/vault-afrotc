@@ -6,14 +6,10 @@
           %div.d-flex.align-items-center
             %h4.card-title
               Events
-            
-            %button.btn.btn-primary.btn-round.ms-auto.btn-sm.d-flex.align-items-center
-              %i.material-icons> add
+            = link_to new_event_path, class: "btn btn-primary btn-round ms-auto btn-sm d-flex align-items-center" do
+              %i.material-icons.me-1 add
               Add Event
 
-            -# = link_to new_event_path, class: 'btn.btn-primary.btn-round.ms-auto' do
-            -#   %i.material-icons> add
-            -#   New Event
         .card-body
           .datatable-container
             .table-responsive.datatable-container
