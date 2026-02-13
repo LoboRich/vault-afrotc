@@ -243,6 +243,18 @@
         %div
           = form.label :dialects_spoken
           = form.text_area :dialects_spoken, class: "form-control", required: true
+    .col-md-12.pt-3
+      .field
+        = form.label :location
+        = form.text_field :location, class: 'form-control', required:  true, placeholder: "Enter address",data: { controller: "reservist-location" }
+    .col-md-12.pt.3 
+      %div#autocomplete-results.list-group.position-absolute.w-100
+    .col-md-6.pt-3
+      .field
+        = form.hidden_field :lat, class: 'form-control', required:  true
+    .col-md-6.pt-3
+      .field
+        = form.hidden_field :long, class: 'form-control', required:  true
     .row
       .col-md-12
         %div

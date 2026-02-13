@@ -56,6 +56,25 @@ class ReservistsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def search
+    results = Geocoder.search(
+      params[:query],
+      params: {
+        countrycodes: "ph", # Philippines only
+        addressdetails: 1,
+        limit: 5
+      }
+    )
+
+    render json: results.map { |r|
+      {
+        label: r.display_name,
+        latitude: r.latitude,
+        longitude: r.longitude
+      }
+    }
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -65,6 +84,6 @@ class ReservistsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def reservist_params
-      params.require(:reservist).permit(:rank, :last_name, :first_name, :middle_name, :branch_of_service, :afpsn, :primary_afsc, :duty_afsc, :other_skills, :source_of_enlistment, :soe_authority, :soe_date_of_enlistment, :soe_initial_rank, :source_of_commission, :soc_authority, :soc_date_of_enlistment, :soc_initial_rank, :reservist_classification, :classification_authority, :date_of_classification, :reserve_unit_assignment, :date_assigned, :unit_capability, :present_designation, :mobilization_center, :street_address, :city, :province, :region, :zip_code, :date_of_birth, :place_of_birth, :age, :sex, :marital_status, :religion, :ethnic_group, :blood_type, :eye_color, :hair_color, :complexion, :identifying_marks, :height_cm, :weight_kg, :email, :residence_tel, :office_tel, :mobile_nr, :tin, :sss_number, :gsis_number, :philhealth_number, :pagibig_number, :dialects_spoken, :latitude, :longitude, :lat, :long)
+      params.require(:reservist).permit(:rank, :last_name, :first_name, :middle_name, :branch_of_service, :afpsn, :primary_afsc, :duty_afsc, :other_skills, :source_of_enlistment, :soe_authority, :soe_date_of_enlistment, :soe_initial_rank, :source_of_commission, :soc_authority, :soc_date_of_enlistment, :soc_initial_rank, :reservist_classification, :classification_authority, :date_of_classification, :reserve_unit_assignment, :date_assigned, :unit_capability, :present_designation, :mobilization_center, :street_address, :city, :province, :region, :zip_code, :date_of_birth, :place_of_birth, :age, :sex, :marital_status, :religion, :ethnic_group, :blood_type, :eye_color, :hair_color, :complexion, :identifying_marks, :height_cm, :weight_kg, :email, :residence_tel, :office_tel, :mobile_nr, :tin, :sss_number, :gsis_number, :philhealth_number, :pagibig_number, :dialects_spoken, :latitude, :longitude, :lat, :long, :location, :is_active)
     end
 end

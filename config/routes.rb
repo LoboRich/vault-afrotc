@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   end
   get 'mapping/index'
   resources :events
-  resources :reservists
+  resources :reservists do
+    collection do
+      get :search
+    end
+  end
   resources :personnels do
     member do
       post :change_state

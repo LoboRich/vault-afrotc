@@ -1,80 +1,47 @@
-%section.section
-  .section-header.d-mobile-none
-    .page-description.d-flex.align-items-center
-      %h1.flex-grow-1
-        New created announcemnt
-    .section-header-breadcrumb
-      .breadcrumb-item 
-        = link_to 'Dashboard', '/'
-      .breadcrumb-item
-        @announcemnt
-
-  .card
-    .card-body.form-group.mb-0
+.app-content
+  .content-wrapper
+    .container
       = form_for @announcemnt do |f|
         - if @announcemnt.errors.any?
           #error_explanation
-            %h2= "#{pluralize(@announcemnt.errors.count, 'error')} prohibited this announcemnt from being saved:"
+            %h2= "#{pluralize(@announcemnt.errors.count, "error")} prohibited this announcemnt from being saved:"
             %ul
               - @announcemnt.errors.full_messages.each do |message|
                 %li= message
-
-        .row
-                      .col-md-6.pt-3
-              .field
-                = f.label :name, class: "control-label"
-                - if "name" == "authorize_route"
-                  = f.text_field :authorize_route, value: @announcemnt.authorize_route&.name, class: 'form-control', disabled: true
-                - elsif "text_field" == "text_area"
-                  = f.text_area :name, class: 'form-control', required: true, disabled: true
-                - else
-                  = f.text_field :name, class: 'form-control', required: true, disabled: true
-                      .col-md-6.pt-3
-              .field
-                = f.label :description, class: "control-label"
-                - if "description" == "authorize_route"
-                  = f.text_field :authorize_route, value: @announcemnt.authorize_route&.name, class: 'form-control', disabled: true
-                - elsif "text_area" == "text_area"
-                  = f.text_area :description, class: 'form-control', required: true, disabled: true
-                - else
-                  = f.text_area :description, class: 'form-control', required: true, disabled: true
-                      .col-md-6.pt-3
-              .field
-                = f.label :location, class: "control-label"
-                - if "location" == "authorize_route"
-                  = f.text_field :authorize_route, value: @announcemnt.authorize_route&.name, class: 'form-control', disabled: true
-                - elsif "text_area" == "text_area"
-                  = f.text_area :location, class: 'form-control', required: true, disabled: true
-                - else
-                  = f.text_area :location, class: 'form-control', required: true, disabled: true
-                      .col-md-6.pt-3
-              .field
-                = f.label :latitude, class: "control-label"
-                - if "latitude" == "authorize_route"
-                  = f.text_field :authorize_route, value: @announcemnt.authorize_route&.name, class: 'form-control', disabled: true
-                - elsif "text_field" == "text_area"
-                  = f.text_area :latitude, class: 'form-control', required: true, disabled: true
-                - else
-                  = f.text_field :latitude, class: 'form-control', required: true, disabled: true
-                      .col-md-6.pt-3
-              .field
-                = f.label :longitude, class: "control-label"
-                - if "longitude" == "authorize_route"
-                  = f.text_field :authorize_route, value: @announcemnt.authorize_route&.name, class: 'form-control', disabled: true
-                - elsif "text_field" == "text_area"
-                  = f.text_area :longitude, class: 'form-control', required: true, disabled: true
-                - else
-                  = f.text_field :longitude, class: 'form-control', required: true, disabled: true
-                      .col-md-6.pt-3
-              .field
-                = f.label :atype, class: "control-label"
-                - if "atype" == "authorize_route"
-                  = f.text_field :authorize_route, value: @announcemnt.authorize_route&.name, class: 'form-control', disabled: true
-                - elsif "text_field" == "text_area"
-                  = f.text_area :atype, class: 'form-control', required: true, disabled: true
-                - else
-                  = f.text_field :atype, class: 'form-control', required: true, disabled: true
+        .card
+          .card-header
+            %div.d-flex.align-items-center
+              %h4.card-title
+                New Event
           
-    .card-footer.text-right.pb-3
-      = link_to 'Back', announcemnts_path, class: "btn btn-secondary"
-      = link_to 'Edit', edit_announcemnt_path(@announcemnt), class: "btn btn-warning px-5"
+          .card-body.form-group.mb-0
+            .row
+              .col-md-6.pt-3
+                .field
+                  = f.label :name
+                  = f.text_field :name, class: 'form-control', required:  true
+              .col-md-6.pt-3
+                .field
+                  = f.label :atype
+                  = f.text_field :atype, class: 'form-control', required:  true
+              .col-md-12.pt-3
+                .field
+                  = f.label :location
+                  = f.text_field :location, class: 'form-control', required:  true, placeholder: "Enter address",data: { controller: "location" }
+                  
+              .col-md-12.pt.3 
+                %div#autocomplete-results.list-group.position-absolute.w-100
+              .col-md-6.pt-3
+                .field
+                  = f.hidden_field :latitude, class: 'form-control', required:  true
+              .col-md-6.pt-3
+                .field
+                  = f.hidden_field :longitude, class: 'form-control', required:  true
+              .col-md-12.pt-3
+                .field
+                  = f.label :description
+                  = f.text_area :description, class: 'form-control', required:  true
+            
+            .d-flex.pt-4.gap-2.justify-content-end
+              = link_to 'Back', announcemnts_path, class: 'btn btn-secondary'
+              = f.submit 'SEND', class: 'btn btn-primary float-right'
