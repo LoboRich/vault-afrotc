@@ -1,0 +1,56 @@
+
+.app-content
+  .content-wrapper
+    .container
+      .card
+        .card-header
+          %div.d-flex.align-items-center
+            %h4.card-title
+              Announcements
+            = link_to new_announcemnt_path, class: "btn btn-primary btn-round ms-auto btn-sm d-flex align-items-center" do
+              %i.material-icons.me-1 add
+              Add Announcement
+
+        .card-body
+          .datatable-container
+            .table-responsive.datatable-container
+              %table#vehicles-table.table.table-striped.table-bordered.table-hover.table-sm.datatable
+                %thead.bg-light
+                  %tr
+                    %th Name
+                    %th Description
+                    %th Location
+                    %th Map Link
+                    %th Atype
+                    %th Action
+                %tbody
+                  - @announcemnts.each do |announcemnt|
+                    %tr.odd{ role: "row" }
+                      %td= announcemnt.name
+                      %td= announcemnt.description
+                      %td= announcemnt.location
+                      %td
+                        - if announcemnt.latitude.present? && announcemnt.longitude.present?
+                          = link_to "View on Map",
+                            announcemnt.google_maps_link,
+                            target: "_blank",
+                            class: "btn btn-outline-primary"
+                      %td= announcemnt.atype
+                      
+                      %td
+                        .form-button-action.gap-3
+                          = link_to announcemnt, title: "Show it", class: "text-primary" do
+                            %i.material-icons visibility
+
+                          = link_to edit_announcemnt_path(announcemnt), title: "Edit it", class: "text-success" do
+                            %i.material-icons edit
+
+                          -# = link_to event,
+                          -#   data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                          -#   title: "Destroy it",
+                          -#   class: "text-danger" do
+                          -#   %i.material-icons delete
+
+
+
+

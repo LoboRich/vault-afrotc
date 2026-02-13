@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :announcemnts do
+    collection do
+      get :search
+    end
+  end
   get 'mapping/index'
   resources :events
   resources :reservists

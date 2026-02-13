@@ -1,0 +1,44 @@
+= form_for @announcemnt do |f|
+  - if @announcemnt.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@announcemnt.errors.count, "error")} prohibited this announcemnt from being saved:"
+      %ul
+        - @announcemnt.errors.full_messages.each do |message|
+          %li= message
+  .card
+    .card-header
+      %div.d-flex.align-items-center
+        %h4.card-title
+          New Event
+    
+    .card-body.form-group.mb-0
+      .row
+        .col-md-6.pt-3
+          .field
+            = f.label :name
+            = f.text_field :name, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.label :atype
+            = f.text_field :atype, class: 'form-control', required:  true
+        .col-md-12.pt-3
+          .field
+            = f.label :location
+            = f.text_field :location, class: 'form-control', required:  true, placeholder: "Enter address",data: { controller: "location" }
+            
+        .col-md-12.pt.3 
+          %div#autocomplete-results.list-group.position-absolute.w-100
+        .col-md-6.pt-3
+          .field
+            = f.hidden_field :lat, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = f.hidden_field :long, class: 'form-control', required:  true
+        .col-md-12.pt-3
+          .field
+            = f.label :description
+            = f.text_area :description, class: 'form-control', required:  true
+      
+      .d-flex.pt-4.gap-2.justify-content-end
+        = link_to 'Back', announcemnts_path, class: 'btn btn-secondary'
+        = f.submit 'SEND', class: 'btn btn-primary float-right'

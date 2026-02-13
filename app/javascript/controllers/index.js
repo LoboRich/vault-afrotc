@@ -2,6 +2,10 @@
 
 import { application } from "controllers/application"
 
+
+import LocationController from "./location_controller"
+application.register("location", LocationController)
+
 // Eager load all controllers defined in the import map under controllers/**/*_controller
 import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
 eagerLoadControllersFrom("controllers", application)

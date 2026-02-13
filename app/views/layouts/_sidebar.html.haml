@@ -9,6 +9,10 @@
         = link_to "/home/index", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
           %i.material-icons dashboard
           Dashboard
+      %li.nav-item.p-3{class: "#{'active' if current_page?('/announcemnts')}"}
+        = link_to "/announcemnts",class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
+          %i.material-icons campaign
+          Announcement
       %li.nav-item.p-3{class: "#{'active' if current_page?('/events')}"}
         = link_to "/events",class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
           %i.material-icons event
