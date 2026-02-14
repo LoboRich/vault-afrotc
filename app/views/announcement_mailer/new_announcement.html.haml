@@ -1,0 +1,11 @@
+%h2
+  Hello George,
+%p A new announcement has been posted:
+%h3= @announcement.name
+%p= @announcement.description
+%p
+  Location:
+  %a{:href => "https://www.google.com/maps?q=#{@announcement.latitude},#{@announcement.longitude}"}
+    View on Map
+%hr/
+%p Stay updated.

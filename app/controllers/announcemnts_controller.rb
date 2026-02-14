@@ -25,17 +25,25 @@ class AnnouncemntsController < ApplicationController
 
     respond_to do |format|
       if @announcemnt.save
-        sms_response = SmsSender.send_sms(
-          # recipient: @reservist.phone_number,
-          recipient: "09164745123",
-          message: "URGENT: Family trapped at Barangay Banago. Water rising fast. Need boat/rescue team immediately. Map Link: #{@announcemnt.google_maps_link}"
-        )
+        # sms_response = SmsSender.send_sms(
+        #   # recipient: @reservist.phone_number,
+        #   recipient: "09164745123",
+        #   message: "URGENT: Family trapped at Barangay Banago. Water rising fast. Need boat/rescue team immediately. Map Link: #{@announcemnt.google_maps_link}"
+        # )
 
-        if sms_response[:error]
-          flash[:alert] = "SMS failed: #{sms_response[:error]}"
-        else
-          flash[:notice] = "SMS sent successfully!"
-        end
+        # if sms_response[:error]
+        #   flash[:alert] = "SMS failed: #{sms_response[:error]}"
+        # else
+        #   flash[:notice] = "SMS sent successfully!"
+        # end
+
+        # Reservist.find_each do |reservist|
+        #   AnnouncementMailer
+        #     .new_announcement(reservist, @announcement)
+        #     .deliver_later
+        # end
+        AnnouncementMailer.new_announcement({email: "fuentebelladaroel@gmail.com"}, @announcemnt).deliver_now
+
         format.html { redirect_to @announcemnt, notice: "Announcemnt was successfully created." }
         format.json { render :show, status: :created, location: @announcemnt }
       else
