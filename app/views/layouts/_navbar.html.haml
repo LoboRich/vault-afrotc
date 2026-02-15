@@ -1,64 +1,60 @@
-%nav.navbar.navbar-expand-lg.shadow-sm.bg-light
-  .container-fluid
-    / Hamburger for mobile only
-    %button.navbar-toggler.d-lg-none{
-      type: "button",
-      "data-bs-toggle" => "offcanvas",
-      "data-bs-target" => "#sidebar-mobile"
-    }
-      %span.navbar-toggler-icon
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light.shadow-sm
+  .container-fluid.d-flex.justify-content-between.align-items-center
 
-    / Brand
-    %span.navbar-brand.ms-2 AFROTC
+    / LEFT SIDE (Hamburger + Brand)
+    .d-flex.align-items-center
+      %button.navbar-toggler.me-2.d-lg-none{
+        type: "button",
+        "data-bs-toggle" => "offcanvas",
+        "data-bs-target" => "#sidebar-mobile"
+      }
+        %span.navbar-toggler-icon
 
-    %ul.navbar-nav.topbar-nav.ms-md-auto.align-items-center
-      %li.nav-item.topbar-icon.dropdown.hidden-caret
-        %a#notifDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}
+      %span.navbar-brand.mb-0 AFROTC
+
+    / RIGHT SIDE
+    .d-flex.align-items-center.ms-auto
+
+      / 🔔 Notifications (Always visible)
+      .dropdown.me-2
+        %a.nav-link.position-relative{
+          href: "#",
+          "data-bs-toggle" => "dropdown"
+        }
           %i.material-icons notifications
-          %span.notification 4
-        %ul.dropdown-menu.notif-box.animated.fadeIn{"aria-labelledby" => "notifDropdown"}
-          %li.dropdown-title
-            You have 4 new notifications
+          %span.badge.bg-danger.position-absolute.top-0.start-100.translate-middle.rounded-pill
+            4
 
+        %ul.dropdown-menu.dropdown-menu-end
+          %li.dropdown-header 4 New Notifications
           %li
-            .notif-scroll{ style: "max-height: 300px; overflow-y: auto;" }
-              .notif-center
-                %a.dropdown-item{ href: "#" }
-                  .d-flex.align-items-start
-                    .notif-icon.notif-primary.me-2
-                      %i.material-icons person_add
-                    .notif-content
-                      %span.d-block New user registered
-                      %small.text-muted 5 minutes ago
-
-                %a.dropdown-item{ href: "#" }
-                  .d-flex.align-items-start
-                    .notif-icon.notif-success.me-2
-                      %i.material-icons comment
-                    .notif-content
-                      %span.d-block Rahmad commented on Admin
-                      %small.text-muted 12 minutes ago
-               
-      %li.nav-item.topbar-user.dropdown.hidden-caret
-        %a.dropdown-toggle.profile-pic{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :href => "#"}
-          -# .avatar-sm
-          -#   %img.avatar-img.rounded-circle{:alt => "...", :src => "../assets/img/profile.jpg"}/
-          %span.profile-username
-            %span.op-7 Hi,
-            %span.fw-bold Hizrian
-        %ul.dropdown-menu.dropdown-user.animated.fadeIn{ style: "max-height: 250px; overflow-y: auto;" }
+            %a.dropdown-item{ href: "#" } New user registered
           %li
-            %a.dropdown-item{ href: "#" } My Profile
-          %li
-            %a.dropdown-item{ href: "#" } Account Setting
+            %a.dropdown-item{ href: "#" } Rahmad commented
           %li
             %hr.dropdown-divider
           %li
-            %a.dropdown-item{ href: "#" } Logout
+            %a.dropdown-item{ href: "#" } View All
 
+      / 👤 Profile Dropdown (Always visible)
+      .dropdown 
+    %a.nav-link.dropdown-toggle{
+      href: "#",
+      "data-bs-toggle" => "dropdown"
+    }
+      %span.d-none.d-lg-inline Hi,
+      %strong.d-none.d-lg-inline Hizrian
+      %i.material-icons.d-lg-none account_circle
 
-    / Right side
-    -# .ms-auto
-    -#   = link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-outline-dark btn-sm"
-
-
+    %ul.dropdown-menu.dropdown-menu-end
+      %li
+        %a.dropdown-item{ href: "#" } My Profile
+      %li
+        %a.dropdown-item{ href: "#" } Account Setting
+      %li
+        %hr.dropdown-divider
+      %li
+        = link_to "Logout",
+          destroy_user_session_path,
+          data: { turbo_method: :delete },
+          class: "dropdown-item text-danger"
