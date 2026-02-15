@@ -30,7 +30,12 @@ COPY . .
 
 RUN bundle exec bootsnap precompile app/ lib/
 
-RUN RAILS_ENV=production SECRET_KEY_BASE=dummy SECRET_KEY_BASE=dummy RAILS_MASTER_KEY=dummy DATABASE_URL=postgresql://user:pass@localhost:5432/dummy bundle exec rails assets:precompile
+ENV RAILS_ENV=production \
+    SECRET_KEY_BASE=dummy \
+    RAILS_MASTER_KEY=dummy \
+    DATABASE_URL=postgresql://dummy
+
+RUN bundle exec rails assets:precompile
 
 # ---------------- FINAL STAGE ----------------
 FROM base
