@@ -9,7 +9,7 @@
     .card-header
       %div.d-flex.align-items-center
         %h4.card-title
-          New Event
+          New Announcement
     
     .card-body.form-group.mb-0
       .row
@@ -28,6 +28,8 @@
             
         .col-md-12.pt.3 
           %div#autocomplete-results.list-group.position-absolute.w-100
+        -# .col-md-12.pt-3
+        -#   %div#map-announcement{style:"height: 400px; width: 100%; border-radius: 8px;"}
         .col-md-6.pt-3
           .field
             = f.hidden_field :latitude, class: 'form-control', required:  true
@@ -36,7 +38,7 @@
             = f.hidden_field :longitude, class: 'form-control', required:  true
         .col-md-12.pt-3
           .field
-            = f.label :description
+            = f.label "More Details"
             = f.text_area :description, class: 'form-control', required:  true
       
       .d-flex.pt-4.gap-2.justify-content-end

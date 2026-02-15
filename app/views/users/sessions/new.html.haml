@@ -1,21 +1,30 @@
-
-.app.app-auth-sign-in.align-content-stretch.d-flex.flex-wrap.justify-content-center
-  .app-auth-container
-    .logo.container-fluid.justify-content-center
-      = image_tag "logo.png", alt: "Logo", style: "width: 200px; height: auto;"
-      %p.auth-description
-        Please sign-in to your account
-    .auth-credentials.m-b-xxl
-      = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-        %label.form-label{:for => "signInEmail"} Email address
-        = f.email_field :email, required: true, autofocus: true, autocomplete: "email", class: "form-control m-b-md", :placeholder => "ex. admin@gmail.com", id: 'email'
-        
-        %label.form-label{:for => "signInPassword"} Password
-        = f.password_field :password, required: true, autocomplete: "current-password", class: "form-control", :placeholder => "●●●●●●●●", id: 'current-password'
-      
-        = f.submit "Log in", class: "btn btn-primary mt-4"
-    %p.text-muted.mt-1
-      Don't have an account? Please contact admin for your account credentials.
-      
-       
+.app.app-auth-sign-in.d-flex.justify-content-center.align-items-center{style:"min-height: 100vh; background-color: #f8f9fa;"}
+  .card.shadow.p-5{style:"width: 420px; border-radius: 14px;"}
     
+    .text-center.mb-4
+      = image_tag "logo.png", alt: "Logo", style: "width: 140px; height: auto;"
+      %h4.mt-3 Sign In
+      %p.text-muted.small Please sign in to your account
+
+    - if flash[:alert]
+      .alert.alert-danger.text-center= flash[:alert]
+
+    .auth-credentials
+      = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+        
+        .mb-3
+          = f.label :email, "Email Address", class: "form-label"
+          = f.email_field :email, required: true, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "ex. admin@gmail.com"
+
+        .mb-4
+          = f.label :password, "Password", class: "form-label"
+          = f.password_field :password, required: true, autocomplete: "current-password", class: "form-control", placeholder: "●●●●●●●●"
+
+        .d-grid
+          = f.submit "Log in", class: "btn btn-primary btn-lg"
+
+    .text-center.mt-4
+      %small.text-muted
+        Don't have an account?
+        %br/
+        Please contact admin for your account credentials.

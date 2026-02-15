@@ -20,7 +20,12 @@ Rails.application.routes.draw do
   resources :vehicles
   resources :franchises
   resources :authorize_routes
-  devise_for :users
+  # devise_for :users
+  devise_for :users, controllers: {
+  sessions: 'users/sessions'
+  }
+  get  "verify_otp", to: "otp#new"
+  post "verify_otp", to: "otp#create"
 
   get 'home/index'
   get 'home/vehicles_by_year'
@@ -34,5 +39,5 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  root "home#index"
+  root "announcemnts#index"
 end

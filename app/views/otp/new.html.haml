@@ -1,0 +1,21 @@
+.container.d-flex.justify-content-center.align-items-center{style: "min-height: 80vh;"}
+  .card.shadow.p-4{ style: "width: 400px; border-radius: 12px;"}
+    %h3.text-center.mb-3 Verify OTP
+    %p.text-muted.text-center.mb-4
+      Please enter the 6-digit code sent to your phone.
+
+    - if flash[:alert]
+      .alert.alert-danger.text-center= flash[:alert]
+
+    = form_with url: verify_otp_path, method: :post, local: true do |f|
+      .mb-3
+        = label_tag :otp_code, "OTP Code", class: "form-label"
+        = text_field_tag :otp_code, nil, class: "form-control text-center fs-4", maxlength: 6, autocomplete: "off", placeholder: "••••••"
+
+      .d-grid
+        = submit_tag "Verify", class: "btn btn-primary btn-lg"
+
+    .text-center.mt-3
+      %small.text-muted
+        Didn't receive the code?
+        = link_to "Resend OTP", verify_otp_path

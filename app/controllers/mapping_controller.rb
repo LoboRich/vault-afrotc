@@ -1,4 +1,5 @@
 class MappingController < ApplicationController
+  before_action :authenticate_user!
   def index
     # Bacolod bounding box
     min_lat = 10.6400

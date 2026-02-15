@@ -1,4 +1,5 @@
 class AnnouncemntsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_announcemnt, only: %i[ show edit update destroy ]
 
   # GET /announcemnts or /announcemnts.json
