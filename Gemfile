@@ -49,7 +49,7 @@ gem "bootsnap", require: false
 gem 'carrierwave'
 gem 'cloudinary', '~> 1.29'
 gem "net-ssh"
-# gem 'rmagick'
+gem 'rmagick', '~> 6.1.1'
 gem 'html2haml', '~> 2.3'
 gem 'haml-rails'
 gem "pry"

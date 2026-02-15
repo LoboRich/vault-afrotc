@@ -405,7 +405,7 @@ DEPENDENCIES
   puma (>= 5.0)
   pundit
   rails (~> 7.1.3)
-  rmagick
+  rmagick (~> 6.1.1)
   rubyXL
   sassc-rails
   select2-rails
