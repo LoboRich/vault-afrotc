@@ -54,6 +54,7 @@ puts "Seeding reservists..."
     last_name: last_name,
     first_name: first_name,
     middle_name: middle_name,
+    city: branch,
     branch_of_service: branch,
     afpsn: SecureRandom.hex(4),
     primary_afsc: "Infantry",
@@ -89,10 +90,12 @@ puts "Seeding reservists..."
     philhealth_number: rand(100000..999999).to_s,
     pagibig_number: rand(100000..999999).to_s,
     dialects_spoken: "Hiligaynon, Filipino",
+
     lat: lat,
     long: lng,
+
     is_active: true
   )
 end
 
-puts "Done seeding 20 reservists!"
+puts "Done seeding 50 reservists!"
