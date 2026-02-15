@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_14_050024) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_15_055500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -99,6 +99,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_14_050024) do
     t.datetime "updated_at", null: false
     t.string "location"
     t.boolean "is_active"
+    t.uuid "user_id"
+    t.index ["user_id"], name: "index_reservists_on_user_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -116,4 +118,5 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_14_050024) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "reservists", "users"
 end
