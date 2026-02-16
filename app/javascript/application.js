@@ -30,7 +30,7 @@ document.addEventListener("turbo:load", function () {
   
    const markersData = JSON.parse(mapEl.dataset.markers);
    const map = L.map("map").setView([10.675, 122.955], 13);
-  
+   
    // Tile layer
    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
      attribution: "&copy; OpenStreetMap contributors"
@@ -56,7 +56,7 @@ document.addEventListener("turbo:load", function () {
        const query = input.value;
        if (!query) return;
   
-       const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
+       const url = `https://nominatim.openstreetmap.org/search?format=json&countrycodes=ph&q=${encodeURIComponent(query)}`;
        const response = await fetch(url);
        const results = await response.json();
   
