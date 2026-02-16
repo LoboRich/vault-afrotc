@@ -25,53 +25,69 @@ document.addEventListener("turbo:load", () => {
 
 
 document.addEventListener("turbo:load", function () {
-   const mapEl = document.getElementById("map");
-   if (!mapEl) return;
-  
-   const markersData = JSON.parse(mapEl.dataset.markers);
-   const map = L.map("map").setView([10.675, 122.955], 13);
-   
-   // Tile layer
-   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-     attribution: "&copy; OpenStreetMap contributors"
-   }).addTo(map);
-  
-   // Add markers
-   const bounds = [];
-   markersData.forEach(marker => {
-     L.marker([marker.lat, marker.lng])
-       .addTo(map)
-       .bindPopup(`<strong>${marker.name}</strong><br>${marker.address}<br><a href="${marker.url}">View</a>`);
-     bounds.push([marker.lat, marker.lng]);
-   });
-  
-   if (bounds.length > 0) map.fitBounds(bounds);
-  
-   // --Search functionality ---
-   const input = document.getElementById("address-search");
-  
-   input.addEventListener("keypress", async (e) => {
-     if (e.key === "Enter") {
-       e.preventDefault();
-       const query = input.value;
-       if (!query) return;
-  
-       const url = `https://nominatim.openstreetmap.org/search?format=json&countrycodes=ph&q=${encodeURIComponent(query)}`;
-       const response = await fetch(url);
-       const results = await response.json();
-  
-       if (results.length === 0) {
-         alert("Address not found");
-         return;
-       }
-  
-       const first = results[0];
-       const lat = parseFloat(first.lat);
-       const lon = parseFloat(first.lon);
-  
-       // Move map and add marker
-       L.marker([lat, lon]).addTo(map).bindPopup(query).openPopup();
-       map.setView([lat, lon], 15);
-     }
-   });
+  const mapEl = document.getElementById("map");
+  if (!mapEl) return;
+
+  const markersData = JSON.parse(mapEl.dataset.markers || "[]");
+
+  // Prevent double initialization
+  if (mapEl._leaflet_id) return;
+
+  const map = L.map("map").setView([10.675, 122.955], 13);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors"
+  }).addTo(map);
+
+  // Add existing markers
+  const bounds = [];
+  markersData.forEach(marker => {
+    L.marker([marker.lat, marker.lng])
+      .addTo(map)
+      .bindPopup(
+        `<strong>${marker.name}</strong><br>${marker.address}<br><a href="${marker.url}">View</a>`
+      );
+    bounds.push([marker.lat, marker.lng]);
+  });
+
+  if (bounds.length > 0) map.fitBounds(bounds);
+
+  // -------------------------
+  // 🔥 AUTO MOVE MAP WHEN LAT/LNG CHANGES
+  // -------------------------
+
+  const latField = document.getElementById("announcemnt_latitude");
+  const lngField = document.getElementById("announcemnt_longitude");
+
+  let searchMarker = null;
+
+  function updateMapFromFields() {
+    const lat = parseFloat(latField.value);
+    const lng = parseFloat(lngField.value);
+
+    if (!lat || !lng) return;
+
+    // Remove old search marker
+    if (searchMarker) {
+      map.removeLayer(searchMarker);
+    }
+
+    // Add new marker
+    searchMarker = L.marker([lat, lng])
+      .addTo(map)
+      .bindPopup("Selected Location")
+      .openPopup();
+
+    map.setView([lat, lng], 15);
+  }
+
+  // Trigger when values change
+  latField.addEventListener("change", updateMapFromFields);
+  lngField.addEventListener("change", updateMapFromFields);
+
+  // ALSO trigger when value is updated via JS (important!)
+  const observer = new MutationObserver(updateMapFromFields);
+
+  observer.observe(latField, { attributes: true, attributeFilter: ["value"] });
+  observer.observe(lngField, { attributes: true, attributeFilter: ["value"] });
 });

@@ -8,8 +8,16 @@
               Mapping
 
         .card-body
-          %input#address-search.form-control.mb-2{type: "text", placeholder: "Search address..."}
+          %input#address-search.form-control.mb-2{type: "text", placeholder: "Search address...", data: { controller: "location" }}
+          .col-md-12.pt.3 
+            %div#autocomplete-results.list-group.position-absolute.w-100
 
+          .col-md-6.pt-3
+            .field
+              %input#announcemnt_latitude.form-control.mb-2{type: "hidden"}
+          .col-md-6.pt-3
+            .field
+              %input#announcemnt_longitude.form-control.mb-2{type: "hidden"}
           #map{
             data: {markers: @random_markers.to_json},
             style: "height: 400px;"
