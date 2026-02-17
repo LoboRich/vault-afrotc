@@ -1,19 +1,81 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %meta{:charset => "utf-8"}/
-    %link{ href: "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css", rel: "stylesheet", crossorigin: "anonymous" }
+    %meta{charset: "utf-8"}
+    %style
+      :css
+        @page {
+          size: A4;
+          margin: 15mm;
+        }
 
-    :css
-      body { font-family: Arial, sans-serif; font-size: 12px; }
-      .form-control {
-        border: 1px solid #000 !important;
-        min-height: 32px;
-      }
-      label {
-        font-weight: bold;
-        margin-bottom: 2px;
-      }
+        body {
+          font-family: "Times New Roman", serif;
+          font-size: 11px;
+        }
+
+        .title {
+          text-align: center;
+          font-weight: bold;
+          font-size: 14px;
+          margin-bottom: 10px;
+        }
+
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+
+        th, td {
+          border: 1px solid black;
+          padding: 4px;
+          vertical-align: top;
+        }
+
+        th {
+          font-weight: bold;
+          text-align: left;
+        }
+
+        .section-header {
+          background: #bfbfbf;
+          font-weight: bold;
+        }
+
+        .center {
+          text-align: center;
+        }
+
+        .field-row td {
+         padding: 0;
+        }
+
+        .inner-table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+
+        .inner-table td {
+          width: 50%;
+          border-right: 1px solid black;
+          padding: 4px;
+          vertical-align: top;
+        }
+
+        .inner-table td:last-child {
+          border-right: none;
+        }
+
+        .field-label {
+          font-weight: bold;
+          font-size: 10px;
+          margin-bottom: 2px;
+        }
+
+        .field-value {
+          min-height: 14px;
+        }
+
+
   %body
     = yield

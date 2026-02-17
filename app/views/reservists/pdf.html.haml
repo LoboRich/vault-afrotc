@@ -1,10 +1,120 @@
-.app-content
-  .container.d-flex.align-items-center.justify-content-center
-    .card.border.border-secondary.mx-auto.mt-5.shadow-lg(style="width: 90%;")
-      .card-header
-        .d-flex.flex-column.align-items-center
-          %h4.card-title.w-sm-10 RESERVIST PERSONNEL INFORMATION
-          %h4.card-title DATA CAPTURED FORM
+.title
+  RESERVIST PERSONNEL INFORMATION
+  %br
+  DATA CAPTURED FORM
 
-      .card-body
-        = render "form", reservist: @reservist
+%table
+  %tr.section-header
+    %td{colspan: 4} PERSONAL INFORMATION
+
+  %tr.field-row
+    %td{colspan: 4}
+      %table.inner-table
+        %tr
+          %td
+            .field-label Rank
+            .field-value= @reservist.rank
+          %td
+            .field-label Last Name
+            .field-value= @reservist.last_name
+          %td
+            .field-label First Name
+            .field-value= @reservist.first_name
+          %td
+            .field-label Middle Name
+            .field-value= @reservist.middle_name
+  %tr.field-row
+    %td{colspan: 4}
+      %table.inner-table
+        %tr
+          %td
+            .field-label AFPSN
+            .field-value= @reservist.afpsn
+          %td
+            .field-label Primary AFSC
+            .field-value= @reservist.primary_afsc
+          %td
+            .field-label AFPSN
+            .field-value= @reservist.afpsn
+          %td
+            .field-label Primary AFSC
+            .field-value= @reservist.primary_afsc
+  %tr
+    %th AFPSN
+    %td= @reservist.afpsn
+    %th Primary AFSC
+    %td= @reservist.primary_afsc
+
+  %tr
+    %th Duty AFSC
+    %td= @reservist.duty_afsc
+    %th Other Skills
+    %td= @reservist.other_skills
+
+  %tr
+    %th Source
+    %td= "NA"
+    %th Authority
+    %td= @reservist.classification_authority
+
+  %tr
+    %th Date of Enlistment/Incorporation
+    %td= @reservist.soc_date_of_enlistment
+    %th Initial Rank
+    %td= @reservist.soc_initial_rank
+
+  %tr
+    %th Reservist Classification
+    %td= @reservist.reservist_classification
+    %th Date of Classification
+    %td= @reservist.date_of_classification
+
+  %tr
+    %th Reserve Unit Assignment
+    %td= @reservist.reserve_unit_assignment
+    %th Date Assigned
+    %td= @reservist.date_assigned
+
+  %tr
+    %th Unit Capability
+    %td= @reservist.unit_capability
+    %th Mobilization Center
+    %td= @reservist.mobilization_center
+
+  %tr.section-header
+    %td{colspan: 4} HOME ADDRESS INFORMATION
+
+  %tr
+    %th Home Address
+    %td{colspan: 3}= @reservist.street_address
+
+  %tr
+    %th Town/City
+    %td= @reservist.city
+    %th Province
+    %td= @reservist.province
+
+  %tr
+    %th Zip Code
+    %td= @reservist.zip_code
+    %th Region
+    %td= @reservist.region
+
+  %tr.section-header
+    %td{colspan: 4} PERSONAL DETAILS
+
+  %tr
+    %th Date of Birth
+    %td= @reservist.date_of_birth
+    %th Age
+    %td= @reservist.age
+
+  %tr
+    %th Place of Birth
+    %td{colspan: 3}= @reservist.place_of_birth
+
+  %tr
+    %th Email Address
+    %td= @reservist.email
+    %th Mobile Nr
+    %td= @reservist.mobile_nr
