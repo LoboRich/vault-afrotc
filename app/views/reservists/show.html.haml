@@ -3,6 +3,8 @@
     .container
       / ================= HEADER SUMMARY =================
       .card.shadow-sm.mb-4
+        .card-header.bg-light.d-flex.justify-content-end
+          = link_to "Download Profile", export_pdf_reservist_path(@reservist, format: :pdf), class: "btn btn-sm btn-primary"
         .card-body
           .row.align-items-center
             .col-md-8

@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     collection do
       get :search
     end
+    member do
+      get :export_pdf
+    end
   end
   resources :personnels do
     member do
