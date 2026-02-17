@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_one :personnel, dependent: :destroy
+  # has_one :personnel, dependent: :destroy
   has_one :reservist, dependent: :destroy
   
   # Include default devise modules. Others available are:

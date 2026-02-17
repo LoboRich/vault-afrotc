@@ -12,41 +12,37 @@
               %table#vehicles-table.table.table-striped.table-bordered.table-hover.table-sm.datatable
                 %thead.bg-light
                   %tr
-                    %th Rank
-                    %th Last Name
-                    %th First Name
-                    %th Middle Name
-                    %th Branch Of Service
+                    %th Sq.
                     %th Afpsn
-                    %th City
-                    %th Province
+                    %th Rank
+                    %th Fullname
+                    %th Location
                     %th Mobile Nr
                   %th Action
                 %tbody
+                  - i = 1
                   - @reservists.each do |reservist|
                     %tr.odd{ role: "row" }
-                      %td= reservist.rank
-                      %td= reservist.last_name
-                      %td= reservist.first_name
-                      %td= reservist.middle_name
-                      %td= reservist.branch_of_service
+                      %td= i
                       %td= reservist.afpsn
-                      
-                      %td= reservist.city
-                      %td= reservist.province
-                      
+                      %td= reservist.rank
+                      %td= reservist.full_name
+                      %td= reservist.location
                       %td= reservist.mobile_nr
-                      
                       %td
                         .form-button-action.gap-3
+                          = link_to "#", title: "Approve", class: "text-success" do
+                            %i.material-icons check
                           = link_to reservist, title: "Show it", class: "text-primary" do
                             %i.material-icons visibility
 
-                          = link_to edit_reservist_path(reservist), title: "Edit it", class: "text-success" do
-                            %i.material-icons edit
+                          -# = link_to edit_reservist_path(reservist), title: "Edit it", class: "text-success" do
+                          -#   %i.material-icons edit
+                          
                         -# = link_to reservist,
                         -#   data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' },
                         -#   title: 'Destroy it',
                         -#   class: 'btn btn-icon btn-sm btn-danger' do
                         -#   %i.material-icons delete
+                    - i+=1
 

@@ -4,7 +4,7 @@
   #sidebar-desktop.sidebar.bg-dark.d-none.d-lg-block.vh-100
     %ul.nav.d-flex.flex-column.justify-content-center
       %li.nav-item.pt-3.pb-3.d-flex.justify-content-center
-        = image_tag "logo.png", class: "d-flex align-items-center justify-content-center gap-2", style: "max-width: 100px;"
+        = image_tag "logo.png", class: "d-flex align-items-center justify-content-center gap-2", style: "max-width: 120px;"
       %li.nav-item.p-3{class: "#{'active' if current_page?('/home/index')}"}
         = link_to "/home/index", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
           %i.material-icons dashboard
