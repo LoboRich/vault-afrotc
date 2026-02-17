@@ -118,7 +118,19 @@
         %div
           = form.label :mobilization_center
           = form.text_field :mobilization_center, class: "form-control", required: true
-
+    .row 
+      .col-md-12.pt-3
+        .field
+          = form.label :location
+          = form.text_field :location, id: "address-search", class: 'form-control', required:  true, placeholder: "Enter address",data: { controller: "reservist-location" }
+      .col-md-12.pt.3 
+        %div#autocomplete-results.list-group.position-absolute.w-100
+      .col-md-6.pt-3
+        .field
+          = form.hidden_field :lat, class: 'form-control', required:  true
+      .col-md-6.pt-3
+        .field
+          = form.hidden_field :long, class: 'form-control', required:  true
     .row
       .col-md-3
         %div
@@ -127,15 +139,15 @@
       .col-md-2
         %div
           = form.label :city
-          = form.text_field :city, class: "form-control", required: true
+          = form.text_field :city, class: "form-control", required: true, readonly:true
       .col-md-3
         %div
           = form.label :province
-          = form.text_field :province, class: "form-control", required: true
+          = form.text_field :province, class: "form-control", readonly:true
       .col-md-2
         %div
           = form.label :zip_code
-          = form.text_field :zip_code, class: "form-control", required: true
+          = form.text_field :zip_code, class: "form-control", required: true, readonly:true
       .col-md-2
         %div
           = form.label :region
@@ -243,18 +255,6 @@
         %div
           = form.label :dialects_spoken
           = form.text_area :dialects_spoken, class: "form-control", required: true
-    .col-md-12.pt-3
-      .field
-        = form.label :location
-        = form.text_field :location, class: 'form-control', required:  true, placeholder: "Enter address",data: { controller: "reservist-location" }
-    .col-md-12.pt.3 
-      %div#autocomplete-results.list-group.position-absolute.w-100
-    .col-md-6.pt-3
-      .field
-        = form.hidden_field :lat, class: 'form-control', required:  true
-    .col-md-6.pt-3
-      .field
-        = form.hidden_field :long, class: 'form-control', required:  true
     .row
       .col-md-12
         %div

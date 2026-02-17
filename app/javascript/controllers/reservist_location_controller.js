@@ -15,17 +15,20 @@ export default class extends Controller {
       .then(res => res.json())
       .then(data => {
         this.resultsContainer.innerHTML = ""
-        console.log(data , "data")
 
         data.forEach(place => {
           const item = document.createElement("a")
           item.classList.add("list-group-item", "list-group-item-action")
           item.innerText = place.label
-
+          console.log(place, "place")
           item.addEventListener("click", () => {
             this.input.value = place.label
             document.querySelector("#reservist_lat").value = place.latitude
             document.querySelector("#reservist_long").value = place.longitude
+            document.querySelector("#reservist_city").value = place.city
+            document.querySelector("#reservist_province").value = place.province
+            document.querySelector("#reservist_zip_code").value = place.zipcode
+
             this.resultsContainer.innerHTML = ""
           })
 

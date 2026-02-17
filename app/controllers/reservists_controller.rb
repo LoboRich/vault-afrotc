@@ -67,14 +67,18 @@ class ReservistsController < ApplicationController
         limit: 5
       }
     )
-
+        
     render json: results.map { |r|
       {
         label: r.display_name,
         latitude: r.latitude,
-        longitude: r.longitude
+        longitude: r.longitude,
+        city: r.city,
+        province: r.province || r.state,
+        zipcode: r.postal_code
       }
     }
+    
   end
 
   private
