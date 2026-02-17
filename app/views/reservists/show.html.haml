@@ -1,119 +1,273 @@
 .app-content
-  .content-wrapper
-    .container
-      / ================= HEADER SUMMARY =================
-      .card.shadow-sm.mb-4
-        .card-header.bg-light.d-flex.justify-content-end
-          = link_to "Download Profile", export_pdf_reservist_path(@reservist, format: :pdf), class: "btn btn-sm btn-primary"
-        .card-body
-          .row.align-items-center
-            .col-md-8
-              %h4.mb-1
-                = "#{@reservist.rank} #{@reservist.first_name} #{@reservist.last_name}"
-              %p.text-muted.mb-1
-                = @reservist.branch_of_service
-              %span.badge.badge-primary
-                = @reservist.reservist_classification
-            .col-md-4.text-md-right
-              %p.mb-0
-                %strong AFPSN:
-                = @reservist.afpsn
-              %p.mb-0
-                %strong Status:
-                - if @reservist.is_active?
-                  %span.text-success Active
-                - else
-                  %span.text-danger Inactive
+  .container.d-flex.align-items-center.justify-content-center
+    .card.border.border-secondary.mx-auto.mt-5.shadow-lg(style="width: 90%;")
+      .card-header
+        .d-flex.flex-column.align-items-center
+          %h4.card-title.w-sm-10 RESERVIST PERSONNEL INFORMATION
+          %h4.card-title DATA CAPTURED FORM
 
-      / ================= PERSONAL INFO =================
-      .card.mb-4
-        .card-header.bg-light
-          %strong Personal Information
-        .card-body
+      .card-body
+        .container.gap-3.d-flex.flex-column
+          .row
+            .col-md-3
+              %div
+                %label Rank
+                %input.form-control{ readonly: true, value: @reservist.rank }
+            .col-md-3
+              %div
+                %label Last Name
+                %input.form-control{ readonly: true, value: @reservist.last_name }
+            .col-md-3
+              %div
+                %label First Name
+                %input.form-control{ readonly: true, value: @reservist.first_name }
+            .col-md-3
+              %div
+                %label Middle Name
+                %input.form-control{ readonly: true, value: @reservist.middle_name }
+
+          .row
+            .col-md-3
+              %div
+                %label Branch of Service
+                %input.form-control{ readonly: true, value: @reservist.branch_of_service }
+            .col-md-3
+              %div
+                %label AFPSN
+                %input.form-control{ readonly: true, value: @reservist.afpsn }
+            .col-md-2
+              %div
+                %label Primary AFSC
+                %input.form-control{ readonly: true, value: @reservist.primary_afsc }
+            .col-md-3
+              %div
+                %label Duty AFSC
+                %input.form-control{ readonly: true, value: @reservist.duty_afsc }
+
           .row
             .col-md-6
-              %p
-                %strong Full Name:
-                = "#{@reservist.first_name} #{@reservist.middle_name} #{@reservist.last_name}"
-              %p
-                %strong Date of Birth:
-                = @reservist.date_of_birth
-              %p
-                %strong Age:
-                = @reservist.age
-              %p
-                %strong Sex:
-                = @reservist.sex
-            .col-md-6
-              %p
-                %strong Civil Status:
-                = @reservist.marital_status
-              %p
-                %strong Religion:
-                = @reservist.religion
-              %p
-                %strong Blood Type:
-                = @reservist.blood_type
-              %p
-                %strong Dialects:
-                = @reservist.dialects_spoken
+              %div
+                %label Other Skills
+                %textarea.form-control{ readonly: true }= @reservist.other_skills
 
-      / ================= SERVICE INFO =================
-      .card.mb-4
-        .card-header.bg-light
-          %strong Service Information
-        .card-body
+          .row
+            .col-md-3
+              %div
+                %label Source of Enlistment
+                %input.form-control{ readonly: true, value: @reservist.source_of_enlistment }
+            .col-md-3
+              %div
+                %label Authority
+                %input.form-control{ readonly: true, value: @reservist.soe_authority }
+            .col-md-3
+              %div
+                %label Date of Enlistment
+                %input.form-control{ readonly: true, value: @reservist.soe_date_of_enlistment }
+            .col-md-3
+              %div
+                %label Initial Rank
+                %input.form-control{ readonly: true, value: @reservist.soe_initial_rank }
+
+          .row
+            .col-md-3
+              %div
+                %label Source of Commission
+                %input.form-control{ readonly: true, value: @reservist.source_of_commission }
+            .col-md-3
+              %div
+                %label SOC Authority
+                %input.form-control{ readonly: true, value: @reservist.soc_authority }
+            .col-md-3
+              %div
+                %label SOC Date of Enlistment
+                %input.form-control{ readonly: true, value: @reservist.soc_date_of_enlistment }
+            .col-md-3
+              %div
+                %label SOC Initial Rank
+                %input.form-control{ readonly: true, value: @reservist.soc_initial_rank }
+
+          .row
+            .col-md-4
+              %div
+                %label Reservist Classification
+                %input.form-control{ readonly: true, value: @reservist.reservist_classification }
+            .col-md-4
+              %div
+                %label Classification Authority
+                %input.form-control{ readonly: true, value: @reservist.classification_authority }
+            .col-md-4
+              %div
+                %label Date of Classification
+                %input.form-control{ readonly: true, value: @reservist.date_of_classification }
+
+          .row
+            .col-md-4
+              %div
+                %label Reserve Unit Assignment
+                %input.form-control{ readonly: true, value: @reservist.reserve_unit_assignment }
+            .col-md-4
+              %div
+                %label Date Assigned
+                %input.form-control{ readonly: true, value: @reservist.date_assigned }
+            .col-md-4
+              %div
+                %label Unit Capability
+                %input.form-control{ readonly: true, value: @reservist.unit_capability }
+
           .row
             .col-md-6
-              %p
-                %strong Primary AFSC:
-                = @reservist.primary_afsc
-              %p
-                %strong Duty AFSC:
-                = @reservist.duty_afsc
-              %p
-                %strong Unit Assignment:
-                = @reservist.reserve_unit_assignment
+              %div
+                %label Present Designation
+                %input.form-control{ readonly: true, value: @reservist.present_designation }
             .col-md-6
-              %p
-                %strong Mobilization Center:
-                = @reservist.mobilization_center
-              %p
-                %strong Present Designation:
-                = @reservist.present_designation
-              %p
-                %strong Unit Capability:
-                = @reservist.unit_capability
+              %div
+                %label Mobilization Center
+                %input.form-control{ readonly: true, value: @reservist.mobilization_center }
 
-      / ================= CONTACT INFO =================
-      .card.mb-4
-        .card-header.bg-light
-          %strong Contact Information
-        .card-body
+          .row
+            .col-md-12.pt-3
+              %div
+                %label Location
+                %input.form-control{ readonly: true, value: @reservist.location }
+
+          .row
+            .col-md-6.pt-3
+              %div
+                %label Latitude
+                %input.form-control{ readonly: true, value: @reservist.lat }
+            .col-md-6.pt-3
+              %div
+                %label Longitude
+                %input.form-control{ readonly: true, value: @reservist.long }
+
+          .row
+            .col-md-3
+              %div
+                %label Street Address
+                %input.form-control{ readonly: true, value: @reservist.street_address }
+            .col-md-2
+              %div
+                %label City
+                %input.form-control{ readonly: true, value: @reservist.city }
+            .col-md-3
+              %div
+                %label Province
+                %input.form-control{ readonly: true, value: @reservist.province }
+            .col-md-2
+              %div
+                %label ZIP Code
+                %input.form-control{ readonly: true, value: @reservist.zip_code }
+            .col-md-2
+              %div
+                %label Region
+                %input.form-control{ readonly: true, value: @reservist.region }
+
+          .row
+            .col-md-3
+              %div
+                %label Date of Birth
+                %input.form-control{ readonly: true, value: @reservist.date_of_birth }
+            .col-md-2
+              %div
+                %label Age
+                %input.form-control{ readonly: true, value: @reservist.age }
+            .col-md-7
+              %div
+                %label Place of Birth
+                %input.form-control{ readonly: true, value: @reservist.place_of_birth }
+
+          .row
+            .col-md-3
+              %div
+                %label Email
+                %input.form-control{ readonly: true, value: @reservist.email }
+            .col-md-3
+              %div
+                %label Residence Tel
+                %input.form-control{ readonly: true, value: @reservist.residence_tel }
+            .col-md-3
+              %div
+                %label Office Tel
+                %input.form-control{ readonly: true, value: @reservist.office_tel }
+            .col-md-3
+              %div
+                %label Mobile Nr
+                %input.form-control{ readonly: true, value: @reservist.mobile_nr }
+
+          .row
+            .col-md-3
+              %div
+                %label Ethnic Group
+                %input.form-control{ readonly: true, value: @reservist.ethnic_group }
+            .col-md-3
+              %div
+                %label Sex
+                %input.form-control{ readonly: true, value: @reservist.sex }
+            .col-md-3
+              %div
+                %label Marital Status
+                %input.form-control{ readonly: true, value: @reservist.marital_status }
+            .col-md-3
+              %div
+                %label Religion
+                %input.form-control{ readonly: true, value: @reservist.religion }
+
+          .row
+            .col-md-2
+              %div
+                %label Blood Type
+                %input.form-control{ readonly: true, value: @reservist.blood_type }
+            .col-md-2
+              %div
+                %label Eye Color
+                %input.form-control{ readonly: true, value: @reservist.eye_color }
+            .col-md-2
+              %div
+                %label Hair Color
+                %input.form-control{ readonly: true, value: @reservist.hair_color }
+            .col-md-3
+              %div
+                %label Complexion
+                %input.form-control{ readonly: true, value: @reservist.complexion }
+            .col-md-3
+              %div
+                %label Identifying Marks
+                %input.form-control{ readonly: true, value: @reservist.identifying_marks }
+
+          .row
+            .col-md-3
+              %div
+                %label Height (cm)
+                %input.form-control{ readonly: true, value: @reservist.height_cm }
+            .col-md-3
+              %div
+                %label Weight (kg)
+                %input.form-control{ readonly: true, value: @reservist.weight_kg }
+
+          .row
+            .col-md-2
+              %div
+                %label TIN
+                %input.form-control{ readonly: true, value: @reservist.tin }
+            .col-md-2
+              %div
+                %label SSS Number
+                %input.form-control{ readonly: true, value: @reservist.sss_number }
+            .col-md-2
+              %div
+                %label GSIS Number
+                %input.form-control{ readonly: true, value: @reservist.gsis_number }
+            .col-md-3
+              %div
+                %label PhilHealth Number
+                %input.form-control{ readonly: true, value: @reservist.philhealth_number }
+            .col-md-3
+              %div
+                %label Pag-IBIG Number
+                %input.form-control{ readonly: true, value: @reservist.pagibig_number }
+
           .row
             .col-md-6
-              %p
-                %strong Email:
-                = @reservist.email
-              %p
-                %strong Mobile:
-                = @reservist.mobile_nr
-            .col-md-6
-              %p
-                %strong Address:
-                = "#{@reservist.street_address}, #{@reservist.city}, #{@reservist.province}"
-              %p
-                %strong Region:
-                = @reservist.region
-
-      / ================= LOCATION MAP (Optional) =================
-      - if @reservist.lat.present? && @reservist.long.present?
-        .card.mb-4
-          .card-header.bg-light
-            %strong Location
-          .card-body
-            #map{ style: "height: 350px;" }
-      .d-flex.align-items-center.mb-4.justify-content-end
-        .btn-group
-          = link_to 'Back', reservists_path, class: "btn btn-secondary"
-          = link_to 'Edit', edit_reservist_path(@reservist), class: "btn btn-warning"
+              %div
+                %label Dialects Spoken
+                %textarea.form-control{ readonly: true }= @reservist.dialects_spoken
