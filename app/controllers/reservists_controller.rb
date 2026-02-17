@@ -81,6 +81,23 @@ class ReservistsController < ApplicationController
     
   end
 
+
+  def export_pdf
+    @reservist = Reservist.find(params[:id])
+
+    respond_to do |format|
+      format.pdf do
+        render pdf: "reservist_#{@reservist.last_name}",
+          template: "reservists/pdf",
+          formats: [:html],
+          layout: "pdf",
+          disposition: "attachment",
+          encoding: "UTF-8",
+          enable_local_file_access: true
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_reservist
