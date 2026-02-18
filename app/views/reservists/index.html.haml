@@ -18,6 +18,7 @@
                     %th Fullname
                     %th Location
                     %th Mobile Nr
+                    %th Active
                   %th Action
                 %tbody
                   - i = 1
@@ -29,10 +30,12 @@
                       %td= reservist.full_name
                       %td= reservist.location
                       %td= reservist.mobile_nr
+                      %td= reservist.is_active
                       %td
                         .form-button-action.gap-3
-                          = link_to "#", title: "Approve", class: "text-success" do
+                          = link_to "#", title: "Approve", class: "text-success", data: { bs_toggle: "modal", bs_target: "#approveModal-#{reservist.id}" } do
                             %i.material-icons check
+
                           = link_to reservist, title: "Show it", class: "text-primary" do
                             %i.material-icons visibility
 
@@ -44,5 +47,19 @@
                         -#   title: 'Destroy it',
                         -#   class: 'btn btn-icon btn-sm btn-danger' do
                         -#   %i.material-icons delete
+                        .modal.fade{ id: "approveModal-#{reservist.id}", tabindex: "-1", role: "dialog", "aria-labelledby": "approveModalLabel-#{reservist.id}", "aria-hidden": "true" }
+                          .modal-dialog
+                            .modal-content
+                              .modal-header
+                                %h5.modal-title{ id: "approveModalLabel-#{reservist.id}" } Confirm Approval
+                                %button.btn-close{ type: "button", data: { bs_dismiss: "modal" }, aria: { label: "Close" } }
+                              .modal-body
+                                Are you sure you want to activate this reservist?
+                              .modal-footer
+                                %button.btn.btn-secondary{ type: "button", data: { bs_dismiss: "modal" } } Cancel
+                                = button_to "Yes, Activate", activate_reservist_path(reservist), method: :patch, class: "btn btn-success"
+
+
                     - i+=1
+
 

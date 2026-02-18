@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     end
     member do
       get :export_pdf
+      patch :activate
     end
   end
 

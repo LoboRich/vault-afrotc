@@ -98,6 +98,15 @@ class ReservistsController < ApplicationController
     end
   end
 
+  def activate
+    @reservist = Reservist.find(params[:id])
+    if @reservist.update(is_active: true)
+      redirect_to reservists_path, notice: "Reservist activated successfully."
+    else
+      redirect_to reservists_path, alert: "Failed to activate reservist."
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_reservist
