@@ -24,63 +24,114 @@
             .field-label Middle Name
             .field-value= @reservist.middle_name
   %tr.field-row
+    %td{colspan: 5}
+      %table.inner-table
+        %tr
+          %td
+            .field-label Br of Service
+            .field-value= @reservist.branch_of_service
+          %td
+            .field-label AFPSN
+            .field-value= @reservist.afpsn
+          %td
+            .field-label Primary AFSC
+            .field-value= @reservist.primary_afsc
+          %td
+            .field-label Duty AFSC
+            .field-value= @reservist.duty_afsc
+          %td
+            .field-label Other Skills
+            .field-value= @reservist.other_skills
+  %tr.field-row
     %td{colspan: 4}
       %table.inner-table
         %tr
           %td
-            .field-label AFPSN
-            .field-value= @reservist.afpsn
+            .field-label Source of Enlistment
+            .field-value= @reservist.source_of_enlistment
           %td
-            .field-label Primary AFSC
-            .field-value= @reservist.primary_afsc
+            .field-label Authority
+            .field-value= @reservist.soe_authority
           %td
-            .field-label AFPSN
-            .field-value= @reservist.afpsn
+            .field-label Date of Enlistment/Incorporation
+            .field-value= @reservist.soe_date_of_enlistment
           %td
-            .field-label Primary AFSC
-            .field-value= @reservist.primary_afsc
-  %tr
-    %th AFPSN
-    %td= @reservist.afpsn
-    %th Primary AFSC
-    %td= @reservist.primary_afsc
-
-  %tr
-    %th Duty AFSC
-    %td= @reservist.duty_afsc
-    %th Other Skills
-    %td= @reservist.other_skills
-
-  %tr
-    %th Source
-    %td= "NA"
-    %th Authority
-    %td= @reservist.classification_authority
-
-  %tr
-    %th Date of Enlistment/Incorporation
-    %td= @reservist.soc_date_of_enlistment
-    %th Initial Rank
-    %td= @reservist.soc_initial_rank
-
-  %tr
-    %th Reservist Classification
-    %td= @reservist.reservist_classification
-    %th Date of Classification
-    %td= @reservist.date_of_classification
-
-  %tr
-    %th Reserve Unit Assignment
-    %td= @reservist.reserve_unit_assignment
-    %th Date Assigned
-    %td= @reservist.date_assigned
-
-  %tr
-    %th Unit Capability
-    %td= @reservist.unit_capability
-    %th Mobilization Center
-    %td= @reservist.mobilization_center
-
+            .field-label Initial Rank
+            .field-value= @reservist.soe_initial_rank
+  
+  %tr.field-row
+    %td{colspan: 4}
+      %table.inner-table
+        %tr
+          %td
+            .field-label Source of Commission
+            .field-value= @reservist.source_of_commission
+          %td
+            .field-label Authority
+            .field-value= @reservist.soc_authority
+          %td
+            .field-label Date of Commission/Incorporation
+            .field-value= @reservist.soe_date_of_enlistment
+          %td
+            .field-label Initial Rank
+            .field-value= @reservist.soc_initial_rank
+  %tr.field-row
+    %td{colspan: 3}
+      %table.inner-table
+        %tr
+          %td
+            .field-label Reservist Classification
+            .field-value= @reservist.reservist_classification
+          %td
+            .field-label Authority
+            .field-value= @reservist.classification_authority
+          %td
+            .field-label Date of Classification
+            .field-value= @reservist.date_of_classification
+  %tr.field-row
+    %td{colspan: 3}
+      %table.inner-table
+        %tr
+          %td
+            .field-label Reserve Unit Assignment
+            .field-value= @reservist.reserve_unit_assignment
+          %td
+            .field-label Date Assigned
+            .field-value= @reservist.date_assigned
+          %td
+            .field-label Unit Capability
+            .field-value= @reservist.unit_capability
+  %tr.field-row
+    %td{colspan: 2}
+      %table.inner-table
+        %tr
+          %td
+            .field-label Present Designation
+            .field-value= @reservist.present_designation
+          %td
+            .field-label Mobilization Center
+            .field-value= @reservist.mobilization_center
+  
+  %tr.field-row
+    %td{colspan: 5}
+      %table.inner-table
+        %tr
+          %td
+            .field-label Home Address(Nr/Street/Brgy)
+            .field-value= @reservist.street_address
+          %td
+            .field-label Town/City
+            .field-value= @reservist.city
+          %td
+            .field-label Province
+            .field-value= @reservist.province
+          %td
+            .field-label Zip Code
+            .field-value= @reservist.zip_code
+          %td
+            .field-label Region
+            .field-value= @reservist.region
+            
   %tr.section-header
     %td{colspan: 4} HOME ADDRESS INFORMATION
 

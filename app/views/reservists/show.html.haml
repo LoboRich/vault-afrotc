@@ -2,6 +2,7 @@
   .container.d-flex.align-items-center.justify-content-center
     .card.border.border-secondary.mx-auto.mt-5.shadow-lg(style="width: 90%;")
       .card-header
+        = link_to "Download Profile", export_pdf_reservist_path(@reservist, format: :pdf), class: "btn btn-sm btn-primary float-end"
         .d-flex.flex-column.align-items-center
           %h4.card-title.w-sm-10 RESERVIST PERSONNEL INFORMATION
           %h4.card-title DATA CAPTURED FORM
