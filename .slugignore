@@ -5,3 +5,4 @@ storage/
 spec/
 test/
 vendor/bundle/
+public/assets/
