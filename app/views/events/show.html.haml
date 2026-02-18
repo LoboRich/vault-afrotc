@@ -3,23 +3,13 @@
     .container
       .card
         .card-header
-          %div.d-flex.align-items-center
+          %div.d-flex.align-items-center.gap-3
             %h4.card-title
-              Events
-            = link_to new_event_path, class: "btn btn-primary btn-round ms-auto btn-sm d-flex align-items-center" do
-              %i.material-icons.me-1 add
-              Add Event
+              = @event.name
+            %span.badge.rounded-pill.bg-primary
+              = @event.event_type.titleize
         .card-body
           .row.g-4
-
-            .col-md-6
-              %label.form-label.text-muted Name
-              %p.fw-bold.mb-0= @event.name
-
-            .col-md-6
-              %label.form-label.text-muted Event Type
-              %span.badge.rounded-pill.bg-primary
-                = @event.event_type.titleize
 
             .col-md-6
               %label.form-label.text-muted Event Date
