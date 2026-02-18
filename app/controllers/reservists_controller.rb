@@ -100,10 +100,10 @@ class ReservistsController < ApplicationController
 
   def activate
     @reservist = Reservist.find(params[:id])
-    if @reservist.update(is_active: true)
-      redirect_to reservists_path, notice: "Reservist activated successfully."
+    if @reservist.update(is_active: !@reservist.is_active)
+      redirect_to reservists_path, notice: "Reservist status updated successfully."
     else
-      redirect_to reservists_path, alert: "Failed to activate reservist."
+      redirect_to reservists_path, alert: "Failed to update reservist status."
     end
   end
 

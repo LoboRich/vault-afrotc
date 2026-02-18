@@ -18,7 +18,7 @@
                     %th Fullname
                     %th Location
                     %th Mobile Nr
-                    %th Active
+                    %th Account Status
                   %th Action
                 %tbody
                   - i = 1
@@ -30,11 +30,19 @@
                       %td= reservist.full_name
                       %td= reservist.location
                       %td= reservist.mobile_nr
-                      %td= reservist.is_active
+                      %td.text-center
+                        - if reservist.is_active
+                          %i.material-icons.text-success check
+                        - else
+                          %i.material-icons.text-danger cancel
                       %td
                         .form-button-action.gap-3
-                          = link_to "#", title: "Approve", class: "text-success", data: { bs_toggle: "modal", bs_target: "#approveModal-#{reservist.id}" } do
-                            %i.material-icons check
+                          - if reservist.is_active
+                            = link_to "#", title: "Deactivate", class: "text-danger", data: { bs_toggle: "modal", bs_target: "#approveModal-#{reservist.id}" } do
+                              %i.material-icons cancel
+                          - else
+                            = link_to "#", title: "Approve", class: "text-success", data: { bs_toggle: "modal", bs_target: "#approveModal-#{reservist.id}" } do
+                              %i.material-icons check
 
                           = link_to reservist, title: "Show it", class: "text-primary" do
                             %i.material-icons visibility
@@ -56,8 +64,12 @@
                               .modal-body
                                 Are you sure you want to activate this reservist?
                               .modal-footer
-                                %button.btn.btn-secondary{ type: "button", data: { bs_dismiss: "modal" } } Cancel
-                                = button_to "Yes, Activate", activate_reservist_path(reservist), method: :patch, class: "btn btn-success"
+                                - if reservist.is_active
+                                  %button.btn.btn-secondary{ type: "button", data: { bs_dismiss: "modal" } } Cancel
+                                  = button_to "Yes, Deactivate", activate_reservist_path(reservist), method: :patch, class: "btn btn-danger"
+                                - else
+                                  %button.btn.btn-secondary{ type: "button", data: { bs_dismiss: "modal" } } Cancel
+                                  = button_to "Yes, Activate", activate_reservist_path(reservist), method: :patch, class: "btn btn-success"
 
 
                     - i+=1
