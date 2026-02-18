@@ -14,15 +14,7 @@ Rails.application.routes.draw do
       get :export_pdf
     end
   end
-  resources :personnels do
-    member do
-      post :change_state
-    end
-  end
-  resources :attachments
-  resources :vehicles
-  resources :franchises
-  resources :authorize_routes
+
   # devise_for :users
   devise_for :users, controllers: {
   sessions: 'users/sessions'
@@ -31,9 +23,7 @@ Rails.application.routes.draw do
   post "verify_otp", to: "otp#create"
 
   get 'home/index'
-  get 'home/vehicles_by_year'
-  get "home/vehicles_by_status", to: "home#vehicles_by_status"
-  get 'home/vehicles_by_full_status', to: 'home#vehicles_by_full_status'
+
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
