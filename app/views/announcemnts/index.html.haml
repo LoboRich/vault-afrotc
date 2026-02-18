@@ -7,9 +7,13 @@
           %div.d-flex.align-items-center
             %h4.card-title
               Emergencies
-            = link_to new_announcemnt_path, class: "btn btn-primary btn-round ms-auto btn-sm d-flex align-items-center" do
-              %i.material-icons.me-1 add
-              Add Emergency
+            %div.ms-auto.d-flex.gap-2
+              = link_to new_announcemnt_path, class: "btn btn-primary btn-round ms-auto btn-sm d-flex align-items-center" do
+                %i.material-icons.me-1 add
+                Add Emergency
+              %a.d-none.d-sm-inline-block.btn.btn-sm.btn-success.shadow-sm{:href => "#"}
+                %i.material-icons.me-1 download
+                Download
 
         .card-body
           .datatable-container
