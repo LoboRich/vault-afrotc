@@ -1,0 +1,7 @@
+node_modules/
+log/
+tmp/
+storage/
+spec/
+test/
+vendor/bundle/
