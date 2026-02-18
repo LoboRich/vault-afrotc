@@ -4,7 +4,7 @@ tmp/
 storage/
 spec/
 test/
-vendor/
+vendor/bundle/
 public/assets/
 /vendor/bundle
 /vendor/cache
