@@ -461,3 +461,16 @@ h1, h2, h3, h4, h5 {
   font-size: 0.65rem;
   padding: 1px 8px !important;
 }
+/* dashboard */
+.border-left-primary {
+  border-left: 0.25rem solid #4e73df!important;
+}
+.border-left-success {
+  border-left: .25rem solid #1cc88a !important;
+}
+.border-left-info {
+    border-left: .25rem solid #36b9cc !important;
+}
+.border-left-warning {
+    border-left: .25rem solid #f6c23e !important;
+}

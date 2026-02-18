@@ -1,1 +1,75 @@
-%h1 Hello Home index
+.app-content
+  .content-wrapper
+    .container-fluid
+      .row
+        / Earnings (Monthly) Card Example
+        .col-xl-4.col-md-6.mb-4
+          .card.border-left-primary.shadow.py-2
+            .card-body
+              .row.no-gutters.align-items-center
+                .col.mr-2
+                  .text-xs.font-weight-bold.text-primary.text-uppercase.mb-1
+                    Reservists
+                  .h5.mb-0.font-weight-bold.text-gray-800 103
+                .col-auto
+                  %i.material-icons.text-gray-300{ style: "font-size: 2rem;" }people
+
+        .col-xl-4.col-md-6.mb-4
+          .card.border-left-success.shadow.py-2
+            .card-body
+              .row.no-gutters.align-items-center
+                .col.mr-2
+                  .text-xs.font-weight-bold.text-success.text-uppercase.mb-1
+                    Trainings
+                  .h5.mb-0.font-weight-bold.text-gray-800 16
+                .col-auto
+                  %i.material-icons.text-gray-300{ style: "font-size: 2rem;" } star
+
+        .col-xl-4.col-md-6.mb-4
+          .card.border-left-warning.shadow.py-2
+            .card-body
+              .row.no-gutters.align-items-center
+                .col.mr-2
+                  .text-xs.font-weight-bold.text-warning.text-uppercase.mb-1
+                    Events
+                  .h5.mb-0.font-weight-bold.text-gray-800 26
+                .col-auto
+                  %i.material-icons.text-gray-300{ style: "font-size: 2rem;" } event
+        
+      / Line Chart Row
+      .row.mt-4
+        .card.shadow-sm
+          .card-header.py-3
+            %h6.m-0.fw-bold.text-primary Events per year
+          .card-body
+            %canvas#registrationsChart
+
+
+:javascript
+  document.addEventListener("DOMContentLoaded", function() {
+    const ctx = document.getElementById('registrationsChart');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: #{ @monthly_data.keys.map { |d| d.strftime("%b") }.to_json },
+        datasets: [{
+          label: "Events",
+          data: #{ @monthly_data.values.to_json },
+          fill: true,
+          tension: 0.3,
+          borderColor: "#4e73df",
+          backgroundColor: "rgba(78, 115, 223, 0.1)",
+          pointRadius: 3
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  });
