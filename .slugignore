@@ -1,10 +1,20 @@
-node_modules/
-log/
-tmp/
-storage/
-spec/
-test/
-vendor/bundle/
-public/assets/
-/vendor/bundle
-/vendor/cache
+# Ignore logs and temp files
+log/*
+tmp/*
+
+# Ignore storage uploads
+storage/*
+
+# Ignore node_modules and JS build caches
+node_modules/*
+public/packs-test/*
+
+# Ignore vendor caches or bundled gems
+vendor/bundle/*
+vendor/cache/*
+
+# MacOS and editor metadata
+*.DS_Store
+*.swp
+.idea/
+.vscode/
