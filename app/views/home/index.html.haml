@@ -10,7 +10,7 @@
                 .col.mr-2
                   .text-xs.font-weight-bold.text-primary.text-uppercase.mb-1
                     Reservists
-                  .h5.mb-0.font-weight-bold.text-gray-800 103
+                  .h5.mb-0.font-weight-bold.text-gray-800= @total_reservists
                 .col-auto
                   %i.material-icons.text-gray-300{ style: "font-size: 2rem;" }people
 
@@ -21,7 +21,7 @@
                 .col.mr-2
                   .text-xs.font-weight-bold.text-success.text-uppercase.mb-1
                     Trainings
-                  .h5.mb-0.font-weight-bold.text-gray-800 16
+                  .h5.mb-0.font-weight-bold.text-gray-800= @total_trainings || 0
                 .col-auto
                   %i.material-icons.text-gray-300{ style: "font-size: 2rem;" } star
 
@@ -32,26 +32,54 @@
                 .col.mr-2
                   .text-xs.font-weight-bold.text-warning.text-uppercase.mb-1
                     Events
-                  .h5.mb-0.font-weight-bold.text-gray-800 26
+                  .h5.mb-0.font-weight-bold.text-gray-800= @total_events || 0
                 .col-auto
                   %i.material-icons.text-gray-300{ style: "font-size: 2rem;" } event
         
       / Line Chart Row
       .row.mt-2
-        .col-12
+        .col-9
           .card.shadow-sm
             .card-header.d-flex.justify-content-between.align-items-center
               %h6.m-0.fw-bold.text-primary Events per Year
 
-              = form_with url: "#", method: :get, local: true do
+              = form_with url: root_path, method: :get, local: true do
                 = select_tag :year,
                   options_for_select(@years, @selected_year),
                   class: "form-select form-select-sm",
                   onchange: "this.form.submit();"
 
             .card-body
-              .chart-container{ style: "height: 400px;" }
+              .chart-container{ style: "height: 350px;" }
                 %canvas#registrationsChart
+        .col-md-3
+          .card.shadow-sm
+            .card-header.py-3
+              %h6.m-0.fw-bold.text-primary Reservist Status
+            .card-body
+              .chart-container{ style: "height: 350px;" }
+                %canvas#reservistPieChart
+      .row.mt-4
+        .col-12
+          .card.shadow-sm
+            .card-header.d-flex.justify-content-between.align-items-center
+
+              %h6.m-0.fw-bold.text-primary Announcements
+
+              = form_with url: root_path, method: :get, local: true, class: "d-flex gap-2" do
+
+                = select_tag :year,
+                  options_for_select(@years, @selected_year),
+                  class: "form-select form-select-sm",
+                  prompt: "Select Year",
+                  onchange: "this.form.submit();"
+
+                = select_tag :month, options_for_select(Date::MONTHNAMES.compact.each_with_index.map { |m, i| [m, i+1] },@selected_month),class: "form-select form-select-sm", prompt: "All Months", onchange: "this.form.submit();"
+
+            .card-body
+              .chart-container{ style: "height: 400px;" }
+                %canvas#announcementBarChart
+
 
 
 :javascript
@@ -88,3 +116,58 @@
     });
   });
 
+  document.addEventListener("DOMContentLoaded", function() {
+    const ctx = document.getElementById('announcementBarChart');
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: #{ @announcement_data.keys.to_json },
+        datasets: [{
+          label: "Announcements",
+          data: #{ @announcement_data.values.to_json },
+          backgroundColor: "rgba(54, 162, 235, 0.6)",
+          borderColor: "rgba(54, 162, 235, 1)",
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { precision: 0 }
+          }
+        }
+      }
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const ctx = document.getElementById('reservistPieChart');
+
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ["Active", "Inactive"],
+        datasets: [{
+          data: [#{@active_count}, #{@inactive_count}],
+          backgroundColor: [
+            "rgba(40, 167, 69, 0.8)",   // green
+            "rgba(220, 53, 69, 0.8)"    // red
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "bottom"
+          }
+        }
+      }
+    });
+  });
