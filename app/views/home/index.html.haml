@@ -37,12 +37,21 @@
                   %i.material-icons.text-gray-300{ style: "font-size: 2rem;" } event
         
       / Line Chart Row
-      .row.mt-4
-        .card.shadow-sm
-          .card-header.py-3
-            %h6.m-0.fw-bold.text-primary Events per year
-          .card-body
-            %canvas#registrationsChart
+      .row.mt-2
+        .col-12
+          .card.shadow-sm
+            .card-header.d-flex.justify-content-between.align-items-center
+              %h6.m-0.fw-bold.text-primary Events per Year
+
+              = form_with url: "#", method: :get, local: true do
+                = select_tag :year,
+                  options_for_select(@years, @selected_year),
+                  class: "form-select form-select-sm",
+                  onchange: "this.form.submit();"
+
+            .card-body
+              .chart-container{ style: "height: 400px;" }
+                %canvas#registrationsChart
 
 
 :javascript
@@ -52,24 +61,30 @@
     new Chart(ctx, {
       type: 'line',
       data: {
-        labels: #{ @monthly_data.keys.map { |d| d.strftime("%b") }.to_json },
+        labels: #{ @yearly_data.keys.map { |d| d.strftime("%b") }.to_json },
         datasets: [{
           label: "Events",
-          data: #{ @monthly_data.values.to_json },
+          data: #{ @yearly_data.values.to_json },
           fill: true,
-          tension: 0.3,
+          tension: 0.4,
           borderColor: "#4e73df",
-          backgroundColor: "rgba(78, 115, 223, 0.1)",
-          pointRadius: 3
+          backgroundColor: "rgba(78, 115, 223, 0.15)",
+          pointRadius: 4,
+          pointBackgroundColor: "#4e73df"
         }]
       },
       options: {
         maintainAspectRatio: false,
+        responsive: true,
         scales: {
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+            ticks: {
+              precision: 0
+            }
           }
         }
       }
     });
   });
+
