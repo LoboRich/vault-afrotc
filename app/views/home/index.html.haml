@@ -64,7 +64,7 @@
           .card.shadow-sm
             .card-header.d-flex.justify-content-between.align-items-center
 
-              %h6.m-0.fw-bold.text-primary Announcements
+              %h6.m-0.fw-bold.text-primary Emergencies
 
               = form_with url: root_path, method: :get, local: true, class: "d-flex gap-2" do
 
@@ -124,7 +124,7 @@
       data: {
         labels: #{ @announcement_data.keys.to_json },
         datasets: [{
-          label: "Announcements",
+          label: "Emergencies",
           data: #{ @announcement_data.values.to_json },
           backgroundColor: "rgba(54, 162, 235, 0.6)",
           borderColor: "rgba(54, 162, 235, 1)",
