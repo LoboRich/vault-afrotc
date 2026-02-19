@@ -13,159 +13,220 @@
         %tr
           %td
             .field-label Rank
-            .field-value= @reservist.rank
+            .field-value= @reservist.rank.presence || "N/A"
           %td
             .field-label Last Name
-            .field-value= @reservist.last_name
+            .field-value= @reservist.last_name.presence || "N/A"
           %td
             .field-label First Name
-            .field-value= @reservist.first_name
+            .field-value= @reservist.first_name.presence || "N/A"
           %td
             .field-label Middle Name
-            .field-value= @reservist.middle_name
+            .field-value= @reservist.middle_name.presence || "N/A"
+
   %tr.field-row
     %td{colspan: 5}
       %table.inner-table
         %tr
           %td
             .field-label Br of Service
-            .field-value= @reservist.branch_of_service
+            .field-value= @reservist.branch_of_service.presence || "N/A"
           %td
             .field-label AFPSN
-            .field-value= @reservist.afpsn
+            .field-value= @reservist.afpsn.presence || "N/A"
           %td
             .field-label Primary AFSC
-            .field-value= @reservist.primary_afsc
+            .field-value= @reservist.primary_afsc.presence || "N/A"
           %td
             .field-label Duty AFSC
-            .field-value= @reservist.duty_afsc
+            .field-value= @reservist.duty_afsc.presence || "N/A"
           %td
             .field-label Other Skills
-            .field-value= @reservist.other_skills
+            .field-value= @reservist.other_skills.presence || "N/A"
+
   %tr.field-row
     %td{colspan: 4}
       %table.inner-table
         %tr
           %td
             .field-label Source of Enlistment
-            .field-value= @reservist.source_of_enlistment
+            .field-value= @reservist.source_of_enlistment.presence || "N/A"
           %td
             .field-label Authority
-            .field-value= @reservist.soe_authority
+            .field-value= @reservist.soe_authority.presence || "N/A"
           %td
             .field-label Date of Enlistment/Incorporation
-            .field-value= @reservist.soe_date_of_enlistment
+            .field-value= @reservist.soe_date_of_enlistment&.strftime("%d/%m/%Y") || "N/A"
           %td
             .field-label Initial Rank
-            .field-value= @reservist.soe_initial_rank
-  
+            .field-value= @reservist.soe_initial_rank.presence || "N/A"
+
   %tr.field-row
     %td{colspan: 4}
       %table.inner-table
         %tr
           %td
             .field-label Source of Commission
-            .field-value= @reservist.source_of_commission
+            .field-value= @reservist.source_of_commission.presence || "N/A"
           %td
             .field-label Authority
-            .field-value= @reservist.soc_authority
+            .field-value= @reservist.soc_authority.presence || "N/A"
           %td
             .field-label Date of Commission/Incorporation
-            .field-value= @reservist.soe_date_of_enlistment
+            .field-value= @reservist.soc_date_of_enlistment&.strftime("%d/%m/%Y") || "N/A"
           %td
             .field-label Initial Rank
-            .field-value= @reservist.soc_initial_rank
+            .field-value= @reservist.soc_initial_rank.presence || "N/A"
+
   %tr.field-row
     %td{colspan: 4}
       %table.inner-table
         %tr
           %td
             .field-label Reservist Classification
-            .field-value= @reservist.reservist_classification
+            .field-value= @reservist.reservist_classification.presence || "N/A"
           %td
             .field-label Authority
-            .field-value= @reservist.classification_authority
+            .field-value= @reservist.classification_authority.presence || "N/A"
           %td
             .field-label Date of Classification
-            .field-value= @reservist.date_of_classification
+            .field-value= @reservist.date_of_classification&.strftime("%d/%m/%Y") || "N/A"
+
   %tr.field-row
     %td{colspan: 4}
       %table.inner-table
         %tr
           %td
             .field-label Reserve Unit Assignment
-            .field-value= @reservist.reserve_unit_assignment
+            .field-value= @reservist.reserve_unit_assignment.presence || "N/A"
           %td
             .field-label Date Assigned
-            .field-value= @reservist.date_assigned
+            .field-value= @reservist.date_assigned&.strftime("%d/%m/%Y") || "N/A"
           %td
             .field-label Unit Capability
-            .field-value= @reservist.unit_capability
+            .field-value= @reservist.unit_capability.presence || "N/A"
+
   %tr.field-row
     %td{colspan: 4}
       %table.inner-table
         %tr
           %td
             .field-label Present Designation
-            .field-value= @reservist.present_designation
+            .field-value= @reservist.present_designation.presence || "N/A"
           %td
             .field-label Mobilization Center
-            .field-value= @reservist.mobilization_center
-  
+            .field-value= @reservist.mobilization_center.presence || "N/A"
+
   %tr.field-row
     %td{colspan: 5}
       %table.inner-table
         %tr
           %td
             .field-label Home Address(Nr/Street/Brgy)
-            .field-value= @reservist.street_address
+            .field-value= @reservist.street_address.presence || "N/A"
           %td
             .field-label Town/City
-            .field-value= @reservist.city
+            .field-value= @reservist.city.presence || "N/A"
           %td
             .field-label Province
-            .field-value= @reservist.province
+            .field-value= @reservist.province.presence || "N/A"
           %td
             .field-label Zip Code
-            .field-value= @reservist.zip_code
+            .field-value= @reservist.zip_code.presence || "N/A"
           %td
             .field-label Region
-            .field-value= @reservist.region
-            
-  %tr.section-header
-    %td{colspan: 4} HOME ADDRESS INFORMATION
+            .field-value= @reservist.region.presence || "N/A"
 
-  %tr
-    %th Home Address
-    %td{colspan: 3}= @reservist.street_address
+  %tr.field-row
+    %td{colspan: 4}
+      %table.inner-table
+        %tr
+          %td
+            .field-label Date of Birth (dd/mm/yyyy)
+            .field-value= @reservist.date_of_birth&.strftime("%d/%m/%Y") || "N/A"
+          %td
+            .field-label Age
+            .field-value= @reservist.age.presence || "N/A"
+          %td
+            .field-label Place of Birth (Town/Province)
+            .field-value= @reservist.place_of_birth.presence || "N/A"
 
-  %tr
-    %th Town/City
-    %td= @reservist.city
-    %th Province
-    %td= @reservist.province
+  %tr.field-row
+    %td{colspan: 4}
+      %table.inner-table
+        %tr
+          %td
+            .field-label Email Address
+            .field-value= @reservist.email.presence || "N/A"
+          %td
+            .field-label Residence Tel Nr
+            .field-value= @reservist.residence_tel.presence || "N/A"
+          %td
+            .field-label Office Tel Nr
+            .field-value= @reservist.office_tel.presence || "N/A"
+          %td
+            .field-label Mobile Nr
+            .field-value= @reservist.mobile_nr.presence || "N/A"
 
-  %tr
-    %th Zip Code
-    %td= @reservist.zip_code
-    %th Region
-    %td= @reservist.region
+  %tr.field-row
+    %td{colspan: 4}
+      %table.inner-table
+        %tr
+          %td
+            .field-label Ethnic Group
+            .field-value= @reservist.ethnic_group.presence || "N/A"
+          %td
+            .field-label Sex
+            .field-value= @reservist.sex.presence || "N/A"
+          %td
+            .field-label Marital Status
+            .field-value= @reservist.marital_status.presence || "N/A"
 
-  %tr.section-header
-    %td{colspan: 4} PERSONAL DETAILS
-
-  %tr
-    %th Date of Birth
-    %td= @reservist.date_of_birth
-    %th Age
-    %td= @reservist.age
-
-  %tr
-    %th Place of Birth
-    %td{colspan: 3}= @reservist.place_of_birth
-
-  %tr
-    %th Email Address
-    %td= @reservist.email
-    %th Mobile Nr
-    %td= @reservist.mobile_nr
+  %tr.field-row
+    %td{colspan: 4}
+      %table.inner-table{style: "width: 100%; border-collapse: collapse;"}
+        %tr
+          %td{rowspan: 3}
+            .field-label Religion
+            .field-value= @reservist.religion.presence || "N/A"
+          %td
+            .field-label Blood Type
+            .field-value= @reservist.blood_type.presence || "N/A"
+          %td
+            .field-label Color of Eyes
+            .field-value= @reservist.eye_color.presence || "N/A"
+          %td
+            .field-label Color of Hair
+            .field-value= @reservist.hair_color.presence || "N/A"
+          %td
+            .field-label Complexion
+            .field-value= @reservist.complexion.presence || "N/A"
+          %td
+            .field-label Identifying Marks
+            .field-value= @reservist.identifying_marks.presence || "N/A"
+        %tr
+          %td
+            .field-label Weight (kg)
+            .field-value= @reservist.weight_kg.presence || "N/A"
+          %td
+            .field-label TIN
+            .field-value= @reservist.tin.presence || "N/A"
+          %td
+            .field-label SSS Nr
+            .field-value= @reservist.sss_number.presence || "N/A"
+          %td
+            .field-label GSIS Nr
+            .field-value= @reservist.gsis_number.presence || "N/A"
+          %td
+            .field-label PhilHealth Nr
+            .field-value= @reservist.philhealth_number.presence || "N/A"
+          %td
+            .field-label Pag-ibig Nr
+            .field-value= @reservist.pagibig_number.presence || "N/A"
+        %tr
+          %td
+            .field-label Height (cm)
+            .field-value= @reservist.height_cm.presence || "N/A"
+          %td
+            .field-label Dialect Spoken
+            .field-value= @reservist.dialects_spoken.presence || "N/A"
