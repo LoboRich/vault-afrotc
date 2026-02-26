@@ -1,10 +1,71 @@
-%p{style: "color: green"}= notice
+.app-content
+  .container.my-5
+    .card.border-0.shadow-sm.p-4.lh-lg
+      .d-flex.justify-content-between.align-items-start.mb-4
+        %h5.mb-0 Annex B – ADT Application Form
+        -# - if @adt.reservist?.photo?.attached?
+        -#   = image_tag @adt.reservist.photo.variant(resize_to_limit: [120, 120]), class: "rounded"
+        -# - else
+        %div.d-flex.flex-column.align-items-center
+          = image_tag "no-img-available.jpg", class: "rounded", size: "200x200"
+          .d-flex.flex-column.align-items-center.mt-3{style:"line-height: 0.2;"}
+            %p.text-decoration-underline
+              = @adt.created_at.strftime("%d %B %Y")
+            Date
 
-= render @adt
+      %p 
+        SUBJECT:
+        %strong=  "Application for #{@adt.subject}"
 
-%div
-  = link_to "Edit this adt", edit_adt_path(@adt)
-  |
-  = link_to "Back to adts", adts_path
+      %p
+        %strong To:
+        Commander, AFRC
+        %br
+        Clark Air Base, Mabalacat City, Pampanga
+        %br
+        Attn: ACCS for Personnel, C-1
 
-  = button_to "Destroy this adt", @adt, method: :delete
+      %ol
+        %li
+          References:
+          %ol.d{type: "a"}
+            %li Section 51 (2) RA 7077 s-91.
+            %li CIRCULAR 1, GHQ AFP, dtd 01 February 2000, Subject: Active Duty Training of AFP Reservist.
+
+        %li
+          = "Request that I will be allowed to undergo  #{@adt.subject} (ADT) effective upon approval for the following reasons:"
+          %ol.d{type: "a"}
+            %li
+              That I was commissioned/incorporated/enlisted into the Reserve Force, PAF (AFP) effective
+              %strong= @adt.date_of_enlistment.strftime("%d %B %Y")
+              pursuant to Special Order No.
+              %strong= @adt.special_order_no
+              %strong= @adt.special_order_no_date.strftime("%d %B %Y")
+              with current designation as
+              %strong= @adt.designation
+              at
+              %strong= @adt.squadron
+            %li
+              That I want to upgrade my proficiency as regard to the rudiments of the military.
+            %li
+              = "That I waive my rights to received pay and allowances during the duration of my #{@adt.subject}."
+
+        %li
+          Further request favorable consideration and approval.
+      
+      .d-flex.justify-content-end.mt-5.flex-column.align-items-end{style:"line-height: 0.2; margin-right: 100px;"}
+        .div.text-center
+          %p.text-decoration-underline
+            %strong= @adt.reservist.full_name.upcase
+          %p
+            (Signature/over printed name)
+
+      .mt-4
+        %p
+          %strong Enclosure:
+          %br
+          a. Commission/Enlistment Order;
+          %br
+          b. Designation Order;
+          %br
+          c. Updated SOI
