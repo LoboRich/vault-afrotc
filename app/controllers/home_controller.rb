@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  before_action :authenticate_user!
   def index
     @reservists = Reservist.all
     @total_reservists = @reservists.count

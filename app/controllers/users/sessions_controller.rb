@@ -3,11 +3,11 @@ class Users::SessionsController < Devise::SessionsController
     self.resource = warden.authenticate!(auth_options)
 
     resource.generate_otp
-    SmsSender.send_sms(
-      recipient: "09164745123",
-      message: "Your OTP is #{resource.otp_code}"
-    )
-
+    # SmsSender.send_sms(
+    #   recipient: "09164745123",
+    #   message: "Your OTP is #{resource.otp_code}"
+    # )
+    OtpMailer.new_otp(resource).deliver_now
     session[:otp_user_id] = resource.id
     sign_out resource
 

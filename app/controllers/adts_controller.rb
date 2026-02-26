@@ -1,4 +1,5 @@
 class AdtsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_adt, only: %i[ show edit update destroy ]
 
   # GET /adts or /adts.json
