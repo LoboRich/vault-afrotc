@@ -1,0 +1,10 @@
+%h1 Editing adt
+
+= render "form", adt: @adt
+
+%br
+
+%div
+  = link_to "Show this adt", @adt
+  |
+  = link_to "Back to adts", adts_path

@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  reservist: one
+  subject: MyString
+  date_of_enlistment: 2026-02-26
+  special_order_no: MyString
+  special_order_no_date: 2026-02-26
+  designation: MyString
+  squadron: MyString
+
+two:
+  reservist: two
+  subject: MyString
+  date_of_enlistment: 2026-02-26
+  special_order_no: MyString
+  special_order_no_date: 2026-02-26
+  designation: MyString
+  squadron: MyString

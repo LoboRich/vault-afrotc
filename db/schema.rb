@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_15_055500) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_26_043719) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "adts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "reservist_id", null: false
+    t.string "subject"
+    t.date "date_of_enlistment"
+    t.string "special_order_no"
+    t.date "special_order_no_date"
+    t.string "designation"
+    t.string "squadron"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reservist_id"], name: "index_adts_on_reservist_id"
+  end
 
   create_table "announcemnts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
@@ -118,5 +131,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_15_055500) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "adts", "reservists"
   add_foreign_key "reservists", "users"
 end

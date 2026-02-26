@@ -1,0 +1,11 @@
+%p{style: "color: green"}= notice
+
+%h1 Adts
+
+%div{id: "adts"}
+  - @adts.each do |adt|
+    = render adt
+    %p
+      = link_to "Show this adt", adt
+
+= link_to "New adt", new_adt_path

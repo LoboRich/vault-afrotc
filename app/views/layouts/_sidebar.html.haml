@@ -25,6 +25,24 @@
         = link_to "/mapping/index",class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
           %i.material-icons map
           Mapping
+      %li.nav-item
+        %a.nav-link.d-flex.align-items-center.justify-content-between{
+          data: { bs_toggle: "collapse" },
+          href: "#eventsSubmenu",
+          role: "button",
+          aria: { expanded: "false", controls: "eventsSubmenu" }
+        }
+          .d-flex.align-items-center.gap-2
+            %i.material-icons military_tech
+            %span ADT
+
+          %i.material-icons.chevron-icon expand_more
+
+        %ul.collapse.list-unstyled.ps-4#eventsSubmenu
+          %li
+            = link_to "Create Application", new_adt_path, class: "nav-link"
+          %li
+            = link_to "View Applications", adts_path, class: "nav-link"
       %li.nav-item.p-3
         = button_to destroy_user_session_path, method: :delete, class: 'nav-link btn btn-link p-0 text-start' do
           %i.material-icons logout
@@ -56,6 +74,24 @@
           = link_to "/mapping/index",class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
             %i.material-icons map
             Mapping
+        %li.nav-item
+          %a.nav-link.d-flex.align-items-center.justify-content-between{
+            data: { bs_toggle: "collapse" },
+            href: "#eventsSubmenu",
+            role: "button",
+            aria: { expanded: "false", controls: "eventsSubmenu" }
+          }
+            .d-flex.align-items-center.gap-2
+              %i.material-icons military_tech
+              %span ADT
+
+            %i.material-icons.chevron-icon expand_more
+
+          %ul.collapse.list-unstyled.ps-4#eventsSubmenu
+            %li
+              = link_to "Create Application", new_adt_path, class: "nav-link"
+            %li
+              = link_to "View Applications", adts_path, class: "nav-link"
         %li.nav-item.p-3
           = button_to destroy_user_session_path, method: :delete, class: 'nav-link btn btn-link p-0 text-start' do
             %i.material-icons logout

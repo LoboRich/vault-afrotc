@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :adts
   resources :announcemnts do
     collection do
       get :search
