@@ -1,39 +1,47 @@
-= form_with(model: adt) do |form|
-  - if adt.errors.any?
-    %div{style: "color: red"}
-      %h2= "#{pluralize(adt.errors.count, "error")} prohibited this adt from being saved:"
-
+= form_for @adt do |form|
+  - if @adt.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@adt.errors.count, "error")} prohibited this event from being saved:"
       %ul
-        - adt.errors.each do |error|
-          %li= error.full_message
+        - @adt.errors.full_messages.each do |message|
+          %li= message
+  .card
+    .card-header
+      %div.d-flex.align-items-center
+        %h4.card-title
+          New ADT
+    
+    .card-body.form-group.mb-0
+      .row
+        .col-md-6.pt-3
+          .field
+            = form.label :subject
+            = form.select :subject,
+              [["ADT", "Active Duty Training"], ["VADT", "Voluntary Active Duty Training"], ["UADT", "Unit Active Duty Training"] ],
+              {},
+              class: "form-control",
+              required: true
+            = form.hidden_field :reservist_id, value: current_user.reservist.id
+        .col-md-6.pt-3
+          .field
+            = form.label :date_of_enlistment
+            = form.date_field :date_of_enlistment, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          = form.label :special_order_no
+          = form.text_field :special_order_no, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          = form.label :special_order_no_date
+          = form.date_field :special_order_no_date, class: 'form-control', required:  true
+        .col-md-6.pt-3
+          .field
+            = form.label :designation
+            = form.text_field :designation, class: 'form-control', required:  true, value: current_user.reservist.present_designation
+        .col-md-6.pt-3
+          .field
+            = form.label :squadron
+            = form.text_field :squadron, class: 'form-control', required:  true
 
-  %div
-    = form.label :reservist_id, style: "display: block"
-    = form.text_field :reservist_id
-
-  %div
-    = form.label :subject, style: "display: block"
-    = form.text_field :subject
-
-  %div
-    = form.label :date_of_enlistment, style: "display: block"
-    = form.date_field :date_of_enlistment
-
-  %div
-    = form.label :special_order_no, style: "display: block"
-    = form.text_field :special_order_no
-
-  %div
-    = form.label :special_order_no_date, style: "display: block"
-    = form.date_field :special_order_no_date
-
-  %div
-    = form.label :designation, style: "display: block"
-    = form.text_field :designation
-
-  %div
-    = form.label :squadron, style: "display: block"
-    = form.text_field :squadron
-
-  %div
-    = form.submit
+      
+      .d-flex.pt-4.gap-2.justify-content-end
+        = link_to 'Back', adts_path, class: 'btn btn-secondary'
+        = form.submit 'Save Changes', class: 'btn btn-primary float-right'

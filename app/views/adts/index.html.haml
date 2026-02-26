@@ -1,11 +1,51 @@
-%p{style: "color: green"}= notice
+.app-content
+  .content-wrapper
+    .container
+      .card
+        .card-header
+          %div.d-flex.align-items-center
+            %h4.card-title
+              ADT
 
-%h1 Adts
+        .card-body
+          .datatable-container
+            .table-responsive.datatable-container
+              %table#vehicles-table.table.table-striped.table-bordered.table-hover.table-sm.datatable
+                %thead.bg-light
+                  %tr
+                    %th Reservist
+                    %th Subject
+                    %th Date of Enlistment
+                    %th Special Order No.
+                    %th Special Order No. Date
+                    %th Designation
+                    %th Squadron
+                  %th Action
+                %tbody
+                  - @adts.each do |adt|
+                    %tr.odd{ role: "row" }
+                      %td= adt.reservist.full_name
+                      %td= adt.subject
+                      %td= adt.date_of_enlistment
+                      %td= adt.special_order_no
+                      %td= adt.special_order_no_date
+                      %td= adt.designation
+                      %td= adt.squadron
+                      
+                      %td
+                        .form-button-action.gap-3
+                          = link_to adt, title: "Show it", class: "text-primary" do
+                            %i.material-icons visibility
 
-%div{id: "adts"}
-  - @adts.each do |adt|
-    = render adt
-    %p
-      = link_to "Show this adt", adt
+                          = link_to edit_adt_path(adt), title: "Edit it", class: "text-success" do
+                            %i.material-icons edit
 
-= link_to "New adt", new_adt_path
+                          -# = link_to event,
+                          -#   data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                          -#   title: "Destroy it",
+                          -#   class: "text-danger" do
+                          -#   %i.material-icons delete
+
+
+
+
