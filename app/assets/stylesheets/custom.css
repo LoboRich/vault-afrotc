@@ -28,6 +28,7 @@ h1, h2, h3, h4, h5 {
 
 #sidebar-mobile {
   background-color: #1a2035 !important;
+  width: 250px !important;
 }
 
 .nav-item .nav-link {
