@@ -43,11 +43,9 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
-
+gem "image_processing", "~> 1.14"
 #SystemsPlant
 gem 'carrierwave'
-gem 'cloudinary', '~> 1.29'
 gem "net-ssh"
 gem 'mini_magick'
 gem 'html2haml', '~> 2.3'
@@ -64,6 +62,8 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'groupdate'
 gem 'http'
+gem "cloudinary", "~> 2.2.0"
+gem "activestorage-cloudinary-service"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

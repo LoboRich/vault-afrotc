@@ -49,9 +49,9 @@
 
     %ul.dropdown-menu.dropdown-menu-end
       %li
-        %a.dropdown-item{ href: "#" } My Profile
+        %a.dropdown-item{ href: "/reservists/#{current_user.reservist.id}" } My Profile
       %li
-        %a.dropdown-item{ href: "#" } Account Setting
+        %a.dropdown-item{ href: edit_user_registration_path } Account Setting
       %li
         %hr.dropdown-divider
       %li

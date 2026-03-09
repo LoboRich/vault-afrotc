@@ -7,7 +7,10 @@
         -#   = image_tag @adt.reservist.photo.variant(resize_to_limit: [120, 120]), class: "rounded"
         -# - else
         %div.d-flex.flex-column.align-items-center
-          = image_tag "no-img-available.jpg", class: "rounded", size: "200x200"
+          - if @adt.reservist.user.photo.attached?
+            = image_tag @adt.reservist.user.photo.variant(resize_to_limit: [200, 200]), class: "rounded"
+          - else
+            = image_tag "no-img-available.jpg", class: "rounded", size: "200x200"
           .d-flex.flex-column.align-items-center.mt-3{style:"line-height: 0.2;"}
             %p.text-decoration-underline
               = @adt.created_at.strftime("%d %B %Y")
