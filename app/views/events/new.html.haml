@@ -1,6 +1,12 @@
 .app-content
   .content-wrapper
     .container
-      = render 'form'
+      .card
+        .card-header
+          %div.d-flex.align-items-center
+            %h4.card-title
+              New Event
+        .card-body.form-group.mb-0
+          = render 'form'
 
 - content_for(:page_title, 'Dashboard')
