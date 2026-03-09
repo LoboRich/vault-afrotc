@@ -3,11 +3,15 @@ class Users::SessionsController < Devise::SessionsController
     self.resource = warden.authenticate!(auth_options)
 
     resource.generate_otp
-    # SmsSender.send_sms(
-    #   recipient: "09164745123",
-    #   message: "Your OTP is #{resource.otp_code}"
-    # )
     OtpMailer.new_otp(resource).deliver_now
+
+    api = SmsApi.new
+    if api.send_message(message: "Hi! Your OTP code is: #{resource.otp_code}", number: "09164745123")
+      print 'Message sent!'
+    else
+      print 'Message sending failed!'
+    end
+    
     session[:otp_user_id] = resource.id
     sign_out resource
 
