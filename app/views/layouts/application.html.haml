@@ -17,14 +17,14 @@
     %link{:href => "https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css", :rel => "stylesheet", :type => "text/css"}/
 
     %link{:href => "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css", :rel => "stylesheet"}/
-    %script{:src => "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"}
-
-    %script{:src => "https://cdn.jsdelivr.net/npm/chart.js"}
 
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
 
     / Importmap
     = javascript_importmap_tags
+
+    %script{:src => "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"}
+    %script{:src => "https://cdn.jsdelivr.net/npm/chart.js"}
 
   %body{ data: { turbo: "false" } }
     - if user_signed_in?
