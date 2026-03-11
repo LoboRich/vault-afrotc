@@ -6,7 +6,7 @@ class Users::SessionsController < Devise::SessionsController
     OtpMailer.new_otp(resource).deliver_now
 
     api = SmsApi.new
-    if api.send_message(message: "Hi! Your OTP code is: #{resource.otp_code}", number: "09164745123")
+    if api.send_message(message: "Hi! Your OTP code is: #{resource.otp_code}", number: "09276112312")
       print 'Message sent!'
     else
       print 'Message sending failed!'
