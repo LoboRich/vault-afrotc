@@ -4,6 +4,10 @@ class ReservistsController < ApplicationController
   layout "registration", only: [:new]
   # GET /reservists or /reservists.json
   def index
+    if current_user.role != "admin"
+      redirect_to reservist_path(current_user.reservist)
+      return
+    end
     @reservists = Reservist.all
   end
 

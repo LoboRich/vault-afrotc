@@ -1,6 +1,10 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!
   def index
+    unless current_user.role == "admin"
+      redirect_to reservist_path(current_user.reservist)
+      return
+    end
     @reservists = Reservist.all
     @total_reservists = @reservists.count
     @active_count   = @reservists.where(is_active: true).count

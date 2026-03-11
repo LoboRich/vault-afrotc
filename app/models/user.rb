@@ -9,6 +9,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   before_save :resize_and_convert_photo, if: -> { photo.attached? }
+
+  def role
+    reservist.role
+  end
   def generate_otp
     self.otp_code = rand(100000..999999).to_s
     self.otp_sent_at = Time.current
@@ -23,8 +27,6 @@ class User < ApplicationRecord
     return false if otp_expired?
     otp_code == code
   end
-
-  private
 
   private
 
