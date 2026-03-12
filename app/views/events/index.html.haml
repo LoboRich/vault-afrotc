@@ -11,34 +11,34 @@
       .row.g-3
         - @events.each do |event|
           .col-12.col-md-6.col-lg-4
-            .card.shadow-sm.h-100.border-1.border-primary.shadow-primary
-              .card-body
+            = link_to event_path(event), class: "text-decoration-none text-dark" do
+              .card.shadow-sm.h-100.border-1.border-primary.shadow-primary
+                .card-body
 
-                / Header
-                .d-flex.justify-content-between.align-items-start.mb-2
-                  %h5.card-title.mb-0= event.name
-                  
-                  - if event.event_date.present?
-                    - status = event.event_date < Date.today ? "Past" : "Upcoming"
-                    %span.badge{class: status == "Upcoming" ? "bg-success" : "bg-secondary"}
-                      = status
+                  / Header
+                  .d-flex.justify-content-between.align-items-start.mb-2
+                    %h5.card-title.mb-0= event.name
 
-                / Date
-                .text-muted.small.mb-2
-                  %i.material-icons.me-1 schedule
-                  = event.event_date
+                    - if event.event_date.present?
+                      - status = event.event_date < Date.today ? "Past" : "Upcoming"
+                      %span.badge{class: status == "Upcoming" ? "bg-success" : "bg-secondary"}
+                        = status
 
-                / Location
-                .text-muted.small.mb-2
-                  %i.material-icons.me-1 location_on
-                  = event.location
+                  / Date
+                  .text-muted.small.mb-2
+                    %i.material-icons.me-1 schedule
+                    = event.event_date
 
-                / Type
-                .mb-2
-                  %span.badge.bg-primary.text-light
-                    = event.event_type
+                  / Location
+                  .text-muted.small.mb-2
+                    %i.material-icons.me-1 location_on
+                    = event.location
 
-                / Description
-                %p.small.text-muted.mb-3
-                  = truncate(event.description, length: 120)
+                  / Type
+                  .mb-2
+                    %span.badge.bg-primary.text-light
+                      = event.event_type
 
+                  / Description
+                  %p.small.text-muted.mb-3
+                    = truncate(event.description, length: 120)
