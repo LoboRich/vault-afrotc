@@ -1,55 +1,44 @@
 .app-content
   .content-wrapper
     .container
-      .card
-        .card-header
-          %div.d-flex.align-items-center
-            %h4.card-title
-              Events
-            %div.ms-auto.d-flex.gap-2
-              = link_to new_event_path, class: "btn btn-primary btn-round ms-auto btn-sm d-flex align-items-center" do
-                %i.material-icons.me-1 add
-                Add Event
-              %a.d-none.d-sm-inline-block.btn.btn-sm.btn-success.shadow-sm{:href => "#"}
-                %i.material-icons.me-1 download
-                Download
+      .d-flex.align-items-center.mb-3
+        %h4.mb-0 Events
+        .ms-auto
+        - if current_user.role == "admin"
+          = link_to new_event_path, class: "btn btn-primary btn-sm d-flex align-items-center gap-1" do
+            %i.material-icons add
+            Add Event
+      .row.g-3
+        - @events.each do |event|
+          .col-12.col-md-6.col-lg-4
+            .card.shadow-sm.h-100.border-1.border-primary.shadow-primary
+              .card-body
 
+                / Header
+                .d-flex.justify-content-between.align-items-start.mb-2
+                  %h5.card-title.mb-0= event.name
+                  
+                  - if event.event_date.present?
+                    - status = event.event_date < Date.today ? "Past" : "Upcoming"
+                    %span.badge{class: status == "Upcoming" ? "bg-success" : "bg-secondary"}
+                      = status
 
-        .card-body
-          .datatable-container
-            .table-responsive.datatable-container
-              %table#vehicles-table.table.table-striped.table-bordered.table-hover.table-sm.datatable
-                %thead.bg-light
-                  %tr
-                    %th Name
-                    %th Description
-                    %th Event Date
-                    %th Location
-                    %th Event Type
-                  %th Action
-                %tbody
-                  - @events.each do |event|
-                    %tr.odd{ role: "row" }
-                      %td= event.name
-                      %td= event.description
-                      %td= event.event_date
-                      %td= event.location
-                      %td= event.event_type
-                      
-                      %td
-                        .form-button-action.gap-3
-                          = link_to event, title: "Show it", class: "text-primary" do
-                            %i.material-icons visibility
+                / Date
+                .text-muted.small.mb-2
+                  %i.material-icons.me-1 schedule
+                  = event.event_date
 
-                          = link_to edit_event_path(event), title: "Edit it", class: "text-success" do
-                            %i.material-icons edit
+                / Location
+                .text-muted.small.mb-2
+                  %i.material-icons.me-1 location_on
+                  = event.location
 
-                          -# = link_to event,
-                          -#   data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
-                          -#   title: "Destroy it",
-                          -#   class: "text-danger" do
-                          -#   %i.material-icons delete
+                / Type
+                .mb-2
+                  %span.badge.bg-primary.text-light
+                    = event.event_type
 
-
-
+                / Description
+                %p.small.text-muted.mb-3
+                  = truncate(event.description, length: 120)
 
