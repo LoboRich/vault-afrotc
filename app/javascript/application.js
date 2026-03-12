@@ -5,7 +5,7 @@ import { DataTable } from "simple-datatables"
 // Debug: confirm JS is loading
 console.log("application.js loaded")
 
-document.addEventListener("turbo:load", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const table = document.querySelector(".datatable");
   if (!table) return;
 
@@ -24,7 +24,7 @@ document.addEventListener("turbo:load", () => {
 });
 
 
-document.addEventListener("turbo:load", function () {
+document.addEventListener("DOMContentLoaded", function () {
   const mapEl = document.getElementById("map");
   if (!mapEl) return;
 
