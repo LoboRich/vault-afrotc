@@ -1,11 +1,12 @@
 import "@hotwired/turbo-rails"
-import "controllers"
-import { DataTable } from "simple-datatables"
 
 // Debug: confirm JS is loading
 console.log("application.js loaded")
+import "controllers"
+import { DataTable } from "simple-datatables"
 
-document.addEventListener("DOMContentLoaded", () => {
+
+document.addEventListener("turbo:load", () => {
   const table = document.querySelector(".datatable");
   if (!table) return;
 
@@ -24,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("turbo:load", function () {
   const mapEl = document.getElementById("map");
   if (!mapEl) return;
 
