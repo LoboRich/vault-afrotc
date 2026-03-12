@@ -1,11 +1,11 @@
-pin "application"
+pin "application", preload: true
 pin "@hotwired/turbo-rails", to: "@hotwired--turbo-rails.js"
 pin "@hotwired/turbo", to: "@hotwired--turbo.js"
 pin "@hotwired/stimulus", to: "stimulus.min.js", preload: true
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
 
-pin_all_from "app/javascript/controllers", under: "controllers"
-
+pin_all_from "app/javascript/controllers", under: "controllers", preload: true
+pin_all_from "app/javascript", under: "javascript"
 pin "@rails/ujs", to: "@rails--ujs.js"
 
 pin "chart.js"
