@@ -20,11 +20,12 @@
           = f.label :password, "Password", class: "form-label"
           = f.password_field :password, required: true, autocomplete: "current-password", class: "form-control", placeholder: "●●●●●●●●"
 
-        .d-grid
+        .d-grid.mb-2
           = f.submit "Log in", class: "btn btn-primary btn-lg"
+        
 
-    .text-center.mt-4
+    .text-center
       %small.text-muted
-        Don't have an account?
-        %br/
-        Please contact admin for your account credentials.
+        Don't have an account?  
+    .d-grid
+      = link_to "Register", new_reservist_path, class: "btn btn-outline-primary btn-lg"
