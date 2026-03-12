@@ -11,6 +11,6 @@ pin "chart.js"
 pin "chartkick", to: "chartkick.js"
 pin "@kurkle/color", to: "@kurkle--color.js"
 
-pin "simple-datatables"
+pin "simple-datatables", to: "https://ga.jspm.io/npm:simple-datatables@9.0.3/dist/module.js"
 
 pin "@rails/actioncable/src", to: "@rails--actioncable--src.js"
