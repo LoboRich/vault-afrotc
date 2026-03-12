@@ -23,8 +23,8 @@
           = link_to "/reservists", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
             %i.material-icons groups
             Reservists
-        %li.nav-item.p-3{class: "#{'active' if current_page?('/mapping/index')}"}
-          = link_to "/mapping/index",class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
+        %li.nav-item.p-3{class: "#{'active' if current_page?(mapping_path)}"}
+          = link_to mapping_path, class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
             %i.material-icons map
             Mapping
       %li.nav-item
@@ -78,8 +78,8 @@
             = link_to "/reservists", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
               %i.material-icons groups
               Reservists
-          %li.nav-item.p-3{class: "#{'active' if current_page?('/mapping/index')}"}
-            = link_to "/mapping/index",class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
+          %li.nav-item.p-3{class: "#{'active' if current_page?(mapping_path)}"}
+            = link_to mapping_path,class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
               %i.material-icons map
               Mapping
         %li.nav-item

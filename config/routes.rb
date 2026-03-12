@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       get :search
     end
   end
-  get 'mapping/index'
+  get 'mapping', to: 'mapping#index'
   resources :events
   resources :reservists do
     collection do
