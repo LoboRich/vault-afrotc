@@ -58,7 +58,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const latField = document.getElementById("announcemnt_latitude");
   const lngField = document.getElementById("announcemnt_longitude");
-
+  if (!latField || !lngField) return;
+  
   let searchMarker = null;
 
   function updateMapFromFields() {
