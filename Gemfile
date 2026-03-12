@@ -65,11 +65,11 @@ gem 'http'
 gem "cloudinary", "~> 2.2.0"
 gem "activestorage-cloudinary-service"
 gem "rest-client"
+gem 'dotenv-rails'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
-  gem 'dotenv-rails'
 end
 
 group :development do
