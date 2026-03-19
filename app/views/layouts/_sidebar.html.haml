@@ -44,6 +44,13 @@
             = link_to "Create Application", new_adt_path, class: "nav-link"
           %li
             = link_to "View Applications", adts_path, class: "nav-link"
+
+      - if current_user.role == "admin"
+        %li.nav-item.p-3{class: "#{'active' if current_page?('/history')}"}
+          = link_to "/history", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
+            %i.material-icons history
+            History
+
       %li.nav-item.p-3
         = button_to destroy_user_session_path, method: :delete, class: 'nav-link btn btn-link p-0 text-start' do
           %i.material-icons logout
@@ -98,6 +105,13 @@
               = link_to "Create Application", new_adt_path, class: "nav-link"
             %li
               = link_to "View Applications", adts_path, class: "nav-link"
+
+        - if current_user.role == "admin"
+          %li.nav-item.p-3{class: "#{'active' if current_page?('/history')}"}
+            = link_to "/history", class: "nav-link btn btn-link p-0 text-start d-flex align-items-center gap-2" do
+              %i.material-icons history
+              History
+
         %li.nav-item.p-3
           = button_to destroy_user_session_path, method: :delete, class: 'nav-link btn btn-link p-0 text-start' do
             %i.material-icons logout

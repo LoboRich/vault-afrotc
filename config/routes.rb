@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'history', to: 'history#index'
   resources :adts
   resources :announcemnts do
     collection do
