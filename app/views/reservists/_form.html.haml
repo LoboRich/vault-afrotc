@@ -11,160 +11,160 @@
       .col-md-3
         %div
           = form.label :rank
-          = form.text_field :rank, class: "form-control", required: true
+          = form.text_field :rank, class: "form-control"   
       .col-md-3
         %div
           = form.label :last_name
-          = form.text_field :last_name, class: "form-control", required: true
+          = form.text_field :last_name, class: "form-control"   
       .col-md-3
         %div
           = form.label :first_name
-          = form.text_field :first_name, class: "form-control", required: true
+          = form.text_field :first_name, class: "form-control"   
       .col-md-3
         %div
           = form.label :middle_name
-          = form.text_field :middle_name, class: "form-control", required: true
+          = form.text_field :middle_name, class: "form-control"   
     .row
       .col-md-3
         %div
           = form.label :branch_of_service
-          = form.text_field :branch_of_service, class: "form-control", required: true
+          = form.text_field :branch_of_service, class: "form-control"   
           -# dropdown field (Navy, Air Force, Army)
       .col-md-3
         %div
           = form.label :afpsn
-          = form.text_field :afpsn, class: "form-control", required: true
+          = form.text_field :afpsn, class: "form-control"   
       .col-md-2
         %div
           = form.label :primary_afsc
-          = form.text_field :primary_afsc, class: "form-control", required: true
+          = form.text_field :primary_afsc, class: "form-control"   
       .col-md-3
         %div
           = form.label :duty_afsc
-          = form.text_field :duty_afsc, class: "form-control", required: true
+          = form.text_field :duty_afsc, class: "form-control"   
     .row
       .col-md-6
         %div
           = form.label :other_skills
-          = form.text_area :other_skills, class: "form-control", required: true
+          = form.text_area :other_skills, class: "form-control"   
 
     .row
       .col-md-3
         %div
           = form.label :source_of_enlistment
-          = form.text_field :source_of_enlistment, class: "form-control", required: true
+          = form.text_field :source_of_enlistment, class: "form-control"   
       .col-md-3
         %div
           = form.label "authority"
-          = form.text_field :soe_authority, class: "form-control", required: true
+          = form.text_field :soe_authority, class: "form-control"   
       .col-md-3
         %div
           = form.label "date of enlistment"
-          = form.date_field :soe_date_of_enlistment, class: "form-control", required: true
+          = form.date_field :soe_date_of_enlistment, class: "form-control"   
       .col-md-3
         %div
           = form.label "initial rank"
-          = form.text_field :soe_initial_rank, class: "form-control", required: true
+          = form.text_field :soe_initial_rank, class: "form-control"   
     .row
       .col-md-3
         %div
           = form.label :source_of_commission
-          = form.text_field :source_of_commission, class: "form-control", required: true
+          = form.text_field :source_of_commission, class: "form-control"   
       .col-md-3
         %div
           = form.label :soc_authority
-          = form.text_field :soc_authority, class: "form-control", required: true
+          = form.text_field :soc_authority, class: "form-control"   
       .col-md-3
         %div
           = form.label :soc_date_of_enlistment
-          = form.date_field :soc_date_of_enlistment, class: "form-control", required: true
+          = form.date_field :soc_date_of_enlistment, class: "form-control"   
       .col-md-3
         %div
           = form.label :soc_initial_rank
-          = form.text_field :soc_initial_rank, class: "form-control", required: true
+          = form.text_field :soc_initial_rank, class: "form-control"   
     .row
       .col-md-4
         %div
           = form.label :reservist_classification
-          = form.text_field :reservist_classification, class: "form-control", required: true
+          = form.text_field :reservist_classification, class: "form-control"   
       .col-md-4
         %div
           = form.label :classification_authority
-          = form.text_field :classification_authority, class: "form-control", required: true
+          = form.text_field :classification_authority, class: "form-control"   
       .col-md-4
         %div
           = form.label :date_of_classification
-          = form.date_field :date_of_classification, class: "form-control", required: true
+          = form.date_field :date_of_classification, class: "form-control"   
     .row
       .col-md-4
         %div
           = form.label :reserve_unit_assignment
-          = form.text_field :reserve_unit_assignment, class: "form-control", required: true
+          = form.text_field :reserve_unit_assignment, class: "form-control"   
       .col-md-4
         %div
           = form.label :date_assigned
-          = form.date_field :date_assigned, class: "form-control", required: true
+          = form.date_field :date_assigned, class: "form-control"   
       .col-md-4
         %div
           = form.label :unit_capability
-          = form.text_field :unit_capability, class: "form-control", required: true
+          = form.text_field :unit_capability, class: "form-control"   
 
     .row
       .col-md-6
         %div
           = form.label :present_designation
-          = form.text_field :present_designation, class: "form-control", required: true
+          = form.text_field :present_designation, class: "form-control"   
       .col-md-6
         %div
           = form.label :mobilization_center
-          = form.text_field :mobilization_center, class: "form-control", required: true
+          = form.text_field :mobilization_center, class: "form-control"   
     .row 
       .col-md-12.pt-3
         .field
           = form.label :location
-          = form.text_field :location, id: "address-search", class: 'form-control', required:  true, placeholder: "Enter address",data: { controller: "reservist-location" }
+          = form.text_field :location, id: "address-search", class: 'form-control', placeholder: "Enter address",data: { controller: "reservist-location" }
       .col-md-12.pt.3 
         %div#autocomplete-results.list-group.position-absolute.w-100
       .col-md-6.pt-3
         .field
-          = form.hidden_field :lat, class: 'form-control', required:  true
+          = form.hidden_field :lat, class: 'form-control'  
       .col-md-6.pt-3
         .field
-          = form.hidden_field :long, class: 'form-control', required:  true
+          = form.hidden_field :long, class: 'form-control'  
     .row
       .col-md-3
         %div
           = form.label :street_address
-          = form.text_field :street_address, class: "form-control", required: true
+          = form.text_field :street_address, class: "form-control"   
       .col-md-2
         %div
           = form.label :city
-          = form.text_field :city, class: "form-control", required: true, readonly:true
+          = form.text_field :city, class: "form-control"   
       .col-md-3
         %div
           = form.label :province
-          = form.text_field :province, class: "form-control", readonly:true
+          = form.text_field :province, class: "form-control"
       .col-md-2
         %div
           = form.label :zip_code
-          = form.text_field :zip_code, class: "form-control", required: true
+          = form.text_field :zip_code, class: "form-control"   
       .col-md-2
         %div
           = form.label :region
-          = form.text_field :region, class: "form-control", required: true
+          = form.text_field :region, class: "form-control"   
     .row
       .col-md-3
         %div
           = form.label :date_of_birth
-          = form.date_field :date_of_birth, class: "form-control", required: true
+          = form.date_field :date_of_birth, class: "form-control"   
       .col-md-2
         %div
           = form.label :age
-          = form.number_field :age, class: "form-control", required: true
+          = form.number_field :age, class: "form-control"   
       .col-md-7
         %div
           = form.label :place_of_birth
-          = form.text_field :place_of_birth, class: "form-control", required: true
+          = form.text_field :place_of_birth, class: "form-control"   
     .row
       .col-md-3 
         %div
@@ -173,88 +173,88 @@
       .col-md-3
         %div
           = form.label :residence_tel
-          = form.text_field :residence_tel, class: "form-control", required: true
+          = form.text_field :residence_tel, class: "form-control"   
       .col-md-3
         %div
           = form.label :office_tel
-          = form.text_field :office_tel, class: "form-control", required: true
+          = form.text_field :office_tel, class: "form-control"   
       .col-md-3
         %div
           = form.label :mobile_nr
-          = form.text_field :mobile_nr, class: "form-control", required: true
+          = form.text_field :mobile_nr, class: "form-control"   
     .row
       .col-md-3
         %div
           = form.label :ethnic_group
-          = form.text_field :ethnic_group, class: "form-control", required: true
+          = form.text_field :ethnic_group, class: "form-control"   
       .col-md-3
         %div
           = form.label :sex
-          = form.text_field :sex, class: "form-control", required: true
+          = form.text_field :sex, class: "form-control"   
       .col-md-3
         %div
           = form.label :marital_status
-          = form.text_field :marital_status, class: "form-control", required: true
+          = form.text_field :marital_status, class: "form-control"   
       .col-md-3
         %div
           = form.label :religion
-          = form.text_field :religion, class: "form-control", required: true
+          = form.text_field :religion, class: "form-control"   
     .row
       .col-md-2
         %div
           = form.label :blood_type
-          = form.text_field :blood_type, class: "form-control", required: true
+          = form.text_field :blood_type, class: "form-control"   
       .col-md-2
         %div
           = form.label :eye_color
-          = form.text_field :eye_color, class: "form-control", required: true
+          = form.text_field :eye_color, class: "form-control"   
       .col-md-2
         %div
           = form.label :hair_color
-          = form.text_field :hair_color, class: "form-control", required: true
+          = form.text_field :hair_color, class: "form-control"   
       .col-md-3
         %div
           = form.label :complexion
-          = form.text_field :complexion, class: "form-control", required: true
+          = form.text_field :complexion, class: "form-control"   
       .col-md-3
         %div
           = form.label :identifying_marks
-          = form.text_field :identifying_marks, class: "form-control", required: true
+          = form.text_field :identifying_marks, class: "form-control"   
     .row 
       .col-md-3
         %div
           = form.label :height_cm
-          = form.number_field :height_cm, class: "form-control", required: true
+          = form.number_field :height_cm, class: "form-control"   
       .col-md-3
         %div
           = form.label :weight_kg
-          = form.number_field :weight_kg, class: "form-control", required: true
+          = form.number_field :weight_kg, class: "form-control"   
     .row 
       .col-md-2
         %div
           = form.label :tin
-          = form.text_field :tin, class: "form-control", required: true
+          = form.text_field :tin, class: "form-control"   
       .col-md-2
         %div
           = form.label :sss_number
-          = form.text_field :sss_number, class: "form-control", required: true
+          = form.text_field :sss_number, class: "form-control"   
       .col-md-2
         %div
           = form.label :gsis_number
-          = form.text_field :gsis_number, class: "form-control", required: true
+          = form.text_field :gsis_number, class: "form-control"   
       .col-md-3
         %div
           = form.label :philhealth_number
-          = form.text_field :philhealth_number, class: "form-control", required: true
+          = form.text_field :philhealth_number, class: "form-control"   
       .col-md-3
         %div
           = form.label :pagibig_number
-          = form.text_field :pagibig_number, class: "form-control", required: true
+          = form.text_field :pagibig_number, class: "form-control"   
     .row
       .col-md-6
         %div
           = form.label :dialects_spoken
-          = form.text_area :dialects_spoken, class: "form-control", required: true
+          = form.text_area :dialects_spoken, class: "form-control"   
     .d-flex.justify-content-end
       = button_tag "Register",
         type: "button",

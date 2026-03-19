@@ -77,7 +77,7 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
-  config.hosts << "5a32-2001-fd8-c439-2100-671f-3e67-5149-c9fa.ngrok-free.app"
+  config.hosts << ENV["HOST"] if ENV["HOST"].present?
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { address: "smtp.gmail.com", port: 587, user_name: ENV["GMAIL_USERNAME"], password: ENV["GMAIL_PASSWORD"], authentication: "plain", enable_starttls_auto: true }

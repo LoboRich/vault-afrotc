@@ -1,5 +1,5 @@
 class ReservistsController < ApplicationController
-  before_action :authenticate_user!, except: [:new]
+  before_action :authenticate_user!, except: [:new, :create]
   before_action :set_reservist, only: %i[ show edit update destroy ]
   layout "registration", only: [:new]
   # GET /reservists or /reservists.json
