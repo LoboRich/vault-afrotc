@@ -13,6 +13,7 @@ class Reservist < ApplicationRecord
     user = User.create(
       email: "#{email}",
       password: "password",
+      password_confirmation: "password"
     )
 
     update(user: user)
