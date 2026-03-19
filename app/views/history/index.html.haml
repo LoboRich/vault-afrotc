@@ -6,7 +6,7 @@
         .card-header
           %div.d-flex.align-items-center
             %h4.card-title
-              Histories
+              Logs
             %div.ms-auto.d-flex.gap-2.justify-content-end
               %a.d-none.d-sm-inline-block.btn.btn-sm.btn-success.shadow-sm{:href => "#"}
                 %i.material-icons.me-1 download
@@ -15,22 +15,20 @@
         .card-body
           .datatable-container
             .table-responsive.datatable-container
-              %table#vehicles-table.table.table-striped.table-bordered.table-hover.table-sm.datatable
+              %table#logs-table.table.table-striped.table-bordered.table-hover.table-sm.datatable
                 %thead.bg-light
                   %tr
                     %th User
                     %th Action
-                    %th Record Type
                     %th Record
                     %th Changes
                     %th Timestamp
                 %tbody
                   - @histories.each do |history|
                     %tr.odd{ role: "row" }
-                      %td= history.user
+                      %td= link_to history.user[:fullname], "/#{history.record_id}/#{history.user[:user_id]}"
                       %td= history.action
-                      %td= history.record_type
-                      %td= link_to "Record link", "/#{history.record_type.pluralize.downcase}/#{history.record_id}"
+                      %td= link_to "Record link", "/#{history.record_id}/#{history.record_id}"
                       %td= history.changes
                       %td= history.timestamp.strftime("%Y-%m-%d %H:%M")                    
                       
