@@ -3,12 +3,6 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from "./application"
+import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
 
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
-
-import LocationController from "./location_controller"
-application.register("location", LocationController)
-
-import ReservistLocationController from "./reservist_location_controller"
-application.register("reservist-location", ReservistLocationController)
+eagerLoadControllersFrom("controllers", application)
