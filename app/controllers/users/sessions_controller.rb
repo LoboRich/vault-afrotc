@@ -2,6 +2,13 @@ class Users::SessionsController < Devise::SessionsController
   def create
     self.resource = warden.authenticate!(auth_options)
 
+    # Block login if reservist inactive
+    if resource.reservist.nil? || !resource.reservist.is_active
+      sign_out resource
+      redirect_to new_user_session_path, alert: "Your account is inactive. Please contact admin."
+      return
+    end
+
     resource.generate_otp
     OtpMailer.new_otp(resource).deliver_now
 
