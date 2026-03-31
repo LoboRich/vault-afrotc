@@ -4,7 +4,11 @@ class AdtsController < ApplicationController
 
   # GET /adts or /adts.json
   def index
-    @adts = Adt.all
+    if current_user.role == "admin"
+      @adts = Adt.all
+    else
+      @adts = Adt.where(reservist_id: current_user.reservist.id)
+    end
   end
 
   # GET /adts/1 or /adts/1.json
