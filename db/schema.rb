@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_03_11_084302) do
+ActiveRecord::Schema[7.1].define(version: 2026_04_03_061840) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -142,6 +142,28 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_11_084302) do
     t.boolean "is_active"
     t.uuid "user_id"
     t.integer "role", default: 0, null: false
+    t.jsonb "service_assignments", default: [], null: false
+    t.jsonb "service_rank_adjustments", default: [], null: false
+    t.jsonb "active_service", default: [], null: false
+    t.jsonb "basic_primary", default: [], null: false
+    t.jsonb "basic_secondary", default: [], null: false
+    t.jsonb "basic_tertiary", default: [], null: false
+    t.jsonb "basic_rotc", default: [], null: false
+    t.jsonb "advance_rotc", default: [], null: false
+    t.jsonb "pre_commission", default: [], null: false
+    t.jsonb "post_graduate", default: [], null: false
+    t.jsonb "board_eligibility", default: [], null: false
+    t.jsonb "military_schooling", default: [], null: false
+    t.jsonb "military_training", default: [], null: false
+    t.jsonb "seminar", default: [], null: false
+    t.jsonb "work_positions", default: [], null: false
+    t.jsonb "military_awards", default: [], null: false
+    t.jsonb "other_awards", default: [], null: false
+    t.jsonb "commendations", default: [], null: false
+    t.jsonb "certificates", default: [], null: false
+    t.jsonb "dependents", default: [], null: false
+    t.jsonb "tariff_sizes", default: [], null: false
+    t.jsonb "contact_persons", default: [], null: false
     t.index ["user_id"], name: "index_reservists_on_user_id"
   end
 
