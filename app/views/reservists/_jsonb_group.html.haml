@@ -1,0 +1,27 @@
+-# locals: form, field_name, fields, labels (optional)
+
+- labels ||= {}
+
+.row
+  .col-md-12
+    %label= field_name.to_s.humanize
+
+  - container_id = "#{field_name}-container"
+  - add_btn_id = "add-#{field_name.to_s.dasherize}"
+
+  %div{id: container_id}
+    - (form.object.send(field_name).presence || [{}]).each do |item|
+      .row.jsonb-item.mb-2
+        - fields.each do |field|
+          .col-md-3
+            = text_field_tag "reservist[#{field_name}][][#{field}]",
+              item[field.to_s],
+              placeholder: (labels[field] || field.to_s.humanize),
+              class: "form-control"
+
+        .col-md-1
+          %button.btn.btn-danger.remove-item{ type: "button" } ✕
+
+  .mt-2
+    %button.btn.btn-primary{ type: "button", id: add_btn_id, data: { container: container_id, field: field_name, fields: fields.join(",") } }
+      Add

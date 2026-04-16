@@ -93,3 +93,54 @@ document.addEventListener("turbo:load", function () {
   observer.observe(latField, { attributes: true, attributeFilter: ["value"] });
   observer.observe(lngField, { attributes: true, attributeFilter: ["value"] });
 });
+
+// ------------------------- JSONB FIELDS -------------------------
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("button[id^='add-']").forEach(button => {
+    button.addEventListener("click", function () {
+      const containerId = this.dataset.container
+      const fields = this.dataset.fields.split(",")
+
+      const container = document.getElementById(containerId)
+
+      const row = document.createElement("div")
+      row.classList.add("row", "jsonb-item", "mb-2")
+
+      fields.forEach(field => {
+        const col = document.createElement("div")
+        col.classList.add("col-md-3")
+
+        const input = document.createElement("input")
+        input.type = "text"
+        input.name = `reservist[${this.dataset.field}][][${field}]`
+        input.placeholder = field.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase())
+        input.classList.add("form-control")
+
+        col.appendChild(input)
+        row.appendChild(col)
+      })
+
+      const removeCol = document.createElement("div")
+      removeCol.classList.add("col-md-1")
+
+      const removeBtn = document.createElement("button")
+      removeBtn.type = "button"
+      removeBtn.classList.add("btn", "btn-danger", "remove-item")
+      removeBtn.innerText = "✕"
+
+      removeBtn.addEventListener("click", () => row.remove())
+
+      removeCol.appendChild(removeBtn)
+      row.appendChild(removeCol)
+
+      container.appendChild(row)
+    })
+  })
+
+  // remove existing items
+  document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("remove-item")) {
+      e.target.closest(".jsonb-item").remove()
+    }
+  })
+})
