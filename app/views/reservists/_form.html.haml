@@ -259,22 +259,61 @@
           %div
             = form.label :dialects_spoken
             = form.text_area :dialects_spoken, class: "form-control"   
+    %hr
     .div
-      .row
+      .row.gap-2
         .col-md-12
-          %h5 Military Education and Training
-      .col-md-12
-        = render "jsonb_single", form: form, field_name: :service_assignments, fields: [:position, :unit, :authority, :from, :to]
-      .col-md-12
-        = render "jsonb_group", form: form, field_name: :post_graduate, fields: [:school, :from, :to, :grade]
-      .col-md-12
-        = render "jsonb_group", form: form, field_name: :board_eligibility, fields: [:license_type, :exam_date, :license_nr, :board_rating]
+          %h5 STATEMENT OF SERVICE
+        .col-md-12
+          = render "jsonb_group", form: form, field_name: :service_assignments, fields: [:position, :unit, :authority, :from, :to]
+        .col-md-12
+          = render "jsonb_group", form: form, field_name: :service_rank_adjustments, fields: [:rank, :effective_date, :authority]
+        .col-md-12
+          = render "jsonb_group", form: form, field_name: :active_service, fields: [:type, :purpose, :authority, :from, :to]
+
+    %hr
+    .div
+      .row.gap-2
+        .col-md-12
+          %h5 EDUCATIONAL BACKGROUND
+        .col-md-12
+          %p 1.Civilian Schooling/Training/Seminars
+        .col-md-12
+          = render "jsonb_single", form: form, field_name: :basic_primary, fields: [:school, :from, :to, :grade]
+        .col-md-12
+          = render "jsonb_single", form: form, field_name: :basic_secondary, fields: [:school, :from, :to, :grade]
+        .col-md-12
+          = render "jsonb_single", form: form, field_name: :basic_tertiary, fields: [:school, :from, :to, :grade]
+        .col-md-12
+          = render "jsonb_single", form: form, field_name: :basic_rotc, fields: [:school, :from, :to, :grade]
+        .col-md-12
+          = render "jsonb_single", form: form, field_name: :advance_rotc, fields: [:school, :from, :to, :grade]
+        .col-md-12
+          = render "jsonb_single", form: form, field_name: :pre_commission, fields: [:school, :from, :to, :grade]
+        .col-md-12
+          = render "jsonb_group", form: form, field_name: :post_graduate, fields: [:school, :from, :to, :grade]
+        .col-md-12
+          = render "jsonb_group", form: form, field_name: :board_eligibility, fields: [:license_type, :exam_date, :license_nr, :board_rating]
+    %hr
+    .div
+      .row.gap-2
+        .col-md-12
+          %p 2. a) Military Schooling
+        .col-md-12
+          = render "jsonb_group", form: form, field_name: :military_schooling, fields: [:courses, :school, :from, :to, :grade]
+        .col-md-12
+          %p 2. b) Training
+          = render "jsonb_group", form: form, field_name: :military_training, fields: [:courses, :school, :from, :to, :grade]
+        .col-md-12
+          %p 2. c) Seminar
+          = render "jsonb_group", form: form, field_name: :seminar, fields: [:courses, :school, :from, :to, :grade]
 
     .d-flex.justify-content-end
       = button_tag "Register",
         type: "button",
         class: "btn btn-primary btn-round mt-3 btn-lg",
         id: "registerBtn"
+
 
 
 

@@ -103,9 +103,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const container = document.getElementById(containerId)
 
+      // Main row
       const row = document.createElement("div")
-      row.classList.add("row", "jsonb-item", "mb-2")
+      row.classList.add("row", "jsonb-item", "mb-3", "position-relative")
 
+      // Inputs
       fields.forEach(field => {
         const col = document.createElement("div")
         col.classList.add("col-md-3")
@@ -113,31 +115,45 @@ document.addEventListener("DOMContentLoaded", () => {
         const input = document.createElement("input")
         input.type = "text"
         input.name = `reservist[${this.dataset.field}][][${field}]`
-        input.placeholder = field.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase())
+        input.placeholder = field
+          .replace(/_/g, " ")
+          .replace(/\b\w/g, c => c.toUpperCase())
+
         input.classList.add("form-control")
 
         col.appendChild(input)
         row.appendChild(col)
       })
 
-      const removeCol = document.createElement("div")
-      removeCol.classList.add("col-md-1")
-
+      // Floating remove button
       const removeBtn = document.createElement("button")
       removeBtn.type = "button"
-      removeBtn.classList.add("btn", "btn-danger", "remove-item")
+
+      removeBtn.classList.add(
+        "btn",
+        "btn-danger",
+        "remove-item",
+        "position-absolute"
+      )
+
+      removeBtn.style.top = "-10px"
+      removeBtn.style.right = "-10px"
+      removeBtn.style.width = "30px"
+      removeBtn.style.height = "30px"
+      removeBtn.style.borderRadius = "50%"
+      removeBtn.style.padding = "0"
+
       removeBtn.innerText = "✕"
 
       removeBtn.addEventListener("click", () => row.remove())
 
-      removeCol.appendChild(removeBtn)
-      row.appendChild(removeCol)
+      row.appendChild(removeBtn)
 
       container.appendChild(row)
     })
   })
 
-  // remove existing items
+  // Remove existing rows
   document.addEventListener("click", function (e) {
     if (e.target.classList.contains("remove-item")) {
       e.target.closest(".jsonb-item").remove()
