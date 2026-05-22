@@ -9,6 +9,12 @@
   .container.gap-3.d-flex.flex-column
     .div
       .row
+        .col-md-12.d-flex.justify-content-end
+          = button_tag "Fill Dummy Data",
+            type: "button",
+            class: "btn btn-success btn-round mt-3 btn-sm",
+            id: "fillDummyBtn"
+      .row
         .col-md-12
           %h5 Personal Information
       .row
@@ -456,6 +462,158 @@
         document.getElementById("privacyModal")
       );
       modal.show();
+    });
+  });
+
+  // =========================
+  // FILL DUMMY DATA
+  // =========================
+  document.addEventListener("DOMContentLoaded", () => {
+    const fillDummyBtn = document.getElementById("fillDummyBtn");
+
+    fillDummyBtn.addEventListener("click", () => {
+
+      const dummyData = {
+        reservist_rank: "Captain",
+        reservist_last_name: "Dela Cruz",
+        reservist_first_name: "Juan",
+        reservist_middle_name: "Santos",
+        reservist_branch_of_service: "Army",
+        reservist_afpsn: "123456",
+        reservist_primary_afsc: "11A",
+        reservist_duty_afsc: "12B",
+        reservist_other_skills: "Driving, Marksmanship",
+        reservist_source_of_enlistment: "PMA",
+        reservist_soe_authority: "GHQ",
+        reservist_soe_date_of_enlistment: "2010-01-15",
+        reservist_soe_initial_rank: "Private",
+        reservist_source_of_commission: "OTC",
+        reservist_soc_authority: "AFP",
+        reservist_soc_date_of_enlistment: "2012-03-10",
+        reservist_soc_initial_rank: "2LT",
+        reservist_reservist_classification: "Ready Reserve",
+        reservist_classification_authority: "AFPRESCOM",
+        reservist_date_of_classification: "2020-06-01",
+        reservist_reserve_unit_assignment: "102nd Ready Reserve Battalion",
+        reservist_date_assigned: "2021-02-15",
+        reservist_unit_capability: "Combat",
+        reservist_present_designation: "Company Commander",
+        reservist_mobilization_center: "Dumaguete City",
+        reservist_location: "Dumaguete City",
+        reservist_street_address: "Real Street",
+        reservist_city: "Dumaguete",
+        reservist_province: "Negros Oriental",
+        reservist_zip_code: "6200",
+        reservist_region: "Region VII",
+        reservist_date_of_birth: "1990-05-15",
+        reservist_age: "35",
+        reservist_place_of_birth: "Cebu City",
+        reservist_email: "juan.delacruz@example.com",
+        reservist_residence_tel: "0354221234",
+        reservist_office_tel: "0352256789",
+        reservist_mobile_nr: "09171234567",
+        reservist_ethnic_group: "Bisaya",
+        reservist_sex: "Male",
+        reservist_marital_status: "Single",
+        reservist_religion: "Catholic",
+        reservist_blood_type: "O+",
+        reservist_eye_color: "Brown",
+        reservist_hair_color: "Black",
+        reservist_complexion: "Fair",
+        reservist_identifying_marks: "Scar on left arm",
+        reservist_height_cm: "170",
+        reservist_weight_kg: "70",
+        reservist_tin: "123-456-789",
+        reservist_sss_number: "12-3456789-0",
+        reservist_gsis_number: "987654321",
+        reservist_philhealth_number: "123456789012",
+        reservist_pagibig_number: "987654321098",
+        reservist_dialects_spoken: "Cebuano, Filipino, English"
+      };
+
+      // Fill normal fields
+      Object.entries(dummyData).forEach(([id, value]) => {
+        const field = document.getElementById(id);
+
+        if (field) {
+          field.value = value;
+
+          field.dispatchEvent(new Event("input", { bubbles: true }));
+          field.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+      });
+
+      // Fill ALL remaining empty inputs/textareas/selects
+      document.querySelectorAll("input, textarea, select").forEach(field => {
+        if (field.type === "hidden") return;
+        if (field.value) return;
+
+        switch(field.type) {
+          case "date":
+            field.value = "2020-01-01";
+            break;
+
+          case "number":
+            field.value = "1";
+            break;
+
+          case "email":
+            field.value = "sample@email.com";
+            break;
+
+          default:
+            field.value = "Sample Data";
+        }
+
+        field.dispatchEvent(new Event("input", { bubbles: true }));
+        field.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+
+      // Fill JSONB dynamic groups
+      const jsonbGroups = [
+        "service_assignments",
+        "service_rank_adjustments",
+        "active_service",
+        "post_graduate",
+        "board_eligibility",
+        "military_schooling",
+        "military_training",
+        "seminar",
+        "work_positions",
+        "military_awards",
+        "other_awards",
+        "commendations",
+        "certificates",
+        "dependents"
+      ];
+
+      jsonbGroups.forEach(group => {
+        const addBtn = document.querySelector(`[data-add="${group}"]`);
+
+        if (addBtn) {
+          addBtn.click();
+        }
+      });
+
+      setTimeout(() => {
+        document.querySelectorAll("input, textarea, select").forEach(field => {
+          if (field.type === "hidden") return;
+          if (field.value) return;
+
+          if (field.name.includes("from") || field.name.includes("to") || field.name.includes("date")) {
+            field.value = "2020-01-01";
+          } else if (field.type === "number") {
+            field.value = "1";
+          } else {
+            field.value = "Sample Data";
+          }
+
+          field.dispatchEvent(new Event("input", { bubbles: true }));
+          field.dispatchEvent(new Event("change", { bubbles: true }));
+        });
+
+        alert("All fields filled successfully!");
+      }, 300);
     });
   });
 

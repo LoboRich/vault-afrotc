@@ -30,7 +30,6 @@ class ReservistsController < ApplicationController
 
     respond_to do |format|
       if @reservist.save
-        binding.pry
         format.html { redirect_to @reservist, notice: "Reservist was successfully created." }
         format.json { render :show, status: :created, location: @reservist }
       else
