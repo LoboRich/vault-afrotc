@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Inputs
       fields.forEach(field => {
         const col = document.createElement("div")
-        col.classList.add("col-md-3")
+        col.classList.add("col-md-3 mb-2")
 
         const input = document.createElement("input")
         input.type = "text"
