@@ -291,7 +291,7 @@
         .col-md-12
           = render "jsonb_single", form: form, field_name: :pre_commission, fields: [:school, :from, :to, :grade]
         .col-md-12
-          = render "jsonb_group", form: form, field_name: :post_graduate, fields: [:school, :from, :to, :grade]
+          = render "jsonb_group", form: form, field_name: :post_graduate, fields: [:post_graduate, :school, :from, :to, :grade]
         .col-md-12
           = render "jsonb_group", form: form, field_name: :board_eligibility, fields: [:license_type, :exam_date, :license_nr, :board_rating]
     %hr
@@ -307,6 +307,68 @@
         .col-md-12
           %p 2. c) Seminar
           = render "jsonb_group", form: form, field_name: :seminar, fields: [:courses, :school, :from, :to, :grade]
+    %hr
+    .div
+      .row.gap-2
+        .col-md-12
+          %p 3. Work History/Occupation
+        .col-md-12
+          = render "jsonb_group", form: form, field_name: :work_positions, fields: [:position, :company, :from, :to, :business_address]
+    
+    %hr
+    .div
+      .row.gap-2
+        .col-md-12
+          %p Military Awards and Decorations Received (Medals, Ribbons, Badges)
+        .col-md-12
+          = render "jsonb_group", form: form, field_name: :military_awards, fields: [:award_type, :achievements, :authority]
+    
+    %hr
+    .div
+      .row.gap-2
+        .col-md-12
+          %p Other Awards
+        .col-md-12
+          = render "jsonb_group", form: form, field_name: :other_awards, fields: [:award_type, :achievements, :authority]
+    
+    %hr
+    .div
+      .row.gap-2
+        .col-md-12
+          %p Commendations
+        .col-md-12
+          = render "jsonb_group", form: form, field_name: :commendations, fields: [:date, :given_by]
+    
+    %hr
+    .div
+      .row.gap-2
+        .col-md-12
+          %p Appreciation/Recognition, Plaque of Merit, Spcl Awards
+        .col-md-12
+          = render "jsonb_group", form: form, field_name: :certificates, fields: [:date_awarded, :given_by]
+    
+    %hr
+    .div
+      .row.gap-2
+        .col-md-12
+          %p Dependents
+        .col-md-12
+          = render "jsonb_group", form: form, field_name: :dependents, fields: [:name, :relationship, :birth_date]
+
+    %hr
+    .div
+      .row.gap-2
+        .col-md-12
+          = render "jsonb_single", form: form, field_name: :tariff_sizes, fields: [:built, :combat_boots, :bdu, :cap, :tshirt, :short, :dress_shoes]
+
+    %hr
+    .div
+      .row.gap-2
+        .col-md-12
+          = render "jsonb_single", form: form, field_name: :contact_persons, fields: [:name, :address, :relationship, :contact_number]
+    %hr
+      %p
+        %i= "I hereby certify that the foregoing entries are true and correct to the best of my knowledge and belief."
 
     .d-flex.justify-content-end
       = button_tag "Register",
