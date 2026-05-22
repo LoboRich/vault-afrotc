@@ -389,13 +389,15 @@
               .col-md-3
                 %label.label-distinct School
                 %input.form-control{ readonly: true, value: item["school"] }
-              .col-md-3
+              .col-md-2
                 %label.label-distinct From
                 %input.form-control{ readonly: true, value: item["from"] }
-              .col-md-3
+              .col-md-2
                 %label.label-distinct To
                 %input.form-control{ readonly: true, value: item["to"] }
-
+              .col-md-2
+                %label.label-distinct Standing/Grade
+                %input.form-control{ readonly: true, value: item["grade"] }
           - jsonb_rows(@reservist.military_training, []).each do |item|
             .row
               .col-md-3
@@ -404,12 +406,15 @@
               .col-md-3
                 %label.label-distinct School
                 %input.form-control{ readonly: true, value: item["school"] }
-              .col-md-3
+              .col-md-2
                 %label.label-distinct From
                 %input.form-control{ readonly: true, value: item["from"] }
-              .col-md-3
+              .col-md-2
                 %label.label-distinct To
                 %input.form-control{ readonly: true, value: item["to"] }
+              .col-md-2
+                %label.label-distinct Standing/Grade
+                %input.form-control{ readonly: true, value: item["grade"] }
 
           - jsonb_rows(@reservist.seminar, []).each do |item|
             .row
@@ -419,12 +424,15 @@
               .col-md-3
                 %label.label-distinct School
                 %input.form-control{ readonly: true, value: item["school"] }
-              .col-md-3
+              .col-md-2
                 %label.label-distinct From
                 %input.form-control{ readonly: true, value: item["from"] }
-              .col-md-3
+              .col-md-2
                 %label.label-distinct To
                 %input.form-control{ readonly: true, value: item["to"] }
+              .col-md-2
+                %label.label-distinct Standing/Grade
+                %input.form-control{ readonly: true, value: item["grade"] }
 
         %hr
         .container.gap-3.d-flex.flex-column
