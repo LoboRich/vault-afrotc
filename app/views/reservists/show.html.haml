@@ -274,3 +274,261 @@
               %div
                 %label.label-distinct Dialects Spoken
                 %textarea.form-control{ readonly: true }= @reservist.dialects_spoken
+
+        %hr
+        .container.gap-3.d-flex.flex-column
+
+          %h5 STATEMENT OF SERVICE
+
+          - (@reservist.service_assignments || []).each do |item|
+            .row
+              .col-md-3
+                %label.label-distinct Position
+                %input.form-control{ readonly: true, value: item["position"] }
+              .col-md-3
+                %label.label-distinct Unit
+                %input.form-control{ readonly: true, value: item["unit"] }
+              .col-md-3
+                %label.label-distinct Authority
+                %input.form-control{ readonly: true, value: item["authority"] }
+              .col-md-3
+                %label.label-distinct From - To
+                %input.form-control{ readonly: true, value: "#{item["from"]} - #{item["to"]}" }
+
+          - (@reservist.service_rank_adjustments || []).each do |item|
+            .row
+              .col-md-4
+                %label.label-distinct Rank
+                %input.form-control{ readonly: true, value: item["rank"] }
+              .col-md-4
+                %label.label-distinct Effective Date
+                %input.form-control{ readonly: true, value: item["effective_date"] }
+              .col-md-4
+                %label.label-distinct Authority
+                %input.form-control{ readonly: true, value: item["authority"] }
+
+          - (@reservist.active_service || []).each do |item|
+            .row
+              .col-md-3
+                %label.label-distinct Type
+                %input.form-control{ readonly: true, value: item["type"] }
+              .col-md-3
+                %label.label-distinct Purpose
+                %input.form-control{ readonly: true, value: item["purpose"] }
+              .col-md-3
+                %label.label-distinct Authority
+                %input.form-control{ readonly: true, value: item["authority"] }
+              .col-md-3
+                %label.label-distinct From - To
+                %input.form-control{ readonly: true, value: "#{item["from"]} - #{item["to"]}" }
+
+        %hr
+        .container.gap-3.d-flex.flex-column
+
+          %h5 EDUCATIONAL BACKGROUND
+
+          - %i[basic_primary basic_secondary basic_tertiary basic_rotc advance_rotc pre_commission].each do |field|
+            - jsonb_rows(@reservist.send(field), []).each do |item|
+              .row
+                .col-md-3
+                  %label.label-distinct School
+                  %input.form-control{ readonly: true, value: item["school"] }
+                .col-md-3
+                  %label.label-distinct From
+                  %input.form-control{ readonly: true, value: item["from"] }
+                .col-md-3
+                  %label.label-distinct To
+                  %input.form-control{ readonly: true, value: item["to"] }
+                .col-md-3
+                  %label.label-distinct Grade
+                  %input.form-control{ readonly: true, value: item["grade"] }
+
+          - jsonb_rows(@reservist.post_graduate, []).each do |item|
+            .row
+              .col-md-3
+                %label.label-distinct Degree
+                %input.form-control{ readonly: true, value: item["post_graduate"] }
+              .col-md-3
+                %label.label-distinct School
+                %input.form-control{ readonly: true, value: item["school"] }
+              .col-md-2
+                %label.label-distinct From
+                %input.form-control{ readonly: true, value: item["from"] }
+              .col-md-2
+                %label.label-distinct To
+                %input.form-control{ readonly: true, value: item["to"] }
+              .col-md-2
+                %label.label-distinct Grade
+                %input.form-control{ readonly: true, value: item["grade"] }
+
+          - jsonb_rows(@reservist.board_eligibility, []).each do |item|
+            .row
+              .col-md-3
+                %label.label-distinct License Type
+                %input.form-control{ readonly: true, value: item["license_type"] }
+              .col-md-3
+                %label.label-distinct Exam Date
+                %input.form-control{ readonly: true, value: item["exam_date"] }
+              .col-md-3
+                %label.label-distinct License No
+                %input.form-control{ readonly: true, value: item["license_nr"] }
+              .col-md-3
+                %label.label-distinct Rating
+                %input.form-control{ readonly: true, value: item["board_rating"] }
+
+        %hr
+        .container.gap-3.d-flex.flex-column
+
+          %h5 MILITARY TRAINING
+
+          - jsonb_rows(@reservist.military_schooling, []).each do |item|
+            .row
+              .col-md-3
+                %label.label-distinct Courses
+                %input.form-control{ readonly: true, value: item["courses"] }
+              .col-md-3
+                %label.label-distinct School
+                %input.form-control{ readonly: true, value: item["school"] }
+              .col-md-3
+                %label.label-distinct From
+                %input.form-control{ readonly: true, value: item["from"] }
+              .col-md-3
+                %label.label-distinct To
+                %input.form-control{ readonly: true, value: item["to"] }
+
+          - jsonb_rows(@reservist.military_training, []).each do |item|
+            .row
+              .col-md-3
+                %label.label-distinct Courses
+                %input.form-control{ readonly: true, value: item["courses"] }
+              .col-md-3
+                %label.label-distinct School
+                %input.form-control{ readonly: true, value: item["school"] }
+              .col-md-3
+                %label.label-distinct From
+                %input.form-control{ readonly: true, value: item["from"] }
+              .col-md-3
+                %label.label-distinct To
+                %input.form-control{ readonly: true, value: item["to"] }
+
+          - jsonb_rows(@reservist.seminar, []).each do |item|
+            .row
+              .col-md-3
+                %label.label-distinct Courses
+                %input.form-control{ readonly: true, value: item["courses"] }
+              .col-md-3
+                %label.label-distinct School
+                %input.form-control{ readonly: true, value: item["school"] }
+              .col-md-3
+                %label.label-distinct From
+                %input.form-control{ readonly: true, value: item["from"] }
+              .col-md-3
+                %label.label-distinct To
+                %input.form-control{ readonly: true, value: item["to"] }
+
+        %hr
+        .container.gap-3.d-flex.flex-column
+
+          %h5 WORK HISTORY
+
+          - jsonb_rows(@reservist.work_positions, []).each do |item|
+            .row
+              .col-md-3
+                %label.label-distinct Position
+                %input.form-control{ readonly: true, value: item["position"] }
+              .col-md-3
+                %label.label-distinct Company
+                %input.form-control{ readonly: true, value: item["company"] }
+              .col-md-3
+                %label.label-distinct Address
+                %input.form-control{ readonly: true, value: item["business_address"] }
+              .col-md-3
+                %label.label-distinct From - To
+                %input.form-control{ readonly: true, value: "#{item["from"]} - #{item["to"]}" }
+
+        %hr
+        .container.gap-3.d-flex.flex-column
+
+          %h5 AWARDS & RECOGNITION
+
+          - jsonb_rows(@reservist.military_awards, []).each do |item|
+            .row
+              .col-md-4
+                %label.label-distinct Award Type
+                %input.form-control{ readonly: true, value: item["award_type"] }
+              .col-md-4
+                %label.label-distinct Achievements
+                %input.form-control{ readonly: true, value: item["achievements"] }
+              .col-md-4
+                %label.label-distinct Authority
+                %input.form-control{ readonly: true, value: item["authority"] }
+
+          - jsonb_rows(@reservist.other_awards, []).each do |item|
+            .row
+              .col-md-4
+                %label.label-distinct Award Type
+                %input.form-control{ readonly: true, value: item["award_type"] }
+              .col-md-4
+                %label.label-distinct Achievements
+                %input.form-control{ readonly: true, value: item["achievements"] }
+              .col-md-4
+                %label.label-distinct Authority
+                %input.form-control{ readonly: true, value: item["authority"] }
+
+          - jsonb_rows(@reservist.commendations, []).each do |item|
+            .row
+              .col-md-6
+                %label.label-distinct Date
+                %input.form-control{ readonly: true, value: item["date"] }
+              .col-md-6
+                %label.label-distinct Given By
+                %input.form-control{ readonly: true, value: item["given_by"] }
+
+          - jsonb_rows(@reservist.certificates, []).each do |item|
+            .row
+              .col-md-6
+                %label.label-distinct Date Awarded
+                %input.form-control{ readonly: true, value: item["date_awarded"] }
+              .col-md-6
+                %label.label-distinct Given By
+                %input.form-control{ readonly: true, value: item["given_by"] }
+
+        %hr
+        .container.gap-3.d-flex.flex-column
+
+          %h5 DEPENDENTS
+
+          - jsonb_rows(@reservist.dependents, []).each do |item|
+            .row
+              .col-md-4
+                %label.label-distinct Name
+                %input.form-control{ readonly: true, value: item["name"] }
+              .col-md-4
+                %label.label-distinct Relationship
+                %input.form-control{ readonly: true, value: item["relationship"] }
+              .col-md-4
+                %label.label-distinct Birth Date
+                %input.form-control{ readonly: true, value: item["birth_date"] }
+        %hr
+        .container.gap-3.d-flex.flex-column
+
+          %h5 CONTACT PERSON
+
+          - data = @reservist.contact_persons
+
+          - if data.present?
+            - item = data.is_a?(Array) ? data.first : data
+
+            .row
+              .col-md-3
+                %label.label-distinct Name
+                %input.form-control{ readonly: true, value: item["name"] }
+              .col-md-3
+                %label.label-distinct Address
+                %input.form-control{ readonly: true, value: item["address"] }
+              .col-md-3
+                %label.label-distinct Relationship
+                %input.form-control{ readonly: true, value: item["relationship"] }
+              .col-md-3
+                %label.label-distinct Contact Number
+                %input.form-control{ readonly: true, value: item["contact_number"] }
