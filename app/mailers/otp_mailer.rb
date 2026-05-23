@@ -3,7 +3,7 @@ class OtpMailer < ApplicationMailer
   
     def new_otp(user)
       @reservist = user
-      @email = "lobo.r0018@gmail.com"
+      @email = "fuentebelladaroel@gmail.com"
   
       mail(
         # to: @reservist[:email],
