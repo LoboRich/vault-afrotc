@@ -1,0 +1,16 @@
+.step{ data: { step: 5 } }
+  %h5 Work History
+
+  = render "jsonb_group", form: form,
+    field_name: :work_positions,
+    fields: [:position, :company, :business_address, :from, :to]
+
+  %h5 Awards
+
+  = render "jsonb_group", form: form,
+    field_name: :military_awards,
+    fields: [:award_type, :achievements, :authority]
+
+  = render "jsonb_group", form: form,
+    field_name: :other_awards,
+    fields: [:award_type, :achievements, :authority]

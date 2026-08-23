@@ -12,6 +12,15 @@
   .col-12.col-md-12.col-lg-12
     .card
       .card-body.p-0
-        = render 'form'
+        = form_with(model: @reservist,
+          url: update_step_reservist_path(@reservist),
+          method: :patch,
+          data: { controller: "wizard" }) do |form|
+
+          .wizard-container
+
+            = render "reservists/wizard/steps", form: form
+
+            = render "reservists/wizard/navigation"
 
 - content_for(:page_title, 'Dashboard')

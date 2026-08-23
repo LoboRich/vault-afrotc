@@ -1,0 +1,17 @@
+.step{ data: { wizard_target: "step", step: 1 } }
+  = render "reservists/wizard/personal_info", form: form
+
+.step{ data: { wizard_target: "step", step: 2 } }
+  = render "reservists/wizard/service", form: form
+
+.step{ data: { wizard_target: "step", step: 3 } }
+  = render "reservists/wizard/education", form: form
+
+.step{ data: { wizard_target: "step", step: 4 } }
+  = render "reservists/wizard/training", form: form
+
+.step{ data: { wizard_target: "step", step: 5 } }
+  = render "reservists/wizard/work_awards", form: form
+
+.step{ data: { wizard_target: "step", step: 6 } }
+  = render "reservists/wizard/actions", form: form

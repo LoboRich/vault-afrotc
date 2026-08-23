@@ -1,0 +1,14 @@
+.step{ data: { step: 2 } }
+  %h5 Statement of Service
+
+  = render "jsonb_group", form: form,
+    field_name: :service_assignments,
+    fields: [:position, :unit, :authority, :from, :to]
+
+  = render "jsonb_group", form: form,
+    field_name: :service_rank_adjustments,
+    fields: [:rank, :effective_date, :authority]
+
+  = render "jsonb_group", form: form,
+    field_name: :active_service,
+    fields: [:type, :purpose, :authority, :from, :to]

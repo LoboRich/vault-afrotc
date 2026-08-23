@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_04_03_061840) do
+ActiveRecord::Schema[7.1].define(version: 2026_05_23_054407) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -164,6 +164,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_04_03_061840) do
     t.jsonb "dependents", default: [], null: false
     t.jsonb "tariff_sizes", default: [], null: false
     t.jsonb "contact_persons", default: [], null: false
+    t.integer "wizard_step", default: 1
+    t.boolean "draft", default: true
     t.index ["user_id"], name: "index_reservists_on_user_id"
   end
 

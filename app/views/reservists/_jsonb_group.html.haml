@@ -8,9 +8,12 @@
 
   - container_id = "#{field_name}-container"
   - add_btn_id = "add-#{field_name.to_s.dasherize}"
+  - data = form.object.send(field_name) || []
+
+  - data = [{}] if data.blank?
 
   %div{id: container_id}
-    - (form.object.send(field_name).presence || [{}]).each do |item|
+    - data.each_with_index do |item, i|
       .row.jsonb-item.mb-1.position-relative
         - fields.each do |field|
           .col-md-3.mb-2

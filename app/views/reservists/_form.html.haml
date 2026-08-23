@@ -1,383 +1,41 @@
-= form_with(model: reservist) do |form|
-  - if reservist.errors.any?
-    %div{style: "color: red"}
-      %h2= "#{pluralize(reservist.errors.count, "error")} prohibited this reservist from being saved:"
+= form_with(model: reservist, data: { controller: "step-form" }) do |form|
 
-      %ul
-        - reservist.errors.each do |error|
-          %li= error.full_message
-  .container.gap-3.d-flex.flex-column
-    .div
-      .row
-        .col-md-12
-          %h5 Personal Information
-      .row
-        .col-md-3
-          %div
-            = form.label :rank
-            = form.text_field :rank, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :last_name
-            = form.text_field :last_name, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :first_name
-            = form.text_field :first_name, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :middle_name
-            = form.text_field :middle_name, class: "form-control"   
-      .row
-        .col-md-3
-          %div
-            = form.label :branch_of_service
-            = form.text_field :branch_of_service, class: "form-control"   
-            -# dropdown field (Navy, Air Force, Army)
-        .col-md-3
-          %div
-            = form.label :afpsn
-            = form.text_field :afpsn, class: "form-control"   
-        .col-md-2
-          %div
-            = form.label :primary_afsc
-            = form.text_field :primary_afsc, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :duty_afsc
-            = form.text_field :duty_afsc, class: "form-control"   
-      .row
-        .col-md-6
-          %div
-            = form.label :other_skills
-            = form.text_area :other_skills, class: "form-control"   
+  .stepper-nav.mb-3
+    %button.btn.btn-sm.btn-secondary{ type: "button", data: { action: "step-form#prev" } }
+      Previous
 
-      .row
-        .col-md-3
-          %div
-            = form.label :source_of_enlistment
-            = form.text_field :source_of_enlistment, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label "authority"
-            = form.text_field :soe_authority, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label "date of enlistment"
-            = form.date_field :soe_date_of_enlistment, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label "initial rank"
-            = form.text_field :soe_initial_rank, class: "form-control"   
-      .row
-        .col-md-3
-          %div
-            = form.label :source_of_commission
-            = form.text_field :source_of_commission, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :soc_authority
-            = form.text_field :soc_authority, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :soc_date_of_enlistment
-            = form.date_field :soc_date_of_enlistment, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :soc_initial_rank
-            = form.text_field :soc_initial_rank, class: "form-control"   
-      .row
-        .col-md-4
-          %div
-            = form.label :reservist_classification
-            = form.text_field :reservist_classification, class: "form-control"   
-        .col-md-4
-          %div
-            = form.label :classification_authority
-            = form.text_field :classification_authority, class: "form-control"   
-        .col-md-4
-          %div
-            = form.label :date_of_classification
-            = form.date_field :date_of_classification, class: "form-control"   
-      .row
-        .col-md-4
-          %div
-            = form.label :reserve_unit_assignment
-            = form.text_field :reserve_unit_assignment, class: "form-control"   
-        .col-md-4
-          %div
-            = form.label :date_assigned
-            = form.date_field :date_assigned, class: "form-control"   
-        .col-md-4
-          %div
-            = form.label :unit_capability
-            = form.text_field :unit_capability, class: "form-control"   
+    %span.mx-2 Step Form
 
-      .row
-        .col-md-6
-          %div
-            = form.label :present_designation
-            = form.text_field :present_designation, class: "form-control"   
-        .col-md-6
-          %div
-            = form.label :mobilization_center
-            = form.text_field :mobilization_center, class: "form-control"   
-      .row 
-        .col-md-12.pt-3
-          .field
-            = form.label :location
-            = form.text_field :location, id: "address-search", class: 'form-control', placeholder: "Enter address",data: { controller: "reservist-location" }
-        .col-md-12.pt.3 
-          %div#autocomplete-results.list-group.position-absolute.w-100
-        .col-md-6.pt-3
-          .field
-            = form.hidden_field :lat, class: 'form-control'  
-        .col-md-6.pt-3
-          .field
-            = form.hidden_field :long, class: 'form-control'  
-      .row
-        .col-md-3
-          %div
-            = form.label :street_address
-            = form.text_field :street_address, class: "form-control"   
-        .col-md-2
-          %div
-            = form.label :city
-            = form.text_field :city, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :province
-            = form.text_field :province, class: "form-control"
-        .col-md-2
-          %div
-            = form.label :zip_code
-            = form.text_field :zip_code, class: "form-control"   
-        .col-md-2
-          %div
-            = form.label :region
-            = form.text_field :region, class: "form-control"   
-      .row
-        .col-md-3
-          %div
-            = form.label :date_of_birth
-            = form.date_field :date_of_birth, class: "form-control"   
-        .col-md-2
-          %div
-            = form.label :age
-            = form.number_field :age, class: "form-control"   
-        .col-md-7
-          %div
-            = form.label :place_of_birth
-            = form.text_field :place_of_birth, class: "form-control"   
-      .row
-        .col-md-3 
-          %div
-            = form.label :email
-            = form.text_field :email, class: "form-control", required: true
-        .col-md-3
-          %div
-            = form.label :residence_tel
-            = form.text_field :residence_tel, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :office_tel
-            = form.text_field :office_tel, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :mobile_nr
-            = form.text_field :mobile_nr, class: "form-control"   
-      .row
-        .col-md-3
-          %div
-            = form.label :ethnic_group
-            = form.text_field :ethnic_group, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :sex
-            = form.text_field :sex, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :marital_status
-            = form.text_field :marital_status, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :religion
-            = form.text_field :religion, class: "form-control"   
-      .row
-        .col-md-2
-          %div
-            = form.label :blood_type
-            = form.text_field :blood_type, class: "form-control"   
-        .col-md-2
-          %div
-            = form.label :eye_color
-            = form.text_field :eye_color, class: "form-control"   
-        .col-md-2
-          %div
-            = form.label :hair_color
-            = form.text_field :hair_color, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :complexion
-            = form.text_field :complexion, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :identifying_marks
-            = form.text_field :identifying_marks, class: "form-control"   
-      .row 
-        .col-md-3
-          %div
-            = form.label :height_cm
-            = form.number_field :height_cm, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :weight_kg
-            = form.number_field :weight_kg, class: "form-control"   
-      .row 
-        .col-md-2
-          %div
-            = form.label :tin
-            = form.text_field :tin, class: "form-control"   
-        .col-md-2
-          %div
-            = form.label :sss_number
-            = form.text_field :sss_number, class: "form-control"   
-        .col-md-2
-          %div
-            = form.label :gsis_number
-            = form.text_field :gsis_number, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :philhealth_number
-            = form.text_field :philhealth_number, class: "form-control"   
-        .col-md-3
-          %div
-            = form.label :pagibig_number
-            = form.text_field :pagibig_number, class: "form-control"   
-      .row
-        .col-md-6
-          %div
-            = form.label :dialects_spoken
-            = form.text_area :dialects_spoken, class: "form-control"   
-    %hr
-    .div
-      .row.gap-2
-        .col-md-12
-          %h5 STATEMENT OF SERVICE
-        .col-md-12
-          = render "jsonb_group", form: form, field_name: :service_assignments, fields: [:position, :unit, :authority, :from, :to]
-        .col-md-12
-          = render "jsonb_group", form: form, field_name: :service_rank_adjustments, fields: [:rank, :effective_date, :authority]
-        .col-md-12
-          = render "jsonb_group", form: form, field_name: :active_service, fields: [:type, :purpose, :authority, :from, :to]
+    %button.btn.btn-sm.btn-primary{ type: "button", data: { action: "step-form#next" } }
+      Next
 
-    %hr
-    .div
-      .row.gap-2
-        .col-md-12
-          %h5 EDUCATIONAL BACKGROUND
-        .col-md-12
-          %p 1.Civilian Schooling/Training/Seminars
-        .col-md-12
-          = render "jsonb_single", form: form, field_name: :basic_primary, fields: [:school, :from, :to, :grade]
-        .col-md-12
-          = render "jsonb_single", form: form, field_name: :basic_secondary, fields: [:school, :from, :to, :grade]
-        .col-md-12
-          = render "jsonb_single", form: form, field_name: :basic_tertiary, fields: [:school, :from, :to, :grade]
-        .col-md-12
-          = render "jsonb_single", form: form, field_name: :basic_rotc, fields: [:school, :from, :to, :grade]
-        .col-md-12
-          = render "jsonb_single", form: form, field_name: :advance_rotc, fields: [:school, :from, :to, :grade]
-        .col-md-12
-          = render "jsonb_single", form: form, field_name: :pre_commission, fields: [:school, :from, :to, :grade]
-        .col-md-12
-          = render "jsonb_group", form: form, field_name: :post_graduate, fields: [:post_graduate, :school, :from, :to, :grade]
-        .col-md-12
-          = render "jsonb_group", form: form, field_name: :board_eligibility, fields: [:license_type, :exam_date, :license_nr, :board_rating]
-    %hr
-    .div
-      .row.gap-2
-        .col-md-12
-          %p 2. a) Military Schooling
-        .col-md-12
-          = render "jsonb_group", form: form, field_name: :military_schooling, fields: [:courses, :school, :from, :to, :grade]
-        .col-md-12
-          %p 2. b) Training
-          = render "jsonb_group", form: form, field_name: :military_training, fields: [:courses, :school, :from, :to, :grade]
-        .col-md-12
-          %p 2. c) Seminar
-          = render "jsonb_group", form: form, field_name: :seminar, fields: [:courses, :school, :from, :to, :grade]
-    %hr
-    .div
-      .row.gap-2
-        .col-md-12
-          %p 3. Work History/Occupation
-        .col-md-12
-          = render "jsonb_group", form: form, field_name: :work_positions, fields: [:position, :company, :from, :to, :business_address]
-    
-    %hr
-    .div
-      .row.gap-2
-        .col-md-12
-          %p Military Awards and Decorations Received (Medals, Ribbons, Badges)
-        .col-md-12
-          = render "jsonb_group", form: form, field_name: :military_awards, fields: [:award_type, :achievements, :authority]
-    
-    %hr
-    .div
-      .row.gap-2
-        .col-md-12
-          %p Other Awards
-        .col-md-12
-          = render "jsonb_group", form: form, field_name: :other_awards, fields: [:award_type, :achievements, :authority]
-    
-    %hr
-    .div
-      .row.gap-2
-        .col-md-12
-          %p Commendations
-        .col-md-12
-          = render "jsonb_group", form: form, field_name: :commendations, fields: [:date, :given_by]
-    
-    %hr
-    .div
-      .row.gap-2
-        .col-md-12
-          %p Appreciation/Recognition, Plaque of Merit, Spcl Awards
-        .col-md-12
-          = render "jsonb_group", form: form, field_name: :certificates, fields: [:date_awarded, :given_by]
-    
-    %hr
-    .div
-      .row.gap-2
-        .col-md-12
-          %p Dependents
-        .col-md-12
-          = render "jsonb_group", form: form, field_name: :dependents, fields: [:name, :relationship, :birth_date]
+  .step-container
 
-    %hr
-    .div
-      .row.gap-2
-        .col-md-12
-          = render "jsonb_single", form: form, field_name: :tariff_sizes, fields: [:built, :combat_boots, :bdu, :cap, :tshirt, :short, :dress_shoes]
+    .step{ data: { step: 1 } }
+      %h5 Personal Info
+      = render "reservists/steps/personal_info", form: form
 
-    %hr
-    .div
-      .row.gap-2
-        .col-md-12
-          = render "jsonb_single", form: form, field_name: :contact_persons, fields: [:name, :address, :relationship, :contact_number]
-    %hr
-      %p
-        %i= "I hereby certify that the foregoing entries are true and correct to the best of my knowledge and belief."
+    .step{ data: { step: 2 } }
+      %h5 Statement of Service
+      = render "reservists/steps/service", form: form
 
-    .d-flex.justify-content-end
-      = button_tag "Register",
-        type: "button",
-        class: "btn btn-primary btn-round mt-3 btn-lg",
-        id: "registerBtn"
+    .step{ data: { step: 3 } }
+      %h5 Educational Background
+      = render "reservists/steps/education", form: form
+    .step{ data: { step: 4 } }
+      %h5 Training
+      = render "reservists/steps/training", form: form
 
+    .step{ data: { step: 5 } }
+      %h5 Work & Awards
+      = render "reservists/steps/work_awards", form: form
+    .step{ data: { step: 6 } }
+      %h5 Dependents
+      = render "reservists/steps/dependents", form: form
 
-
+    .step{ data: { step: 7 } }
+      %h5 Final
+      = form.submit "Submit", class: "btn btn-success"
 
   .modal.fade#privacyModal{ tabindex: "-1", aria: { hidden: "true" } }
     .modal-dialog.modal-dialog-centered

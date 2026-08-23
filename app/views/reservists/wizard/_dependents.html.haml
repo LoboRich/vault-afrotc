@@ -1,0 +1,12 @@
+.step{ data: { step: 6 } }
+  %h5 Dependents
+
+  = render "jsonb_group", form: form,
+    field_name: :dependents,
+    fields: [:name, :relationship, :birth_date]
+
+  %h5 Contact Person
+
+  = render "jsonb_group", form: form,
+    field_name: :contact_persons,
+    fields: [:name, :address, :relationship, :contact_number]

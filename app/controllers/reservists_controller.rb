@@ -1,6 +1,6 @@
 class ReservistsController < ApplicationController
   before_action :authenticate_user!, except: [:new, :create]
-  before_action :set_reservist, only: %i[ show edit update destroy ]
+  before_action :set_reservist, only: %i[ show edit update destroy update_step ]
   layout "registration", only: [:new]
   # GET /reservists or /reservists.json
   def index
@@ -17,7 +17,8 @@ class ReservistsController < ApplicationController
 
   # GET /reservists/new
   def new
-    @reservist = Reservist.new
+    @reservist = Reservist.create!(draft: true, wizard_step: 1)
+    redirect_to edit_reservist_path(@reservist)
   end
 
   # GET /reservists/1/edit
@@ -39,6 +40,17 @@ class ReservistsController < ApplicationController
     end
   end
 
+  def update_step
+    @reservist.assign_attributes(reservist_params)
+
+    if @reservist.save
+      render json: { ok: true, step: @reservist.wizard_step }
+    else
+      render json: { ok: false, errors: @reservist.errors }, status: 422
+    end
+  end
+
+  
   # PATCH/PUT /reservists/1 or /reservists/1.json
   def update
     respond_to do |format|

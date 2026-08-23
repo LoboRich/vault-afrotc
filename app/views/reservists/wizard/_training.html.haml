@@ -1,0 +1,14 @@
+.step{ data: { step: 4 } }
+  %h5 Military Training
+
+  = render "jsonb_group", form: form,
+    field_name: :military_schooling,
+    fields: [:courses, :school, :from, :to]
+
+  = render "jsonb_group", form: form,
+    field_name: :military_training,
+    fields: [:courses, :school, :from, :to]
+
+  = render "jsonb_group", form: form,
+    field_name: :seminar,
+    fields: [:courses, :school, :from, :to]

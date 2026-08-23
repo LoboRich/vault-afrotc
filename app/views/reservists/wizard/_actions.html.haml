@@ -1,0 +1,10 @@
+.mt-4.d-flex.justify-content-between
+  %button.btn.btn-secondary{ type: "button", data: { action: "step-form#prev" } }
+    Previous
+
+  %button.btn.btn-primary{ type: "button", data: { action: "step-form#next" } }
+    Next
+
+  = form.submit "Submit",
+    class: "btn btn-success",
+    data: { step_form_target: "submit" }

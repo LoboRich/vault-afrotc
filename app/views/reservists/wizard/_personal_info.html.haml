@@ -1,0 +1,28 @@
+.step{ data: { step: 1 } }
+  %h5 Personal Information
+
+  .row
+    .col-md-3
+      = form.label :rank
+      = form.text_field :rank, class: "form-control"
+
+    .col-md-3
+      = form.label :last_name
+      = form.text_field :last_name, class: "form-control"
+
+    .col-md-3
+      = form.label :first_name
+      = form.text_field :first_name, class: "form-control"
+
+    .col-md-3
+      = form.label :middle_name
+      = form.text_field :middle_name, class: "form-control"
+
+  .row.mt-3
+    .col-md-6
+      = form.label :branch_of_service
+      = form.text_field :branch_of_service, class: "form-control"
+
+    .col-md-6
+      = form.label :afpsn
+      = form.text_field :afpsn, class: "form-control"

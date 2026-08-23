@@ -1,0 +1,12 @@
+.step{ data: { step: 3 } }
+  %h5 Educational Background
+
+  - education_sections = { basic_primary: "Basic Primary", basic_secondary: "Basic Secondary", basic_tertiary: "Basic Tertiary", basic_rotc: "Basic ROTC", advance_rotc: "Advance ROTC", pre_commission: "Pre Commission"}
+
+  - education_sections.each do |field, title|
+    %h6= title
+
+    = render "jsonb_single",
+      form: form,
+      field_name: field,
+      fields: [:school, :from, :to, :grade]
